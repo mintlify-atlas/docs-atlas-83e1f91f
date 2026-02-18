@@ -1,7 +1,7 @@
 {
   "projectType": "general",
   "projectName": "incident.io",
-  "projectDescription": "Modern incident management platform for declaring, responding to, and learning from incidents",
+  "projectDescription": "Modern incident management platform for coordinating response, on-call, alerts, and post-incident workflows",
   "theme": "willow",
   "primaryColor": "#f25533",
   "lightColor": "#f25533",
@@ -265,24 +265,27 @@
     ]
   },
   "keyFeatures": [
-    "Incident response and coordination",
-    "On-call management and scheduling",
-    "Alert routing and escalation",
-    "Status page management",
-    "AI-powered incident analysis",
-    "Post-mortem and learning workflows",
-    "Service catalog",
-    "Workflow automation",
-    "Extensive integrations ecosystem"
+    "Incident response coordination with Slack/Teams integration",
+    "On-call management and scheduling with rotation handling",
+    "Alert routing and escalation with live call routing",
+    "External and internal status pages",
+    "AI-powered incident analysis, call transcription, and post-mortem writing",
+    "Post-incident workflows with timeline tracking and follow-up actions",
+    "Service catalog with relationship mapping and custom fields",
+    "Workflow automation with triggers and expressions",
+    "Metrics and custom dashboards for insights",
+    "50+ integrations including Datadog, PagerDuty, Jira, and more"
   ],
   "publicApiSurface": [
-    "Incident management API",
-    "Alert routing and escalation",
-    "On-call schedules and rotations",
-    "Status page updates",
-    "Catalog management",
-    "Workflow automation triggers",
-    "Post-incident analysis",
-    "Integrations with Slack, Teams, PagerDuty, Datadog, and 30+ tools"
+    "Incident creation and lifecycle management",
+    "Alert sources, routing, and escalation paths",
+    "Schedule management with overrides and cover requests",
+    "Escalation configuration and live call routing",
+    "Status page creation and updates",
+    "Catalog entries, custom fields, and relationship mapping",
+    "Workflow triggers, conditions, and automated actions",
+    "Post-mortem document generation and timeline tracking",
+    "Custom dashboard creation and metrics",
+    "Integration configurations for 50+ third-party tools"
   ]
 }
