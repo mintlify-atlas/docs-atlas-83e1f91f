@@ -1,0 +1,184 @@
+---
+title: Mobile app push notifications
+description: Configure mobile app push notifications
+---
+
+The incident.io mobile app delivers push notifications directly to your device when you're on-call, ensuring you never miss critical alerts. Push notifications are the primary notification method for most teams, with SMS and voice as backup options.
+
+## Getting started
+
+<Steps>
+  <Step title="Download the app">
+    Download the incident.io mobile app from the App Store (iOS) or Google Play (Android)
+  </Step>
+  <Step title="Sign in">
+    Sign in with your incident.io account credentials
+  </Step>
+  <Step title="Enable notifications">
+    Grant notification permissions when prompted by your device
+  </Step>
+  <Step title="Test your setup">
+    Send a test alert to verify notifications are working
+  </Step>
+</Steps>
+
+<Info>
+The mobile app is available for iOS 14.0+ and Android 8.0+.
+</Info>
+
+## What you receive in push notifications
+
+When an alert is routed to you through an [escalation path](/product-documentation/on-call/escalation-paths), the push notification includes:
+
+- Alert title and priority
+- Key [alert attributes](/product-documentation/on-call/alert-attributes) like team, service, and customer
+- Alert source (which monitoring tool triggered it)
+- Time the alert was created
+- Quick actions to acknowledge or view details
+
+<Tip>
+Tap the notification to open the full alert details in the mobile app, where you can take additional actions.
+</Tip>
+
+## Actions from push notifications
+
+Direct from the push notification or within the mobile app, you can:
+
+<CardGroup cols={2}>
+  <Card title="Acknowledge" icon="check">
+    Acknowledge the alert to stop escalation to other team members
+  </Card>
+  <Card title="View details" icon="eye">
+    Open the full alert with attributes, timeline, and related incidents
+  </Card>
+  <Card title="Resolve" icon="circle-check">
+    Mark the alert as resolved after addressing the issue
+  </Card>
+  <Card title="Create incident" icon="plus">
+    Escalate the alert to a full incident for coordinated response
+  </Card>
+  <Card title="Bulk resolve" icon="list-check">
+    Resolve multiple related alerts at once
+  </Card>
+  <Card title="Snooze" icon="clock">
+    Temporarily snooze low-priority alerts (configurable per escalation path)
+  </Card>
+</CardGroup>
+
+## Mobile app features
+
+Beyond push notifications, the mobile app provides full on-call functionality:
+
+### Alerts tab
+
+View all triggered and resolved alerts, filter by attributes, and see alert timelines. Perfect for triaging multiple alerts during an incident.
+
+### Incidents tab
+
+Access active and historical incidents, view incident timelines, post updates, and join incident channels.
+
+### Schedule view
+
+See who's on-call across all your schedules. Check upcoming shifts and request or provide coverage.
+
+### Profile and settings
+
+Manage your notification preferences, update your phone number for SMS/voice, and configure do-not-disturb hours.
+
+## Notification settings
+
+Customize how you receive push notifications in the mobile app settings:
+
+<AccordionGroup>
+  <Accordion title="Notification sounds" icon="volume">
+    Choose from different alert sounds or use your device's default notification sound. Set different sounds for different priority levels.
+  </Accordion>
+  <Accordion title="Do-not-disturb override" icon="moon">
+    Configure critical alerts to override your device's do-not-disturb mode. Enable this for high-priority alerts that should always reach you.
+  </Accordion>
+  <Accordion title="Badge count" icon="circle-dot">
+    Show the number of unacknowledged alerts as a badge on the app icon.
+  </Accordion>
+  <Accordion title="Preview content" icon="eye">
+    Control whether alert details appear in notification previews or require unlocking your device for privacy.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Not receiving push notifications">
+    Check these common issues:
+    
+    1. **Permissions**: Go to device Settings → Apps → incident.io → Notifications and ensure they're enabled
+    2. **Battery optimization**: Disable battery optimization for the incident.io app
+    3. **Network connection**: Ensure your device has a stable internet connection
+    4. **App version**: Update to the latest version of the mobile app
+    5. **Re-login**: Sign out and sign back in to refresh your notification token
+  </Accordion>
+
+  <Accordion title="Push notifications delayed">
+    Delays can occur due to:
+    
+    - Device battery saving modes restricting background app activity
+    - Poor network connectivity affecting notification delivery
+    - iOS Low Power Mode or Android Doze mode limiting background processes
+    
+    Add incident.io to your device's unrestricted apps list for immediate notifications.
+  </Accordion>
+
+  <Accordion title="Cannot acknowledge alerts">
+    If you're unable to acknowledge alerts:
+    
+    1. Check that you're logged in to the correct account
+    2. Verify your internet connection is stable
+    3. Force close and reopen the app
+    4. If the issue persists, contact support with the alert ID
+  </Accordion>
+
+  <Accordion title="App crashes when opening notifications">
+    Try these steps:
+    
+    1. Update to the latest app version from the App Store or Google Play
+    2. Clear the app cache (Android) or reinstall the app (iOS)
+    3. Restart your device
+    4. Contact support if crashes continue
+  </Accordion>
+</AccordionGroup>
+
+## Best practices
+
+<CardGroup cols={2}>
+  <Card title="Test regularly" icon="flask">
+    Send test alerts to verify your setup works before you're on-call
+  </Card>
+  <Card title="Keep app updated" icon="arrow-up">
+    Update to the latest version for bug fixes and new features
+  </Card>
+  <Card title="Configure sounds" icon="volume">
+    Use distinct sounds for different priority levels
+  </Card>
+  <Card title="Set up fallbacks" icon="shield">
+    Configure SMS and voice in escalation paths as backup notification methods
+  </Card>
+</CardGroup>
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="Do I need to keep the app open to receive notifications?">
+    No. Push notifications work even when the app is closed, as long as it's installed and you're signed in.
+  </Accordion>
+
+  <Accordion title="Can I use the mobile app without being on-call?">
+    Yes. The mobile app provides access to all incidents, alerts, and schedules whether you're on-call or not. You'll only receive push notifications when alerts are routed to you.
+  </Accordion>
+
+  <Accordion title="What happens if my phone is off?">
+    If your phone is powered off when an alert fires, the notification will be delivered when your device turns back on. Configure your escalation path to escalate to other team members or notification methods if you don't acknowledge within a certain timeframe.
+  </Accordion>
+
+  <Accordion title="Can I customize which alerts send push notifications?">
+    Notification routing is controlled by [alert routes](/product-documentation/on-call/alert-routing) and [escalation paths](/product-documentation/on-call/escalation-paths), not by individual user settings. Work with your team to configure appropriate routing logic.
+  </Accordion>
+</AccordionGroup>

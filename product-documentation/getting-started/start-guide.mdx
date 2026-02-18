@@ -1,0 +1,121 @@
+---
+title: Start Guide
+description: Your first steps with incident.io - from setup to your first incident response
+icon: "/icons/book.svg"
+---
+
+# Start Guide
+
+Welcome to incident.io. This guide will walk you through the essential steps to get your incident response platform configured and ready for your team.
+
+<Steps>
+  <Step title="Connect your chat platform">
+    incident.io works where your team already communicates. Connect Slack or Microsoft Teams to enable incident channels, notifications, and real-time collaboration.
+    
+    Navigate to **Settings > Integrations** and follow the prompts to authorize incident.io with your workspace.
+  </Step>
+
+  <Step title="Set up your Catalog">
+    The Catalog is your organization's context map - services, teams, products, and how they connect. This powers routing and automation throughout incident.io.
+    
+    Start by defining your core Catalog Types:
+    - **Services**: Your applications and infrastructure components
+    - **Teams**: Who owns and maintains each service
+    - **Products**: Customer-facing offerings that services support
+    
+    <Info>
+      If you use a developer portal like Backstage or Cortex, you can import your existing service catalog directly.
+    </Info>
+  </Step>
+
+  <Step title="Create your first schedule">
+    Schedules define who's available to respond at specific times. Set up an on-call rotation for your team.
+    
+    Go to **On-call > Schedules** and create a schedule with:
+    - Rotation frequency (daily, weekly, or custom)
+    - Team members in the rotation
+    - Time zones and working hours
+    - Holiday calendars (optional)
+    
+    <Tip>
+      Start simple with one schedule. You can add complexity like layered schedules or split shifts later.
+    </Tip>
+  </Step>
+
+  <Step title="Configure alert routing">
+    Connect your monitoring tools and define what happens when alerts fire. Alert routes determine whether to send notifications, page someone, or automatically create an incident.
+    
+    1. Connect your monitoring tools in **Settings > Integrations** (Datadog, PagerDuty, Grafana, etc.)
+    2. Create alert routes in **Alerts > Alert routes**
+    3. Define actions: notify channels, create escalations, or auto-create incidents
+    
+    <Note>
+      You can group related alerts into the same incident to prevent alert fatigue.
+    </Note>
+  </Step>
+
+  <Step title="Set up escalation paths">
+    Escalation paths define how to reach people when attention is needed. They connect to your schedules to automatically route notifications to whoever's on-call.
+    
+    Create paths in **On-call > Escalation paths** with:
+    - Target schedules or specific users
+    - Notification methods (push, SMS, phone)
+    - Wait times before escalating to the next level
+    - Conditions for urgent vs. in-hours routing
+  </Step>
+
+  <Step title="Test your setup">
+    Before going live, verify everything works:
+    
+    - Create a test incident to confirm channel creation and notifications
+    - Send a test alert to verify routing and escalations
+    - Check that timeline events are captured correctly
+    - Ensure your team members receive notifications on their devices
+    
+    <Warning>
+      Use test mode or clearly label test incidents to avoid confusion with real issues.
+    </Warning>
+  </Step>
+</Steps>
+
+## Next steps
+
+Once you've completed the basic setup:
+
+<CardGroup cols={2}>
+  <Card title="Learn core concepts" icon="lightbulb" href="/product-documentation/getting-started/concepts">
+    Understand how Alerts, Incidents, Escalations, and the Catalog work together
+  </Card>
+  
+  <Card title="Create your first incident" icon="bolt" href="/incident-response/overview">
+    Learn the full incident response workflow from creation to closure
+  </Card>
+  
+  <Card title="Automate with workflows" icon="wand-magic-sparkles" href="/workflows/overview">
+    Set up automated actions during incidents to reduce manual work
+  </Card>
+  
+  <Card title="Configure policies" icon="shield-check" href="/policies/overview">
+    Enforce incident response standards across your organization
+  </Card>
+</CardGroup>
+
+## Getting help
+
+<Accordion title="Where can I find more detailed configuration guides?">
+  Each feature has dedicated documentation:
+  - Schedules and on-call management
+  - Alert routing and integrations
+  - Incident response workflows
+  - Catalog configuration
+  
+  Use the sidebar navigation to explore specific topics.
+</Accordion>
+
+<Accordion title="Can I import existing on-call schedules?">
+  Yes. If you're migrating from PagerDuty or another platform, incident.io can help import your existing schedules, escalation policies, and integrations. Contact support for migration assistance.
+</Accordion>
+
+<Accordion title="What integrations are available?">
+  incident.io integrates with monitoring tools (Datadog, Grafana, New Relic), incident management platforms (PagerDuty, Opsgenie), status pages (Statuspage, incident.io status pages), and more. See the full list in Settings > Integrations.
+</Accordion>

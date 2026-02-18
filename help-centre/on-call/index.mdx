@@ -1,0 +1,153 @@
+---
+title: "On-call"
+description: "Connect all of your alerts, configure a schedule for every team, and have confidence that the right people will be notified every time"
+mode: "wide"
+---
+
+<Info>
+Build a robust on-call system that ensures the right people are alerted at the right time. incident.io's on-call features help you manage schedules, escalations, and alert routing with confidence.
+</Info>
+
+## Quick Start
+
+<CardGroup cols={2}>
+  <Card title="Get started with On-call" icon="rocket" href="/help-centre/on-call/get-started-with-on-call/index">
+    Set up your first on-call schedule and escalation path
+  </Card>
+  <Card title="Being on call as a responder" icon="user-headset" href="/help-centre/on-call/being-on-call-as-a-responder/index">
+    Learn what to expect and how to manage your on-call shifts
+  </Card>
+</CardGroup>
+
+## Core Components
+
+<CardGroup cols={3}>
+  <Card title="Schedules" icon="calendar-days" href="/help-centre/on-call/schedules/index">
+    Create rotating schedules that work for your team's timezone and availability
+  </Card>
+  <Card title="Escalation Paths" icon="arrows-split-up-and-left" href="/help-centre/on-call/escalation-paths/index">
+    Define how alerts should escalate when the primary responder is unavailable
+  </Card>
+  <Card title="FAQs" icon="circle-question" href="/help-centre/on-call/faqs/index">
+    Common questions about on-call management
+  </Card>
+</CardGroup>
+
+## Key Features
+
+<AccordionGroup>
+  <Accordion title="Flexible Scheduling" icon="calendar-days">
+    Create schedules that match your team's needs:
+    
+    - **Multiple rotation patterns**: Daily, weekly, or custom rotations
+    - **Timezone support**: Schedules respect individual timezones
+    - **Override capabilities**: Temporary coverage for planned absences
+    - **Team coordination**: Multiple layers for primary, secondary, and manager escalations
+    
+    [Explore schedule configuration →](/help-centre/on-call/schedules/index)
+  </Accordion>
+  
+  <Accordion title="Smart Escalation Paths" icon="arrows-split-up-and-left">
+    Ensure alerts never go unanswered:
+    
+    - **Multi-step escalations**: Automatically escalate if not acknowledged
+    - **Parallel notifications**: Alert multiple people simultaneously
+    - **Conditional routing**: Different paths based on alert severity
+    - **Fallback options**: Final escalation to manager or team lead
+    
+    [Learn about escalation paths →](/help-centre/on-call/escalation-paths/index)
+  </Accordion>
+  
+  <Accordion title="Live Call Routing" icon="phone">
+    Route phone calls directly to your on-call engineers:
+    
+    - Get a dedicated phone number for your team
+    - Automatically route calls to the current on-call person
+    - Record call metadata and integrate with incidents
+    - Support for multiple teams and schedules
+    
+    [Set up live call routing →](/help-centre/on-call/live-call-routing)
+  </Accordion>
+  
+  <Accordion title="On-call Readiness Insights" icon="chart-line">
+    Monitor and improve your on-call preparedness:
+    
+    - **Coverage analytics**: Identify gaps in your schedules
+    - **Response metrics**: Track acknowledgment and resolution times
+    - **Team health**: Monitor on-call load and distribution
+    - **Readiness scores**: Ensure teams are prepared for incidents
+    
+    [View readiness insights →](/help-centre/on-call/migrating-to-incident-io/on-call-readiness-insights)
+  </Accordion>
+</AccordionGroup>
+
+## Setting Up On-call
+
+<Steps>
+  <Step title="Define your teams">
+    Identify which teams need on-call coverage and map out their responsibilities. Consider service ownership and expertise areas.
+  </Step>
+  
+  <Step title="Create schedules">
+    Set up rotating schedules for each team. Consider factors like:
+    - Rotation frequency (daily, weekly, etc.)
+    - Team size and availability
+    - Timezone distribution
+    - Fair distribution of on-call burden
+  </Step>
+  
+  <Step title="Configure escalation paths">
+    Define how alerts should escalate if not acknowledged:
+    - Primary on-call engineer
+    - Secondary/backup engineer
+    - Team lead or manager
+    - Executive escalation for critical issues
+  </Step>
+  
+  <Step title="Connect alert sources">
+    Integrate your monitoring and alerting tools to automatically route alerts to on-call responders.
+  </Step>
+  
+  <Step title="Test and validate">
+    Run test alerts to ensure notifications are working correctly and escalations happen as expected.
+  </Step>
+  
+  <Step title="Monitor and optimize">
+    Use on-call readiness insights to identify issues and continuously improve your on-call system.
+  </Step>
+</Steps>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Fair Rotation" icon="arrows-rotate">
+    Distribute on-call duties equitably across team members. Consider load balancing and avoid burnout.
+  </Card>
+  
+  <Card title="Clear Handoffs" icon="handshake">
+    Establish clear handoff procedures between shifts. Share context about ongoing issues and recent alerts.
+  </Card>
+  
+  <Card title="Documented Runbooks" icon="book">
+    Provide on-call engineers with comprehensive runbooks for common issues and escalation procedures.
+  </Card>
+  
+  <Card title="Response Time SLAs" icon="stopwatch">
+    Set clear expectations for acknowledgment and response times based on alert severity.
+  </Card>
+</CardGroup>
+
+<Note>
+A well-designed on-call system balances rapid incident response with engineer well-being. Regular reviews and adjustments help maintain this balance.
+</Note>
+
+## Additional Resources
+
+<CardGroup cols={2}>
+  <Card title="Live Call Routing" icon="phone" href="/help-centre/on-call/live-call-routing">
+    Set up phone-based escalations for critical alerts
+  </Card>
+  <Card title="On-call Readiness" icon="clipboard-check" href="/help-centre/on-call/migrating-to-incident-io/on-call-readiness-insights">
+    Monitor your team's on-call preparedness and effectiveness
+  </Card>
+</CardGroup>

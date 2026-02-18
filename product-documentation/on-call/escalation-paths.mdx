@@ -1,0 +1,227 @@
+---
+title: Escalation paths
+description: Route alerts through escalation paths to reach the right responders
+icon: "/icons/escalation-path.svg"
+---
+
+Escalation paths define how alerts reach responders through a series of levels with configurable timing and notification methods. Build escalation paths that try the right people in the right order with appropriate urgency.
+
+## How escalation paths work
+
+An escalation path consists of multiple levels that execute sequentially until someone acknowledges the alert:
+
+<Steps>
+  <Step title="Level 1 triggers">
+    Alert routes to the escalation path and notifies all responders on level 1
+  </Step>
+  <Step title="Wait for acknowledgment">
+    incident.io waits for the configured duration (e.g., 5 minutes) for someone to acknowledge
+  </Step>
+  <Step title="Escalate if needed">
+    If no one acknowledges, escalate to level 2 and notify those responders
+  </Step>
+  <Step title="Continue escalating">
+    Repeat through all levels until someone acknowledges or all levels are exhausted
+  </Step>
+</Steps>
+
+<Info>
+Escalation stops immediately when any responder acknowledges the alert at any level.
+</Info>
+
+## Create an escalation path
+
+<Steps>
+  <Step title="Navigate to settings">
+    Using the sidebar, navigate to **Settings → Escalation paths**
+  </Step>
+  <Step title="Create new path">
+    Click **+ Create escalation path** and give it a descriptive name
+  </Step>
+  <Step title="Add levels">
+    Add one or more levels, choosing responders for each:
+    - Specific users
+    - Everyone on a [schedule](/product-documentation/on-call/schedules-overview)
+    - Everyone on a [team](/product-documentation/on-call/teams)
+  </Step>
+  <Step title="Configure timing">
+    Set how long to wait at each level before escalating (e.g., 5 minutes, 10 minutes)
+  </Step>
+  <Step title="Set notification methods">
+    Choose notification methods for each level (push, SMS, voice)
+  </Step>
+  <Step title="Save and test">
+    Save the escalation path and send a test alert to verify behavior
+  </Step>
+</Steps>
+
+## Escalation levels
+
+Each level in an escalation path can include multiple responders. All responders on a level are notified simultaneously when that level triggers.
+
+### Who can be on a level
+
+<Tabs>
+  <Tab title="Schedule">
+    Notify whoever is currently on-call in a specific [schedule](/product-documentation/on-call/schedules-overview). This is the most common approach as it automatically adapts to rotation changes.
+    
+    **Example**: Level 1 notifies whoever is on the Platform team's primary schedule.
+  </Tab>
+  <Tab title="Specific users">
+    Notify specific individuals directly. Use this for subject matter experts or managers who should always be notified at certain escalation levels.
+    
+    **Example**: Level 3 notifies the VP of Engineering directly.
+  </Tab>
+  <Tab title="Team">
+    Notify all members of a [team](/product-documentation/on-call/teams) simultaneously. Use this for urgent issues that need immediate attention from anyone available.
+    
+    **Example**: Level 2 notifies everyone on the Security team for security incidents.
+  </Tab>
+</Tabs>
+
+### Escalation timing
+
+Configure how long to wait at each level before escalating:
+
+- **Short intervals (1-5 minutes)**: For critical alerts that need immediate attention
+- **Medium intervals (5-15 minutes)**: Standard escalation timing for most alerts
+- **Long intervals (15-30 minutes)**: For lower priority issues where responders may need time to investigate
+
+<Tip>
+Balance responsiveness with giving responders enough time to see and respond to notifications. Most teams start with 5-10 minute intervals.
+</Tip>
+
+## Notification methods
+
+Configure how responders are notified at each escalation level:
+
+<CardGroup cols={3}>
+  <Card title="Push notifications" icon="mobile">
+    Via the [mobile app](/product-documentation/on-call/mobile-app-push-notifications)
+  </Card>
+  <Card title="SMS" icon="message">
+    Text message to phone
+  </Card>
+  <Card title="Voice call" icon="phone">
+    Automated voice call
+  </Card>
+</CardGroup>
+
+You can configure different notification methods for different levels. Common patterns:
+
+- **Level 1**: Push notification only
+- **Level 2**: Push + SMS
+- **Level 3**: Push + SMS + Voice call
+
+This graduated approach balances urgency with notification fatigue.
+
+Learn more about [SMS and voice notifications](/product-documentation/on-call/sms-and-voice) and [mobile app push notifications](/product-documentation/on-call/mobile-app-push-notifications).
+
+## Priority-based escalation
+
+Create different escalation paths for different alert priorities:
+
+<Tabs>
+  <Tab title="P1 - Critical">
+    Fast escalation with aggressive notifications:
+    - **Level 1** (2 min): Primary on-call via push + SMS + voice
+    - **Level 2** (3 min): Secondary on-call via push + SMS + voice
+    - **Level 3** (5 min): Engineering manager via voice call
+  </Tab>
+  <Tab title="P2 - High">
+    Standard escalation:
+    - **Level 1** (10 min): Primary on-call via push
+    - **Level 2** (15 min): Secondary on-call via push + SMS
+  </Tab>
+  <Tab title="P3 - Medium">
+    Relaxed escalation:
+    - **Level 1** (30 min): Primary on-call via push
+    - **Level 2** (60 min): Team channel notification
+  </Tab>
+</Tabs>
+
+## Escalation states
+
+Escalations progress through different states:
+
+| State | Description |
+|-------|-------------|
+| **Triggered** | Escalation has started and is actively notifying responders |
+| **Acknowledged** | A responder has acknowledged and will handle the alert |
+| **Cancelled** | The escalation was cancelled (alert resolved or manually stopped) |
+| **Expired** | All escalation levels completed without acknowledgment |
+
+<Warning>
+When an escalation expires (all levels exhausted without acknowledgment), no further notifications are sent. Configure enough escalation levels to ensure critical alerts always reach someone.
+</Warning>
+
+## Advanced patterns
+
+### Follow-the-sun escalation
+
+Use multiple schedules in level 1 to ensure someone in an appropriate timezone responds:
+
+- **Level 1**: US schedule + EU schedule + APAC schedule (whoever is in working hours)
+- **Level 2**: All regional managers
+
+### Round-robin attempts
+
+Configure a level with multiple users to try them one at a time:
+
+- **Level 1**: Try users A, B, C in sequence (30 seconds each)
+- **Level 2**: Notify all three simultaneously
+
+### Specialized escalation
+
+Create escalation paths for specific types of alerts:
+
+- **Database alerts**: DBA on-call → Database team → Infrastructure manager
+- **Security alerts**: Security on-call → Security team → CISO
+- **Customer-facing**: Support on-call → Support manager → Customer success
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Start with simple paths" icon="seedling">
+    Begin with 2-3 levels: primary on-call, secondary on-call, manager. Add complexity as you learn what works for your team.
+  </Accordion>
+  <Accordion title="Use schedules, not individuals" icon="calendar">
+    Reference schedules in escalation levels rather than specific people. This keeps escalation paths working as team membership changes.
+  </Accordion>
+  <Accordion title="Test your paths" icon="flask">
+    Send test alerts through escalation paths regularly to verify timing, notifications, and responder awareness.
+  </Accordion>
+  <Accordion title="Balance urgency with fatigue" icon="balance-scale">
+    Don't make every alert immediately trigger voice calls. Graduate notification intensity with escalation levels.
+  </Accordion>
+  <Accordion title="Have a final catch-all" icon="net">
+    Ensure your final escalation level reaches someone who will definitely respond (e.g., entire team or manager).
+  </Accordion>
+  <Accordion title="Enable auto-cancel" icon="circle-xmark">
+    Configure escalation paths to automatically cancel when alerts are resolved, preventing unnecessary pages.
+  </Accordion>
+</AccordionGroup>
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="What happens if everyone at a level is already on another alert?">
+    Responders still receive notifications even if they're handling other alerts. They can acknowledge multiple alerts and prioritize based on severity.
+  </Accordion>
+
+  <Accordion title="Can I manually escalate an alert?">
+    Yes. From the alert details page, you can manually trigger escalation to the next level or page specific people directly.
+  </Accordion>
+
+  <Accordion title="What if someone acknowledges an alert by mistake?">
+    They can un-acknowledge the alert, which resumes the escalation from the current level.
+  </Accordion>
+
+  <Accordion title="How do escalation paths interact with schedules?">
+    When an escalation level references a schedule, it notifies whoever is currently on-call according to that schedule (including any [overrides](/product-documentation/on-call/overrides-and-cover-requests)).
+  </Accordion>
+
+  <Accordion title="Can I have different escalation paths for the same team?">
+    Yes. Teams can have multiple escalation paths for different scenarios (e.g., business hours vs after hours, or P1 vs P2 alerts). Configure your [alert routes](/product-documentation/on-call/alert-routing) to choose the appropriate path based on conditions.
+  </Accordion>
+</AccordionGroup>

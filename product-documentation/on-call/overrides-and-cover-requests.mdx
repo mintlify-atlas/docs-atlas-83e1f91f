@@ -1,0 +1,191 @@
+---
+title: Overrides and cover requests
+description: Manage schedule overrides and cover requests
+---
+
+Overrides and cover requests provide flexibility for managing temporary changes to on-call schedules without permanently modifying rotations. Use these features when responders need to swap shifts, take time off, or provide emergency coverage.
+
+## Overrides
+
+Overrides replace a scheduled responder with another person for a specific time period. The underlying schedule remains unchanged—overrides apply only to the designated time window.
+
+### When to use overrides
+
+<CardGroup cols={2}>
+  <Card title="Time off" icon="umbrella-beach">
+    Someone needs to take vacation or sick leave
+  </Card>
+  <Card title="Emergency coverage" icon="user-plus">
+    Last-minute replacement needed for an on-call shift
+  </Card>
+  <Card title="Shift swaps" icon="right-left">
+    Two team members agree to swap on-call responsibilities
+  </Card>
+  <Card title="Temporary help" icon="handshake">
+    Extra coverage needed during a busy period
+  </Card>
+</CardGroup>
+
+### Create an override
+
+<Steps>
+  <Step title="Navigate to schedule">
+    Go to **On-call → Schedules** and select the schedule you want to modify
+  </Step>
+  <Step title="Select time period">
+    Click on the shift or time period where you want to create an override
+  </Step>
+  <Step title="Choose replacement">
+    Select who will cover the shift from available team members
+  </Step>
+  <Step title="Set duration">
+    Define the start and end time for the override
+  </Step>
+  <Step title="Add notes (optional)">
+    Add context like "Covering for Sarah's vacation" for visibility
+  </Step>
+  <Step title="Save override">
+    Confirm the override—it takes effect immediately
+  </Step>
+</Steps>
+
+<Info>
+Overrides are visible in the schedule timeline and calendar views, clearly showing who is actually on-call during the override period.
+</Info>
+
+### Override behavior
+
+When an override is active:
+
+- The replacement person receives all alerts and escalations instead of the originally scheduled person
+- The override appears in schedule views with clear visual distinction
+- External syncs (Slack user groups, Google Calendar) update to reflect the override
+- The original schedule remains unchanged—when the override expires, regular rotation resumes
+
+<Tip>
+Overrides do not affect historical data. If you need to correct who was actually on-call in the past for reporting purposes, contact your administrator.
+</Tip>
+
+## Cover requests
+
+Cover requests allow responders to request coverage from teammates when they need someone to take their shift. Instead of directly creating an override, the request goes to potential replacements who can accept or decline.
+
+### Request coverage
+
+<Steps>
+  <Step title="View your shifts">
+    Navigate to **On-call → Schedules** or use the mobile app to see your upcoming shifts
+  </Step>
+  <Step title="Select shift to cover">
+    Click on the shift where you need coverage
+  </Step>
+  <Step title="Request cover">
+    Click **Request cover** and select the time period
+  </Step>
+  <Step title="Choose who to ask">
+    Select specific teammates or broadcast to the entire team
+  </Step>
+  <Step title="Add context">
+    Explain why you need coverage (optional but helpful)
+  </Step>
+  <Step title="Send request">
+    Submit the request—teammates receive a notification
+  </Step>
+</Steps>
+
+### Respond to cover requests
+
+When someone requests you to cover their shift:
+
+1. **Receive notification** via mobile app, email, or Slack
+2. **Review details** including when they need coverage and why
+3. **Accept or decline** the request
+4. **Automatic override** is created when you accept
+
+<Warning>
+Once you accept a cover request, you're responsible for that on-call shift. Make sure you can commit before accepting.
+</Warning>
+
+## Managing overrides
+
+### View active overrides
+
+<Tabs>
+  <Tab title="Schedule view">
+    Overrides appear directly in the schedule timeline and calendar with visual indicators showing the replacement person.
+  </Tab>
+  <Tab title="List view">
+    Navigate to **On-call → Overrides** to see all active and upcoming overrides across all schedules.
+  </Tab>
+  <Tab title="Mobile app">
+    View overrides in the mobile app schedule view, including those affecting your shifts.
+  </Tab>
+</Tabs>
+
+### Edit or delete overrides
+
+To modify an existing override:
+
+1. Click on the override in the schedule view
+2. Choose **Edit override** to change the time period or replacement person
+3. Or choose **Delete override** to remove it and restore the original schedule
+
+<Info>
+Deleting an override immediately restores the originally scheduled person to on-call duty.
+</Info>
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Plan ahead for time off" icon="calendar-days">
+    Create overrides as early as possible when you know you'll be unavailable. This gives teammates visibility and time to plan.
+  </Accordion>
+  <Accordion title="Use cover requests for flexibility" icon="users">
+    When you don't have a specific replacement in mind, use cover requests to let teammates volunteer.
+  </Accordion>
+  <Accordion title="Add notes for context" icon="note">
+    Always add notes to overrides explaining the reason. This helps with reporting and understanding coverage patterns.
+  </Accordion>
+  <Accordion title="Confirm coverage" icon="check">
+    Verify that overrides are created correctly before your time off begins. Check the schedule view to confirm.
+  </Accordion>
+  <Accordion title="Track override patterns" icon="chart-line">
+    Review override frequency to identify if schedules need permanent adjustments for better work-life balance.
+  </Accordion>
+</AccordionGroup>
+
+## Integration with compensation
+
+Overrides affect [compensation calculations](/product-documentation/on-call/compensation-calculator):
+
+- The person who actually covers the shift (via override) is credited with on-call hours
+- The originally scheduled person is not credited for hours they were replaced
+- This ensures accurate compensation based on who was actually on-call
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="Can I create an override for someone without asking them first?">
+    Yes, if you have edit permissions on the schedule. However, it's good practice to confirm with the replacement person first, especially for longer overrides.
+  </Accordion>
+
+  <Accordion title="What happens if I create an override that conflicts with another schedule?">
+    incident.io will warn you if the replacement person is already on-call for a different schedule during the override period. The person can be on-call for multiple schedules simultaneously, but you should verify they can handle the load.
+  </Accordion>
+
+  <Accordion title="Can I create a partial override for just part of a shift?">
+    Yes. Overrides can cover any time period, whether it's an entire shift, multiple shifts, or just a few hours within a shift.
+  </Accordion>
+
+  <Accordion title="How do overrides interact with escalation paths?">
+    Escalation paths automatically use the person specified by the override. There's no need to modify escalation path configuration—overrides apply transparently.
+  </Accordion>
+
+  <Accordion title="What happens if an override expires during an active incident?">
+    When an override expires, responsibility returns to the originally scheduled person. Any active alerts or incidents remain assigned to whoever acknowledged them, but new escalations will go to the person currently scheduled.
+  </Accordion>
+
+  <Accordion title="Can I see who created an override?">
+    Yes. Override details include who created it and when. This audit trail helps with accountability and reporting.
+  </Accordion>
+</AccordionGroup>

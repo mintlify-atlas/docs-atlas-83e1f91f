@@ -1,0 +1,188 @@
+---
+title: Teams
+description: Manage on-call teams
+icon: "/icons/users.svg"
+---
+
+Teams in incident.io represent groups of people who share on-call responsibilities. Teams are defined in your [Catalog](/product-documentation/catalog) and used throughout the on-call system to organize schedules, escalation paths, and alert routing.
+
+## How teams work
+
+Teams serve as the organizational foundation for on-call management:
+
+<CardGroup cols={2}>
+  <Card title="Catalog-powered" icon="book">
+    Teams are defined in your Catalog, synced from your org structure
+  </Card>
+  <Card title="Dynamic membership" icon="users">
+    Team membership updates automatically from your identity provider
+  </Card>
+  <Card title="Own services" icon="server">
+    Teams own services and resources in your Catalog
+  </Card>
+  <Card title="Have escalation paths" icon="arrow-up">
+    Each team can have one or more escalation paths
+  </Card>
+</CardGroup>
+
+## Define teams in the Catalog
+
+Teams are defined as entries in your Catalog. To set up teams for on-call:
+
+<Steps>
+  <Step title="Create team type">
+    In your Catalog, create or verify you have a "Team" type (this may already exist)
+  </Step>
+  <Step title="Add team entries">
+    Create entries for each team (e.g., "Platform", "Payments", "Frontend")
+  </Step>
+  <Step title="Configure attributes">
+    Add attributes like Slack channel, email, and on-call contact information
+  </Step>
+  <Step title="Sync membership">
+    Connect to your identity provider to automatically sync team membership
+  </Step>
+</Steps>
+
+<Info>
+Learn more about setting up your [Catalog](/product-documentation/catalog).
+</Info>
+
+## Team attributes for on-call
+
+Enhance your team entries with these useful attributes for on-call:
+
+| Attribute | Purpose | Example |
+|-----------|---------|----------|
+| **Escalation path** | Default escalation path for alerts affecting this team | Platform team escalation path |
+| **Slack channel** | Where to send alerts for this team | #platform-alerts |
+| **Schedule** | Regular on-call schedule for this team | Platform on-call schedule |
+| **Email** | Team contact email for notifications | platform@company.com |
+| **Manager** | Team lead or manager | Sarah Chen |
+
+<Tip>
+Use the escalation path attribute to enable dynamic alert routing based on team ownership.
+</Tip>
+
+## Using teams for dynamic routing
+
+Once teams are defined in your Catalog, use them for powerful dynamic routing:
+
+### Route alerts to owning teams
+
+When you configure [alert attributes](/product-documentation/on-call/alert-attributes) to extract the affected service, you can automatically route to the owning team:
+
+```
+Alert > Service > Owner (Team) > Escalation path
+```
+
+This expression:
+1. Reads the Service from the alert
+2. Finds which Team owns that Service in your Catalog
+3. Routes to that Team's escalation path
+
+### Send alerts to team channels
+
+Route alerts to different Slack channels based on the affected team:
+
+```
+Alert > Team > Slack channel
+```
+
+This dynamically sends alerts to the right team's channel without manual configuration per team.
+
+## Team schedules
+
+Teams typically have one or more [schedules](/product-documentation/on-call/schedules-overview) that define who is on-call:
+
+<AccordionGroup>
+  <Accordion title="Primary schedule" icon="calendar">
+    The main on-call rotation for the team. Usually includes all team members in a rotation.
+  </Accordion>
+  <Accordion title="Secondary/escalation schedule" icon="calendar-plus">
+    A backup schedule with senior team members for escalated issues.
+  </Accordion>
+  <Accordion title="Regional schedules" icon="globe">
+    Separate schedules for different timezones in follow-the-sun coverage.
+  </Accordion>
+</AccordionGroup>
+
+## Best practices
+
+<CardGroup cols={2}>
+  <Card title="Sync from identity provider" icon="sync">
+    Keep team membership automatically updated from Okta, Google Workspace, or Azure AD
+  </Card>
+  <Card title="Define ownership clearly" icon="user-check">
+    Ensure every service has a clear owning team in your Catalog
+  </Card>
+  <Card title="Use team hierarchies" icon="sitemap">
+    Model your org structure with parent/child team relationships
+  </Card>
+  <Card title="Keep attributes current" icon="rotate">
+    Regularly verify team attributes like Slack channels and escalation paths are accurate
+  </Card>
+</CardGroup>
+
+## Team-based alerting workflows
+
+### Scenario 1: Service ownership routing
+
+<Steps>
+  <Step title="Alert fires">
+    Monitoring tool detects an issue with the Payments API
+  </Step>
+  <Step title="Extract service">
+    Alert attribute extraction identifies the affected service as "Payments API"
+  </Step>
+  <Step title="Find owning team">
+    Catalog lookup finds that the Payments team owns the Payments API
+  </Step>
+  <Step title="Route to team">
+    Alert automatically routes to the Payments team's escalation path
+  </Step>
+</Steps>
+
+### Scenario 2: Follow-the-sun coverage
+
+<Steps>
+  <Step title="Global team">
+    Define a team like "Platform" with members across multiple regions
+  </Step>
+  <Step title="Regional schedules">
+    Create separate schedules for US, EU, and APAC with region-specific working hours
+  </Step>
+  <Step title="Escalation path">
+    Configure escalation path to check all three schedules based on current time
+  </Step>
+  <Step title="Automatic routing">
+    Alerts always reach the person on-call in the appropriate timezone
+  </Step>
+</Steps>
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="How do I add someone to a team?">
+    Team membership is managed in your Catalog. If you've synced teams from your identity provider (Okta, Google Workspace, etc.), membership updates automatically. Otherwise, edit the team entry in your Catalog to add members.
+  </Accordion>
+
+  <Accordion title="Can a person be on multiple teams?">
+    Yes. People can be members of multiple teams and participate in multiple on-call rotations. Configure their notification preferences to manage alert volume.
+  </Accordion>
+
+  <Accordion title="What's the difference between teams and schedules?">
+    **Teams** are organizational units that own services and resources. **Schedules** define who from a team is on-call at any given time. A team typically has one or more schedules.
+  </Accordion>
+
+  <Accordion title="How do I remove a team?">
+    Remove or archive the team entry in your Catalog. Before doing so, verify that:
+    - No services list this team as the owner
+    - No alert routes reference this team's escalation path
+    - No active schedules are associated with this team
+  </Accordion>
+
+  <Accordion title="Can teams have multiple escalation paths?">
+    Yes. Teams can have multiple escalation paths for different scenarios (e.g., business hours vs after hours, or different severity levels). Configure your [alert routes](/product-documentation/on-call/alert-routing) to choose the appropriate escalation path based on conditions.
+  </Accordion>
+</AccordionGroup>

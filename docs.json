@@ -1,122 +1,279 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "incident.io",
+  "theme": "willow",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#f25533",
+    "light": "#f25533",
+    "dark": "#f25533"
   },
-  "favicon": "/favicon.svg",
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/yangleyland/incidentioclone"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/yangleyland/incidentioclone"
+    }
+  },
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Help Centre",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "help-centre/index",
+              "help-centre/what-s-incident-io/what's-incident.io",
+              "help-centre/installing-incident-io/index"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Configuration & Setup",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "help-centre/configure-your-account/index"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Core Features",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "help-centre/creating-and-running-incidents/index",
+              "help-centre/on-call/index",
+              "help-centre/alerts/index",
+              "help-centre/status-pages/index",
+              "help-centre/catalog/index",
+              "help-centre/learning-from-incidents/index"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Analytics & Insights",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "help-centre/reporting-and-insights/index",
+              "help-centre/ai-features/index"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "help-centre/api-and-integrations/index",
+              "help-centre/microsoft-teams/index"
+            ]
+          },
+          {
+            "group": "Administration & Security",
+            "pages": [
+              "help-centre/account-admin/index",
+              "help-centre/security-faqs/index",
+              "help-centre/scribe-and-incident-calls/index"
+            ]
+          },
+          {
+            "group": "Additional Resources",
+            "pages": [
+              "help-centre/other-articles/index"
+            ]
+          },
+          {
+            "group": "Need More Help?",
+            "pages": [
+              "help-centre/help-feedback/contact-us"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "Documentation",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Getting Started",
             "pages": [
-              "api-reference/introduction"
+              "product-documentation/getting-started/start-guide",
+              "product-documentation/getting-started/quick-start",
+              "product-documentation/getting-started/concepts"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "On-call",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "product-documentation/on-call/overview",
+              "product-documentation/on-call/alert-sources",
+              "product-documentation/on-call/live-call-routing",
+              "product-documentation/on-call/alert-attributes",
+              "product-documentation/on-call/alert-routing",
+              "product-documentation/on-call/alert-actions",
+              "product-documentation/on-call/sms-and-voice",
+              "product-documentation/on-call/mobile-app-push-notifications",
+              "product-documentation/on-call/teams",
+              "product-documentation/on-call/schedules-overview",
+              "product-documentation/on-call/overrides-and-cover-requests",
+              "product-documentation/on-call/escalation-paths",
+              "product-documentation/on-call/compensation-calculator"
+            ]
+          },
+          {
+            "group": "Migration to incident.io",
+            "pages": [
+              "product-documentation/migration/from-pagerduty",
+              "product-documentation/migration/from-opsgenie",
+              "product-documentation/migration/datadog-monitor-migrationtool"
+            ]
+          },
+          {
+            "group": "Incident Response",
+            "pages": [
+              "product-documentation/incident-response/overview",
+              "product-documentation/incident-response/responding-to-incidents",
+              "product-documentation/incident-response/incident-lifecycle",
+              "product-documentation/incident-response/channel-management",
+              "product-documentation/incident-response/incident-actions",
+              "product-documentation/incident-response/automated-workflows",
+              "product-documentation/incident-response/video-calls",
+              "product-documentation/incident-response/incident-escalations",
+              "product-documentation/incident-response/nudges",
+              "product-documentation/incident-response/housekeeping-and-tidy-up"
+            ]
+          },
+          {
+            "group": "Post-incident",
+            "pages": [
+              "product-documentation/post-incident/structured-post-incident-process",
+              "product-documentation/post-incident/timeline",
+              "product-documentation/post-incident/post-mortem-documents",
+              "product-documentation/post-incident/follow-up-actions",
+              "product-documentation/post-incident/policies-and-slas",
+              "product-documentation/post-incident/post-mortem-meetings"
+            ]
+          },
+          {
+            "group": "Status Pages",
+            "pages": [
+              "product-documentation/status-pages/overview",
+              "product-documentation/status-pages/external-status-pages",
+              "product-documentation/status-pages/internal-status-pages",
+              "product-documentation/status-pages/importing-status-pages",
+              "product-documentation/status-pages/subscriptions-and-communication",
+              "product-documentation/status-pages/widget-api"
+            ]
+          },
+          {
+            "group": "AI SRE and Incident AI",
+            "pages": [
+              "product-documentation/ai-sre/overview",
+              "product-documentation/ai-sre/call-transcription",
+              "product-documentation/ai-sre/investigations-and-root-cause",
+              "product-documentation/ai-sre/resolution-and-recovery",
+              "product-documentation/ai-sre/contextual-communication",
+              "product-documentation/ai-sre/post-mortem-writing",
+              "product-documentation/ai-sre/agentic-copilot"
+            ]
+          },
+          {
+            "group": "Catalog",
+            "pages": [
+              "product-documentation/catalog/overview",
+              "product-documentation/catalog/custom-fields",
+              "product-documentation/catalog/relationship-mapping",
+              "product-documentation/catalog/enrich-incidents"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "product-documentation/workflows/overview",
+              "product-documentation/workflows/workflow-expressions"
+            ]
+          },
+          {
+            "group": "Insights",
+            "pages": [
+              "product-documentation/insights/metrics-and-insights",
+              "product-documentation/insights/custom-dashboards"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "product-documentation/integrations/asana",
+              "product-documentation/integrations/azure-devops",
+              "product-documentation/integrations/clickup",
+              "product-documentation/integrations/github",
+              "product-documentation/integrations/gitlab",
+              "product-documentation/integrations/jira",
+              "product-documentation/integrations/linear",
+              "product-documentation/integrations/shortcut",
+              "product-documentation/integrations/slack",
+              "product-documentation/integrations/zendesk",
+              "product-documentation/integrations/backstage",
+              "product-documentation/integrations/cortex",
+              "product-documentation/integrations/opslevel",
+              "product-documentation/integrations/servicenow",
+              "product-documentation/integrations/checkly",
+              "product-documentation/integrations/chronosphere",
+              "product-documentation/integrations/crowdstrike",
+              "product-documentation/integrations/datadog",
+              "product-documentation/integrations/monte-carlo",
+              "product-documentation/integrations/opsgenie",
+              "product-documentation/integrations/pagerduty",
+              "product-documentation/integrations/panther",
+              "product-documentation/integrations/sentry",
+              "product-documentation/integrations/splunk",
+              "product-documentation/integrations/confluence",
+              "product-documentation/integrations/google-docs",
+              "product-documentation/integrations/google-meet",
+              "product-documentation/integrations/microsoft-teams",
+              "product-documentation/integrations/notion",
+              "product-documentation/integrations/zoom",
+              "product-documentation/integrations/google-calendar",
+              "product-documentation/integrations/outlook-calendar",
+              "product-documentation/integrations/aws",
+              "product-documentation/integrations/okta",
+              "product-documentation/integrations/salesforce",
+              "product-documentation/integrations/statuspage",
+              "product-documentation/integrations/vanta",
+              "product-documentation/integrations/zapier"
+            ]
+          },
+          {
+            "group": "Billing and Pricing",
+            "pages": [
+              "product-documentation/billing/seats",
+              "product-documentation/billing/managing-seats",
+              "product-documentation/billing/billing",
+              "product-documentation/billing/deleting-account"
+            ]
+          },
+          {
+            "group": "Security, Permissions and Trust",
+            "pages": [
+              "product-documentation/security/saml-sso",
+              "product-documentation/security/scim",
+              "product-documentation/security/user-roles",
+              "product-documentation/security/team-roles",
+              "product-documentation/security/audit-logs"
+            ]
+          },
+          {
+            "group": "Glossary",
+            "pages": [
+              "product-documentation/glossary/index"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "pages": [
+              "api-reference/introduction"
             ]
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
-  },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
-    }
+    ]
   }
 }

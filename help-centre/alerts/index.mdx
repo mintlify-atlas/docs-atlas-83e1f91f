@@ -1,0 +1,168 @@
+---
+title: "Alerts"
+description: "Configure alert sources, routing, and automatic incident creation"
+mode: "wide"
+---
+
+<Info>
+Connect your monitoring tools and configure intelligent alert routing to ensure the right people are notified at the right time. Reduce noise and automate incident creation with smart deduplication.
+</Info>
+
+## Core Components
+
+<CardGroup cols={3}>
+  <Card title="Alert Configuration" icon="sliders" href="/help-centre/alerts/alert-configuration/index">
+    Configure how alerts are processed, routed, and transformed into incidents
+  </Card>
+  <Card title="Alert source integrations" icon="plug" href="/help-centre/alerts/alert-source-integrations/index">
+    Connect monitoring tools and platforms to send alerts to incident.io
+  </Card>
+  <Card title="Alert Deduplication" icon="layer-group" href="/help-centre/alerts/alert-deduplication/index">
+    Automatically group related alerts to reduce noise and prevent duplicate incidents
+  </Card>
+</CardGroup>
+
+## Alert Management
+
+<AccordionGroup>
+  <Accordion title="Alert Routing" icon="route">
+    Route alerts to the right teams based on:
+    
+    - **Service ownership**: Automatically notify the team that owns the affected service
+    - **Alert severity**: Route critical alerts differently than warnings
+    - **Time of day**: Different routing for business hours vs. off-hours
+    - **Custom conditions**: Use flexible rules to match your needs
+    
+    Smart routing ensures alerts reach the people who can respond most effectively.
+    
+    [Configure alert routing →](/help-centre/alerts/alert-configuration/index)
+  </Accordion>
+  
+  <Accordion title="Automatic Incident Creation" icon="wand-magic-sparkles">
+    Automatically create incidents from alerts based on configurable rules:
+    
+    - **Severity thresholds**: Create incidents for P0 and P1 alerts only
+    - **Service mapping**: Map alerts to catalog services automatically
+    - **Field extraction**: Pull relevant data from alerts into incident fields
+    - **Custom conditions**: Fine-grained control over when incidents are created
+    
+    Automation ensures no critical alert is missed while reducing manual work.
+    
+    [Set up automatic incident creation →](/help-centre/alerts/alert-configuration/index)
+  </Accordion>
+  
+  <Accordion title="Alert Deduplication" icon="layer-group">
+    Prevent alert storms from overwhelming your team:
+    
+    - **Fingerprint-based grouping**: Group alerts with similar characteristics
+    - **Time window deduplication**: Merge alerts that occur within a time window
+    - **Custom deduplication keys**: Define how alerts should be grouped
+    - **Smart merging**: Combine alert context while preserving important details
+    
+    Deduplication turns hundreds of alerts into actionable incidents.
+    
+    [Learn about deduplication →](/help-centre/alerts/alert-deduplication/index)
+  </Accordion>
+  
+  <Accordion title="Alert Enrichment" icon="sparkles">
+    Enhance alerts with additional context:
+    
+    - **Catalog lookups**: Add service and team information automatically
+    - **Runbook links**: Attach relevant documentation to alerts
+    - **Historical context**: Show similar past incidents
+    - **Custom attributes**: Extract and display important alert metadata
+    
+    Rich context helps responders understand and resolve issues faster.
+  </Accordion>
+</AccordionGroup>
+
+## Integration Sources
+
+<Steps>
+  <Step title="Choose your monitoring tools">
+    incident.io integrates with popular monitoring and observability platforms:
+    
+    - Datadog
+    - PagerDuty
+    - Prometheus
+    - Grafana
+    - New Relic
+    - And many more...
+    
+    [View all integrations →](/help-centre/alerts/alert-source-integrations/index)
+  </Step>
+  
+  <Step title="Configure the integration">
+    Set up webhooks or API connections to send alerts to incident.io. Each integration has specific setup instructions.
+  </Step>
+  
+  <Step title="Map alert fields">
+    Define how alert fields should map to incident.io attributes. Ensure important information is captured.
+  </Step>
+  
+  <Step title="Set up routing rules">
+    Configure rules to route alerts to the appropriate teams and escalation paths.
+  </Step>
+  
+  <Step title="Enable deduplication">
+    Configure deduplication keys to group related alerts and prevent noise.
+  </Step>
+  
+  <Step title="Test and refine">
+    Send test alerts and adjust your configuration based on real-world usage patterns.
+  </Step>
+</Steps>
+
+## Common Questions
+
+<AccordionGroup>
+  <Accordion title="Why is an alert missing an attribute?" icon="circle-question">
+    Alerts may be missing attributes for several reasons:
+    
+    - The monitoring tool didn't include the field in the webhook payload
+    - Field mapping isn't configured correctly
+    - The attribute is optional and wasn't set
+    
+    [Learn how to troubleshoot missing attributes →](/help-centre/alerts/why-is-an-alert-missing-an-attribute)
+  </Accordion>
+  
+  <Accordion title="Does incident.io support Heartbeat monitoring?" icon="heart-pulse">
+    Heartbeat monitoring ensures your monitoring systems are functioning correctly.
+    
+    [Learn about heartbeat support →](/help-centre/alerts/does-incident-io-support-heartbeat-monitoring)
+  </Accordion>
+</AccordionGroup>
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Tune Alert Sensitivity" icon="sliders">
+    Work with your monitoring team to ensure alerts are meaningful and actionable. Too many false positives lead to alert fatigue.
+  </Card>
+  
+  <Card title="Clear Alert Descriptions" icon="file-lines">
+    Ensure alerts include clear descriptions, affected services, and suggested actions. Context is crucial during incidents.
+  </Card>
+  
+  <Card title="Regular Review" icon="rotate">
+    Periodically review alert patterns and adjust routing rules. Your infrastructure and team structure evolve over time.
+  </Card>
+  
+  <Card title="Document Integrations" icon="book">
+    Maintain documentation about which monitoring tools send which alerts, and how they're routed. This helps during troubleshooting.
+  </Card>
+</CardGroup>
+
+<Warning>
+Over-aggressive deduplication can hide important information. Balance noise reduction with visibility into distinct issues.
+</Warning>
+
+## Additional Resources
+
+<Card title="Alert FAQs" icon="circle-question" href="/help-centre/alerts/faqs/index">
+  Find answers to frequently asked questions about alert management
+</Card>
+
+<Note>
+Effective alert management is crucial for reliable incident response. Invest time in proper configuration to reduce toil and improve response times.
+</Note>

@@ -1,0 +1,214 @@
+---
+title: "Catalog"
+description: "Organize services, teams, and resources in your catalog"
+mode: "wide"
+---
+
+<Info>
+The Catalog is your central source of truth for services, teams, and other organizational resources. Maintain clear ownership and enable better incident management through structured information.
+</Info>
+
+## Getting Started
+
+<CardGroup cols={2}>
+  <Card title="Catalog best practices" icon="lightbulb" href="/help-centre/catalog/catalog-best-practices/index">
+    Learn how to structure and maintain an effective catalog
+  </Card>
+  <Card title="Catalog integrations" icon="plug" href="/help-centre/catalog/catalog-integrations/index">
+    Connect external tools to automatically sync catalog data
+  </Card>
+</CardGroup>
+
+## What is the Catalog?
+
+<AccordionGroup>
+  <Accordion title="Services" icon="server">
+    Services represent the applications, APIs, and infrastructure components your team operates:
+    
+    - **Clear ownership**: Assign teams responsible for each service
+    - **Dependencies**: Map relationships between services
+    - **Metadata**: Store repositories, documentation links, and runbooks
+    - **On-call routing**: Connect services to on-call schedules
+    
+    Well-defined services enable faster incident response by clarifying who should be involved.
+  </Accordion>
+  
+  <Accordion title="Teams" icon="users">
+    Teams represent the groups of people who build and operate your services:
+    
+    - **Team structure**: Reflect your organizational hierarchy
+    - **Service ownership**: Track which services each team owns
+    - **On-call schedules**: Link teams to their on-call rotations
+    - **Contact information**: Store Slack channels and email lists
+    
+    [Get started with teams →](/help-centre/catalog/getting-started-with-teams)
+  </Accordion>
+  
+  <Accordion title="Custom Catalog Types" icon="shapes">
+    Extend the catalog with custom types that match your needs:
+    
+    - **Infrastructure**: Data centers, regions, cloud providers
+    - **Customers**: Track customer-specific information
+    - **Environments**: Production, staging, development
+    - **Anything else**: Define types that fit your workflow
+    
+    Custom types let you model your organization's unique structure.
+  </Accordion>
+</AccordionGroup>
+
+## Key Features
+
+<CardGroup cols={3}>
+  <Card title="Service Dependencies" icon="diagram-project">
+    Map how services depend on each other to understand incident blast radius
+  </Card>
+  <Card title="Ownership Tracking" icon="user-shield">
+    Always know which team owns which service for faster escalation
+  </Card>
+  <Card title="External Sync" icon="arrows-rotate">
+    Keep catalog data up-to-date with integrations to PagerDuty, Opsgenie, and more
+  </Card>
+</CardGroup>
+
+## Building Your Catalog
+
+<Steps>
+  <Step title="Start with teams">
+    Define your team structure first. Teams are the foundation for service ownership and on-call rotations.
+    
+    [Getting started with teams →](/help-centre/catalog/getting-started-with-teams)
+  </Step>
+  
+  <Step title="Add core services">
+    Identify your most critical services and add them to the catalog. Start with customer-facing services.
+  </Step>
+  
+  <Step title="Assign ownership">
+    Link each service to the team responsible for it. This enables automatic routing during incidents.
+  </Step>
+  
+  <Step title="Add metadata">
+    Enrich services with links to repositories, documentation, dashboards, and runbooks.
+  </Step>
+  
+  <Step title="Map dependencies">
+    Document relationships between services to understand cascading failures.
+  </Step>
+  
+  <Step title="Set up integrations">
+    Connect external tools to automatically sync catalog data and keep it current.
+    
+    [Catalog integrations →](/help-centre/catalog/catalog-integrations/index)
+  </Step>
+</Steps>
+
+## Catalog Integrations
+
+<AccordionGroup>
+  <Accordion title="Service Catalog Sync" icon="cloud">
+    Automatically import services from external platforms:
+    
+    - **PagerDuty**: Sync services and escalation policies
+    - **Opsgenie**: Import teams and on-call schedules
+    - **Backstage**: Connect to your developer portal
+    - **Custom APIs**: Build your own integrations
+    
+    [Explore catalog integrations →](/help-centre/catalog/catalog-integrations/index)
+  </Accordion>
+  
+  <Accordion title="Version Control Sync" icon="code-branch">
+    Link services to their source code repositories:
+    
+    - Automatically attach repository links
+    - Show recent commits during incidents
+    - Identify code owners and contributors
+    - Link to CI/CD pipelines
+  </Accordion>
+  
+  <Accordion title="Documentation Links" icon="book">
+    Connect services to relevant documentation:
+    
+    - Runbooks for common issues
+    - Architecture diagrams
+    - API documentation
+    - Deployment procedures
+  </Accordion>
+</AccordionGroup>
+
+## Keeping Data Fresh
+
+<Note>
+Catalog data becomes stale quickly in fast-moving organizations. Regular maintenance is essential.
+
+[Learn how to re-sync catalog data →](/help-centre/catalog/how-to-re-sync-catalog-data)
+</Note>
+
+<CardGroup cols={2}>
+  <Card title="Automated Sync" icon="robot">
+    Use integrations to automatically update catalog data from authoritative sources
+  </Card>
+  <Card title="Regular Reviews" icon="calendar-check">
+    Schedule quarterly reviews to verify ownership and update metadata
+  </Card>
+  <Card title="Incident Feedback" icon="comments">
+    Update catalog entries when incidents reveal missing or incorrect information
+  </Card>
+  <Card title="Team Responsibility" icon="handshake">
+    Make teams responsible for maintaining their own service entries
+  </Card>
+</CardGroup>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Start Small, Grow Organically" icon="seedling">
+    Don't try to catalog everything at once:
+    
+    1. Begin with critical customer-facing services
+    2. Add supporting services as you encounter them in incidents
+    3. Gradually expand to infrastructure and internal tools
+    4. Let usage patterns guide what to add next
+  </Accordion>
+  
+  <Accordion title="Maintain Clear Ownership" icon="shield-check">
+    Every catalog entry should have an owner:
+    
+    - Assign a team (not an individual) as the owner
+    - Include backup contacts for redundancy
+    - Link to on-call schedules for 24/7 services
+    - Update ownership during org changes
+  </Accordion>
+  
+  <Accordion title="Rich Metadata" icon="tags">
+    The more context you add, the more useful the catalog becomes:
+    
+    - Add all relevant links (repos, docs, dashboards)
+    - Include description that explains what the service does
+    - Tag services with environments, regions, or criticality
+    - Note any special deployment or access requirements
+  </Accordion>
+  
+  <Accordion title="Leverage Integrations" icon="link">
+    Reduce manual work with automated data sync:
+    
+    - Import services from PagerDuty or Opsgenie
+    - Sync team rosters from HR systems
+    - Pull repository metadata from GitHub/GitLab
+    - Update on-call schedules automatically
+  </Accordion>
+</AccordionGroup>
+
+<Warning>
+Stale catalog data is worse than no data—it leads to incorrect escalations and wasted time during incidents. Keep your catalog current.
+</Warning>
+
+## Additional Resources
+
+<CardGroup cols={2}>
+  <Card title="Re-sync Catalog Data" icon="arrows-rotate" href="/help-centre/catalog/how-to-re-sync-catalog-data">
+    Learn how to refresh data from external sources
+  </Card>
+  <Card title="Catalog FAQs" icon="circle-question" href="/help-centre/catalog/catalog-faqs/index">
+    Common questions about catalog management
+  </Card>
+</CardGroup>

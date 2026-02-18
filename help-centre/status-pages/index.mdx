@@ -1,0 +1,183 @@
+---
+title: "Status Pages"
+description: "Keeping your customers informed with an incident.io powered status page"
+mode: "wide"
+---
+
+<Info>
+Maintain trust and transparency during incidents with professional status pages. Keep customers and internal stakeholders informed with real-time updates.
+</Info>
+
+## Status Page Types
+
+<CardGroup cols={2}>
+  <Card title="Public status pages" icon="globe" href="/help-centre/status-pages/public-status-pages/index">
+    Share service status and incident updates with your customers
+  </Card>
+  <Card title="Internal status pages" icon="building" href="/help-centre/status-pages/internal-status-pages/index">
+    Keep internal teams informed about infrastructure and service health
+  </Card>
+</CardGroup>
+
+## Key Features
+
+<AccordionGroup>
+  <Accordion title="Real-time Updates" icon="bolt">
+    Keep stakeholders informed as incidents progress:
+    
+    - **Automatic synchronization**: Updates from incidents appear on status pages instantly
+    - **Multiple update types**: Investigating, Identified, Monitoring, Resolved
+    - **Timeline view**: Show the complete incident history
+    - **Estimated resolution**: Set and display expected resolution times
+    
+    Transparency during incidents builds trust with your users.
+  </Accordion>
+  
+  <Accordion title="Service Components" icon="cubes">
+    Display the health of individual services:
+    
+    - **Component hierarchy**: Group related services logically
+    - **Status indicators**: Operational, Degraded, Partial Outage, Major Outage
+    - **Component-level updates**: Show which specific services are affected
+    - **Catalog integration**: Sync components with your service catalog
+    
+    Granular visibility helps users understand which features are impacted.
+  </Accordion>
+  
+  <Accordion title="Subscription Management" icon="envelope">
+    Let users choose how they receive updates:
+    
+    - **Email subscriptions**: Notify subscribers of new incidents and updates
+    - **SMS notifications**: Critical updates via text message
+    - **Webhook integration**: Push updates to external systems
+    - **RSS feeds**: Programmatic access to status updates
+    
+    Multiple channels ensure important updates reach everyone.
+  </Accordion>
+  
+  <Accordion title="Custom Branding" icon="paintbrush">
+    Make the status page match your brand:
+    
+    - **Custom domain**: Host your status page at status.yourcompany.com
+    - **Logo and colors**: Match your brand identity
+    - **Custom messaging**: Add company-specific context and links
+    - **Styling options**: Control layout and appearance
+    
+    A branded status page feels like a natural part of your product ecosystem.
+  </Accordion>
+  
+  <Accordion title="Historical Uptime" icon="chart-line">
+    Demonstrate reliability with uptime statistics:
+    
+    - **30/60/90 day uptime**: Show historical reliability
+    - **Incident history**: Past incidents remain visible
+    - **Maintenance windows**: Schedule and display planned maintenance
+    - **SLA tracking**: Demonstrate commitment to service levels
+    
+    Historical data provides context and builds confidence.
+  </Accordion>
+</AccordionGroup>
+
+## Getting Started
+
+<Steps>
+  <Step title="Choose your status page type">
+    Decide whether you need a public status page (for customers), internal status page (for employees), or both.
+    
+    [Introduction to status pages →](/help-centre/status-pages/introduction-to-status-pages)
+  </Step>
+  
+  <Step title="Configure components">
+    Define which services or systems should be displayed on your status page. Map them to catalog entries if applicable.
+  </Step>
+  
+  <Step title="Set up branding">
+    Customize the appearance with your logo, colors, and custom domain to match your brand identity.
+  </Step>
+  
+  <Step title="Configure subscriptions">
+    Enable email, SMS, or webhook subscriptions so users can receive updates automatically.
+  </Step>
+  
+  <Step title="Link to incidents">
+    Configure which incident types should create status page updates automatically.
+  </Step>
+  
+  <Step title="Test and launch">
+    Create a test incident to ensure updates appear correctly, then share your status page URL with users.
+  </Step>
+</Steps>
+
+## Status Page Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Timely Updates" icon="clock">
+    Post updates regularly during incidents, even if there's no new information. Silence creates anxiety.
+  </Card>
+  
+  <Card title="Clear Language" icon="message">
+    Use plain language that non-technical users can understand. Avoid jargon and internal terminology.
+  </Card>
+  
+  <Card title="Accurate Severity" icon="triangle-exclamation">
+    Match the displayed severity to actual customer impact. Overstating or understating damages credibility.
+  </Card>
+  
+  <Card title="Proactive Communication" icon="megaphone">
+    Post to the status page as soon as you're aware of an issue, even if you're still investigating.
+  </Card>
+</CardGroup>
+
+## Customer Status Pages
+
+<Note>
+Customer status pages are specialized status pages designed for B2B SaaS companies with multi-tenant architectures.
+
+[Get started with customer status pages →](/help-centre/status-pages/customer-status-pages/getting-started-with-customer-status-pages)
+</Note>
+
+## Communication During Incidents
+
+<Steps>
+  <Step title="Initial notification">
+    Post an "Investigating" update as soon as you're aware of the issue. Include:
+    - What's affected
+    - When it started
+    - What you're doing
+  </Step>
+  
+  <Step title="Regular updates">
+    Update every 15-30 minutes during active incidents, even if it's just to confirm you're still working on it.
+  </Step>
+  
+  <Step title="Identified cause">
+    When you understand the root cause, share it (at an appropriate level of detail for your audience).
+  </Step>
+  
+  <Step title="Monitoring">
+    After implementing a fix, post a "Monitoring" update to confirm you're watching for any issues.
+  </Step>
+  
+  <Step title="Resolution">
+    Clearly mark the incident as "Resolved" and summarize what happened and what was done.
+  </Step>
+  
+  <Step title="Post-mortem (optional)">
+    For significant incidents, consider posting a link to a detailed post-mortem once it's complete.
+  </Step>
+</Steps>
+
+<Warning>
+Never post information to public status pages that could expose security vulnerabilities or sensitive internal details.
+</Warning>
+
+## Additional Resources
+
+<CardGroup cols={2}>
+  <Card title="Introduction to Status Pages" icon="book" href="/help-centre/status-pages/introduction-to-status-pages">
+    Learn the fundamentals of status page management
+  </Card>
+  <Card title="Status Page FAQs" icon="circle-question" href="/help-centre/status-pages/faqs/index">
+    Common questions about configuring and using status pages
+  </Card>
+</CardGroup>

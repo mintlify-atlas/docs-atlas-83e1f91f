@@ -1,0 +1,108 @@
+---
+title: Overview
+description: Overview of on-call management features
+icon: "/icons/clipboard.svg"
+---
+
+incident.io's on-call platform helps you manage alerts, route them to the right teams, and ensure critical issues get the attention they need. By combining alert sources, routing, schedules, and escalation paths, you can build a reliable on-call system that scales with your organization.
+
+## Key capabilities
+
+<CardGroup cols={2}>
+  <Card title="Alert sources" icon="bell" href="/product-documentation/on-call/alert-sources">
+    Connect monitoring tools and ingest alerts from any platform
+  </Card>
+  <Card title="Alert routing" icon="route" href="/product-documentation/on-call/alert-routing">
+    Route alerts to the right teams and create incidents automatically
+  </Card>
+  <Card title="Schedules" icon="calendar" href="/product-documentation/on-call/schedules-overview">
+    Define who is on-call and when for automatic alert routing
+  </Card>
+  <Card title="Escalation paths" icon="arrow-up" href="/product-documentation/on-call/escalation-paths">
+    Configure how alerts escalate through your teams
+  </Card>
+</CardGroup>
+
+## How on-call works
+
+On-call management in incident.io follows a clear flow from alert ingestion to resolution:
+
+<Steps>
+  <Step title="Ingest alerts">
+    Connect your monitoring tools via [alert sources](/product-documentation/on-call/alert-sources) to bring alerts into incident.io
+  </Step>
+  <Step title="Extract context">
+    Use [alert attributes](/product-documentation/on-call/alert-attributes) to extract structured data like team, service, and priority
+  </Step>
+  <Step title="Route intelligently">
+    Configure [alert routes](/product-documentation/on-call/alert-routing) to filter, escalate, create incidents, and notify channels
+  </Step>
+  <Step title="Escalate to responders">
+    Alerts follow [escalation paths](/product-documentation/on-call/escalation-paths) to reach on-call responders via push notifications, SMS, or voice
+  </Step>
+  <Step title="Respond and resolve">
+    Responders acknowledge alerts, investigate issues, and mark alerts as resolved
+  </Step>
+</Steps>
+
+## Getting started
+
+New to on-call in incident.io? Start with these steps:
+
+1. **Set up your first alert source** - Connect a monitoring tool to start receiving alerts
+2. **Define alert attributes** - Extract key context like team and service from your alerts
+3. **Create schedules** - Define who is on-call and when
+4. **Configure escalation paths** - Set up how alerts should reach your teams
+5. **Build alert routes** - Create rules to route alerts and create incidents
+
+<Tip>
+Start simple with one team and one alert source. You can add complexity as you learn the system.
+</Tip>
+
+## Additional features
+
+<AccordionGroup>
+  <Accordion title="Live call routing">
+    Route incoming phone calls to on-call teams automatically. Learn more about [live call routing](/product-documentation/on-call/live-call-routing).
+  </Accordion>
+  <Accordion title="Mobile app notifications">
+    Receive push notifications on your mobile device when you're paged. Configure [mobile app push notifications](/product-documentation/on-call/mobile-app-push-notifications).
+  </Accordion>
+  <Accordion title="SMS and voice alerts">
+    Get notified via SMS and voice calls for critical alerts. Set up [SMS and voice notifications](/product-documentation/on-call/sms-and-voice).
+  </Accordion>
+  <Accordion title="Compensation tracking">
+    Track on-call hours and calculate compensation for your team. Use the [compensation calculator](/product-documentation/on-call/compensation-calculator).
+  </Accordion>
+</AccordionGroup>
+
+## Common workflows
+
+### Follow-the-sun coverage
+
+Support teams across multiple timezones by configuring schedules with different working hours for each region. Use multiple rotations within a single schedule to ensure 24/7 coverage.
+
+### Dynamic routing by service
+
+Use catalog-powered alert attributes to automatically route alerts to the team that owns the affected service. When ownership changes in your catalog, routing updates automatically.
+
+### Graduated escalations
+
+Create escalation paths with multiple levels that wait before escalating further. This ensures urgent issues reach senior engineers while allowing time for initial responders to acknowledge.
+
+## Best practices
+
+<CardGroup cols={2}>
+  <Card title="Start with required attributes" icon="star">
+    Mark critical attributes like Team as required to catch configuration issues early
+  </Card>
+  <Card title="Use catalog entries" icon="book">
+    Link alert attributes to your catalog for dynamic routing and better insights
+  </Card>
+  <Card title="Group related alerts" icon="layer-group">
+    Reduce noise by grouping alerts with shared attributes into single incidents
+  </Card>
+  <Card title="Test your setup" icon="flask">
+    Send test alerts and verify routing before rolling out to production
+  </Card>
+</CardGroup>

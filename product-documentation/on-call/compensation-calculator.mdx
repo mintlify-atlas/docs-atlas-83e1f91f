@@ -1,0 +1,248 @@
+---
+title: Compensation calculator and reporting
+description: How to calculate and report on-call compensation
+icon: "/icons/money.svg"
+---
+
+The compensation calculator helps organizations track on-call hours and calculate fair compensation for responders. Generate reports showing who was on-call, for how long, and during which hours to support compensation decisions.
+
+## How compensation tracking works
+
+incident.io automatically tracks on-call time based on your configured schedules:
+
+<Steps>
+  <Step title="Schedules define coverage">
+    Your [schedules](/product-documentation/on-call/schedules-overview) determine who is on-call at any moment
+  </Step>
+  <Step title="Hours are logged">
+    The system logs on-call hours for each responder, including overrides
+  </Step>
+  <Step title="Reports aggregate data">
+    Generate reports for any time period to see total hours per person
+  </Step>
+  <Step title="Export for payroll">
+    Export data to integrate with your payroll or HR systems
+  </Step>
+</Steps>
+
+<Info>
+Compensation tracking reflects actual coverage, including [overrides and cover requests](/product-documentation/on-call/overrides-and-cover-requests).
+</Info>
+
+## Generate compensation reports
+
+<Steps>
+  <Step title="Navigate to reporting">
+    Using the sidebar, navigate to **On-call → Compensation**
+  </Step>
+  <Step title="Select time period">
+    Choose the date range for the report (e.g., previous month, quarter, or custom range)
+  </Step>
+  <Step title="Filter by team or schedule">
+    Optionally filter to specific teams or schedules
+  </Step>
+  <Step title="Review summary">
+    See total hours by person, broken down by schedule and time periods
+  </Step>
+  <Step title="Export data">
+    Export as CSV or integrate with HR systems
+  </Step>
+</Steps>
+
+## What's included in reports
+
+Compensation reports include detailed breakdowns:
+
+### Per-person summary
+
+| Column | Description |
+|--------|-------------|
+| **Responder** | Person's name and email |
+| **Total hours** | Total on-call hours during the period |
+| **Weekday hours** | Hours during weekdays (typically less expensive) |
+| **Weekend hours** | Hours during weekends (typically more expensive) |
+| **Holiday hours** | Hours during company holidays |
+| **Schedules** | Which schedules they were on-call for |
+
+### Time-based breakdowns
+
+Reports can break down compensation by:
+
+<CardGroup cols={2}>
+  <Card title="Business vs after-hours" icon="clock">
+    Separate rates for business hours vs evenings/nights
+  </Card>
+  <Card title="Weekday vs weekend" icon="calendar-week">
+    Different compensation for weekend coverage
+  </Card>
+  <Card title="Holiday coverage" icon="gift">
+    Premium rates for on-call during holidays
+  </Card>
+  <Card title="Active incident time" icon="fire">
+    Track time actively working on incidents separately
+  </Card>
+</CardGroup>
+
+## Configure compensation rules
+
+Define how your organization calculates on-call compensation:
+
+### Define time periods
+
+Create time period definitions that match your compensation policy:
+
+<Tabs>
+  <Tab title="Business hours">
+    Monday-Friday, 9:00 AM - 5:00 PM in company timezone
+  </Tab>
+  <Tab title="After hours">
+    Weekday evenings (5:00 PM - 9:00 AM) at a higher rate
+  </Tab>
+  <Tab title="Weekend">
+    Saturday and Sunday, all day, at premium rate
+  </Tab>
+  <Tab title="Holidays">
+    Company holiday calendar at highest premium rate
+  </Tab>
+</Tabs>
+
+### Set compensation rates
+
+Assign rates to each time period (examples):
+
+| Period | Example rate | Description |
+|--------|--------------|-------------|
+| Business hours | $25/hour | Standard on-call during work hours |
+| After hours weekday | $40/hour | Evenings and nights |
+| Weekend | $60/hour | Saturday and Sunday coverage |
+| Holiday | $80/hour | Company holidays |
+
+<Warning>
+Actual compensation rates vary by organization, role, and location. These are examples only.
+</Warning>
+
+## Overrides and compensation
+
+[Overrides](/product-documentation/on-call/overrides-and-cover-requests) affect compensation tracking:
+
+- The person who actually covers the shift (via override) receives credit for those hours
+- The originally scheduled person does not receive credit for time they were replaced
+- This ensures compensation accurately reflects who was actually on-call
+
+<Tip>
+Review override patterns in compensation reports to identify potential schedule adjustments needed for work-life balance.
+</Tip>
+
+## Active incident time
+
+Some organizations compensate separately for time actively responding to incidents vs being on-call:
+
+- **On-call hours**: Time scheduled to respond if needed
+- **Active incident hours**: Time actively working on incidents
+
+Compensation reports can track both:
+
+- Total on-call hours from schedules
+- Active incident participation time from incident timelines
+- Alert acknowledgment and resolution activity
+
+## Export and integration
+
+### Export options
+
+<CardGroup cols={2}>
+  <Card title="CSV export" icon="file-csv">
+    Download reports as CSV for spreadsheet analysis or payroll processing
+  </Card>
+  <Card title="API access" icon="code">
+    Pull compensation data programmatically via the incident.io API
+  </Card>
+  <Card title="HR system integration" icon="building">
+    Integrate with Workday, BambooHR, or other HR systems
+  </Card>
+  <Card title="Scheduled reports" icon="calendar-clock">
+    Automatically email reports monthly for payroll processing
+  </Card>
+</CardGroup>
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Define clear policies" icon="file-contract">
+    Document your on-call compensation policy clearly, including rates for different time periods and what's included.
+  </Accordion>
+  <Accordion title="Review regularly" icon="calendar-check">
+    Generate compensation reports monthly to stay current with payroll cycles.
+  </Accordion>
+  <Accordion title="Track override reasons" icon="note">
+    Use override notes to understand why people need coverage frequently—may indicate schedule problems.
+  </Accordion>
+  <Accordion title="Separate on-call from incident work" icon="split">
+    Consider different compensation rates for being on-call vs actively responding to incidents.
+  </Accordion>
+  <Accordion title="Account for timezones" icon="globe">
+    Ensure time period definitions (business hours, weekends) account for responder timezones.
+  </Accordion>
+</AccordionGroup>
+
+## Common compensation models
+
+### Model 1: Flat weekly stipend
+
+Pay a flat amount for each week of on-call duty:
+
+- Simple to administer
+- Same rate regardless of actual incidents
+- Good for teams with predictable on-call load
+
+### Model 2: Hourly with time-of-day premiums
+
+Pay hourly rates that vary by time of day and day of week:
+
+- More granular and fair
+- Reflects that weekend/night coverage is more disruptive
+- Requires more detailed tracking (incident.io handles this)
+
+### Model 3: Base stipend + incident hours
+
+Pay a base amount for being on-call plus hourly for active incident work:
+
+- Balances simplicity with fairness
+- Compensates actual disruption from incidents
+- Popular with engineering teams
+
+### Model 4: Time off in lieu
+
+Provide additional PTO instead of monetary compensation:
+
+- Some organizations prefer this approach
+- Track on-call hours to award proportional time off
+- Good for teams with generous PTO policies
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="How do I set up compensation tracking?">
+    Compensation tracking is automatic based on your schedules. To configure rates and time periods, navigate to **On-call → Compensation → Settings** and define your compensation rules.
+  </Accordion>
+
+  <Accordion title="Can I backfill compensation data?">
+    Yes. Compensation reports can be generated for any historical time period where you had schedules configured.
+  </Accordion>
+
+  <Accordion title="How do multiple schedules affect compensation?">
+    If someone is on-call for multiple schedules simultaneously, they accumulate hours for all schedules. Reports show totals and per-schedule breakdowns.
+  </Accordion>
+
+  <Accordion title="What if someone is on-call but no alerts come in?">
+    They still receive compensation for on-call hours. Being available is what's compensated, regardless of whether they actually respond to alerts. Some organizations add additional compensation for active incident response.
+  </Accordion>
+
+  <Accordion title="How do I handle partial hours?">
+    Compensation reports track time down to the minute and round according to your configuration (e.g., round up to nearest 15 minutes, or track exact time).
+  </Accordion>
+
+  <Accordion title="Can I see who earned the most/least on-call time?">
+    Yes. Reports sort by total hours to help ensure equitable distribution of on-call load across your team.
+  </Accordion>
+</AccordionGroup>

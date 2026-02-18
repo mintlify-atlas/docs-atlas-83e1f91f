@@ -1,0 +1,101 @@
+---
+title: 'Audit logs'
+description: 'Track changes and system actions in your incident.io account'
+icon: "shield"
+---
+
+Audit logs give you visibility into changes made within your incident.io account. They track configuration changes, permission updates, and system actions, providing a complete record of who changed what and when.
+
+<Info>
+Available on the [Enterprise plan](https://incident.io/pricing), logs are powered by [WorkOS](https://workos.com/) and retained for one year.
+</Info>
+
+Use audit logs to meet compliance requirements, investigate unexpected changes, or understand how your incident.io setup evolved over time.
+
+Access audit logs at **Settings → Security**. View entries in the dashboard, export to CSV, or stream to your SIEM provider.
+
+<Note>
+Audit log entries are available from April 18, 2023 onwards. You must be an Owner or Admin to access audit logs.
+</Note>
+
+## What's tracked
+
+Audit logs track configuration changes across incident.io, including:
+
+<CardGroup cols={2}>
+  <Card title="Alerting" icon="bell">
+    Alert sources, routes, and escalation paths
+  </Card>
+  <Card title="On-call" icon="calendar">
+    Schedule and on-call configuration changes
+  </Card>
+  <Card title="Permissions" icon="lock">
+    User role assignments and permission updates
+  </Card>
+  <Card title="Incidents" icon="triangle-exclamation">
+    Access grants to private incidents
+  </Card>
+  <Card title="Automation" icon="robot">
+    Workflow and automation changes
+  </Card>
+  <Card title="Integrations" icon="plug">
+    Integration configurations
+  </Card>
+</CardGroup>
+
+### Entry details
+
+Each entry captures:
+- **Actor** - Person or system making the change
+- **Target** - What was modified
+- **Context** - Location and user agent details
+
+<Info>
+Entries conform to a versioned schema documented in the [API reference](https://api-docs.incident.io/tag/Audit-logs), ensuring consistent parsing as the format evolves.
+</Info>
+
+## Viewing audit logs
+
+View audit logs in the [security settings](https://app.incident.io/settings/security) dashboard. 
+
+<Steps>
+  <Step title="Navigate to Security">
+    Go to **Settings → Security** in your incident.io dashboard
+  </Step>
+  <Step title="Filter entries">
+    Filter by target, event type, actor, and date
+  </Step>
+  <Step title="Review details">
+    Click on any entry to see full details
+  </Step>
+  <Step title="Export if needed">
+    Export to CSV for a specific time period
+  </Step>
+</Steps>
+
+## Streaming to SIEM providers
+
+Stream audit logs directly to your security information and event management (SIEM) platform. incident.io supports streaming to:
+
+<CardGroup cols={2}>
+  <Card title="Datadog" icon="dog">
+    Stream logs to Datadog
+  </Card>
+  <Card title="Splunk" icon="chart-column">
+    Stream logs to Splunk
+  </Card>
+  <Card title="Amazon S3" icon="aws">
+    Stream logs to S3 buckets
+  </Card>
+  <Card title="Other providers" icon="ellipsis">
+    Other WorkOS-compatible providers
+  </Card>
+</CardGroup>
+
+## API access
+
+Access audit log entries programmatically via the incident.io API. 
+
+<Card title="View API documentation" icon="code" href="https://api-docs.incident.io/tag/Audit-logs">
+  See available endpoints and schema details
+</Card>

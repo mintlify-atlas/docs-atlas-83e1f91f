@@ -1,0 +1,178 @@
+---
+title: Quick-start
+description: Get incident.io running in minutes with this streamlined setup guide
+icon: "/icons/rocket.svg"
+---
+
+# Quick-start
+
+Get your incident response platform operational in under 15 minutes. This quick-start focuses on the minimum configuration needed to handle your first incident.
+
+## Prerequisites
+
+Before starting, ensure you have:
+- Admin access to your incident.io workspace
+- Admin permissions for Slack or Microsoft Teams
+- A list of team members for your first on-call rotation
+
+## Minimal setup
+
+<Steps>
+  <Step title="Connect Slack or Teams (2 minutes)">
+    1. Go to **Settings > Integrations**
+    2. Click **Connect** for Slack or Microsoft Teams
+    3. Authorize the incident.io app in your workspace
+    4. Select a default channel for incident notifications
+    
+    <Check>
+      You should see a confirmation message in your chat platform once connected.
+    </Check>
+  </Step>
+
+  <Step title="Add team members (3 minutes)">
+    1. Navigate to **Settings > Users**
+    2. Invite team members by email or sync from your identity provider
+    3. Verify each user's notification preferences (mobile app, SMS, phone)
+    
+    <Info>
+      Users will receive an invitation to download the incident.io mobile app for on-call notifications.
+    </Info>
+  </Step>
+
+  <Step title="Create a simple schedule (5 minutes)">
+    1. Go to **On-call > Schedules > Create schedule**
+    2. Name your schedule (e.g., "Engineering On-call")
+    3. Add team members to the rotation
+    4. Choose rotation type: **Weekly** is a good starting point
+    5. Set the rotation start time and handover day (e.g., Monday 9:00 AM)
+    6. Save the schedule
+    
+    <Tip>
+      You can edit rotation assignments anytime. Start simple and refine later.
+    </Tip>
+  </Step>
+
+  <Step title="Set up a basic escalation path (3 minutes)">
+    1. Go to **On-call > Escalation paths > Create path**
+    2. Name your path (e.g., "Engineering Escalation")
+    3. Add your schedule as the first target
+    4. Set notification methods: **Push** and **SMS** recommended
+    5. Add a 5-minute timeout before repeat notifications
+    6. Save the path
+  </Step>
+
+  <Step title="Create your first incident (2 minutes)">
+    Test your setup with a practice incident:
+    
+    1. In Slack/Teams, use the `/incident` command
+    2. Fill in the incident details:
+       - **Name**: "Test incident - please ignore"
+       - **Severity**: Select a low severity
+       - **Summary**: "Testing incident.io setup"
+    3. Click **Create incident**
+    
+    <Check>
+      A dedicated incident channel will be created, and you'll see the incident timeline start tracking events.
+    </Check>
+  </Step>
+</Steps>
+
+## What just happened?
+
+You now have:
+- ✅ Chat integration for incident channels and notifications
+- ✅ On-call schedule tracking who's available to respond
+- ✅ Escalation path for reaching the right people
+- ✅ Your first incident workspace for coordinated response
+
+## Quick wins
+
+Now that you're set up, add these features to improve your incident response:
+
+<AccordionGroup>
+  <Accordion title="Connect a monitoring tool" icon="chart-line">
+    Link Datadog, Grafana, or your monitoring platform to automatically create incidents from alerts:
+    
+    1. Go to **Settings > Integrations**
+    2. Find your monitoring tool and click **Connect**
+    3. Follow the authorization flow
+    4. Create an alert route in **Alerts > Alert routes** to define what happens when alerts fire
+  </Accordion>
+
+  <Accordion title="Set up status page" icon="signal">
+    Keep customers informed during incidents:
+    
+    1. Go to **Status pages > Create page**
+    2. Configure your public URL and branding
+    3. Add services to display on the page
+    4. Enable automatic updates from incident status changes
+  </Accordion>
+
+  <Accordion title="Create an automated workflow" icon="bolt">
+    Reduce manual work during incidents:
+    
+    1. Go to **Workflows > Create workflow**
+    2. Choose a trigger (e.g., "Incident created")
+    3. Add conditions (e.g., "Severity is critical")
+    4. Define actions (e.g., "Post to #executive-alerts channel")
+    
+    Common workflows:
+    - Auto-post status page reminders for high-severity incidents
+    - Notify executives when critical incidents are created
+    - Create follow-up tasks when incidents are closed
+  </Accordion>
+
+  <Accordion title="Define your Catalog" icon="sitemap">
+    Add organizational context for smarter routing:
+    
+    1. Go to **Catalog > Types**
+    2. Create a **Services** type with attributes:
+       - Name
+       - Owner team
+       - On-call schedule
+    3. Add your first few services
+    4. Use service information in alert routes and incident forms
+    
+    The Catalog enables rules like "when an alert for the payments service fires, page the payments team's on-call engineer."
+  </Accordion>
+</AccordionGroup>
+
+## Practice makes perfect
+
+<Warning>
+  Run practice incidents regularly to keep your team sharp and find gaps in your configuration before real incidents happen.
+</Warning>
+
+Schedule monthly practice runs:
+1. Create a test incident during business hours
+2. Walk through your incident response process
+3. Test escalations and verify people get notifications
+4. Review what worked and what needs adjustment
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Understand core concepts" icon="book" href="/product-documentation/getting-started/concepts">
+    Learn how incident.io components work together
+  </Card>
+  
+  <Card title="Full incident response guide" icon="life-ring" href="/incident-response/overview">
+    Master the complete incident lifecycle
+  </Card>
+  
+  <Card title="Configure policies" icon="clipboard-check" href="/policies/overview">
+    Enforce response standards and compliance requirements
+  </Card>
+  
+  <Card title="Mobile app setup" icon="mobile" href="/on-call/mobile-app">
+    Ensure your team can respond from anywhere
+  </Card>
+</CardGroup>
+
+## Need help?
+
+If you run into issues during setup:
+- Check the **Settings > Integrations** page for connection status
+- Review notification settings in **Settings > Users** for each team member
+- Test your escalation paths in **On-call > Escalation paths** using the test feature
+- Contact support through the help widget in the bottom-right corner
