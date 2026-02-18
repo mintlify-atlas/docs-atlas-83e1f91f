@@ -1,98 +1,150 @@
 ---
 title: "Account Admin"
 description: "Managing your incident.io account"
-icon: "gear"
+mode: "wide"
 ---
 
-<Note>
-Manage users, billing, permissions, and security settings for your incident.io organization.
-</Note>
+<Info>
+Manage your incident.io account settings, billing, permissions, and administrative functions from this central hub.
+</Info>
 
-## Overview
-
-As an account administrator, you have access to organization-wide settings that control how your team uses incident.io. From managing user permissions to configuring billing, this section covers everything you need to administer your account.
-
-## Core Administration Areas
+## Core administration
 
 <CardGroup cols={2}>
   <Card title="Permissions" icon="user-lock" href="/help-centre/account-admin/permissions/index">
-    Manage roles, access controls, and user permissions across your organization.
+    Configure roles and permissions to control access across your organization.
   </Card>
   <Card title="Billing & Pricing" icon="credit-card" href="/help-centre/account-admin/billing-pricing/index">
-    Handle subscription plans, billing information, and usage tracking.
+    Manage your subscription, billing details, and understand pricing.
   </Card>
 </CardGroup>
 
-## Key Features
+## Key account features
 
 <AccordionGroup>
-  <Accordion title="Audit Logs" icon="clipboard-list">
-    Track all administrative actions and changes in your organization with comprehensive audit logs. [Learn more](/help-centre/account-admin/audit-logs)
+  <Accordion title="Audit Logs" icon="clock-rotate-left">
+    Track all actions and changes within your incident.io account for compliance and security.
+    
+    **What you can audit:**
+    - User access and authentication
+    - Configuration changes
+    - Incident actions and updates
+    - Integration activities
+    - Permission modifications
+    
+    [Learn about audit logs →](/help-centre/account-admin/audit-logs)
   </Accordion>
+
   <Accordion title="Active Participants vs Observers" icon="users">
-    Understand the difference between active participants and observers for billing and collaboration purposes. [Learn more](/help-centre/account-admin/active-participants-vs-observers)
+    Understand the difference between active participants and observers for billing and access purposes.
+    
+    **Key differences:**
+    - **Active Participants**: Full access to create and manage incidents
+    - **Observers**: Read-only access to view incidents and reports
+    - Billing implications
+    - Permission levels
+    
+    [Learn about user types →](/help-centre/account-admin/active-participants-vs-observers)
   </Accordion>
-  <Accordion title="SAML Sign-in" icon="shield-check">
-    Configure single sign-on (SSO) with SAML for secure authentication. [Learn more](/help-centre/account-admin/security-data-privacy/sign-in-with-saml)
+
+  <Accordion title="Permissions Management" icon="user-lock">
+    Configure granular permissions to control what users can do within incident.io.
+    
+    **Permission areas:**
+    - Incident management
+    - Configuration and settings
+    - Integrations
+    - Reporting and insights
+    - Administrative functions
+    
+    [Explore permissions →](/help-centre/account-admin/permissions/index)
+  </Accordion>
+
+  <Accordion title="SAML Single Sign-On" icon="shield-halved">
+    Configure SAML-based single sign-on for enhanced security and centralized authentication.
+    
+    **Benefits:**
+    - Centralized authentication
+    - Enhanced security
+    - Simplified user management
+    - Compliance requirements
+    
+    [Set up SAML →](/help-centre/account-admin/security-data-privacy/sign-in-with-saml)
   </Accordion>
 </AccordionGroup>
 
-## Common Administrative Tasks
+## Billing and subscription management
 
 <Steps>
-  <Step title="Set up user permissions">
-    Configure roles and permissions to control who can perform different actions in incident.io.
+  <Step title="Review your plan">
+    Check your current subscription plan and included features in the billing section.
   </Step>
-  <Step title="Configure billing">
-    Set up your payment method and choose the right plan for your organization.
+  <Step title="Understand pricing">
+    Learn how incident.io pricing works, including active participants vs observers.
   </Step>
-  <Step title="Enable security features">
-    Implement SAML SSO and other security measures to protect your account.
+  <Step title="Change your plan">
+    Upgrade or adjust your subscription based on your organization's needs.
   </Step>
-  <Step title="Monitor usage">
-    Use audit logs to track activity and ensure compliance with your organization's policies.
+  <Step title="Manage billing">
+    Update payment methods, billing contacts, and download invoices.
   </Step>
 </Steps>
 
-## Billing and Subscription
-
-### Understanding Your Plan
-
-<Info>
-incident.io offers different plans based on your organization's size and needs. Active participants and observers are billed differently.
-</Info>
-
-<CardGroup cols={2}>
-  <Card title="Change subscription plan" icon="arrows-rotate" href="/help-centre/account-admin/how-do-i-change-my-subscription-plan">
-    Learn how to upgrade or downgrade your subscription plan.
-  </Card>
-  <Card title="Active Participants vs Observers" icon="user-group" href="/help-centre/account-admin/active-participants-vs-observers">
-    Understand how different user types impact your billing.
-  </Card>
-</CardGroup>
-
-## User Management
-
-<Warning>
-Dealing with duplicate users? This can happen when users sign in through different authentication methods.
-</Warning>
-
-<Card title="Fix duplicate user error" icon="user-times" href="/help-centre/account-admin/duplicate-user-error">
-  Learn how to resolve duplicate user issues in your organization.
+<Card title="Changing Your Subscription" icon="arrows-rotate" href="/help-centre/account-admin/how-do-i-change-my-subscription-plan">
+  Learn how to upgrade, downgrade, or modify your incident.io subscription plan.
 </Card>
 
-## Security and Compliance
+## User management
+
+<Tabs>
+  <Tab title="User Types">
+    **Active Participants**
+    - Full incident management access
+    - Can declare and manage incidents
+    - Count toward billing
+    
+    **Observers**
+    - Read-only access
+    - View incidents and reports
+    - Lower cost or free (plan dependent)
+    
+    [Learn more →](/help-centre/account-admin/active-participants-vs-observers)
+  </Tab>
+  <Tab title="Duplicate Users">
+    If you encounter duplicate user errors, it usually means the same person has multiple accounts.
+    
+    **Resolution steps:**
+    - Identify duplicate accounts
+    - Merge or remove duplicates
+    - Update integrations
+    
+    [Fix duplicate users →](/help-centre/account-admin/duplicate-user-error)
+  </Tab>
+  <Tab title="Permissions">
+    Control what users can access and modify through role-based permissions.
+    
+    **Permission levels:**
+    - Owner
+    - Admin
+    - Responder
+    - Observer
+    
+    [Configure permissions →](/help-centre/account-admin/permissions/index)
+  </Tab>
+</Tabs>
+
+## Security and compliance
 
 <CardGroup cols={2}>
-  <Card title="Audit Logs" icon="file-contract" href="/help-centre/account-admin/audit-logs">
-    Track administrative actions and maintain compliance with audit logs.
+  <Card title="Audit Logs" icon="file-lines" href="/help-centre/account-admin/audit-logs">
+    Track and review all administrative actions and changes.
   </Card>
-  <Card title="Sign in with SAML" icon="right-to-bracket" href="/help-centre/account-admin/security-data-privacy/sign-in-with-saml">
-    Configure SAML-based single sign-on for enhanced security.
+  <Card title="SAML SSO" icon="right-to-bracket" href="/help-centre/account-admin/security-data-privacy/sign-in-with-saml">
+    Enable single sign-on with your identity provider.
   </Card>
 </CardGroup>
 
-## Quick Links
+## All account admin articles
 
 - [Audit Logs](/help-centre/account-admin/audit-logs)
 - [Active Participants vs Observers](/help-centre/account-admin/active-participants-vs-observers)
@@ -100,8 +152,10 @@ Dealing with duplicate users? This can happen when users sign in through differe
 - [How do I fix a duplicate user error?](/help-centre/account-admin/duplicate-user-error)
 - [Sign in with SAML](/help-centre/account-admin/security-data-privacy/sign-in-with-saml)
 
-## Need Help?
+<Note>
+Most account administration features are available in the Settings section of the incident.io dashboard. You'll need admin or owner permissions to access these features.
+</Note>
 
 <Tip>
-If you have questions about account administration or need help with a specific configuration, contact our support team for assistance.
+Regularly review your audit logs and user permissions to ensure your account remains secure and properly configured.
 </Tip>

@@ -1,153 +1,330 @@
 ---
 title: "On-call"
-description: "Connect all of your alerts, configure a schedule for every team, and have confidence that the right people will be notified every time"
+description: "Connect all your alerts, configure schedules for every team, and ensure the right people are notified every time"
 mode: "wide"
 ---
 
 <Info>
-Build a robust on-call system that ensures the right people are alerted at the right time. incident.io's on-call features help you manage schedules, escalations, and alert routing with confidence.
+incident.io's On-call system integrates alerts, schedules, and escalation paths to ensure the right people respond to issues 24/7. Powered by Catalog, it provides intelligent routing and team-based organization.
 </Info>
+
+## Overview
+
+On-call management in incident.io consists of three core components working together:
+
+1. **Alerts**: Configure alerts from your observability and monitoring tools
+2. **Schedules**: Define who is on-call and when
+3. **Escalation Paths**: Route alerts to the appropriate people and teams
+
+Once configured, incident.io automatically pages the right people so they can acknowledge alerts and resolve issues quickly.
 
 ## Quick Start
 
 <CardGroup cols={2}>
   <Card title="Get started with On-call" icon="rocket" href="/help-centre/on-call/get-started-with-on-call/index">
-    Set up your first on-call schedule and escalation path
+    Complete setup guide from teams to alerts to escalation
   </Card>
   <Card title="Being on call as a responder" icon="user-headset" href="/help-centre/on-call/being-on-call-as-a-responder/index">
-    Learn what to expect and how to manage your on-call shifts
+    Configure your notification preferences and respond to pages
   </Card>
-</CardGroup>
-
-## Core Components
-
-<CardGroup cols={3}>
   <Card title="Schedules" icon="calendar-days" href="/help-centre/on-call/schedules/index">
-    Create rotating schedules that work for your team's timezone and availability
+    Build and manage on-call schedules for your teams
   </Card>
   <Card title="Escalation Paths" icon="arrows-split-up-and-left" href="/help-centre/on-call/escalation-paths/index">
-    Define how alerts should escalate when the primary responder is unavailable
-  </Card>
-  <Card title="FAQs" icon="circle-question" href="/help-centre/on-call/faqs/index">
-    Common questions about on-call management
+    Define who gets notified and in what order
   </Card>
 </CardGroup>
 
-## Key Features
+## Core Concepts
 
-<AccordionGroup>
-  <Accordion title="Flexible Scheduling" icon="calendar-days">
-    Create schedules that match your team's needs:
-    
-    - **Multiple rotation patterns**: Daily, weekly, or custom rotations
-    - **Timezone support**: Schedules respect individual timezones
-    - **Override capabilities**: Temporary coverage for planned absences
-    - **Team coordination**: Multiple layers for primary, secondary, and manager escalations
-    
-    [Explore schedule configuration →](/help-centre/on-call/schedules/index)
-  </Accordion>
-  
-  <Accordion title="Smart Escalation Paths" icon="arrows-split-up-and-left">
-    Ensure alerts never go unanswered:
-    
-    - **Multi-step escalations**: Automatically escalate if not acknowledged
-    - **Parallel notifications**: Alert multiple people simultaneously
-    - **Conditional routing**: Different paths based on alert severity
-    - **Fallback options**: Final escalation to manager or team lead
-    
-    [Learn about escalation paths →](/help-centre/on-call/escalation-paths/index)
-  </Accordion>
-  
-  <Accordion title="Live Call Routing" icon="phone">
-    Route phone calls directly to your on-call engineers:
-    
-    - Get a dedicated phone number for your team
-    - Automatically route calls to the current on-call person
-    - Record call metadata and integrate with incidents
-    - Support for multiple teams and schedules
-    
-    [Set up live call routing →](/help-centre/on-call/live-call-routing)
-  </Accordion>
-  
-  <Accordion title="On-call Readiness Insights" icon="chart-line">
-    Monitor and improve your on-call preparedness:
-    
-    - **Coverage analytics**: Identify gaps in your schedules
-    - **Response metrics**: Track acknowledgment and resolution times
-    - **Team health**: Monitor on-call load and distribution
-    - **Readiness scores**: Ensure teams are prepared for incidents
-    
-    [View readiness insights →](/help-centre/on-call/migrating-to-incident-io/on-call-readiness-insights)
-  </Accordion>
-</AccordionGroup>
+### Catalog-Powered On-Call
 
-## Setting Up On-call
+On-call in incident.io is built on the Catalog, your source of truth for teams, services, and organizational structure:
+
+- **Teams** own services and have associated escalation paths
+- **Services** can be linked to the teams that maintain them
+- **Dynamic routing** uses Catalog relationships to page the right people
+- **Flexible structure** allows using Teams, Services, or custom types
+
+<Note>
+You can structure your On-call around Teams, Services, or any custom Catalog type. This flexibility lets you match your organization's specific structure.
+</Note>
+
+### The On-Call Flow
 
 <Steps>
-  <Step title="Define your teams">
-    Identify which teams need on-call coverage and map out their responsibilities. Consider service ownership and expertise areas.
+  <Step title="Alert Received">
+    An alert comes in from your monitoring tool (Datadog, Prometheus, CloudWatch, etc.)
   </Step>
-  
-  <Step title="Create schedules">
-    Set up rotating schedules for each team. Consider factors like:
-    - Rotation frequency (daily, weekly, etc.)
-    - Team size and availability
-    - Timezone distribution
-    - Fair distribution of on-call burden
+  <Step title="Alert Routed">
+    Alert routes determine which escalation path to use based on alert attributes
   </Step>
-  
-  <Step title="Configure escalation paths">
-    Define how alerts should escalate if not acknowledged:
-    - Primary on-call engineer
-    - Secondary/backup engineer
-    - Team lead or manager
-    - Executive escalation for critical issues
+  <Step title="Escalation Begins">
+    The escalation path determines who to notify first, how to notify them, and when to escalate
   </Step>
-  
-  <Step title="Connect alert sources">
-    Integrate your monitoring and alerting tools to automatically route alerts to on-call responders.
+  <Step title="Response & Resolution">
+    On-call responders acknowledge the alert and work to resolve the issue
   </Step>
-  
-  <Step title="Test and validate">
-    Run test alerts to ensure notifications are working correctly and escalations happen as expected.
-  </Step>
-  
-  <Step title="Monitor and optimize">
-    Use on-call readiness insights to identify issues and continuously improve your on-call system.
+  <Step title="Incident Creation (Optional)">
+    If configured, alerts can automatically create incidents for coordination
   </Step>
 </Steps>
 
-## Best Practices
+## Setting Up On-Call
+
+### 1. Configure Your Teams
+
+Start by setting up teams in the Catalog:
+
+<Accordion title="Import from existing systems">
+- **Identity providers**: Sync from Okta, Google Workspace, Microsoft Entra ID using SCIM
+- **Developer portals**: Import from Backstage, Cortex, Opslevel
+- **Communication tools**: Sync from Slack or Microsoft Teams
+- **Project management**: Import from Linear
+
+[Learn more about team setup →](/help-centre/catalog/getting-started-with-teams)
+</Accordion>
+
+<Accordion title="Manage manually">
+For smaller teams or getting started:
+- Create teams directly in incident.io
+- Add and remove members as needed
+- Link teams to schedules and escalation paths
+
+Go to [Settings → Teams](https://app.incident.io/~/settings/teams) to get started.
+</Accordion>
+
+<Accordion title="Use Terraform or catalog-importer">
+Manage teams as code:
+- Define teams in Terraform configurations
+- Use catalog-importer to sync from your existing data sources
+- Maintain relationships between teams, services, and infrastructure
+
+[Terraform provider documentation →](https://registry.terraform.io/providers/incident-io/incident/latest)
+</Accordion>
+
+### 2. Build Schedules
+
+Schedules define when individuals are on-call:
+
+**Key Features:**
+- **Flexible handovers**: Daily, weekly, or custom rotation periods
+- **Active hours**: 24/7 coverage or business hours only
+- **Multiple layers**: Primary, secondary, and follow-the-sun rotations
+- **Shadowing**: Onboard new responders safely
+- **Calendar sync**: Export to Google Calendar, Outlook, or other calendar apps
+- **Slack user groups**: Automatically sync on-call to Slack user groups
 
 <CardGroup cols={2}>
-  <Card title="Fair Rotation" icon="arrows-rotate">
-    Distribute on-call duties equitably across team members. Consider load balancing and avoid burnout.
+  <Card title="Build from scratch" icon="calendar-plus">
+    Create a new schedule with your team's rotation preferences
   </Card>
-  
-  <Card title="Clear Handoffs" icon="handshake">
-    Establish clear handoff procedures between shifts. Share context about ongoing issues and recent alerts.
-  </Card>
-  
-  <Card title="Documented Runbooks" icon="book">
-    Provide on-call engineers with comprehensive runbooks for common issues and escalation procedures.
-  </Card>
-  
-  <Card title="Response Time SLAs" icon="stopwatch">
-    Set clear expectations for acknowledgment and response times based on alert severity.
+  <Card title="Import existing schedules" icon="file-import">
+    Migrate schedules from PagerDuty, Opsgenie, or other tools
   </Card>
 </CardGroup>
+
+[Complete schedules documentation →](/help-centre/on-call/schedules/index)
+
+### 3. Configure Escalation Paths
+
+Escalation paths define the notification strategy:
+
+**Configuration Options:**
+- **Multi-level escalation**: Start with on-call person, escalate to manager, then team
+- **Notification timing**: How long to wait before moving to the next level
+- **Repeat options**: How many times to retry if unacknowledged
+- **Working hours**: Different escalation during business hours vs. nights/weekends
+- **Round-robin**: Distribute alerts across multiple responders
+- **Priority-based**: Different escalation paths for different alert priorities
+
+<Warning>
+**Best Practice**: Link escalation paths to teams in the Catalog. This enables dynamic routing where alerts are automatically sent to the right team based on the affected service.
+</Warning>
+
+### 4. Connect Alert Sources
+
+Bring in alerts from your monitoring and observability tools:
+
+**Supported Integrations:**
+- Datadog, PagerDuty, Prometheus, Grafana
+- CloudWatch, Azure Monitor, Google Cloud Monitoring
+- Sentry, New Relic, AppDynamics
+- Custom webhooks via HTTP endpoint
+
+**Configuration Steps:**
+1. Choose your alert source in [Alert Configuration](https://app.incident.io/~/alerts/configuration)
+2. Follow setup instructions to connect
+3. Send a test alert to verify connection
+4. Configure alert attributes and priorities
+5. Map alert fields to incident.io attributes
+
+[Alert configuration guide →](/help-centre/alerts/index)
+
+### 5. Set Up Alert Routes
+
+Alert routes determine what happens with incoming alerts:
+
+**Key Capabilities:**
+- **Filtering**: Only process relevant alerts
+- **Dynamic escalation**: Route to different teams based on alert attributes
+- **Grouping**: Combine similar alerts to reduce noise
+- **Incident creation**: Automatically create incidents from critical alerts
+- **Priority mapping**: Map alert severity to escalation priority
+
+<Accordion title="Dynamic Routing (Recommended)">
+Instead of creating a route for each team:
+- Tag alerts with Team or Service attributes
+- Use Catalog relationships to find the right escalation path
+- Route automatically based on which service is affected
+
+Example: Alert tagged with `service=payments` → Catalog links payments service to Payments Team → Escalate to Payments Team's escalation path
+</Accordion>
+
+<Accordion title="Static Routing">
+For simpler setups:
+- Route specific alert types to specific escalation paths
+- Useful for centralized teams or when you have few teams
+</Accordion>
+
+## Responding to Pages
+
+### For On-Call Responders
+
+<CardGroup cols={2}>
+  <Card title="Configure Notifications" icon="bell">
+    Set up how you want to be notified (push, SMS, phone call)
+  </Card>
+  <Card title="Acknowledge Alerts" icon="check">
+    Respond to pages to stop escalation
+  </Card>
+  <Card title="Manage Overrides" icon="calendar-xmark">
+    Request coverage when you're unavailable
+  </Card>
+  <Card title="View Your Schedule" icon="calendar-days">
+    See when you're on-call and sync to your calendar
+  </Card>
+</CardGroup>
+
+[Complete responder guide →](/help-centre/on-call/get-started-with-on-call/get-started-as-an-on-call-responder)
+
+### Notification Methods
+
+- **Push notifications**: Mobile app notifications
+- **SMS**: Text message alerts
+- **Phone calls**: Voice calls for critical alerts
+- **Slack/Teams**: Direct messages with alert details
+- **Email**: Email notifications for lower priority
 
 <Note>
-A well-designed on-call system balances rapid incident response with engineer well-being. Regular reviews and adjustments help maintain this balance.
+Responders automatically receive prompts to configure their notification preferences when added to a schedule or escalation path.
 </Note>
 
-## Additional Resources
+## Advanced Features
+
+### Live Call Routing
+
+[Live call routing](/help-centre/on-call/live-call-routing) enables phone-based escalation:
+- Dedicated phone numbers for each escalation path
+- Automatic routing to on-call responders
+- Conference call bridging
+- Voicemail for missed calls
+
+### Priorities and Urgency
+
+Different alert priorities can trigger different behaviors:
+- **P1 (Critical)**: Immediate phone call, aggressive escalation
+- **P2 (High)**: Push notification, standard escalation
+- **P3 (Medium)**: Slack message, business hours only
+- **P4 (Low)**: Email, no escalation
+
+[Learn about priorities →](/help-centre/priorities-in-alerts-and-on-call)
+
+### Schedule Management
+
+<Accordion title="Rotation Calculations">
+Understand how rotations are calculated:
+- Handover times in user's local timezone or schedule timezone
+- Handling of gaps and overlaps
+- Special day handling (holidays, weekends)
+
+[Rotation calculation details →](/help-centre/on-call/schedules/rotation-calculation-in-schedules)
+</Accordion>
+
+<Accordion title="Holiday Support">
+Automatically respect team holidays:
+- Sync with regional holiday calendars
+- Skip on-call shifts on holidays
+- Automatic re-assignment to next person
+
+[Configure holiday support →](/help-centre/on-call/schedules/view-holidays-in-on-call-schedules)
+</Accordion>
+
+<Accordion title="Importing and Duplicating">
+Speed up schedule creation:
+- Import from PagerDuty or Opsgenie
+- Duplicate existing schedules for new teams
+- Bulk update multiple schedules
+
+[Import guide →](/help-centre/on-call/schedules/importing-and-duplicating-schedules)
+</Accordion>
+
+## Migrating to incident.io
+
+### From PagerDuty or Opsgenie
 
 <CardGroup cols={2}>
-  <Card title="Live Call Routing" icon="phone" href="/help-centre/on-call/live-call-routing">
-    Set up phone-based escalations for critical alerts
+  <Card title="PagerDuty Migration" icon="pager" href="/help-centre/tools-to-make-migrating-from-pagerduty-easier">
+    Tools and guides for migrating from PagerDuty
   </Card>
-  <Card title="On-call Readiness" icon="clipboard-check" href="/help-centre/on-call/migrating-to-incident-io/on-call-readiness-insights">
-    Monitor your team's on-call preparedness and effectiveness
+  <Card title="Opsgenie Migration" icon="atlassian" href="/help-centre/tools-to-make-migrating-from-opsgenie-easier">
+    Import schedules and escalation policies from Opsgenie
   </Card>
 </CardGroup>
+
+[On-call readiness insights →](/help-centre/on-call/migrating-to-incident-io/on-call-readiness-insights)
+
+## Best Practices
+
+<Note>
+**Start with teams**: Set up your team structure first. This enables dynamic routing and makes your On-call configuration scale as you grow.
+</Note>
+
+<Warning>
+**Don't create a route per team**: Instead, use dynamic routing with Catalog. Tag your alerts with team or service information, and let incident.io automatically route to the right escalation path.
+</Warning>
+
+### Recommended Setup
+
+1. **Define clear ownership**: Every service should have a team that owns it
+2. **Use dynamic routing**: Leverage Catalog relationships for automatic routing
+3. **Test your setup**: Send test alerts to verify escalation paths work
+4. **Document runbooks**: Link runbooks to services in Catalog
+5. **Monitor coverage**: Ensure schedules have no gaps
+6. **Regular reviews**: Update escalation paths as teams change
+
+### Alert Hygiene
+
+- **Filter noise**: Only page for actionable alerts
+- **Group related alerts**: Reduce alert fatigue with smart grouping
+- **Set appropriate priorities**: Not everything needs to wake someone up
+- **Regular cleanup**: Remove or adjust noisy alert sources
+
+## FAQs and Resources
+
+<Card title="On-call FAQs" icon="circle-question" href="/help-centre/on-call/faqs/index">
+  Common questions about On-call, schedules, and escalations
+</Card>
+
+### Related Documentation
+
+- [Alerts configuration](/help-centre/alerts/index)
+- [Catalog setup](/help-centre/catalog/index)
+- [Getting started with teams](/help-centre/catalog/getting-started-with-teams)
+- [Terraform provider](https://registry.terraform.io/providers/incident-io/incident/latest)
+
+---
+
+<Info>
+**Questions?** Contact us via your Slack Connect channel or email [help@incident.io](mailto:help@incident.io)
+</Info>

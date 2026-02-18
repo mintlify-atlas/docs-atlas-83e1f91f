@@ -4,6 +4,10 @@ description: Track incident progress from triage through resolution with customi
 icon: "/icons/refresh1.svg"
 ---
 
+import { StatusBanner } from '/snippets/status-banner.mdx';
+
+<StatusBanner status="PLACEHOLDER" />
+
 # Incident lifecycle
 
 Your incidents move through stages that track their progress from detection through resolution. The lifecycle gives your team shared context about where each incident stands, helping everyone understand what's happening and what comes next.
@@ -43,15 +47,9 @@ Configure your lifecycle at **Settings** → **Respond** → **Lifecycle** to ma
 
 Statuses and timestamps work together to track incident progress, but they serve different purposes.
 
-<CardGroup cols={2}>
-  <Card title="Statuses" icon="circle-dot">
-    Indicate the current condition of your incident. When you update an incident status, you're telling your team what phase the response is in right now.
-  </Card>
+**Statuses** indicate the current condition of your incident. When you update an incident status, you're telling your team what phase the response is in right now.
 
-  <Card title="Timestamps" icon="clock">
-    Store when specific events happened during the incident. By default, each status has a corresponding timestamp - for example, "Fixed At" records the first time an incident moved to the Monitoring status.
-  </Card>
-</CardGroup>
+**Timestamps** store when specific events happened during the incident. By default, each status has a corresponding timestamp - for example, "Fixed At" records the first time an incident moved to the Monitoring status.
 
 Timestamps can be set two ways:
 - **Automatically** - Based on status transitions you configure
@@ -59,35 +57,21 @@ Timestamps can be set two ways:
 
 Manual timestamps are useful when impact started before the incident was declared. For example, you might add an "Impact Started At" timestamp that responders can set to calculate more accurate time to resolution metrics.
 
-<Tip>
 Define custom metrics as the difference between two timestamps at **Settings** → **Respond** → **Lifecycle**. These metrics appear in the MTTX tab in Insights.
-</Tip>
 
 ## Incident modes
 
 incident.io offers four incident modes that serve different purposes:
 
-<CardGroup cols={2}>
-  <Card title="Real" icon="exclamation-circle">
-    Live incidents when something has gone wrong. Declare these using `/incident` in Slack, from the dashboard, or by turning a Slack message into an incident.
-  </Card>
+**Real** - Live incidents when something has gone wrong. Declare these using `/incident` in Slack, from the dashboard, or by turning a Slack message into an incident.
 
-  <Card title="Test" icon="flask">
-    For testing new automations and configurations without affecting production systems or metrics. Test incidents aren't announced in your incidents channel and don't appear in Insights. Create them with `/incident test` in Slack or from the dashboard.
-  </Card>
+**Test** - For testing new automations and configurations without affecting production systems or metrics. Test incidents aren't announced in your incidents channel and don't appear in Insights. Create them with `/incident test` in Slack or from the dashboard.
 
-  <Card title="Tutorial" icon="graduation-cap">
-    A 5-minute guided walkthrough for learning incident.io. Run it with `/inc tutorial` in any Slack channel. Tutorial incidents don't count as Responder usage for billing.
-  </Card>
+**Tutorial** - A 5-minute guided walkthrough for learning incident.io. Run it with `/inc tutorial` in any Slack channel. Tutorial incidents don't count as Responder usage for billing.
 
-  <Card title="Retrospective" icon="clock-rotate-left">
-    For recording incidents after they occurred. Create these via the API or from the dashboard. Useful when documenting historical incidents or migrating from another system.
-  </Card>
-</CardGroup>
+**Retrospective** - For recording incidents after they occurred. Create these via the API or from the dashboard. Useful when documenting historical incidents or migrating from another system.
 
-<Note>
 Test incidents by default only show up when you filter by incident mode in the dashboard.
-</Note>
 
 ## Pausing incidents
 
@@ -95,8 +79,7 @@ Pause an incident when you're waiting on a third party, it's outside working hou
 
 Use `/inc pause` in the incident channel to pause an incident. Set when it should resume and add a message explaining why it's paused.
 
-### While paused:
-
+While paused:
 - Announcements and the dashboard clearly show the incident isn't being worked on
 - Workflows configured for active incidents won't run
 - Nudges to the incident channel are suppressed
@@ -104,21 +87,10 @@ Use `/inc pause` in the incident channel to pause an incident. Set when it shoul
 
 The incident automatically resumes at the time you specified and returns to its previous status. You can always resume earlier using `/inc update`.
 
-### Quick shortcuts:
-
-<CodeGroup>
-```bash Tomorrow
-/inc pause until tomorrow
-```
-
-```bash Working hours
-/inc pause until working hours
-```
-
-```bash Duration
-/inc pause for 45
-```
-</CodeGroup>
+Quick shortcuts:
+- `/inc pause until tomorrow` - Pauses until 9am the next day
+- `/inc pause until working hours` - Pauses until the nearest weekday at 9am
+- `/inc pause for 45` - Pauses for 45 minutes
 
 ## Merging incidents
 
@@ -128,14 +100,11 @@ You can merge triage or active incidents into other active incidents. From a tri
 
 For active incidents, use `/inc merge` in Slack or choose **Merge** when updating the incident.
 
-### When you merge incidents:
-
+When you merge incidents:
 - The merged incident is marked as merged and no longer appears in insights
 - All attachments move to the target incident
 - A message in the target incident shows another incident was merged into it
 - The target incident keeps all its existing properties (severity, custom fields, etc.)
-
-## Frequently asked questions
 
 <AccordionGroup>
   <Accordion title="Can I rename an incident?">

@@ -4,6 +4,10 @@ description: Track tasks during incidents, share progress updates, and manage te
 icon: "/icons/action.svg"
 ---
 
+import { StatusBanner } from '/snippets/status-banner.mdx';
+
+<StatusBanner status="PLACEHOLDER" />
+
 # Incident actions
 
 Actions help you track what needs doing during an incident and who's doing it. In the confusion of responding to an issue, actions keep work visible—from urgent tasks like "restart the server" to post-incident follow-ups like "improve test coverage." Instead of losing track of who's fixing what, actions give your team a shared view of progress and ensure nothing gets forgotten.
@@ -12,21 +16,19 @@ Actions help you track what needs doing during an incident and who's doing it. I
 
 Create actions two ways: by reacting to Slack messages with emoji, or using the `/inc action` command.
 
-<Tabs>
-  <Tab title="React with :boom: emoji">
-    React to any message in your incident channel with the 💥 (`:boom:`) emoji to convert it into an action. When you add the emoji, incident.io prompts you to assign the action to yourself or someone else. The assigned person gets notified immediately, and the action appears in your incident's action list.
+**React with the :boom: emoji**
 
-    This method captures context automatically—the original message becomes the action description, preserving the discussion that prompted the task.
-  </Tab>
+React to any message in your incident channel with the 💥 (`:boom:`) emoji to convert it into an action. When you add the emoji, incident.io prompts you to assign the action to yourself or someone else. The assigned person gets notified immediately, and the action appears in your incident's action list.
 
-  <Tab title="Use /inc action command">
-    Type `/inc action` in your incident channel to create an action from scratch. The command opens a form where you enter the action description, assign an owner, and set when it needs completion (during or after the incident).
+This method captures context automatically—the original message becomes the action description, preserving the discussion that prompted the task.
 
-    Run `/inc action` without a description to see all open actions for the current incident—useful for checking status at a glance.
+**Use the /inc action command**
 
-    Once created, you can edit actions, mark them complete, or reassign them to different team members from the action menu.
-  </Tab>
-</Tabs>
+Type `/inc action` in your incident channel to create an action from scratch. The command opens a form where you enter the action description, assign an owner, and set when it needs completion (during or after the incident).
+
+Run `/inc action` without a description to see all open actions for the current incident—useful for checking status at a glance.
+
+Once created, you can edit actions, mark them complete, or reassign them to different team members from the action menu.
 
 ## Quick actions
 
@@ -34,23 +36,19 @@ Quick actions are pre-configured tasks that appear when you declare an incident,
 
 Configure quick actions in **Settings → Slack channel**. Choose from pre-defined options (like "Make me Comms Lead") or create custom links to internal runbooks and tools.
 
-<Tip>
 Add conditions to control when quick actions appear. For example, show "Escalate to senior engineer" only for critical severity incidents, or "Contact customer success" only when specific services are affected. Conditions use your incident fields (severity, affected services, custom fields) to surface the right actions at the right time.
-</Tip>
 
 ## Tracking who's doing what
 
 When actions pile up during an incident, it's easy to lose track of assignments. Type `/inc actions` in your incident channel to list all actions, their owners, and completion status.
 
-### Converting actions to follow-ups
+**Converting actions to follow-ups**
 
 Not all actions need completing during the incident. When you resolve an incident with open actions, incident.io prompts you to convert them to follow-ups. Follow-ups carry over to the post-incident phase and can export to issue trackers like Jira, Linear, GitHub, or Shortcut.
 
 You can also create follow-ups directly by reacting to messages with the ⏩ (`:fast_forward:`) emoji, or by selecting "After the incident" when creating actions with `/inc action`.
 
-<Note>
 Every interaction with actions appears on your incident timeline, creating an audit trail of who did what and when.
-</Note>
 
 ## Sharing status updates
 
@@ -63,23 +61,21 @@ Updates let you:
 
 Updates post to the incident channel and thread onto your original announcement post, ensuring stakeholders can follow progress in one place. No need to remember when to send the next update—incident.io reminds you based on the interval you set.
 
-### Automating update notifications
+**Automating update notifications**
 
-<Tip>
 Use workflows to automatically notify stakeholders when updates go out. Create a workflow triggered by "An incident update is shared" to send emails to management, post to customer-facing channels, or alert account teams about affected clients.
-</Tip>
 
 ## Customer communication
 
 Keep customers informed during incidents either through status pages or targeted communications.
 
-### Status page updates
+**Status page updates**
 
 If you use incident.io's status pages or Atlassian Statuspage, run `/inc statuspage` in your incident channel to publish updates. This command syncs your incident status and messages to the public page where customers can subscribe for notifications.
 
 Set up workflow nudges to remind your team when status page updates are due, ensuring consistent customer communication throughout the incident.
 
-### Targeted updates with workflows
+**Targeted updates with workflows**
 
 Send conditional communications to specific customers using workflows. For example, automatically email affected customers when an incident is declared, or send Slack messages to customer-facing teams when severity changes.
 
@@ -89,15 +85,17 @@ Workflows trigger on incident creation, updates, or resolution. Add conditions b
 
 Connect external resources to your incident by attaching GitHub pull requests, GitLab merge requests, PagerDuty incidents, Opsgenie alerts, Sentry issues, or Zendesk tickets.
 
-### Adding attachments
+**Adding attachments**
 
 Set up the integration in **Settings → Integrations**, then paste a link in your incident channel. incident.io prompts you to confirm the attachment. Once connected, attachments appear in both Slack (via `/inc attachments`) and the web dashboard.
 
-### Attachment updates
+**Attachment updates**
 
 incident.io keeps you informed about attachment status. For GitHub PRs, incident.io comments on the pull request linking back to your incident. When PRs merge or close, you get notifications in the incident channel. This creates bidirectional visibility between your incident and related development work.
 
-## Frequently asked questions
+---
+
+## FAQs
 
 <AccordionGroup>
   <Accordion title="Can I export follow-ups to my issue tracker?">

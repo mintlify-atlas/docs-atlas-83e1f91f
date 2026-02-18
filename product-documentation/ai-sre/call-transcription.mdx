@@ -1,0 +1,278 @@
+---
+title: Call transcription and summary
+description: Automatically transcribe incident calls, extract key moments, and provide real-time summaries with Scribe, incident.io's AI-powered note taker.
+---
+
+# Call transcription and summary
+
+Scribe is incident.io's AI-powered note taker that automatically joins incident calls to transcribe conversations, extract key moments, and provide continuous summaries. By capturing everything discussed during incident calls, Scribe ensures no important context is lost and helps responders who join late get up to speed quickly.
+
+## What is Scribe?
+
+Video calls bring responders together for rapid coordination across teams and time zones, but they create challenges:
+- **Context loss** - Joining mid-call makes it hard to understand what's happening without interrupting
+- **Missing documentation** - Critical decisions and information discussed verbally aren't captured
+- **Post-incident gaps** - Without call context, building a complete incident timeline is difficult
+- **Distracted responders** - Manual note-taking diverts attention from solving the incident
+
+Scribe solves these problems by joining incident calls as an AI participant, listening to everything discussed, and automatically posting relevant information to your incident channel in real-time.
+
+## Key features
+
+### Integrated transcripts
+
+Scribe joins your incident call and uses audio, video, and streaming captions to create a complete transcript with speaker identification. The transcript appears in the incident details page and can be viewed during or after the call.
+
+**How it works:**
+- Scribe requests to join the call (or joins automatically for Microsoft Teams)
+- Participants approve Scribe's entry
+- Real-time transcription begins with speaker attribution
+- Transcript is accessible from the incident homepage under "View notes"
+
+Transcripts capture who said what and when, making it easy to reference specific conversations when assembling post-incident timelines or investigating decision points.
+
+### Detailed summaries
+
+Scribe continuously builds a detailed summary of the entire call, pulling out important information, decisions, and next steps. These summaries update in real-time and are viewable in both the incident channel and dashboard.
+
+**What summaries include:**
+- Overview of the incident situation
+- Current understanding of the problem
+- Actions being taken
+- Decisions made
+- Next steps identified
+
+Summaries help new responders joining the call understand the situation without needing to read the entire transcript or interrupt the conversation.
+
+### Current topic
+
+Scribe tracks what's being discussed right now and displays the current topic in the incident channel and dashboard. This "at a glance" view helps other team members decide whether they should join the call.
+
+**Example topics:**
+- "Discussing database connection pooling issues"
+- "Reviewing error logs from production"
+- "Planning rollback strategy"
+- "Coordinating with customer success on impact"
+
+The current topic updates every few minutes as the conversation evolves.
+
+### Proactive key moments
+
+Scribe actively identifies and posts key moments from the call transcript to the incident channel. Key moments capture critical information that shouldn't be buried in a transcript:
+
+- **Important decisions** - "Team decided to roll back to version 2.3.1"
+- **Agreements** - "Customer success will draft status page update"
+- **New information** - "Database replica lag identified as root cause"
+- **Critical actions** - "Triggered emergency deployment pipeline"
+
+Key moments are posted as individual messages in the incident channel, making them easy to reference later and helping with post-incident timeline assembly.
+
+## Enabling Scribe
+
+Scribe is available on Pro and Enterprise plans. To enable it:
+
+<Steps>
+  <Step title="Set up a call provider">
+    Configure a call integration before enabling Scribe. Supported providers:
+    - [Zoom](/help-centre/api-and-integrations/communication/zoom)
+    - [Google Meet](/help-centre/api-and-integrations/communication/google-meet)
+    - [Microsoft Teams](/help-centre/scribe-and-incident-calls/microsoft-teams-calls-diagnosing-common-issues)
+
+    If you previously configured these integrations, you may need to re-authenticate to grant the additional permissions required for transcription.
+  </Step>
+
+  <Step title="Enable Scribe">
+    Navigate to **Settings → AI** and toggle on Scribe.
+
+    <Tip>
+      We highly recommend enabling auto-call creation, which automatically attaches a new call to each incident. This ensures Scribe can join every incident call without manual call creation.
+    </Tip>
+  </Step>
+
+  <Step title="Test with an incident">
+    Create a test incident using `/incident test` in Slack, join the incident call, and verify Scribe requests to join. Approve its entry and confirm transcription begins.
+  </Step>
+</Steps>
+
+## Using Scribe during incidents
+
+### Starting transcription
+
+Once Scribe is enabled, it automatically requests to join incident calls when it detects someone has joined:
+
+**For Zoom and Google Meet:**
+1. Scribe requests to join the call
+2. A participant admits Scribe to the call
+3. Transcription begins immediately
+
+**For Microsoft Teams:**
+1. Scribe joins automatically when the call starts
+2. No manual admission required
+3. Transcription begins immediately
+
+### Viewing transcripts during incidents
+
+Access the live transcript from the incident homepage:
+
+1. Open the incident in the dashboard
+2. Click **View notes** in the call section
+3. The transcript displays with timestamps and speaker attribution
+
+The transcript updates in real-time as the call continues. You can scroll through past conversation while new content streams in.
+
+### Viewing summaries and key moments
+
+Scribe posts summaries and key moments directly to the incident channel:
+
+- **Summaries** appear every 5-10 minutes with a collapsible format
+- **Current topic** updates appear near the top of the channel
+- **Key moments** are posted immediately when detected as individual messages
+
+All Scribe messages are clearly labeled with the Scribe identity for easy identification.
+
+### Stopping transcription
+
+To stop Scribe from transcribing:
+
+**Manual removal:**
+- Remove Scribe from the call like any other participant
+- Transcription stops immediately
+- The transcript remains accessible but won't update further
+
+**Automatic ending:**
+- Scribe leaves automatically when the last human participant leaves
+- Final summary and key moments are posted to the channel
+
+## Configuration and settings
+
+### Zoom-specific settings
+
+For Zoom calls, ensure meeting captions are enabled:
+
+1. **In a meeting** - Navigate to **Host Caption Control Settings**
+2. Enable **Allow Closed Captioning for this meeting**
+
+If you don't see this option, enable it globally:
+
+1. Go to [Zoom settings](https://zoom.us/profile/setting?tab=meeting)
+2. Toggle on **Automated captions**
+
+Scribe requires captions to generate accurate transcripts. If captions are disabled, transcription won't work even if Scribe joins the call.
+
+### Google Meet-specific settings
+
+For Google Meet, ensure your integration has transcription permissions:
+
+1. Navigate to **Settings → Integrations**
+2. Find your Google Meet integration
+3. Re-authenticate if prompted to grant transcription permissions
+
+### Microsoft Teams-specific settings
+
+Microsoft Teams transcription works automatically once the integration is configured. No additional settings are required.
+
+## Language support
+
+Scribe is designed primarily for English calls. If your call transcribes in a different language (configured in Zoom or Google Meet), Scribe will attempt to:
+- Transcribe in that language
+- Generate summaries and key moments
+- Post to incident channels
+
+However, non-English language support is not officially supported, and accuracy may vary. English provides the best experience.
+
+## Privacy and data handling
+
+### What data is stored?
+
+- **Transcripts** - Stored in incident.io databases and retained according to standard retention policies
+- **Summaries and key moments** - Generated from transcripts and stored as part of incident data
+- **Audio/video** - Never stored by incident.io after the call ends
+
+### Third-party data processors
+
+Scribe uses [Recall.ai](https://recall.ai/) as a third-party sub-processor for raw transcription:
+- Recall.ai temporarily stores a recording during the call
+- The recording is deleted when the last human leaves the call
+- Recall.ai does not retain any data after deletion
+- Only the transcript is passed to incident.io
+
+For complete privacy information, see [AI Privacy Guidance](https://trust.incident.io/) in the Trust Centre.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Scribe isn't joining my calls">
+    **Check integration permissions:**
+    - Navigate to Settings → Integrations
+    - Find your call provider (Zoom or Google Meet)
+    - Re-authenticate to ensure transcription permissions are granted
+
+    **For Zoom:**
+    - Ensure recording is allowed in your Zoom app settings
+    - Check that Scribe has permission to record locally
+
+    **Still not working?**
+    Contact support@incident.io with your incident ID.
+  </Accordion>
+
+  <Accordion title="Scribe joined but no transcript appears">
+    **For Zoom:**
+    Verify meeting captions are enabled. Without captions, Scribe cannot generate a transcript.
+    
+    1. In the meeting, go to Host Caption Control Settings
+    2. Enable "Allow Closed Captioning for this meeting"
+    
+    If the option isn't available, enable Automated captions in your [Zoom settings](https://zoom.us/profile/setting?tab=meeting).
+
+    **For Google Meet:**
+    Check that your Google Meet integration has the latest permissions. Re-authenticate if needed.
+  </Accordion>
+
+  <Accordion title="Can I prevent Scribe from joining specific calls?">
+    Currently, Scribe requests to join all incident calls when enabled globally. You can:
+    - Deny Scribe's request to join individual calls
+    - Disable Scribe entirely at Settings → AI
+    
+    Per-incident control and selective call transcription are planned for future releases.
+  </Accordion>
+
+  <Accordion title="How accurate is speaker identification?">
+    Speaker identification uses audio, video, and captions to determine who spoke. Accuracy improves when:
+    - Participants have video enabled
+    - Each person speaks clearly and distinctly
+    - Background noise is minimal
+    
+    In some cases, speakers may be misattributed, especially when multiple people speak quickly or overlap. The transcript remains accurate even if speaker attribution isn't perfect.
+  </Accordion>
+
+  <Accordion title="Can I edit transcripts after the call?">
+    Transcripts are currently read-only and cannot be edited after generation. If critical information in a transcript is incorrect, you can:
+    - Add a clarifying message to the incident channel
+    - Update the incident timeline with correct information
+    - Note corrections in the post-mortem document
+  </Accordion>
+</AccordionGroup>
+
+## Best practices
+
+<Tip>
+  **Enable auto-call creation** - Automatically attach calls to incidents so Scribe can join without manual call setup. Configure this at Settings → Integrations for your call provider.
+</Tip>
+
+<Tip>
+  **Review key moments** - Scribe extracts key moments automatically, but human review ensures important context isn't missed. Quickly scan key moment messages during quieter parts of the incident.
+</Tip>
+
+<Tip>
+  **Use transcripts for timelines** - When building post-incident timelines, reference call transcripts to capture exact times when decisions were made or actions taken.
+</Tip>
+
+<Tip>
+  **Share summaries with stakeholders** - Scribe summaries provide excellent status updates for leadership or teams not directly involved in response. Copy summary content to share progress.
+</Tip>
+
+## What's next?
+
+- Learn about [Investigations and root cause analysis](/product-documentation/ai-sre/investigations-and-root-cause)
+- Explore [post-mortem generation](/product-documentation/ai-sre/post-mortem-writing)
+- Configure [AI privacy settings](https://trust.incident.io/)

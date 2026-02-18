@@ -6,9 +6,7 @@ icon: "shield"
 
 User permissions in incident.io are controlled through base roles and custom roles. Each user has one base role (Standard, Admin, or Owner) that determines their core permissions, plus optional custom roles that grant additional capabilities.
 
-<Info>
 Base roles define broad permission levels, while custom roles let you grant specific permissions to individual users or groups. For information on how roles interact with billing, see [Seats](/product-documentation/billing/seats).
-</Info>
 
 Configure roles at **Settings → Users → Roles tab**. Assign roles to users at **Settings → Users → Users tab**.
 
@@ -16,17 +14,11 @@ Configure roles at **Settings → Users → Roles tab**. Assign roles to users a
 
 Every user has a base role that determines their initial permissions. The three base roles are:
 
-<CardGroup cols={3}>
-  <Card title="Standard" icon="user">
-    Default role for all users. Can view and declare incidents. Responders with this role can participate in incident response.
-  </Card>
-  <Card title="Admin" icon="user-gear">
-    All Standard permissions, plus ability to manage organization settings and billing.
-  </Card>
-  <Card title="Owner" icon="crown">
-    Full access to all incident.io features and settings.
-  </Card>
-</CardGroup>
+**Standard** - Default role for all users. Can view and declare incidents. Responders with this role can participate in incident response.
+
+**Admin** - All Standard permissions, plus ability to manage organization settings and billing.
+
+**Owner** - Full access to all incident.io features and settings.
 
 ### Default permissions by role
 
@@ -43,71 +35,25 @@ Every user has a base role that determines their initial permissions. The three 
 Slack workspace admins already have access to all private Slack channels, meaning they can access all private incidents regardless of their incident.io role.
 </Note>
 
-### Customizing base roles
-
-Customize base role permissions at **Settings → Users → Roles tab**. Click the edit icon on any base role to modify its permissions. 
-
-<Info>
-For example, restrict Admin billing access so only Owners can manage billing.
-</Info>
+Customize base role permissions at **Settings → Users → Roles tab**. Click the edit icon on any base role to modify its permissions. For example, restrict Admin billing access so only Owners can manage billing.
 
 ## Custom roles
 
 Create custom roles to grant specific permissions to individual users beyond their base role. Custom roles add permissions—they never remove them. Users receive the union of all permissions from their base role plus any custom roles.
 
-### Example custom roles
+**Example custom roles:**
+- **Engineer** - Manage API keys and webhooks
+- **Finance** - Manage billing settings and on-call pay reports
+- **Security** - View all private incidents
 
-<AccordionGroup>
-  <Accordion title="Engineer">
-    Manage API keys and webhooks
-  </Accordion>
-  <Accordion title="Finance">
-    Manage billing settings and on-call pay reports
-  </Accordion>
-  <Accordion title="Security">
-    View all private incidents
-  </Accordion>
-</AccordionGroup>
-
-### Creating custom roles
-
-Create custom roles at **Settings → Users → Roles tab** by clicking **Add new**. 
-
-<Steps>
-  <Step title="Name your role">
-    Choose a descriptive name (e.g., "Engineer", "Finance")
-  </Step>
-  <Step title="Add description">
-    Explain what this role is for
-  </Step>
-  <Step title="Select permissions">
-    Choose specific permissions to grant
-  </Step>
-</Steps>
+Create custom roles at **Settings → Users → Roles tab** by clicking **Add new**. Define the role name, description, and specific permissions to grant.
 
 ## Managing user permissions
 
 View and edit user permissions at **Settings → Users → Users tab**. Each user shows their current seat type, base role, and custom roles.
 
-<Info>
 To modify a user's permissions, click the edit icon next to their name. Change their base role or add custom roles as needed. Users can have multiple custom roles simultaneously.
-</Info>
 
 ## Inviting users
 
-Invite new users at **Settings → Users → Users tab** by clicking **Invite user**. 
-
-<Steps>
-  <Step title="Click Invite user">
-    Start the invitation process
-  </Step>
-  <Step title="Select base role">
-    Choose Standard, Admin, or Owner
-  </Step>
-  <Step title="Add custom roles">
-    Optionally assign custom roles during invitation
-  </Step>
-  <Step title="Send invitation">
-    New users receive access according to their assigned roles
-  </Step>
-</Steps>
+Invite new users at **Settings → Users → Users tab** by clicking **Invite user**. Select their base role and any custom roles during invitation. New users receive access according to their assigned roles.

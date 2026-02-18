@@ -1,93 +1,155 @@
 ---
 title: "Configure Your Account"
-description: "Customize and configure your incident.io account settings"
+description: "Customize and configure your incident.io account settings to match your team's needs"
 mode: "wide"
 ---
 
 <Info>
-Get your incident.io account set up exactly how you need it. From workflows to integrations, customize every aspect of your incident management process.
+Configuring your incident.io account properly ensures smooth incident management, automated workflows, and seamless integrations with your existing tools.
 </Info>
 
-## Core Configuration
+## Overview
+
+Your incident.io account can be customized to fit your organization's unique incident management needs. From configuring incident forms to setting up automation workflows, these settings help ensure your team has the right information at the right time.
+
+## Key Configuration Areas
 
 <CardGroup cols={2}>
   <Card title="Workflows" icon="diagram-project" href="/help-centre/configure-your-account/workflows/index">
-    Automate your incident response with powerful workflow configurations
+    Automate your incident response with custom workflows that trigger actions based on incident conditions
   </Card>
-  <Card title="Incident Forms" icon="list-check" href="/help-centre/configure-your-account/configuring-incident-forms">
-    Customize the information you collect when incidents are declared
+  <Card title="Incident Forms" icon="clipboard-list" href="/help-centre/configure-your-account/configuring-incident-forms">
+    Customize the forms your team uses when declaring, updating, and resolving incidents
   </Card>
-  <Card title="Post-incident Flow" icon="route" href="/help-centre/configure-your-account/define-your-post-incident-process-using-the-post-incident-flow">
-    Define your post-incident process to ensure consistent follow-through
+  <Card title="Terraform Integration" icon="code" href="/help-centre/configure-your-account/manage-your-account-with-terraform">
+    Manage your incident.io configuration as code using our official Terraform provider
   </Card>
-  <Card title="Using the Catalog" icon="book" href="/help-centre/configure-your-account/using-the-catalog">
-    Organize and manage your services, teams, and resources
-  </Card>
-</CardGroup>
-
-## Integrations & Syncing
-
-<AccordionGroup>
-  <Accordion title="Jira Integration" icon="jira">
-    Connect incident.io with Jira to automatically sync incidents and follow-ups.
-    
-    [Learn more about syncing incidents with Jira →](/help-centre/configure-your-account/syncing-incidents-with-jira)
-  </Accordion>
-  
-  <Accordion title="Azure DevOps Integration" icon="microsoft">
-    Sync your incidents to Azure DevOps for seamless project management integration.
-    
-    [Learn more about Azure DevOps syncing →](/help-centre/configure-your-account/syncing-incidents-to-azure-devops)
-  </Accordion>
-  
-  <Accordion title="Terraform Management" icon="code">
-    Manage your incident.io account configuration as code using Terraform.
-    
-    [Learn more about Terraform management →](/help-centre/configure-your-account/manage-your-account-with-terraform)
-  </Accordion>
-</AccordionGroup>
-
-## Customization Options
-
-<CardGroup cols={3}>
-  <Card title="Announcements" icon="bullhorn" href="/help-centre/configure-your-account/customizable-announcements">
-    Create customizable announcements for your incidents
-  </Card>
-  <Card title="Channel Bookmarks" icon="bookmark" href="/help-centre/configure-your-account/customizing-your-incident-channel-bookmarks">
-    Customize bookmarks in your incident channels
-  </Card>
-  <Card title="Instance Branding" icon="paintbrush" href="/help-centre/configure-your-account/how-to-customize-your-incident-io-instance-name-url-and-icon">
-    Customize your instance name, URL, and icon
+  <Card title="Catalog Setup" icon="folder-tree" href="/help-centre/configure-your-account/using-the-catalog">
+    Organize your services, teams, and resources for better incident routing
   </Card>
 </CardGroup>
 
-## Policies & Validation
+## Incident Configuration
 
-<Steps>
-  <Step title="Set up timestamp validation">
-    Ensure incident timestamps are accurate and consistent.
-    
-    [Configure timestamp validation →](/help-centre/configure-your-account/validating-incident-timestamps)
-  </Step>
-  
-  <Step title="Enforce follow-up policies">
-    Create policies to ensure follow-ups are completed based on incident priority.
-    
-    [Set up follow-up policies →](/help-centre/configure-your-account/enforcing-follow-ups-are-completed-based-on-priority-(policies))
-  </Step>
-</Steps>
+### Forms and Fields
+
+Control exactly what information your team needs to provide at each stage of an incident:
+
+<Accordion title="Declare Form">
+Shown when declaring a new incident. Configure which fields are required, set default values, and create incident-type-specific forms. For example, you can:
+- Hide the summary field unless the incident is at least Major severity
+- Set different default severities instead of always starting with the lowest
+- Make incidents start in triage mode by default
+</Accordion>
+
+<Accordion title="Accept Form">
+Displayed when accepting a triage incident. Customize what information responders need to confirm before accepting an incident.
+</Accordion>
+
+<Accordion title="Update Form">
+Shown when sharing an update. Configure which fields are required for keeping stakeholders informed.
+</Accordion>
+
+<Accordion title="Resolve Form">
+Displayed when resolving an incident. Ensure all necessary information is captured before closing.
+</Accordion>
+
+<Accordion title="Escalate Form">
+Shown during manual escalation. Configure what context is needed when escalating to additional responders.
+</Accordion>
+
+<Note>
+**Best Practice**: Only require what you absolutely must, and prefer requiring fields at incident close rather than at incident start. If you require 5 fields when opening an incident, responders will be forced to provide 5 values before they begin responding.
+</Note>
+
+## Integration & Automation
+
+### Infrastructure as Code
+
+Manage your incident.io configuration using [Terraform](https://registry.terraform.io/providers/incident-io/incident/latest):
+
+- Custom fields and their options
+- Incident severities, roles, and statuses
+- On-call schedules and escalation paths
+- Workflow configurations
+
+This allows you to bring incident.io configuration into the same code review and approval cycle as your other infrastructure.
+
+### External Integrations
+
+<CardGroup cols={2}>
+  <Card title="Jira Sync" icon="jira" href="/help-centre/configure-your-account/syncing-incidents-with-jira">
+    Automatically sync incidents with Jira issues for project management
+  </Card>
+  <Card title="Azure DevOps" icon="microsoft" href="/help-centre/configure-your-account/syncing-incidents-to-azure-devops">
+    Connect incidents to Azure DevOps work items
+  </Card>
+</CardGroup>
+
+## Post-Incident Process
+
+### Post-Incident Flow
+
+Define your post-incident process to ensure consistent follow-through:
+
+- Automatic timeline generation from incident activity
+- Follow-up task creation and assignment
+- Post-mortem document generation
+- Debrief scheduling
+
+[Learn more about configuring your post-incident flow →](/help-centre/configure-your-account/define-your-post-incident-process-using-the-post-incident-flow)
+
+<Accordion title="Follow-Up Policies">
+Enforce that follow-ups are completed based on incident priority. Set up policies that:
+- Require high-priority follow-ups to be completed within a specific timeframe
+- Send automatic reminders to assignees
+- Escalate overdue follow-ups to team leads
+
+[Configure follow-up policies →](/help-centre/configure-your-account/enforcing-follow-ups-are-completed-based-on-priority-(policies))
+</Accordion>
 
 ## Additional Settings
 
-<CardGroup cols={2}>
-  <Card title="AI Features" icon="sparkles" href="/help-centre/configure-your-account/how-do-we-use-ai">
-    Learn how incident.io uses AI to enhance your incident management
-  </Card>
-  <Card title="Timezone Settings" icon="clock" href="/help-centre/configure-your-account/how-do-i-set-a-default-timezone-for-my-organization">
-    Set a default timezone for your organization
-  </Card>
-</CardGroup>
+### Channel Customization
 
-<Note>
-Need help configuring your account? Check out our detailed guides for each feature or contact support for personalized assistance.
-</Note>
+- [Customize incident channel bookmarks](/help-centre/configure-your-account/customizing-your-incident-channel-bookmarks) - Add relevant links and resources to every incident channel
+- [Configurable announcements](/help-centre/configure-your-account/customizable-announcements) - Control how and where incidents are announced
+
+### Organization Settings
+
+- [Customize instance name, URL, and icon](/help-centre/configure-your-account/how-to-customize-your-incident-io-instance-name-url-and-icon) - Brand your incident.io instance
+- [Set default timezone](/help-centre/configure-your-account/how-do-i-set-a-default-timezone-for-my-organization) - Ensure consistent timestamps across your team
+- [Validate incident timestamps](/help-centre/configure-your-account/validating-incident-timestamps) - Ensure accurate incident timing
+
+### AI Features
+
+<Info>
+incident.io uses AI to help your team respond faster and more effectively. Learn more about [how we use AI](/help-centre/configure-your-account/how-do-we-use-ai) in incident response.
+</Info>
+
+## Quick Start Checklist
+
+<Steps>
+  <Step title="Configure incident forms">
+    Set up your declare, update, and resolve forms with the right fields for your team
+  </Step>
+  <Step title="Set up the Catalog">
+    Import your teams and services to enable dynamic routing
+  </Step>
+  <Step title="Create workflows">
+    Automate common tasks like inviting responders and updating status pages
+  </Step>
+  <Step title="Configure integrations">
+    Connect Jira, Azure DevOps, or other tools your team uses
+  </Step>
+  <Step title="Define post-incident process">
+    Set up your post-incident flow for consistent follow-through
+  </Step>
+</Steps>
+
+## Related Resources
+
+- [Workflows documentation](/help-centre/configure-your-account/workflows/index)
+- [Catalog documentation](/help-centre/catalog/index)
+- [API documentation](https://api-docs.incident.io/)
+- [Terraform provider](https://registry.terraform.io/providers/incident-io/incident/latest)

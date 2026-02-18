@@ -1,0 +1,317 @@
+---
+title: Investigations and root cause analysis
+description: Get AI-powered assistance investigating incidents with automatic analysis of alerts, past incidents, code changes, and Slack conversations.
+---
+
+# Investigations and root cause analysis
+
+Investigations is an AI-powered multi-agent system that helps you investigate and resolve incidents faster. By analyzing alert context, past incident learnings, recent code changes, and relevant Slack conversations, Investigations provides initial diagnosis, root cause suggestions, and recommended next steps within the first minutes of incident declaration.
+
+<Info>
+  Investigations is currently in early access. Contact your incident.io representative or reach out to [help@incident.io](mailto:help@incident.io) to request access.
+</Info>
+
+## What are Investigations?
+
+During an incident, responders need to quickly understand:
+- What's actually broken?
+- Has this happened before?
+- What changed recently that might have caused this?
+- What should we try first?
+
+Answering these questions typically requires searching through alerts, past incidents, deployment logs, and Slack channels while simultaneously coordinating response. This cognitive load slows down time to resolution.
+
+Investigations automates this research by deploying multiple AI agents that work in parallel to:
+1. Analyze the triggering alert and incident context
+2. Search past incidents for similar patterns and learnings
+3. Identify recent code changes that might be relevant
+4. Review configured Slack channels for related discussions
+5. Synthesize findings into actionable suggestions
+
+The Investigation posts its findings to the incident channel within the first few minutes, giving responders a head start on diagnosis and mitigation.
+
+## How Investigations work
+
+When an incident is declared, the Investigation system activates automatically:
+
+<Steps>
+  <Step title="Initial diagnosis">
+    The Investigation analyzes the incident's alert data to understand what triggered the incident. It examines:
+    - Alert metadata and labels
+    - Affected services and systems
+    - Error messages and stack traces
+    - Metrics and thresholds breached
+
+    This forms the foundation for all subsequent analysis.
+  </Step>
+
+  <Step title="Past incident analysis">
+    Multiple AI agents search through your entire incident history to find:
+    - Similar incidents based on alerts, services, and symptoms
+    - Lessons learned from past incidents
+    - Effective mitigation strategies previously used
+    - Common root causes for similar situations
+
+    This agent has shown particularly strong results in extracting actionable learnings from incident history.
+  </Step>
+
+  <Step title="Code change correlation">
+    The Investigation reviews recent code changes across relevant repositories to identify:
+    - Deployments in the time window before the incident
+    - Changes to affected services or components
+    - High-risk changes (database migrations, configuration updates)
+    - Potential causative commits
+
+    This helps quickly identify if a recent change triggered the incident.
+  </Step>
+
+  <Step title="Slack conversation analysis">
+    The Investigation scans Slack channels you've configured (typically engineering channels) for:
+    - Recent discussions about the affected systems
+    - Known issues or ongoing work
+    - Alerts or warnings that preceded the incident
+    - Relevant context from team members
+
+    This surfaces organic knowledge that might not be in formal documentation.
+  </Step>
+
+  <Step title="Synthesis and recommendations">
+    All findings are synthesized into a structured message posted to the incident channel containing:
+    - **What's happening** - Summary of the incident situation
+    - **Potential root cause** - Most likely explanations based on evidence
+    - **Recommended next steps** - Prioritized actions to take
+    - **Related context** - Links to similar past incidents, relevant code changes, and Slack discussions
+  </Step>
+</Steps>
+
+The entire process typically completes within 2-5 minutes of incident declaration.
+
+## Investigation message format
+
+The Investigation posts a structured message to the incident channel:
+
+```
+🔍 Investigation Complete
+
+Based on analysis of alerts, past incidents, recent changes, and team conversations:
+
+**What's happening:**
+API gateway is returning 504 Gateway Timeout errors for 15% of requests to the /api/orders endpoint. Error rate spiked at 14:32 UTC.
+
+**Potential root cause:**
+Recent deployment (v2.4.1, deployed 14:15 UTC) introduced a database query change that's causing connection pool exhaustion. Similar incident INC-1847 from last month had identical symptoms caused by inefficient query.
+
+**Recommended next steps:**
+1. Roll back to v2.3.9 (last known good version)
+2. Scale up order-service pods to handle load
+3. Monitor connection pool metrics during recovery
+4. Check database logs for slow queries
+
+**Related context:**
+- Similar incident: INC-1847 (solved by query optimization)
+- Recent change: orders-service PR #482 (database query refactor)
+- Slack discussion: #engineering mentioned connection pool warnings at 14:20
+```
+
+Each section is collapsible in Slack for easier scanning.
+
+## Configuring Investigations
+
+To get the most value from Investigations, configure which data sources it can access:
+
+### Slack channel configuration
+
+Specify which Slack channels Investigations should analyze:
+
+1. Navigate to **Settings → AI → Investigations**
+2. Under **Slack channels**, add channels relevant to incident context:
+   - Engineering team channels
+   - Service-specific channels (#backend, #frontend, #data-platform)
+   - Alerts channels
+   - On-call channels
+
+<Warning>
+  Only add channels where incident-relevant technical discussions occur. Avoid channels with sensitive HR, financial, or confidential information. Investigations will only analyze messages from the 7 days before incident declaration.
+</Warning>
+
+### GitHub integration
+
+Connect GitHub to enable code change analysis:
+
+1. Navigate to **Settings → Integrations**
+2. Install or configure the GitHub integration
+3. Grant access to repositories containing services mentioned in your catalog
+4. Investigations will automatically analyze commits from relevant repositories
+
+For detailed setup instructions, see [GitHub integration documentation](/help-centre/direct/requesting-additional-github-permissions).
+
+### Incident history
+
+Investigations automatically has access to all past incidents in your organization. No additional configuration is required. The system learns from:
+- Incident descriptions and timelines
+- Actions taken and their outcomes
+- Post-mortem documents
+- Follow-up items completed
+
+## Using Investigation results
+
+### During active response
+
+When an Investigation completes, responders should:
+
+1. **Review the summary** - Quickly scan the "What's happening" section to confirm the AI's understanding matches reality
+2. **Evaluate root cause suggestions** - Consider whether proposed root causes are plausible given current evidence
+3. **Execute recommended next steps** - Use suggestions as a starting point, but apply human judgment about what to try first
+4. **Reference related context** - Click through to similar past incidents or relevant code changes for additional context
+
+<Tip>
+  Investigation suggestions are a starting point, not gospel. Human expertise and judgment remain critical. Use AI findings to accelerate investigation, not replace it.
+</Tip>
+
+### During post-incident review
+
+After incident resolution, review the Investigation message to:
+
+- Assess whether suggested root cause was accurate
+- Evaluate whether recommended next steps were helpful
+- Identify gaps in what the Investigation missed
+- Provide feedback to improve future Investigations
+
+### Providing feedback
+
+incident.io collects feedback on Investigation usefulness:
+
+- **Incident leads** receive a DM after incident resolution asking if the Investigation was helpful
+- Provide optional comments about what worked well or could be improved
+- Feedback directly influences Investigation accuracy improvements
+
+You can also share feedback directly with the incident.io team through your Slack Connect channel or by emailing [help@incident.io](mailto:help@incident.io).
+
+## Investigation accuracy and limitations
+
+### What Investigations do well
+
+- **Pattern recognition** - Identifying similar past incidents and extracting lessons learned
+- **Context aggregation** - Bringing together information scattered across multiple systems
+- **Hypothesis generation** - Suggesting plausible explanations based on available evidence
+- **Next step recommendations** - Providing structured action plans based on past successful responses
+
+### Current limitations
+
+- **Novel incidents** - Less helpful for completely unprecedented situations without historical patterns
+- **Incomplete data** - Accuracy depends on quality of alert metadata, incident history, and configured integrations
+- **Context understanding** - May occasionally misinterpret complex technical relationships
+- **Real-time system state** - Doesn't directly query live systems; relies on alerts and recent changes
+
+<Info>
+  Investigations is actively being developed during early access. Accuracy and capabilities will improve based on feedback from early adopters.
+</Info>
+
+## Privacy and security
+
+### What data Investigations accesses
+
+- **Alert data** - Metadata, labels, and content from triggering alerts
+- **Past incidents** - Complete incident history including descriptions, actions, timelines, and post-mortems
+- **Code changes** - Commit messages, pull request titles, and file changes from connected repositories
+- **Slack messages** - Messages from configured channels within the 7-day window before incident declaration
+
+### Data handling
+
+- Investigation queries are processed using AI models (typically OpenAI or Anthropic)
+- Data sent to AI providers is not used for model training
+- Investigation results are stored as part of the incident record
+- Access controls follow standard incident.io permissions
+
+### Disabling Investigations
+
+Organizations can disable Investigations at any time:
+
+1. Navigate to **Settings → AI → Investigations**
+2. Toggle off **Enable Investigations**
+3. Existing Investigation results remain accessible, but new incidents won't trigger investigations
+
+For complete privacy information, see [AI Privacy Guidance](https://trust.incident.io/).
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Investigation completed but found nothing useful">
+    This typically happens when:
+    - The incident is novel without similar past incidents
+    - Alert metadata is sparse or unclear
+    - Relevant Slack channels haven't been configured
+    - Recent code changes aren't connected to your incident.io catalog
+
+    **Improve accuracy by:**
+    - Adding more Slack channels to Investigation configuration
+    - Ensuring alert labels include service names and error types
+    - Connecting more GitHub repositories
+    - Writing thorough post-mortems for past incidents (this trains the system)
+  </Accordion>
+
+  <Accordion title="Investigation suggested wrong root cause">
+    AI suggestions are probabilistic and won't always be accurate. When root cause suggestions are wrong:
+    - Note the miss in your post-incident feedback
+    - Consider whether alert metadata could be more descriptive
+    - Review if similar past incidents had accurate root cause documentation
+    
+    Your feedback helps improve Investigation accuracy over time.
+  </Accordion>
+
+  <Accordion title="Investigation took longer than 5 minutes">
+    Investigation time depends on:
+    - Number of past incidents being analyzed
+    - Number of Slack channels configured
+    - Size of code repositories connected
+    - Current AI model API load
+
+    Typical completion time is 2-5 minutes. If investigations consistently take longer than 10 minutes, contact support.
+  </Accordion>
+
+  <Accordion title="Can I run an Investigation manually after incident start?">
+    Currently, Investigations run automatically when incidents are declared. Manual triggering or re-running isn't supported.
+    
+    If you need investigation assistance for an incident that didn't trigger one automatically, you can:
+    - Search past similar incidents manually
+    - Use the AI co-pilot to query incident history
+    - Review recent deployments in your CI/CD system
+  </Accordion>
+</AccordionGroup>
+
+## Future Investigation capabilities
+
+incident.io is actively developing additional Investigation features:
+
+- **Continuous investigation** - Ongoing analysis as new information emerges during the incident
+- **Interactive refinement** - Ask follow-up questions to dig deeper into specific hypotheses
+- **Integration with runbooks** - Automatically suggest relevant runbook procedures
+- **Custom investigation prompts** - Configure organization-specific investigation priorities
+- **Live system queries** - Direct interrogation of monitoring and observability systems
+
+For the full roadmap and vision for Investigations, see [The Timeline to Fully Automated Incident Response](https://incident.io/building-with-ai/the-timeline-to-fully-automated-incident-response).
+
+## Best practices
+
+<Tip>
+  **Configure Slack channels thoughtfully** - More channels isn't always better. Focus on channels where technical incident-relevant discussions happen regularly.
+</Tip>
+
+<Tip>
+  **Write thorough post-mortems** - The quality of Investigation suggestions improves with better incident history. Well-documented past incidents help the AI learn what worked.
+</Tip>
+
+<Tip>
+  **Review Investigation results as a team** - During post-incident reviews, discuss whether Investigation suggestions were helpful. This builds shared understanding of AI capabilities and limitations.
+</Tip>
+
+<Tip>
+  **Provide feedback consistently** - Even brief feedback ("Investigation was helpful" or "Suggestions were off-base") helps improve the system for everyone.
+</Tip>
+
+## What's next?
+
+- Set up [call transcription with Scribe](/product-documentation/ai-sre/call-transcription)
+- Learn about [AI-powered post-mortem generation](/product-documentation/ai-sre/post-mortem-writing)
+- Explore [contextual communication features](/product-documentation/ai-sre/contextual-communication)
+- Read the [full Investigation roadmap](https://incident.io/building-with-ai/the-timeline-to-fully-automated-incident-response)

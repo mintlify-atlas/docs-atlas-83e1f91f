@@ -1,0 +1,353 @@
+---
+title: Resolution and recovery
+description: Get AI-powered suggestions for mitigation strategies, recovery procedures, and action items tailored to your specific incident.
+---
+
+# Resolution and recovery
+
+AI-powered resolution assistance helps responders take appropriate actions during incident mitigation and recovery. By analyzing incident context, severity, affected services, and patterns from similar past incidents, the system provides intelligent suggestions for mitigation strategies, recovery procedures, and follow-up actions.
+
+## How AI assists with resolution
+
+During incident response, determining the right mitigation approach quickly is critical. AI resolution assistance accelerates this decision-making by:
+
+- **Suggesting mitigation strategies** based on similar past incidents
+- **Recommending recovery procedures** from runbooks and incident history
+- **Generating action items** for responders to track
+- **Assessing impact** to inform communication strategies
+- **Identifying resolution patterns** that worked in comparable situations
+
+These suggestions appear contextually during the incident lifecycle, providing timely assistance when responders need it most.
+
+## Suggested mitigation strategies
+
+When an incident is active, AI analyzes the situation and suggests mitigation approaches that have worked for similar past incidents.
+
+### How suggestions appear
+
+Mitigation suggestions can surface in several ways:
+
+- **Investigation results** - Initial mitigation recommendations appear in the Investigation message at incident start
+- **Status update prompts** - When sharing updates, AI suggests potential next steps
+- **Action suggestions** - Smart prompts to create specific mitigation actions
+- **Co-pilot queries** - Ask the AI co-pilot "What should we try?" for on-demand suggestions
+
+### What's included in suggestions
+
+Typical mitigation strategy suggestions include:
+
+<Steps>
+  <Step title="Immediate actions">
+    Quick steps to reduce ongoing impact:
+    - Rollback to last known good version
+    - Scale up affected services
+    - Enable feature flags to disable problematic features
+    - Redirect traffic to backup systems
+  </Step>
+
+  <Step title="Diagnostic steps">
+    Investigations to confirm root cause:
+    - Check specific logs or metrics
+    - Query databases for anomalies
+    - Review recent configuration changes
+    - Test specific endpoints or workflows
+  </Step>
+
+  <Step title="Recovery procedures">
+    Steps to restore normal operation:
+    - Restart services in specific order
+    - Clear caches or queues
+    - Re-sync data between systems
+    - Verify health checks pass
+  </Step>
+
+  <Step title="Validation steps">
+    Confirm the incident is resolved:
+    - Monitor error rates return to baseline
+    - Check customer impact metrics
+    - Verify affected workflows work correctly
+    - Confirm alerts have cleared
+  </Step>
+</Steps>
+
+### Using mitigation suggestions
+
+When AI suggests a mitigation strategy:
+
+1. **Evaluate applicability** - Consider whether the suggestion makes sense for your specific situation
+2. **Assess risk** - Understand potential side effects before executing
+3. **Delegate or execute** - Assign the action to a responder or execute it yourself
+4. **Track outcomes** - Document whether the mitigation helped, had no effect, or caused issues
+
+<Warning>
+  Always apply human judgment before executing AI-suggested mitigation strategies. Not every suggestion will be appropriate for your specific incident circumstances.
+</Warning>
+
+## Recommended recovery procedures
+
+As incidents move toward resolution, AI suggests recovery procedures to ensure systems return to healthy state safely.
+
+### Runbook integration
+
+If you've configured runbooks in incident.io or connected systems, AI can:
+- Identify relevant runbooks for the incident type
+- Suggest specific runbook sections to follow
+- Extract procedures from past incident timelines that acted as implicit runbooks
+
+### Recovery sequence recommendations
+
+For complex incidents affecting multiple systems, AI suggests the order in which to recover components:
+
+**Example recovery sequence:**
+```
+1. Restore database primary (5-10 min)
+2. Verify replica sync completes (2-5 min)
+3. Restart application services (3-5 min)
+4. Re-enable load balancer traffic (immediate)
+5. Monitor error rates for 15 minutes
+6. Gradually increase traffic to 100%
+```
+
+These sequences are derived from successful recovery patterns in your incident history.
+
+### Validation checklists
+
+Before marking an incident as resolved, AI generates validation checklists:
+
+- [ ] Error rates below 0.1% for 10 minutes
+- [ ] All health checks passing
+- [ ] Customer-reported issues resolved
+- [ ] Monitoring alerts cleared
+- [ ] Status page updated to "All Systems Operational"
+- [ ] Incident timeline reviewed for accuracy
+
+## AI-generated action items
+
+During incident response, AI proactively suggests action items to create and assign:
+
+### When action items are suggested
+
+- **During investigation** - "Check database connection pool settings"
+- **After key decisions** - "Document rollback decision in timeline"
+- **Before resolution** - "Verify monitoring alerts have cleared"
+- **Post-incident** - "Schedule post-mortem meeting" or "Create ticket to fix root cause"
+
+### Creating actions from suggestions
+
+When AI suggests an action:
+
+1. Review the suggested action description
+2. Click **Create action** if appropriate
+3. Assign to the relevant responder
+4. AI pre-fills the action description; edit if needed
+5. Track completion in the incident timeline
+
+Actions created from AI suggestions appear in the incident like any manually created action, with clear tracking and assignment.
+
+## Impact assessment assistance
+
+Understanding and communicating incident impact accurately is critical. AI helps assess impact by:
+
+### Analyzing incident signals
+
+- **Error rate magnitude** - Comparing current error rates to baseline
+- **User impact volume** - Estimating affected users from metrics
+- **Service dependencies** - Identifying downstream impacts
+- **Historical comparison** - Comparing to similar past incidents
+
+### Suggesting impact statements
+
+AI drafts impact statements for status updates:
+
+**Example impact statements:**
+- "Approximately 15% of API requests are failing, primarily affecting checkout flows"
+- "Dashboard loading times increased by 40 seconds; data viewing degraded for all users"
+- "Batch job processing delayed by 3 hours; customer reports will be available by 5 PM UTC"
+
+These statements can be used directly in status updates, Slack messages, or status page posts.
+
+### Severity recommendations
+
+Based on impact analysis, AI may suggest adjusting incident severity:
+
+- "Consider escalating to SEV-2: customer impact now exceeds 20% of requests"
+- "Impact has decreased; potentially de-escalate to SEV-3"
+
+Severity suggestions help ensure appropriate escalation and communication throughout the incident lifecycle.
+
+## Resolution pattern recognition
+
+AI identifies patterns in how your organization successfully resolves incidents:
+
+### Common resolution paths
+
+For incident types you encounter frequently, AI recognizes typical resolution patterns:
+
+**Database connection pool exhaustion:**
+1. Temporary fix: Increase pool size
+2. Monitor: Watch connection usage
+3. Permanent fix: Optimize queries causing high connection usage
+4. Prevention: Add alerting on connection pool utilization
+
+**Third-party API degradation:**
+1. Enable circuit breaker
+2. Communicate to customers
+3. Implement request queuing
+4. Monitor third-party status page
+5. Gradually restore traffic when third-party recovers
+
+Recognizing these patterns helps new responders handle familiar incident types with proven approaches.
+
+### Time-to-resolution predictions
+
+Based on resolution patterns, AI can estimate likely time to resolution:
+
+- "Similar incidents took 15-45 minutes to resolve"
+- "Database rollbacks typically complete in 5-10 minutes"
+- "Third-party incidents average 2 hours to full resolution"
+
+These estimates help set expectations with stakeholders and inform escalation decisions.
+
+## Follow-up action suggestions
+
+As incidents resolve, AI suggests follow-up actions to prevent recurrence:
+
+### Technical improvements
+
+- Add monitoring for gaps identified during the incident
+- Implement automated rollback capabilities
+- Write runbooks for procedures executed manually
+- Add tests to catch the bug that caused the incident
+- Document tribal knowledge discovered during response
+
+### Process improvements
+
+- Update escalation paths if responders were hard to reach
+- Refine alert routing if wrong team was initially paged
+- Document investigation procedures for future similar incidents
+- Schedule training on tools or systems that were unfamiliar
+
+### Communication improvements
+
+- Add status page component for affected service
+- Create customer communication templates for this incident type
+- Update internal documentation to reflect new learnings
+
+Follow-up suggestions appear in the post-incident flow, making it easy to capture improvements while they're fresh.
+
+## Configuring resolution assistance
+
+Customize how AI assists with resolution:
+
+### Enable resolution suggestions
+
+1. Navigate to **Settings → AI**
+2. Toggle on **Resolution assistance**
+3. Configure when suggestions should appear:
+   - During status updates (default: on)
+   - In Investigation results (default: on)
+   - As proactive action suggestions (default: on)
+
+### Connect runbook systems
+
+Integrate external runbook systems for better procedure recommendations:
+
+- **Confluence** - Connect Confluence to access runbook pages
+- **Notion** - Link Notion databases containing procedures
+- **GitHub** - Access README files and documentation in code repositories
+
+Configured integrations allow AI to surface relevant procedures from your existing documentation.
+
+### Customize suggestion preferences
+
+Organization admins can configure:
+
+- **Suggestion aggressiveness** - How frequently AI proactively suggests actions
+- **Confidence threshold** - Only show suggestions above certain confidence levels
+- **Preferred resolution approaches** - Prioritize rollbacks vs. hot fixes vs. other strategies
+
+## Best practices
+
+<Tip>
+  **Use suggestions as starting points** - AI resolution suggestions are hypotheses, not prescriptions. Validate before executing, especially for high-risk actions.
+</Tip>
+
+<Tip>
+  **Document outcomes** - When following AI suggestions, note whether they helped. This feedback improves future suggestions for everyone.
+</Tip>
+
+<Tip>
+  **Combine with runbooks** - Use AI suggestions alongside your established runbooks. AI can remind you of runbook existence or suggest improvising when runbooks don't cover the situation.
+</Tip>
+
+<Tip>
+  **Leverage for training** - New team members can learn resolution patterns by reviewing AI suggestions during incidents, accelerating their incident response learning curve.
+</Tip>
+
+<Tip>
+  **Review suggestions post-incident** - During post-mortems, discuss which AI suggestions were helpful and which weren't. This builds shared mental models of AI capabilities.
+</Tip>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="AI suggested an inappropriate mitigation">
+    Not all suggestions will be appropriate for your specific circumstances. This is expected. When suggestions are off-base:
+    
+    - Ignore the suggestion and proceed with your judgment
+    - Provide feedback about why it wasn't helpful
+    - Consider whether improved incident documentation would help future suggestions
+    
+    AI learns from feedback, so reporting misses improves the system.
+  </Accordion>
+
+  <Accordion title="No resolution suggestions appearing">
+    Resolution suggestions depend on:
+    - Having similar past incidents in your history
+    - Adequate incident context (severity, affected services, description)
+    - Investigation results with root cause information
+    
+    If you're not seeing suggestions:
+    - Verify resolution assistance is enabled at Settings → AI
+    - Check that you have documented past incidents with similar characteristics
+    - Ensure incidents have detailed descriptions and proper service attribution
+  </Accordion>
+
+  <Accordion title="Suggestions are too generic">
+    Generic suggestions typically mean:
+    - The incident is novel without close historical matches
+    - Past incidents lack detailed resolution documentation
+    - Service catalog and integration data is incomplete
+    
+    Improve suggestion specificity by:
+    - Writing thorough post-mortems that document what worked
+    - Keeping your service catalog up-to-date
+    - Connecting more integrations (GitHub, monitoring, runbooks)
+  </Accordion>
+
+  <Accordion title="Can I request suggestions on-demand?">
+    Yes! Use the AI co-pilot to request suggestions anytime:
+    - "What mitigation strategies should we try?"
+    - "How have we resolved similar incidents?"
+    - "What should we do next?"
+    
+    The co-pilot provides on-demand access to resolution intelligence beyond automatic suggestions.
+  </Accordion>
+</AccordionGroup>
+
+## Privacy and data handling
+
+Resolution assistance uses:
+- Past incident data (descriptions, timelines, actions, outcomes)
+- Service catalog information
+- Connected runbook content
+- Current incident context
+
+Data is processed by AI models (typically OpenAI or Anthropic) but is not used for model training. For complete details, see [AI Privacy Guidance](https://trust.incident.io/).
+
+## What's next?
+
+- Learn about [contextual communication features](/product-documentation/ai-sre/contextual-communication)
+- Explore [post-mortem generation](/product-documentation/ai-sre/post-mortem-writing)
+- Try the [AI co-pilot for natural language interaction](/product-documentation/ai-sre/agentic-copilot)
+- Set up [call transcription with Scribe](/product-documentation/ai-sre/call-transcription)

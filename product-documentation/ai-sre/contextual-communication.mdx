@@ -1,0 +1,374 @@
+---
+title: Contextual communication
+description: Use AI-generated summaries and status updates to communicate incident progress clearly and efficiently to stakeholders.
+---
+
+# Contextual communication
+
+Communicating clearly during incidents is challenging. Responders need to update stakeholders, customers, and internal teams while simultaneously working to resolve the incident. AI-powered contextual communication helps you craft accurate, appropriate updates quickly by analyzing incident context and suggesting relevant content for different audiences.
+
+## Why contextual communication matters
+
+During incidents, different audiences need different information:
+
+- **Customers** need to know impact and estimated resolution time
+- **Leadership** needs severity, business impact, and mitigation status
+- **Internal teams** need technical details and coordination updates
+- **Status pages** need concise, public-appropriate status messages
+
+Crafting appropriate messages for each audience while managing the incident creates cognitive load and slows down communication. AI contextual communication reduces this burden by suggesting tailored content based on:
+
+- Incident severity and type
+- Affected services and impact scope
+- Current incident stage (investigating, fixing, monitoring)
+- Audience (internal, external, technical, non-technical)
+- Your organization's communication patterns from past incidents
+
+## Suggested incident summaries
+
+When sharing incident updates, AI suggests concise summaries that capture the current state:
+
+### How summaries are generated
+
+AI analyzes multiple data sources to create summaries:
+
+- **Incident description** - Initial problem statement
+- **Timeline events** - Key actions and decisions made
+- **Status changes** - Progression through incident lifecycle
+- **Call transcripts** - Key moments and discussions from incident calls
+- **Slack messages** - Important context from the incident channel
+- **Investigation results** - Root cause findings and mitigation attempts
+
+### When summaries appear
+
+Suggested summaries surface at key moments:
+
+- **Status update dialog** - When using `/inc update` or clicking "Share update" in the dashboard
+- **Status page updates** - When posting to public or internal status pages
+- **Leadership notifications** - When escalating or sending executive updates
+- **Shift handoffs** - When incident lead role transfers to another responder
+
+### Customizing summaries
+
+AI-generated summaries appear as suggestions, not final content. You can:
+
+1. **Accept as-is** - Use the suggested summary directly
+2. **Edit before sending** - Modify to add context or adjust tone
+3. **Regenerate** - Request a different summary if the first doesn't fit
+4. **Write manually** - Ignore the suggestion and write from scratch
+
+<Tip>
+  Always review AI-generated summaries before sharing externally. The AI captures facts accurately but may need tone adjustments for customer-facing communications.
+</Tip>
+
+## Status page update drafts
+
+Updating status pages during incidents requires careful wording—technical enough to be accurate, but accessible enough for customers to understand. AI helps draft status page updates appropriate for public audiences.
+
+### Update types
+
+AI suggests different update styles based on incident stage:
+
+**Investigating:**
+```
+We're investigating increased error rates affecting checkout functionality. 
+Customers may experience payment processing delays. We're actively working 
+to identify the root cause and will provide updates every 30 minutes.
+```
+
+**Identified:**
+```
+We've identified a database connection issue causing checkout errors. 
+Our team is implementing a fix. Estimated time to resolution is 20-30 minutes.
+```
+
+**Monitoring:**
+```
+A fix has been deployed and error rates are returning to normal. We're 
+monitoring closely to ensure full recovery. Checkout functionality should 
+be working normally now.
+```
+
+**Resolved:**
+```
+The incident has been resolved. All checkout functionality is operating 
+normally. We apologize for any inconvenience caused.
+```
+
+### Public vs. internal status pages
+
+AI adjusts tone and detail based on status page type:
+
+- **Public pages** - Less technical detail, customer-focused impact language
+- **Private customer pages** - More technical detail, specific service names
+- **Internal pages** - Full technical context, internal system names
+
+### Component-specific updates
+
+For status pages with multiple components, AI suggests which components to mark as affected and crafts component-specific updates:
+
+```
+API Gateway: Degraded Performance
+Payment Processing: Partial Outage
+Dashboard: Operational
+```
+
+Updates reference only affected components, keeping status page noise minimal.
+
+## Customer communication templates
+
+For incidents requiring direct customer communication (email, support tickets, social media), AI suggests appropriately worded messages:
+
+### Email templates
+
+**Subject line suggestions:**
+- "Update on [service name] performance issues"
+- "Resolved: Temporary [service name] disruption"
+- "Scheduled maintenance notification"
+
+**Body content:**
+AI drafts complete email content including:
+- Clear description of customer impact (not internal technical details)
+- What customers should expect or do
+- Apology if appropriate
+- Timeline for resolution or next update
+- Contact information for additional help
+
+### Support response templates
+
+For customer support teams responding to incident-related tickets, AI suggests:
+
+- Acknowledgment messages confirming the issue is known
+- Status update messages for ongoing incidents
+- Resolution confirmation messages
+- Explanation of what happened (post-resolution)
+
+### Social media responses
+
+For organizations that communicate via Twitter, Slack communities, or other social channels, AI suggests brief, appropriate responses:
+
+```
+We're aware of login issues and investigating. We'll share updates 
+here and on our status page: [link]
+```
+
+Short-form messages prioritize transparency and provide links to detailed information.
+
+## Stakeholder notification content
+
+Internal stakeholders need different information than customers. AI helps craft updates for:
+
+### Executive summaries
+
+For leadership, AI suggests concise summaries covering:
+
+- **Business impact** - Revenue, customer, or reputation effects
+- **Severity and urgency** - Is this escalating or improving?
+- **Current status** - What's being done right now?
+- **Estimated resolution** - When will this be fixed?
+- **Ownership** - Who's leading the response?
+
+**Example executive summary:**
+```
+SEV-2 incident affecting payment processing. Approximately $15K/hour 
+revenue impact. Root cause identified as database connection issue. 
+Fix in progress, estimated resolution in 30 minutes. Chris Lee leading 
+response with support team paged.
+```
+
+### Cross-team notifications
+
+For teams affected by the incident but not directly responding (customer success, sales, support), AI suggests updates that:
+
+- Explain customer-facing impact
+- Provide talking points for customer conversations
+- Share expected resolution timeline
+- Offer ways they can help or escalate issues
+
+### Post-resolution communications
+
+After incidents resolve, AI helps draft "all clear" messages:
+
+- Confirmation that the incident is resolved
+- Summary of what happened
+- What was done to fix it
+- Whether customers need to take any action
+- Link to post-mortem (if/when available)
+
+## Suggested follow-up messages
+
+AI identifies when follow-up communication is needed:
+
+### During long incidents
+
+For incidents lasting over 30-60 minutes, AI prompts for periodic updates:
+
+```
+⏰ It's been 45 minutes since the last status update. Consider sharing 
+an update with stakeholders.
+
+Suggested update:
+"Investigation continues. We've ruled out recent deployments and are 
+focusing on database performance issues. Next update in 30 minutes."
+```
+
+### After incident resolution
+
+AI suggests timing for post-resolution communications:
+
+- Immediate: "All clear" confirmation
+- +24 hours: Link to completed post-mortem
+- +1 week: Summary of follow-up improvements completed
+
+### For unresolved questions
+
+If incident discussions raised questions that weren't answered, AI reminds responders to follow up:
+
+```
+❓ From incident call transcript: "Will this affect the deployment 
+scheduled for tomorrow?" — No answer recorded.
+
+Consider following up with the team.
+```
+
+## Communication patterns and learning
+
+AI learns from your organization's communication patterns:
+
+### Tone and style
+
+By analyzing past incident updates, AI learns:
+- Formal vs. casual tone preferences
+- Technical depth appropriate for each audience
+- Common phrases and terminology your organization uses
+- How apologetic or matter-of-fact messaging should be
+
+### Update frequency
+
+AI recognizes your organization's update cadence:
+- How often do you typically share status updates?
+- When do you transition from frequent updates to less frequent ones?
+- What triggers "all hands" broad stakeholder communications?
+
+### Escalation thresholds
+
+AI learns when to suggest broader communication:
+- What severity level triggers executive notification?
+- Which incident types require customer email campaigns?
+- When should marketing/PR be looped in?
+
+## Configuring contextual communication
+
+Customize AI communication assistance:
+
+### Enable communication suggestions
+
+1. Navigate to **Settings → AI**
+2. Toggle on **Communication assistance**
+3. Select where suggestions should appear:
+   - Status updates (default: on)
+   - Status page updates (default: on)
+   - Email templates (default: on)
+
+### Define audience templates
+
+Create audience-specific templates that AI uses as starting points:
+
+1. Navigate to **Settings → Communication**
+2. Add audience types (Executive, Customer Support, Engineering)
+3. Define standard sections for each audience
+4. AI will fill these templates with incident-specific content
+
+### Set communication policies
+
+Define when certain communications are required:
+
+- SEV-1 incidents → Automatic executive notification
+- Public status page updates → Require approval
+- Customer email → Only for incidents over 1 hour
+- Social media → Only for SEV-1 or SEV-2
+
+AI suggestions adapt to these policies.
+
+## Best practices
+
+<Tip>
+  **Edit for audience** - AI drafts are starting points. Always adjust tone and detail for specific audiences before sending.
+</Tip>
+
+<Tip>
+  **Be honest about uncertainty** - If root cause isn't confirmed, say so. AI suggestions sometimes sound more confident than they should. Add appropriate caveats.
+</Tip>
+
+<Tip>
+  **Update frequently early, less often later** - During active incidents, frequent updates (every 20-30 minutes) keep stakeholders informed. As incidents stabilize, reduce frequency.
+</Tip>
+
+<Tip>
+  **Link to status pages** - Instead of duplicating status information in multiple channels, link to your status page as the single source of truth.
+</Tip>
+
+<Tip>
+  **Proofread timestamps and metrics** - AI-generated updates include times and numbers. Verify these are accurate before sharing.
+</Tip>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Suggested summaries don't match incident reality">
+    This can happen when:
+    - Investigation findings aren't documented in the incident
+    - Important context is in Slack but not structured data
+    - Recent status changes haven't been recorded
+    
+    Improve accuracy by:
+    - Adding timeline entries for key decisions
+    - Using `/inc update` to record status changes
+    - Ensuring Investigation results are visible
+  </Accordion>
+
+  <Accordion title="Communication tone doesn't match our style">
+    AI learns from past incident communications. If tone is off:
+    - Edit suggestions to match your preferred style
+    - Over time, AI will adapt to your edits
+    - Consider creating audience-specific templates at Settings → Communication
+    
+    You can also provide feedback on suggestions to train the system.
+  </Accordion>
+
+  <Accordion title="Suggestions include internal jargon for customer updates">
+    AI occasionally includes internal system names or technical jargon in customer-facing suggestions. Always:
+    - Review suggestions before sharing externally
+    - Replace internal names with customer-familiar terms
+    - Simplify technical language for non-technical audiences
+    
+    Report instances where jargon appears inappropriately to help improve filtering.
+  </Accordion>
+
+  <Accordion title="No suggestions appearing for status updates">
+    Communication suggestions require:
+    - Communication assistance enabled at Settings → AI
+    - Adequate incident context (description, timeline, status)
+    - Integration with status page systems
+    
+    If suggestions aren't appearing, verify settings and ensure the incident has sufficient documented context.
+  </Accordion>
+</AccordionGroup>
+
+## Privacy and data handling
+
+Contextual communication uses:
+- Incident descriptions and timelines
+- Call transcripts (if Scribe is enabled)
+- Status update history
+- Slack messages from incident channels
+- Investigation results
+
+Data is processed by AI models but not used for model training. For complete details, see [AI Privacy Guidance](https://trust.incident.io/).
+
+## What's next?
+
+- Learn about [post-mortem generation](/product-documentation/ai-sre/post-mortem-writing)
+- Explore [resolution and recovery assistance](/product-documentation/ai-sre/resolution-and-recovery)
+- Try the [AI co-pilot](/product-documentation/ai-sre/agentic-copilot)
+- Configure [status pages](/product-documentation/status-pages/overview)

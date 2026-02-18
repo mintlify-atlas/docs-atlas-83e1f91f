@@ -1,0 +1,452 @@
+---
+title: Agentic co-pilot and natural language interaction
+description: Interact with incident.io using natural language to query incident data, retrieve context, update incidents, and perform common actions.
+---
+
+# Agentic co-pilot and natural language interaction
+
+The AI co-pilot enables natural language interaction with incident.io, allowing you to query incident data, retrieve context, update incidents, and perform common actions through conversational commands. Instead of navigating UIs or remembering exact commands, simply ask the co-pilot what you need in plain English.
+
+<Info>
+  The AI co-pilot is currently in early access. Features and capabilities are actively expanding. Contact [help@incident.io](mailto:help@incident.io) to request access.
+</Info>
+
+## What is the AI co-pilot?
+
+The AI co-pilot is an agentic assistant that understands incident response context and can take actions on your behalf. Unlike simple chatbots that only answer questions, the co-pilot can:
+
+- **Query incident history** - "Show me all database incidents from last quarter"
+- **Retrieve specific information** - "What was the resolution time for INC-1234?"
+- **Update incidents** - "Update this incident to SEV-2 and page the database team"
+- **Execute workflows** - "Create a post-mortem for yesterday's outage"
+- **Provide recommendations** - "What should we try next for this incident?"
+- **Explain complex data** - "Why is our MTTD increasing?"
+
+The co-pilot works in both Slack and the incident.io dashboard, meeting you where you already work.
+
+## How the co-pilot works
+
+### Understanding intent
+
+The co-pilot uses advanced language models to understand what you're trying to accomplish:
+
+**Query intent:**
+- "Find incidents" → Search incident history
+- "Show me" → Retrieve specific data
+- "How many" → Aggregate and count
+- "Why is" → Explain patterns or anomalies
+
+**Action intent:**
+- "Update this incident" → Modify incident properties
+- "Page the team" → Trigger escalation
+- "Create a post-mortem" → Generate documentation
+- "Set severity to SEV-2" → Change incident severity
+
+**Recommendation intent:**
+- "What should we try" → Suggest mitigation strategies
+- "How have we handled" → Retrieve resolution patterns
+- "What's the best way" → Provide guidance based on history
+
+### Multi-step reasoning
+
+The co-pilot breaks complex requests into steps:
+
+**Request:** "Create a summary of all SEV-1 incidents from last month and send it to #engineering"
+
+**Co-pilot reasoning:**
+1. Query incidents with SEV-1 severity from last month
+2. Extract key information (dates, duration, root causes)
+3. Generate summary text
+4. Format for Slack
+5. Post to #engineering channel
+
+**Result:** Summary posted with link to full incident list
+
+### Context awareness
+
+The co-pilot maintains context throughout conversations:
+
+```
+You: Show me recent database incidents
+Co-pilot: [Displays 5 recent database incidents]
+
+You: Which one took the longest to resolve?
+Co-pilot: INC-1842 took 3 hours 45 minutes
+
+You: What was the root cause?
+Co-pilot: Connection pool exhaustion caused by inefficient queries
+
+You: Show me the post-mortem
+Co-pilot: [Displays post-mortem document link]
+```
+
+The co-pilot remembers previous queries in the conversation, so you can ask follow-up questions naturally.
+
+## Using the co-pilot in Slack
+
+Interact with the co-pilot directly in Slack:
+
+### Invoking the co-pilot
+
+**In incident channels:**
+- Tag the bot: `@incident.io what should we try next?`
+- The co-pilot responds with context-aware suggestions based on the current incident
+
+**In DMs:**
+- Send a direct message to the incident.io bot
+- Ask any question about incidents, metrics, or perform actions
+- No special syntax required
+
+**In any channel:**
+- Use `/inc ask` command: `/inc ask what were our SEV-1 incidents last week?`
+- Results appear as ephemeral messages (only you see them)
+
+### Example Slack interactions
+
+**Querying incident history:**
+```
+You: @incident.io show me incidents affecting payments from last month
+
+Co-pilot: Found 7 incidents affecting payment services in January:
+• INC-2034: Payment API timeout (SEV-2, 45min)
+• INC-2018: Checkout failures (SEV-1, 2h 15min)
+• INC-1998: Card validation errors (SEV-3, 30min)
+[...]
+
+View full list: [link]
+```
+
+**Getting mitigation suggestions:**
+```
+You: @incident.io what should we try next?
+
+Co-pilot: Based on similar past incidents (INC-1847, INC-1765), I recommend:
+
+1. Check database connection pool utilization
+2. Review recent deployments to payment-service
+3. Scale up payment-service pods to handle load
+
+Want me to create these as action items?
+```
+
+**Updating incidents:**
+```
+You: @incident.io escalate this to SEV-2 and page the database team
+
+Co-pilot: ✓ Updated severity to SEV-2
+✓ Paged database on-call via escalation path
+
+Database on-call: Alice Chen
+Notified via: Slack, SMS, phone call
+```
+
+## Using the co-pilot in the dashboard
+
+The co-pilot is accessible throughout the incident.io dashboard:
+
+### Co-pilot sidebar
+
+Click the co-pilot icon to open the sidebar chat interface:
+
+- Ask questions about the current page context
+- Query incident data across your organization
+- Get explanations of metrics and trends
+- Receive recommendations based on current view
+
+### Contextual help
+
+The co-pilot appears contextually when it can help:
+
+- **On incident pages** - "Need help resolving this incident?"
+- **In Insights** - "Want me to explain this metric?"
+- **During configuration** - "Need guidance on this setting?"
+
+### Keyboard shortcuts
+
+- `Cmd+K` or `Ctrl+K` - Open co-pilot quick search
+- Type your query and press Enter
+- Results appear immediately with quick actions
+
+### Example dashboard interactions
+
+**Explaining metrics:**
+```
+You: Why is our MTTD increasing?
+
+Co-pilot: Your Mean Time to Detection increased 22% last month because:
+
+1. 40% of incidents came from manual reports (vs. automated alerts)
+2. Three incidents detected by customers, not monitoring
+3. Alert route #3 has no on-call assigned currently
+
+Recommendations:
+- Add monitoring for services with manual incident reports
+- Review alert coverage for customer-reported issues
+- Assign on-call to alert route #3
+```
+
+**Finding incidents:**
+```
+You: Find incidents similar to this one
+
+Co-pilot: Found 4 similar incidents based on affected services and symptoms:
+
+• INC-1847 (resolved in 45min via rollback)
+• INC-1765 (resolved in 1h 20min by scaling database)
+• INC-1623 (resolved in 30min via cache clear)
+• INC-1501 (resolved in 2h via query optimization)
+
+Common pattern: All involved database connection pool issues
+```
+
+**Generating reports:**
+```
+You: Create a summary of this month's SEV-1 incidents
+
+Co-pilot: Generated summary report:
+
+📊 February 2026 SEV-1 Incidents: 5 total
+
+• Average resolution time: 2h 15min
+• Most common: Database issues (3/5)
+• Total customer impact: ~180K users
+• All resolved without data loss
+
+Top improvement opportunity: Add database connection pool monitoring
+
+[Download full report] [Share to Slack]
+```
+
+## Common co-pilot commands
+
+### Incident queries
+
+- "Show me recent incidents"
+- "Find incidents affecting [service]"
+- "What were our SEV-1 incidents last month?"
+- "How many incidents did we have this quarter?"
+- "Show me incidents led by [person]"
+- "Find unresolved incidents"
+
+### Incident actions
+
+- "Update this incident to SEV-2"
+- "Escalate this incident"
+- "Page the [team] team"
+- "Add [person] to this incident"
+- "Create a post-mortem"
+- "Set the incident lead to [person]"
+
+### Information retrieval
+
+- "What's the status of INC-[number]?"
+- "How long did incident INC-[number] take to resolve?"
+- "Who was on-call when this incident started?"
+- "Show me the timeline for this incident"
+- "What actions are pending?"
+
+### Recommendations and guidance
+
+- "What should we try next?"
+- "How have we resolved similar incidents?"
+- "What's the best way to [task]?"
+- "Suggest mitigation strategies"
+- "What are common root causes for [type] incidents?"
+
+### Analytics and insights
+
+- "Why is our MTTR increasing?"
+- "Show me our incident trends"
+- "What's our busiest incident time?"
+- "Which services have the most incidents?"
+- "How is our incident response improving?"
+
+### Documentation
+
+- "Summarize this incident"
+- "Create a post-mortem"
+- "Draft a status update"
+- "Generate an executive summary"
+- "Write customer communication"
+
+## Co-pilot capabilities and limitations
+
+### What the co-pilot does well
+
+- **Natural language understanding** - Interprets varied phrasings of the same request
+- **Context retention** - Remembers conversation history for follow-up questions
+- **Data aggregation** - Combines information from multiple sources
+- **Pattern recognition** - Identifies trends and similarities across incidents
+- **Action execution** - Performs tasks that would require multiple UI clicks
+
+### Current limitations
+
+- **Complex multi-step workflows** - Some advanced workflows still require manual steps
+- **Real-time system access** - Can't directly query live production systems
+- **Ambiguity handling** - May ask clarifying questions if requests are unclear
+- **External tool integration** - Limited integration with non-incident.io tools
+
+<Info>
+  Co-pilot capabilities are expanding rapidly during early access. Features that are limited today may be fully supported soon.
+</Info>
+
+## Configuring the co-pilot
+
+Customize co-pilot behavior for your organization:
+
+### Access control
+
+Define who can use the co-pilot:
+
+1. Navigate to **Settings → AI → Co-pilot**
+2. Choose access level:
+   - **All users** - Anyone in your organization
+   - **Responders and admins** - Users with active incident permissions
+   - **Admins only** - Limited to organization administrators
+
+### Response preferences
+
+Configure how the co-pilot responds:
+
+- **Verbosity** - Brief vs. detailed responses
+- **Proactiveness** - How often co-pilot offers unsolicited suggestions
+- **Confirmation requirements** - Whether actions require explicit confirmation
+
+### Data access
+
+Control what data the co-pilot can access:
+
+- **Historical incidents** - How far back to search
+- **Sensitive incidents** - Whether to include private or restricted incidents
+- **External data** - Which integrations co-pilot can query
+
+### Custom commands
+
+Create organization-specific shortcuts:
+
+```
+Command: "weekly incident summary"
+Action: Generate summary of past week's incidents and post to #engineering
+
+Command: "escalate to leadership"
+Action: Update severity to SEV-1 and notify executive on-call
+```
+
+Custom commands enable team-specific workflows through simple phrases.
+
+## Privacy and security
+
+### What data the co-pilot accesses
+
+- **Incident data** - All incident information you have permission to view
+- **Integration data** - Data from connected tools (based on your permissions)
+- **User data** - Your organization's user list and roles
+- **Conversation history** - Previous co-pilot interactions (stored temporarily)
+
+### Data handling
+
+- Queries are processed using AI models (typically OpenAI or Anthropic)
+- Your data is not used for model training
+- Conversation history is retained for context but expires after 24 hours
+- All standard incident.io access controls apply to co-pilot queries
+- Co-pilot can only access data you have permission to view
+
+### Disabling the co-pilot
+
+Organizations can disable the co-pilot at any time:
+
+1. Navigate to **Settings → AI → Co-pilot**
+2. Toggle off **Enable co-pilot**
+3. Co-pilot becomes unavailable; existing conversation history is deleted
+
+For complete privacy information, see [AI Privacy Guidance](https://trust.incident.io/).
+
+## Best practices
+
+<Tip>
+  **Start with simple queries** - Begin with straightforward questions to learn how the co-pilot interprets your requests, then progress to complex multi-step commands.
+</Tip>
+
+<Tip>
+  **Be specific** - Include relevant details (time ranges, service names, severities) to get precise results. "Show me incidents" is broad; "Show me SEV-2 database incidents from last week" is specific.
+</Tip>
+
+<Tip>
+  **Use follow-ups** - Ask follow-up questions to drill deeper. The co-pilot maintains context, so you don't need to repeat information.
+</Tip>
+
+<Tip>
+  **Verify before executing** - When the co-pilot suggests actions, review before confirming. AI is powerful but not infallible.
+</Tip>
+
+<Tip>
+  **Provide feedback** - Use thumbs up/down on co-pilot responses to help improve accuracy and relevance over time.
+</Tip>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Co-pilot doesn't understand my question">
+    If the co-pilot struggles to understand:
+    - Rephrase using more specific language
+    - Break complex requests into smaller steps
+    - Use incident.io terminology ("SEV-1" rather than "P0", "incident" rather than "outage")
+    - Provide more context (time ranges, service names, etc.)
+    
+    You can also say "I don't think you understood" and rephrase.
+  </Accordion>
+
+  <Accordion title="Co-pilot response is incorrect">
+    AI can make mistakes. When responses are wrong:
+    - Use thumbs down to flag the error
+    - Provide feedback explaining what was incorrect
+    - Try rephrasing your question
+    - For critical information, verify with the UI
+    
+    Flagged errors help improve the co-pilot for everyone.
+  </Accordion>
+
+  <Accordion title="Co-pilot is too slow">
+    Response time depends on query complexity. If consistently slow:
+    - Break complex queries into smaller requests
+    - Use more specific queries (reduces data to process)
+    - Check if incident.io API is experiencing latency
+    
+    Typical response time is 2-5 seconds. Longer than 10 seconds may indicate an issue.
+  </Accordion>
+
+  <Accordion title="Co-pilot can't perform an action I requested">
+    If the co-pilot says it can't do something:
+    - Confirm the action is supported (see capabilities section)
+    - Check that you have the required permissions
+    - Try breaking the action into smaller steps
+    - Some actions may need to be done manually in the UI
+    
+    Co-pilot capabilities are expanding; actions not supported today may be added soon.
+  </Accordion>
+
+  <Accordion title="How do I clear co-pilot conversation history?">
+    Conversation history automatically expires after 24 hours. To manually clear:
+    - In Slack: Start a new DM thread
+    - In dashboard: Close and reopen the co-pilot sidebar
+    - History deletion doesn't affect incident data, only temporary conversation context
+  </Accordion>
+</AccordionGroup>
+
+## Future co-pilot capabilities
+
+The AI co-pilot roadmap includes:
+
+- **Proactive assistance** - Co-pilot initiates helpful suggestions based on context
+- **Multi-tool workflows** - Execute workflows spanning incident.io and external tools
+- **Learning from feedback** - Personalized responses based on your preferences
+- **Voice interaction** - Speak to the co-pilot instead of typing
+- **Advanced analytics** - Natural language queries for complex Insights data
+- **Automated triage** - Co-pilot assists with incident triage decisions
+
+## What's next?
+
+- Learn about [AI SRE overview](/product-documentation/ai-sre/overview)
+- Set up [call transcription with Scribe](/product-documentation/ai-sre/call-transcription)
+- Enable [Investigations](/product-documentation/ai-sre/investigations-and-root-cause)
+- Generate [post-mortems automatically](/product-documentation/ai-sre/post-mortem-writing)

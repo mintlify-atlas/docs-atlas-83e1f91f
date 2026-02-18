@@ -64,33 +64,9 @@ See our catalog documentation for more on [importing data](https://help.incident
 
 Import your schedules directly from Opsgenie into incident.io, including bulk imports for teams with many schedules.
 
-<Steps>
-  <Step title="Access schedule settings">
-    Navigate to **On-call > Schedules** in your incident.io dashboard.
-  </Step>
-  <Step title="Choose import method">
-    Select to import schedules from Opsgenie. You can import individual schedules or use the bulk import feature for multiple schedules at once.
-  </Step>
-  <Step title="Verify imported schedules">
-    Review the imported schedules to ensure they match your Opsgenie configuration and adjust as needed.
-  </Step>
-</Steps>
-
 ## Import escalation paths
 
 Import your escalation policies from Opsgenie as escalation paths in incident.io. Bulk import is available to speed up the process.
-
-<Steps>
-  <Step title="Navigate to escalation paths">
-    Go to **On-call > Escalation paths** in your incident.io dashboard.
-  </Step>
-  <Step title="Import from Opsgenie">
-    Select the option to import escalation policies from Opsgenie. Choose between individual or bulk import.
-  </Step>
-  <Step title="Review and configure">
-    Review the imported escalation paths and make any necessary adjustments to match your incident.io setup.
-  </Step>
-</Steps>
 
 ## Terraform provider support
 
@@ -115,7 +91,7 @@ See our [Terraform provider documentation](https://registry.terraform.io/provide
 
 If you don't use Terraform and have many Datadog monitors pointing to Opsgenie, our migration tool can automatically update everything to point to incident.io.
 
-See [Datadog monitor migration tool](/product-documentation/migration/datadog-monitor-migrationtool).
+See [Datadog monitor migration tool](/migration/datadog-monitor-migration-tool).
 
 ## On-call readiness report
 
@@ -126,8 +102,9 @@ You can use the On-call readiness report to understand how prepared your team is
 
 You'll also be able to drill down into individual responder setups so that you can contact the right people if necessary.
 
-We also have on-call readiness available via the Members tab of your teams page(s), and you can leverage On-call readiness policies to enforce a particular set up.
-
+<Note>
+  On-call readiness is also available via the Members tab of your teams page(s), and you can leverage On-call readiness policies to enforce a particular set up.
+</Note>
 
 ## Preferred provider for manual escalations
 

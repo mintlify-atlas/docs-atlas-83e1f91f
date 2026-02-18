@@ -1,123 +1,200 @@
 ---
 title: "Installing incident.io"
 description: "Get started with installing and setting up incident.io in your workspace"
-mode: "wide"
 ---
 
-<Note>
-  Get incident.io up and running in your workspace quickly with our installation guides. Whether you're using Slack or Microsoft Teams, we'll walk you through the process step by step.
-</Note>
-
-## Quick Start
-
-<CardGroup cols={2}>
-  <Card 
-    title="Installing incident.io in 30 seconds" 
-    icon="rocket" 
-    href="/help-centre/installing-incident-io/installing-incident.io-in-30-seconds"
-  >
-    The fastest way to get started with incident.io
-  </Card>
-  
-  <Card 
-    title="Installation troubleshooting" 
-    icon="wrench" 
-    href="/help-centre/installing-incident-io/troubleshooting/index"
-  >
-    Having issues? Check out our troubleshooting guide
-  </Card>
-</CardGroup>
-
-## Slack Installation Guides
-
 <Info>
-  incident.io requires certain Slack permissions to function properly. Learn more about what we need and why below.
+You can install incident.io in under 30 seconds! Just three simple steps and you're ready to go.
 </Info>
 
-<CardGroup cols={2}>
-  <Card 
-    title="What does incident.io need privileged Slack access for?" 
-    icon="shield-check" 
-    href="/help-centre/installing-incident-io/what-does-incident.io-need-privileged-slack-access-for"
-  >
-    Understand the permissions we require and how we use them
-  </Card>
-  
-  <Card 
-    title="Why does incident.io need a Slack Owner account?" 
-    icon="user-shield" 
-    href="/help-centre/installing-incident-io/why-does-incident.io-need-a-slack-owner-account"
-  >
-    Learn about Slack Owner requirements for installation
-  </Card>
-  
-  <Card 
-    title="Creating a Slack admin for privileged Slack access" 
-    icon="user-plus" 
-    href="/help-centre/installing-incident-io/creating-a-slack-admin-for-privileged-slack-access"
-  >
-    Step-by-step guide to creating the necessary admin accounts
-  </Card>
-  
-  <Card 
-    title="Slack Enterprise Grid" 
-    icon="grid" 
-    href="/help-centre/installing-incident-io/slack-enterprise-grid"
-  >
-    Special considerations for Enterprise Grid workspaces
-  </Card>
-</CardGroup>
+## Quick Start: Install in 30 Seconds
 
-## Installation Steps
+Get incident.io up and running with these three simple steps:
 
 <Steps>
-  <Step title="Start the installation">
-    Begin by visiting the incident.io app installation page and clicking "Add to Slack" or "Add to Microsoft Teams".
+  <Step title="Sign Up via Slack">
+    Visit the [sign-up page](https://app.incident.io/) and click 'Sign in with Slack'. We'll create an account for you and store basic information like your name and avatar.
+    
+    ![Sign up with Slack](/images/help-centre/installing-incident.io-in-30-seconds/screenshot-1.png)
+    
+    <Note>
+    We only request the permissions necessary for incident.io to function. Learn more in our [Security FAQs](https://docs.incident.io/security-faqs).
+    </Note>
   </Step>
   
-  <Step title="Grant permissions">
-    Review and approve the requested permissions. We only ask for what we need to provide you with the best incident management experience.
+  <Step title="Select Your Integrations">
+    Tell us about the tools you use. This helps us understand our user base and you can set up detailed integrations later.
+    
+    ![Select integrations](/images/help-centre/installing-incident.io-in-30-seconds/screenshot-3.png)
+    
+    You can configure your integrations in detail [here](/help-centre/api-and-integrations).
   </Step>
   
-  <Step title="Configure your account">
-    Once installed, you'll be guided through initial setup including creating your first incident workflow and configuring basic settings.
-  </Step>
-  
-  <Step title="Invite your team">
-    Add team members and set up on-call schedules to ensure the right people are notified during incidents.
+  <Step title="Add incident.io to Slack">
+    Click 'Add incident.io to Slack' to complete the installation.
+    
+    ![Add to Slack](/images/help-centre/installing-incident.io-in-30-seconds/screenshot-4.png)
+    
+    We'll automatically create an #incidents channel and install the app in your workspace.
   </Step>
 </Steps>
 
+<Check>
+**All done!** Everyone in your Slack workspace can now use incident.io by going through the same 'Login with Slack' flow. They won't need to reinstall - that step only happens once.
+</Check>
+
+## Video Walkthrough
+
+Watch this quick video to see the installation process:
+
+<iframe src="https://www.loom.com/embed/e820c239675546da89b2a5ffa836883e" width="100%" height="400" allowfullscreen></iframe>
+
+## Important Notes
+
+<Warning>
+**Slack Admin Required**: You'll need a Slack admin to install incident.io due to Slack's permissioning model.
+</Warning>
+
 <Note>
-  **Need help?** If you encounter any issues during installation, check out our [troubleshooting guide](/help-centre/installing-incident-io/troubleshooting/index) or [contact our support team](/help-centre/help-feedback/contact-us).
+**Slash Commands**: The app uses `/inc` and `/incident` as slash commands. If you already have an app installed that uses either of these commands, Slack will default to using the most recently installed app when that command is run.
 </Note>
+
+## Advanced Installation Topics
+
+Depending on your Slack workspace configuration, you may need to understand privileged access requirements:
+
+<CardGroup cols={2}>
+  <Card title="Privileged Slack Access" icon="key" href="/help-centre/installing-incident-io/what-does-incident.io-need-privileged-slack-access-for">
+    Learn what permissions incident.io needs and why
+  </Card>
+  <Card title="Slack Admin Account" icon="user-shield" href="/help-centre/installing-incident-io/creating-a-slack-admin-for-privileged-slack-access">
+    Create a dedicated Slack admin for incident.io
+  </Card>
+  <Card title="Slack Owner Account" icon="crown" href="/help-centre/installing-incident-io/why-does-incident.io-need-a-slack-owner-account">
+    Understand when you need a Slack Owner account
+  </Card>
+  <Card title="Enterprise Grid" icon="building" href="/help-centre/installing-incident-io/slack-enterprise-grid">
+    Install on Slack Enterprise Grid
+  </Card>
+</CardGroup>
+
+## Understanding Privileged Access
+
+Depending on your Slack workspace settings, incident.io may need privileged access for certain features:
+
+### Channel Management
+
+incident.io needs appropriate permissions to:
+
+<AccordionGroup>
+  <Accordion title="Create Private Channels" icon="lock">
+    If your workspace restricts private channel creation to admins/owners, you'll need to connect a Slack admin for [private incidents](/help-centre/creating-and-running-incidents/faqs/can-we-mark-incidents-as-sensitive-and-restrict-access).
+    
+    **Recommendation**: Create a dedicated Slack user for this purpose to avoid confusion.
+  </Accordion>
+  
+  <Accordion title="Create Public Channels" icon="hashtag">
+    If public channel creation is restricted, you'll need to connect a Slack admin or owner. This user will appear as the channel creator for all incident channels.
+    
+    **Recommendation**: Create a dedicated incident.io service account.
+  </Accordion>
+  
+  <Accordion title="Archive Channels" icon="box-archive">
+    For automatic archival of old incident channels, connect a Slack admin or owner. This user will be added to channels temporarily to archive them.
+  </Accordion>
+  
+  <Accordion title="Manage Channel Members" icon="users">
+    To automatically remove users from private incidents with `/incident revoke`, you'll need to connect a Slack Workspace Owner.
+  </Accordion>
+</AccordionGroup>
+
+### User Group Management
+
+For on-call schedule integration:
+
+<AccordionGroup>
+  <Accordion title="Create User Groups" icon="users-gear">
+    If your workspace restricts user group creation, connect a Slack admin to enable [on-call schedule synchronization](/help-centre/on-call/schedules/how-to-sync-your-on-call-schedules-with-slack-user-groups).
+  </Accordion>
+  
+  <Accordion title="Modify User Groups" icon="pen-to-square">
+    For automatic updates when on-call shifts change, connect a Slack admin to enable dynamic user group management.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+You can check your Slack permissions at [https://app.slack.com/admin/permissions/account-types](https://app.slack.com/admin/permissions/account-types)
+</Tip>
+
+## Enterprise Grid Installation
+
+Organizations on our [Enterprise plan](https://incident.io/pricing/) can install incident.io into a Slack Enterprise Grid:
+
+<Steps>
+  <Step title="Verify Prerequisites">
+    - Be on an incident.io Enterprise plan
+    - Have exactly one Slack Workspace with incident.io installed
+    - Contact us to enable Enterprise Grid support
+  </Step>
+  
+  <Step title="Install Across Workspaces">
+    Once enabled, the incident.io app can be accessed in any Slack workspace within your Grid. You can control which workspaces have access.
+  </Step>
+  
+  <Step title="Configure Multi-Workspace Features">
+    - View incidents from all workspaces in the dashboard
+    - Filter by workspace in Incidents, Followups, and Insights
+    - Set incident workspace as a workflow condition
+    - Define incident workspaces for triggers
+  </Step>
+</Steps>
+
+<Info>
+**Shared Incident Channels**: You can share a single incident channel across all workspaces in your Grid. Get in touch and we'll help configure this for you.
+</Info>
+
+## Troubleshooting Installation Issues
+
+<Card title="Installation Troubleshooting" icon="wrench" href="/help-centre/installing-incident-io/troubleshooting/index">
+  Having issues? Check our troubleshooting guide for common installation problems and solutions.
+</Card>
+
+Common issues include:
+- Unable to install due to channel restrictions
+- `no_bot_scopes_requested` error
+- Sign-up problems
+- Slash command conflicts
 
 ## Next Steps
 
-Once you've installed incident.io, you'll want to:
+Once installed, you're ready to start using incident.io:
 
-<CardGroup cols={3}>
-  <Card 
-    title="Configure Your Account" 
-    icon="gear" 
-    href="/help-centre/configure-your-account/index"
-  >
-    Set up your organization's settings and preferences
+<CardGroup cols={2}>
+  <Card title="Declare Your First Incident" icon="siren" href="/help-centre/creating-and-running-incidents/index">
+    Learn how to create and manage incidents
   </Card>
-  
-  <Card 
-    title="Create Your First Incident" 
-    icon="siren" 
-    href="/help-centre/creating-and-running-incidents/index"
-  >
-    Learn how to declare and manage incidents
+  <Card title="Configure Your Account" icon="gear" href="/help-centre/configure-your-account/index">
+    Customize settings for your team
   </Card>
-  
-  <Card 
-    title="Set Up On-Call" 
-    icon="calendar-clock" 
-    href="/help-centre/on-call/index"
-  >
-    Configure schedules and escalation policies
+  <Card title="Set Up On-call" icon="calendar-clock" href="/help-centre/on-call/index">
+    Create schedules and escalation paths
+  </Card>
+  <Card title="Connect Integrations" icon="plug" href="/help-centre/api-and-integrations/index">
+    Integrate with your existing tools
   </Card>
 </CardGroup>
+
+## Need Help?
+
+<CardGroup cols={2}>
+  <Card title="Join Our Community" icon="slack" href="http://incident.io/community">
+    Chat with us on Slack
+  </Card>
+  <Card title="Book a Demo" icon="calendar" href="https://incident.io/demo">
+    Schedule a 1:1 call with our team
+  </Card>
+</CardGroup>
+
+<Note>
+Having issues installing? We're here to help! Chat with us on Slack or book a call and we'll get it sorted in no time.
+</Note>

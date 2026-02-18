@@ -1,0 +1,13 @@
+export const StatusBanner = ({ status }) => {
+  if (status === "STUB") {
+    return (
+      <Note>
+        This page is a stub and will be expanded with more content soon.
+      </Note>
+    );
+  }
+  if (status === "PLACEHOLDER") {
+    return null;
+  }
+  return null;
+};

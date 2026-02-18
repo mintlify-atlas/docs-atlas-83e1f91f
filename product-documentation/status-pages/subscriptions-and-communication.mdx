@@ -7,6 +7,9 @@ import { StatusBanner } from '/snippets/status-banner.mdx';
 
 <StatusBanner status="PLACEHOLDER" />
 
+
+# Subscriptions and communication
+
 Subscriptions keep your users informed about incidents without them constantly checking your status page. Whether it's email notifications for customers or Slack messages for internal teams, subscriptions ensure the right people know when things go wrong—and when they're fixed.
 
 ## Subscription options
@@ -85,7 +88,7 @@ Over-notifying erodes trust. Send updates when there's meaningful new informatio
 
 For public status pages, subscribers must sign up themselves via the status page. You cannot add subscribers manually via email address—they must opt in.
 
-<Warning>Email anti-spam regulations (CAN-SPAM, GDPR) require users to explicitly subscribe. Adding users without consent violates these regulations.</Warning>
+**Why:** Email anti-spam regulations (CAN-SPAM, GDPR) require users to explicitly subscribe. Adding users without consent violates these regulations.
 
 ### Importing subscribers
 
@@ -94,10 +97,10 @@ When migrating from another status page provider (like Atlassian Statuspage), yo
 1. Export subscribers from your current provider (CSV format)
 2. Navigate to **Status Pages** → Your page → **Settings** → **Subscribers**
 3. Click **Import subscribers** and upload CSV
-4. Map CSV columns to required fields (email, component subscriptions)
+4. Map columns to required fields (email, component subscriptions)
 5. Import completes—subscribers automatically opted in
 
-<Warning>Only import subscribers who previously consented to your status page notifications. Don't add new addresses during migration.</Warning>
+**Important:** Only import subscribers who previously consented to your status page notifications. Don't add new addresses during migration.
 
 See [Importing status pages](/product-documentation/status-pages/importing-status-pages) for full migration guide.
 
@@ -119,7 +122,7 @@ No hard limit on subscriber count for public status pages. However, extremely hi
 
 By default, status page notification emails come from `noreply@incident.io`. You cannot customize the sender email address.
 
-<Info>Email deliverability relies on proper SPF/DKIM records. Using incident.io's sending infrastructure ensures high delivery rates and avoids spam filtering.</Info>
+**Why:** Email deliverability relies on proper SPF/DKIM records. Using incident.io's sending infrastructure ensures high delivery rates and avoids spam filtering.
 
 ### Branding
 

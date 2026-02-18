@@ -4,7 +4,9 @@ description: Automate response actions during incidents with workflows.
 icon: "/icons/workflows.svg"
 ---
 
-# Automated workflows
+import { StatusBanner } from '/snippets/status-banner.mdx';
+
+<StatusBanner status="PLACEHOLDER" />
 
 Workflows automate actions during incident response, handling repetitive tasks so your team can focus on resolution. When an incident is created or updated, workflows can assign roles, create actions, send notifications, or prompt decision flows based on conditions you define.
 
@@ -14,28 +16,20 @@ For comprehensive workflow documentation including all triggers, steps, and conf
 
 Workflows run when specific incident events occur. incident.io offers three incident-related triggers:
 
-<CardGroup cols={1}>
-  <Card title="When an incident is created or changed" icon="bell">
-    Runs when incidents are created or when incident fields update (severity, status, custom fields, etc.)
-    
-    - Most common trigger for incident automation
-    - Use conditions to control which incidents or field changes activate the workflow
-  </Card>
+**When an incident is created or changed**
+- Runs when incidents are created or when incident fields update (severity, status, custom fields, etc.)
+- Most common trigger for incident automation
+- Use conditions to control which incidents or field changes activate the workflow
 
-  <Card title="When someone joins an incident channel" icon="user-plus">
-    Runs when users join the incident Slack channel
-    
-    - Useful for onboarding messages or assigning tasks to new responders
-    - Can filter by user role or incident properties
-  </Card>
+**When someone joins an incident channel**
+- Runs when users join the incident Slack channel
+- Useful for onboarding messages or assigning tasks to new responders
+- Can filter by user role or incident properties
 
-  <Card title="When someone posts a message in an incident channel" icon="message">
-    Runs on new messages in the incident channel
-    
-    - Enables automation based on message content or emoji reactions
-    - Excludes incident updates and messages from `/inc update` command
-  </Card>
-</CardGroup>
+**When someone posts a message in an incident channel**
+- Runs on new messages in the incident channel
+- Enables automation based on message content or emoji reactions
+- Excludes incident updates and messages from `/inc update` command
 
 <Tip>
 Use workflow conditions to narrow when triggers fire. For example, trigger on "incident is created or changed" but add conditions for "severity is Critical" to run only on high-severity incidents.
@@ -43,54 +37,38 @@ Use workflow conditions to narrow when triggers fire. For example, trigger on "i
 
 ## Common incident workflows
 
-<AccordionGroup>
-  <Accordion title="Assign incident roles automatically" icon="user-check">
-    - When critical incidents are created, invite specific users or on-call engineers to the channel
-    - Assign incident lead based on severity or affected service
-  </Accordion>
+**Assign incident roles automatically**
+- When critical incidents are created, invite specific users or on-call engineers to the channel
+- Assign incident lead based on severity or affected service
 
-  <Accordion title="Create incident actions" icon="list-check">
-    - Generate follow-up actions when incidents reach certain milestones
-    - Create actions automatically for specific incident types (e.g., security incidents require review tasks)
-  </Accordion>
+**Create incident actions**
+- Generate follow-up actions when incidents reach certain milestones
+- Create actions automatically for specific incident types (e.g., security incidents require review tasks)
 
-  <Accordion title="Send notifications and updates" icon="bell">
-    - Post announcements to status channels when incidents are created
-    - Send direct messages to stakeholders based on incident properties
-    - Alert teams when incidents escalate or change severity
-  </Accordion>
+**Send notifications and updates**
+- Post announcements to status channels when incidents are created
+- Send direct messages to stakeholders based on incident properties
+- Alert teams when incidents escalate or change severity
 
-  <Accordion title="Prompt decision flows" icon="diagram-project">
-    - Guide responders through decision trees for complex scenarios
-    - Ask whether to update status pages, notify regulators, or escalate to leadership
-    - Ensure consistent decision-making during high-pressure incidents
-  </Accordion>
+**Prompt decision flows**
+- Guide responders through decision trees for complex scenarios
+- Ask whether to update status pages, notify regulators, or escalate to leadership
+- Ensure consistent decision-making during high-pressure incidents
 
-  <Accordion title="Escalate to on-call teams" icon="phone">
-    - Page PagerDuty or Opsgenie escalation policies when incidents match criteria
-    - Route incidents to appropriate teams based on affected service or custom fields
-  </Accordion>
-</AccordionGroup>
+**Escalate to on-call teams**
+- Page PagerDuty or Opsgenie escalation policies when incidents match criteria
+- Route incidents to appropriate teams based on affected service or custom fields
 
 ## Using expressions with incident data
 
 Expressions let you vary workflow behavior based on incident data, making one workflow handle multiple scenarios.
 
-### Example use case:
-
+**Example use case:**
 Route incidents to different on-call teams based on affected service:
 
-<Steps>
-  <Step title="Payments Service">
-    If **Affected Service** is **Payments** → **Escalation Team** = **Payments Team**
-  </Step>
-  <Step title="Onboarding Service">
-    Else if **Affected Service** is **Onboarding** → **Escalation Team** = **Onboarding Team**
-  </Step>
-  <Step title="Default">
-    Else → **Escalation Team** is not set
-  </Step>
-</Steps>
+- If **Affected Service** is **Payments** → **Escalation Team** = **Payments Team**
+- Else if **Affected Service** is **Onboarding** → **Escalation Team** = **Onboarding Team**
+- Else → **Escalation Team** is not set
 
 When configuring workflow steps, click **Use a variable** and select **Add new expression**. Choose your expression type, define conditions based on incident fields, and return values like Slack channels, users, or text. Use these expressions in subsequent workflow steps.
 
@@ -100,16 +78,13 @@ Expressions support:
 - User data and roles
 - Multiple return values for looping over lists
 
-<Note>
 For detailed expression configuration, see [Workflow expressions](/product-documentation/workflows/expressions).
-</Note>
 
 ## Decision flows in incident workflows
 
 Decision flows guide responders through branching decision trees during incidents. Create a decision flow in **Settings → Decision Flows**, then trigger it with a workflow step.
 
-### Common decision flow scenarios:
-
+**Common decision flow scenarios:**
 - Determine whether to update public status pages
 - Assess if regulatory reporting is required (GDPR, SOC 2)
 - Choose escalation paths based on impact and scope
@@ -117,23 +92,17 @@ Decision flows guide responders through branching decision trees during incident
 
 Each decision flow presents prompts and options to the user in Slack. Their selections can update incident fields or trigger additional workflow steps.
 
-<Tip>
 To use decision flows, add the **Prompt a Decision Flow** step to your workflow and select which flow to trigger. Condition the workflow to run when appropriate (e.g., only for critical incidents or specific incident types).
-</Tip>
 
 For complete decision flow setup, see [Workflows overview](/product-documentation/workflows/overview).
 
 ## Related features
 
-<CardGroup cols={2}>
-  <Card title="Incident actions" icon="check-square" href="/product-documentation/incident-response/incident-actions">
-    Create and track follow-up tasks during and after incidents. Workflows can automatically generate actions based on incident properties.
-  </Card>
+**[Incident actions](/product-documentation/incident-response/incident-actions)**
+Create and track follow-up tasks during and after incidents. Workflows can automatically generate actions based on incident properties.
 
-  <Card title="Nudges" icon="bell" href="/product-documentation/incident-response/nudges">
-    Automated reminders that prompt responders to update incident status or complete required fields. Work alongside workflows to maintain incident hygiene.
-  </Card>
-</CardGroup>
+**[Nudges](/product-documentation/incident-response/nudges)**
+Automated reminders that prompt responders to update incident status or complete required fields. Work alongside workflows to maintain incident hygiene.
 
 ## Frequently asked questions
 

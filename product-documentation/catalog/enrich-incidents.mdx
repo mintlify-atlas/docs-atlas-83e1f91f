@@ -1,0 +1,517 @@
+---
+title: Enrich incidents with context
+description: Automatically surface relevant information from Catalog when incidents are created.
+---
+
+Incident enrichment automatically adds context from your Catalog to incidents, surfacing ownership, runbooks, dependencies, and other critical information exactly when responders need it.
+
+Instead of searching for service owners, runbook links, or on-call engineers during an incident, enrichment workflows pull this data from Catalog and post it directly to incident channels.
+
+## Why enrich incidents?
+
+**Faster response**
+Responders immediately see who owns the affected service, how to page them, and where to find runbooks - no searching required.
+
+**Consistent context**
+Every incident includes the same structured information, ensuring responders always know what's available.
+
+**Reduced cognitive load**
+Automated context means responders focus on fixing the problem, not finding information.
+
+**Better decisions**
+Surfacing dependencies, customer impact, and historical patterns helps teams make informed choices quickly.
+
+## What context can you enrich?
+
+Any information in your Catalog can be surfaced in incidents:
+
+### Service information
+- Owner team and current on-call engineers
+- Service description and documentation links
+- Runbook URLs for common issues
+- Monitoring dashboard and logging links
+- Recent deployment history
+- Service tier and SLA commitments
+
+### Ownership and escalation
+- Team Slack channels
+- Escalation paths and paging instructions
+- Team leads and technical experts
+- Business hours and timezone coverage
+
+### Dependencies and relationships  
+- Upstream and downstream service dependencies
+- Related services and infrastructure
+- Affected products or customer-facing features
+- Regional or datacenter context
+
+### Customer impact
+- Affected customers and their tier
+- Account managers and CSM team
+- Customer-specific SLAs
+- Recent customer interactions or complaints
+
+### Historical patterns
+- Similar past incidents
+- Known issues and workarounds
+- Recent alerts from the same service
+- Ongoing maintenance or deploys
+
+## Setting up incident enrichment
+
+Enrichment uses workflows that trigger when incidents are created or updated.
+
+<Steps>
+  <Step title="Ensure Catalog data is complete">
+    Verify your Catalog has the information you want to surface:
+    - Services have owners, runbook links, documentation URLs
+    - Teams have escalation paths and Slack channels
+    - Relationships are mapped (services → teams, services → dependencies)
+    
+    Navigate to **Catalog** and audit key types for completeness.
+  </Step>
+  
+  <Step title="Create a custom field for context selection">
+    Add a custom field that references the Catalog type you want to enrich from.
+    
+    Example: "Affected Service" field linking to Services catalog type
+    
+    Go to **Settings → Custom Fields → Create custom field**:
+    - Name: "Affected Service"
+    - Type: Link to Catalog
+    - Links to: Services
+    - Required: Yes (at creation)
+  </Step>
+  
+  <Step title="Create enrichment workflow">
+    Go to **Workflows → Create workflow**
+    
+    **Trigger:** When an incident is created or changed
+    
+    **Conditions:** 
+    - Affected Service is set
+    - Affected Service changed (to avoid re-posting on every update)
+  </Step>
+  
+  <Step title="Add workflow steps to post context">
+    Add a step to send a message to the incident channel with Catalog data.
+    
+    **Step:** Send message to incident channel
+    
+    **Message template:**
+    ```
+    **Service Information**
+    
+    **Service:** {{incident.custom_fields.affected_service.name}}
+    **Owner:** {{incident.custom_fields.affected_service.owner.name}}
+    **On-call:** {{incident.custom_fields.affected_service.owner.current_oncall}}
+    **Runbook:** {{incident.custom_fields.affected_service.runbook_url}}
+    **Docs:** {{incident.custom_fields.affected_service.docs_url}}
+    **Dashboard:** {{incident.custom_fields.affected_service.dashboard_url}}
+    
+    **Dependencies:** {{incident.custom_fields.affected_service.depends_on | join: ", "}}
+    ```
+  </Step>
+  
+  <Step title="Test the workflow">
+    Click **Test** in the workflow editor and select a test incident.
+    
+    Verify the message includes correct data from Catalog.
+    
+    Adjust the template as needed for your organization's Catalog structure.
+  </Step>
+  
+  <Step title="Activate the workflow">
+    Click **Activate** to enable enrichment for all future incidents.
+  </Step>
+</Steps>
+
+## Enrichment patterns
+
+### Basic service context
+
+Post essential service information when incidents are created:
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set
+
+Step: Send message to incident channel
+  **{{incident.custom_fields.affected_service.name}}** incident
+  
+  Owner: {{incident.service.owner.name}}
+  On-call: {{incident.service.owner.current_oncall}}
+  Runbook: {{incident.service.runbook_url}}
+  
+  Need to escalate? Use `/inc escalate`
+```
+
+This gives responders immediate context without searching.
+
+### Dependency awareness
+
+Surface upstream and downstream dependencies:
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set
+
+Step: Send message to incident channel
+  **Service dependencies for {{incident.service.name}}:**
+  
+  Depends on: {{incident.service.depends_on | join: ", "}}
+  Used by: {{incident.service.used_by | join: ", "}}
+  
+  Impact may extend to downstream services.
+```
+
+Teams immediately understand potential blast radius.
+
+### Customer impact notification
+
+When customer is affected, show account context:
+
+```
+Trigger: Incident is created or changed
+Condition: Affected Customer is set
+
+Step: Send message to incident channel
+  **Customer impact:** {{incident.custom_fields.affected_customer.name}}
+  
+  Tier: {{incident.customer.tier}}
+  Account Manager: {{incident.customer.account_manager.name}}
+  CSM Team: {{incident.customer.csm_team.name}}
+  SLA: {{incident.customer.sla_hours}} hour response time
+  
+  Consider notifying {{incident.customer.account_manager}} via DM.
+```
+
+Customer context helps teams prioritize and communicate appropriately.
+
+### Runbook suggestions based on alerts
+
+If the incident was created from an alert, suggest relevant runbooks:
+
+```
+Trigger: Incident is created
+Condition: Created from alert AND Alert type is set
+
+Expression: Relevant Runbook
+  If: alert.type == "HighErrorRate"
+    Return: "https://docs.example.com/runbooks/high-error-rate"
+  Else if: alert.type == "DatabaseConnectionFailure"  
+    Return: "https://docs.example.com/runbooks/db-connections"
+  Else:
+    Return: incident.service.runbook_url
+
+Step: Send message to incident channel
+  **Suggested runbook:** {{expression.relevant_runbook}}
+  
+  This runbook covers common causes and mitigation steps for {{alert.type}} alerts.
+```
+
+Context-specific guidance accelerates initial response.
+
+### Historical incident links
+
+Surface similar past incidents using Catalog relationships:
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set
+
+Step: Query recent incidents
+  Filter: Affected Service = {{incident.service}} AND Created within last 30 days
+  
+Step: Send message to incident channel (if query returned results)
+  **Recent incidents affecting {{incident.service.name}}:**
+  
+  {{query_results | join: "\n"}}
+  
+  Check these for context or related issues.
+```
+
+Teams can learn from recent response patterns.
+
+### Regional context for global services
+
+If services run in multiple regions, surface regional information:
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set AND Service region is set
+
+Step: Send message to incident channel
+  **Regional context:**
+  
+  Service: {{incident.service.name}}
+  Region: {{incident.service.region.name}}
+  Regional on-call: {{incident.service.region.oncall_team.current_oncall}}
+  Timezone: {{incident.service.region.timezone}}
+  
+  Current time in region: {{incident.service.region | current_time}}
+```
+
+Helps coordinate across timezones.
+
+## Advanced enrichment techniques
+
+### Conditional context based on severity
+
+Post different information for different severities:
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set
+
+Expression: Context Message
+  If: incident.severity == "Critical"
+    Return: [
+      "Owner: {{service.owner}}",
+      "On-call: {{service.owner.current_oncall}}",
+      "Escalation: {{service.owner.escalation_path}}",
+      "Executive contact: {{service.owner.director}}",
+      "PR team: {{service.pr_contact}}"
+    ]
+  Else:
+    Return: [
+      "Owner: {{service.owner}}",
+      "Runbook: {{service.runbook_url}}"
+    ]
+
+Step: Send message
+  {{expression.context_message | join: "\n"}}
+```
+
+Critical incidents get escalation paths; lower severity gets runbooks.
+
+### Aggregate context from multiple services
+
+When incidents affect multiple services, aggregate their context:
+
+```
+Trigger: Incident is created
+Condition: Affected Services is set (multi-select field)
+
+Step: Create loop over Affected Services
+  For each service:
+    Step: Send message to incident channel
+      **{{service.name}}**
+      Owner: {{service.owner}}
+      Runbook: {{service.runbook_url}}
+      
+      ---
+```
+
+All affected service context in one place.
+
+### Enrich with external data via API
+
+Pull real-time data from monitoring or other systems:
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set
+
+Step: HTTP request
+  URL: https://monitoring.example.com/api/service/{{incident.service.external_id}}/metrics
+  Method: GET
+  
+Step: Send message to incident channel
+  **Current metrics for {{incident.service.name}}:**
+  
+  Error rate: {{http_response.error_rate}}%
+  Latency p99: {{http_response.latency_p99}}ms
+  Request rate: {{http_response.requests_per_minute}} req/min
+  
+  Dashboard: {{incident.service.dashboard_url}}
+```
+
+Live metrics alongside static Catalog context.
+
+### Create pinned Slack bookmarks
+
+Add Catalog links as channel bookmarks for easy access:
+
+```
+Trigger: Incident is created  
+Condition: Affected Service is set
+
+Step: Add Slack bookmark
+  Title: "{{incident.service.name}} Runbook"
+  URL: {{incident.service.runbook_url}}
+  
+Step: Add Slack bookmark
+  Title: "Dashboard"  
+  URL: {{incident.service.dashboard_url}}
+  
+Step: Add Slack bookmark
+  Title: "Recent Deployments"
+  URL: {{incident.service.deploy_log_url}}
+```
+
+Context available in channel bookmarks bar.
+
+## Maintaining enrichment quality
+
+### Keep Catalog data current
+
+Enrichment is only valuable if Catalog data is accurate:
+
+**Automated syncs**
+- Connect service catalogs (Backstage, Cortex) to pull ownership and metadata
+- Sync from git repositories for runbook and documentation links
+- Pull deployment data from CI/CD systems
+
+**Regular audits**
+- Review services without runbook links quarterly
+- Flag services without owners
+- Update stale documentation URLs
+
+**In-incident validation**
+Add a workflow step that asks responders to verify context:
+```
+Step: Send message
+  Is this information correct? React with ✅ if yes, ❌ if it needs updating:
+  Owner: {{service.owner}}
+  Runbook: {{service.runbook_url}}
+```
+
+Capture when data is wrong during incidents when it matters.
+
+### Template enrichment messages thoughtfully
+
+**Use formatting for scannability**
+- Bold key labels
+- Use line breaks to separate sections
+- Link URLs instead of showing full paths
+
+**Prioritize actionable information**
+- On-call contact before documentation links
+- Runbooks before general docs
+- Escalation paths before organizational structure
+
+**Handle missing data gracefully**
+- Use conditional rendering: `{{"{{#if service.runbook_url}}Runbook: {{service.runbook_url}}{{/if}}"}}`
+- Provide fallbacks: "No runbook available - check `{{service.docs_url}}`"
+- Don't show empty fields that clutter the message
+
+### Avoid enrichment overload
+
+More context isn't always better:
+
+- Limit enrichment messages to 1-2 per incident creation
+- Combine related information in a single message
+- Use threads or bookmarks for supplementary context
+- Post only what's immediately actionable
+
+Respect responders' attention during high-pressure situations.
+
+## Measuring enrichment effectiveness
+
+Track whether enrichment improves response:
+
+**Time to engage**
+Measure time from incident creation to first response. If enrichment works, this should decrease - responders have what they need immediately.
+
+**Escalation patterns**
+Check if fewer incidents require manual escalation to find owners. Good enrichment surfaces ownership automatically.
+
+**Follow-up questions**
+Monitor incident channels for questions like "who owns this?" or "where's the runbook?" Enrichment should eliminate these.
+
+**Responder feedback**
+Periodically ask responders:
+- Is the enrichment information useful?
+- What's missing that you frequently search for?
+- Is there too much or too little information?
+
+Adjust enrichment workflows based on feedback.
+
+## Frequently asked questions
+
+<AccordionGroup>
+  <Accordion title="Can enrichment update incident fields automatically?">
+    Yes. Instead of posting a message, use an "Update incident" step:
+
+    ```
+    Step: Update incident
+      Custom field "Owner Team" = incident.service.owner
+      Custom field "Service Tier" = incident.service.tier
+    ```
+
+    This populates fields from Catalog without manual input.
+  </Accordion>
+
+  <Accordion title="What if Catalog data is missing for an incident?">
+    Use workflow conditions to handle missing data:
+
+    ```
+    Condition: Affected Service is set AND Service owner is not set
+    
+    Step: Send message
+      ⚠️ No owner found for {{service.name}} in Catalog.
+      Please assign an owner at [Catalog link].
+    ```
+
+    This flags data quality issues when they impact response.
+  </Accordion>
+
+  <Accordion title="Can I enrich private incidents differently?">
+    Yes. Use incident visibility in workflow conditions:
+
+    ```
+    Condition: Incident visibility is "Private"
+    
+    Step: Send message
+      [Enrichment with sensitive information]
+    ```
+
+    Separate workflows for public vs. private incidents.
+  </Accordion>
+
+  <Accordion title="How do I enrich incidents created from alerts?">
+    Use alert attributes in enrichment workflows:
+
+    ```
+    Trigger: Incident is created
+    Condition: Created from alert
+    
+    Step: Send message
+      Alert type: {{incident.origin_alert.type}}
+      Alert priority: {{incident.origin_alert.priority}}
+      Service: {{incident.origin_alert.service.name}}
+      Owner: {{incident.origin_alert.service.owner}}
+    ```
+
+    Alert context plus Catalog context together.
+  </Accordion>
+
+  <Accordion title="Can enrichment run when incidents are updated, not just created?">
+    Yes. Use trigger conditions:
+
+    ```
+    Trigger: Incident is created or changed
+    Condition: Affected Service changed
+    ```
+
+    This re-enriches when the affected service is updated mid-incident.
+  </Accordion>
+</AccordionGroup>
+
+## Related documentation
+
+<CardGroup cols={2}>
+  <Card title="Catalog overview" icon="book" href="/product-documentation/catalog/overview">
+    Understand Catalog structure
+  </Card>
+  <Card title="Workflow expressions" icon="code" href="/product-documentation/workflows/workflow-expressions">
+    Use Catalog data in workflows
+  </Card>
+  <Card title="Custom fields" icon="pencil" href="/product-documentation/catalog/custom-fields">
+    Link incidents to Catalog types
+  </Card>
+  <Card title="Automated workflows" icon="wand-magic-sparkles" href="/product-documentation/incident-response/automated-workflows">
+    Incident workflow automation
+  </Card>
+</CardGroup>

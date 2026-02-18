@@ -1,104 +1,131 @@
 ---
 title: "Microsoft Teams"
 description: "Everything about our Microsoft Teams integration"
-icon: "microsoft"
+mode: "wide"
 ---
 
-<Note>
-Use incident.io with Microsoft Teams to manage incidents directly in your team's primary communication platform.
-</Note>
+<Info>
+Use incident.io with Microsoft Teams to manage incidents directly from your communication platform. Our Teams integration provides seamless incident response capabilities within Teams.
+</Info>
 
-## Overview
-
-The incident.io integration for Microsoft Teams brings powerful incident management capabilities directly into your workspace. Declare incidents, coordinate responses, and keep everyone informed without leaving Teams.
-
-## Key Features
+## Getting started
 
 <CardGroup cols={2}>
-  <Card title="Declare Incidents" icon="exclamation-triangle">
-    Start an incident response directly from Microsoft Teams with a simple command.
+  <Card
+    title="Installing incident.io"
+    icon="download"
+    href="/help-centre/microsoft-teams/installing-incident.io-in-microsoft-teams"
+  >
+    Learn how to install and configure the incident.io app in Microsoft Teams.
   </Card>
-  <Card title="Channel Management" icon="hashtag">
-    Automatically create and manage incident channels for focused collaboration.
+  <Card
+    title="Admin Consent Flow"
+    icon="shield-check"
+    href="/help-centre/microsoft-teams/microsoft-admin-consent-flow"
+  >
+    Understand Microsoft's admin consent requirements and approval process.
   </Card>
-  <Card title="Notifications" icon="bell">
-    Receive real-time updates about incident status and escalations.
+  <Card
+    title="Permissions"
+    icon="user-lock"
+    href="/help-centre/microsoft-teams/permissions-in-microsoft-teams"
+  >
+    Review the permissions incident.io requires in Microsoft Teams and why.
   </Card>
-  <Card title="Private Incidents" icon="lock">
-    Handle sensitive incidents with private channel support.
+  <Card
+    title="Private Incidents"
+    icon="lock"
+    href="/help-centre/microsoft-teams/using-private-incidents-in-microsoft-teams"
+  >
+    Configure and use private incidents within Microsoft Teams.
   </Card>
 </CardGroup>
 
-## Getting Started
-
-<Steps>
-  <Step title="Install incident.io">
-    Follow our installation guide to add incident.io to your Microsoft Teams workspace. [Learn more](/help-centre/microsoft-teams/installing-incident.io-in-microsoft-teams)
-  </Step>
-  <Step title="Configure permissions">
-    Ensure your organization has the right permissions set up. [Learn more](/help-centre/microsoft-teams/permissions-in-microsoft-teams)
-  </Step>
-  <Step title="Complete admin consent">
-    If required, complete Microsoft's admin consent flow. [Learn more](/help-centre/microsoft-teams/microsoft-admin-consent-flow)
-  </Step>
-  <Step title="Declare your first incident">
-    Test the integration by declaring a test incident in Teams.
-  </Step>
-</Steps>
-
-## Installation and Setup
+## Key guides
 
 <AccordionGroup>
   <Accordion title="Installing incident.io in Microsoft Teams" icon="download">
-    Learn how to install and configure the incident.io app in your Microsoft Teams workspace. [Read guide](/help-centre/microsoft-teams/installing-incident.io-in-microsoft-teams)
+    Step-by-step guide to installing and setting up the incident.io app in your Teams workspace.
+    
+    **What you'll learn:**
+    - Installation prerequisites
+    - Step-by-step installation process
+    - Initial configuration
+    - Verifying the installation
+    
+    [Read the installation guide →](/help-centre/microsoft-teams/installing-incident.io-in-microsoft-teams)
   </Accordion>
-  <Accordion title="Microsoft's admin consent flow" icon="user-shield">
-    Understanding and completing the admin consent process required for certain permissions. [Read guide](/help-centre/microsoft-teams/microsoft-admin-consent-flow)
+
+  <Accordion title="Microsoft's Admin Consent Flow" icon="shield-check">
+    Understanding the admin consent process required for Teams integrations.
+    
+    **Key topics:**
+    - What is admin consent?
+    - Why is it required?
+    - How to request admin consent
+    - Troubleshooting consent issues
+    
+    [Learn about admin consent →](/help-centre/microsoft-teams/microsoft-admin-consent-flow)
   </Accordion>
-  <Accordion title="Permissions in Microsoft Teams" icon="key">
-    Overview of the permissions incident.io requires and why they're needed. [Read guide](/help-centre/microsoft-teams/permissions-in-microsoft-teams)
+
+  <Accordion title="Permissions in Microsoft Teams" icon="user-lock">
+    Detailed explanation of the permissions incident.io requires and how they're used.
+    
+    **Permission categories:**
+    - User and profile permissions
+    - Channel and team access
+    - Message and notification permissions
+    - Call and meeting permissions
+    
+    [Review permissions →](/help-centre/microsoft-teams/permissions-in-microsoft-teams)
+  </Accordion>
+
+  <Accordion title="Using Private Incidents" icon="lock">
+    Configure private channels and incidents for sensitive security matters.
+    
+    **Features:**
+    - Creating private incident channels
+    - Managing access controls
+    - Security considerations
+    - Best practices
+    
+    [Learn about private incidents →](/help-centre/microsoft-teams/using-private-incidents-in-microsoft-teams)
   </Accordion>
 </AccordionGroup>
-
-## Features and Capabilities
-
-### Private Incidents
-
-<Card title="Using private incidents in Microsoft Teams" icon="eye-slash" href="/help-centre/microsoft-teams/using-private-incidents-in-microsoft-teams">
-  Handle sensitive incidents with private channels that restrict access to authorized team members only.
-</Card>
-
-### Communication Platform Requirement
-
-<Info>
-incident.io requires a communication platform like Microsoft Teams to function effectively. [Learn why](/help-centre/microsoft-teams/why-does-incident.io-require-a-communications-platform)
-</Info>
 
 ## Troubleshooting
 
 <Warning>
-Experiencing sign-in issues during installation? Our debugging guide can help.
+If you're experiencing issues with Microsoft Teams integration, start with these common troubleshooting guides.
 </Warning>
 
-<Card title="Debugging sign-in issues" icon="bug" href="/help-centre/microsoft-teams/debugging-sign-in-issues-during-microsoft-teams-installation">
-  Common sign-in problems and how to resolve them during Microsoft Teams installation.
-</Card>
+<Steps>
+  <Step title="Check admin consent">
+    Ensure your Teams admin has granted the necessary permissions through the admin consent flow.
+  </Step>
+  <Step title="Verify installation">
+    Confirm that the incident.io app is properly installed and configured in your Teams workspace.
+  </Step>
+  <Step title="Review sign-in issues">
+    Check our debugging guide if users are having trouble signing in during installation.
+  </Step>
+  <Step title="Contact support">
+    If issues persist, reach out to our support team with details about your setup.
+  </Step>
+</Steps>
 
-## Common Questions
+### Common issues
 
-<AccordionGroup>
-  <Accordion title="Why does incident.io require a communications platform?" icon="question">
-    incident.io is designed to integrate deeply with your team's communication platform to enable real-time collaboration during incidents. [Learn more](/help-centre/microsoft-teams/why-does-incident.io-require-a-communications-platform)
-  </Accordion>
-  <Accordion title="What permissions does incident.io need?" icon="shield-check">
-    We require specific permissions to create channels, send notifications, and manage incident workflows. [See full list](/help-centre/microsoft-teams/permissions-in-microsoft-teams)
-  </Accordion>
-  <Accordion title="Can I use private channels for incidents?" icon="lock">
-    Yes! incident.io supports private incidents in Microsoft Teams for sensitive scenarios. [Learn how](/help-centre/microsoft-teams/using-private-incidents-in-microsoft-teams)
-  </Accordion>
-</AccordionGroup>
+<CardGroup cols={2}>
+  <Card title="Sign-in Issues" icon="triangle-exclamation" href="/help-centre/microsoft-teams/debugging-sign-in-issues-during-microsoft-teams-installation">
+    Diagnose and resolve authentication problems during Teams installation.
+  </Card>
+  <Card title="Communication Platform" icon="comments" href="/help-centre/microsoft-teams/why-does-incident.io-require-a-communications-platform">
+    Learn why incident.io requires a communication platform like Teams.
+  </Card>
+</CardGroup>
 
-## Additional Resources
+## All Microsoft Teams articles
 
 - [Microsoft's "admin consent" flow](/help-centre/microsoft-teams/microsoft-admin-consent-flow)
 - [Permissions in Microsoft Teams](/help-centre/microsoft-teams/permissions-in-microsoft-teams)
@@ -106,3 +133,11 @@ Experiencing sign-in issues during installation? Our debugging guide can help.
 - [Why does incident.io require a communications platform?](/help-centre/microsoft-teams/why-does-incident.io-require-a-communications-platform)
 - [Using private incidents in Microsoft Teams](/help-centre/microsoft-teams/using-private-incidents-in-microsoft-teams)
 - [Debugging sign-in issues during Microsoft Teams installation](/help-centre/microsoft-teams/debugging-sign-in-issues-during-microsoft-teams-installation)
+
+<Tip>
+For the best experience, ensure your Teams admin has reviewed and approved all necessary permissions before installation.
+</Tip>
+
+<Note>
+incident.io supports both Slack and Microsoft Teams as communication platforms. The features and capabilities are consistent across both platforms.
+</Note>

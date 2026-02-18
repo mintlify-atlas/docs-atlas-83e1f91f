@@ -4,224 +4,286 @@ description: Route alerts through escalation paths to reach the right responders
 icon: "/icons/escalation-path.svg"
 ---
 
-Escalation paths define how alerts reach responders through a series of levels with configurable timing and notification methods. Build escalation paths that try the right people in the right order with appropriate urgency.
+Escalation paths define the sequence of people or teams to notify when alerts fire. Configure multi-level escalations with delays, priority-based routing, and working hours conditions to ensure critical alerts always reach someone who can respond.
+
+Escalation paths are triggered automatically via [alert routes](/product-documentation/on-call/alert-routing), manually during incidents, or through [workflow](/product-documentation/workflows/overview) automation.
+
+Configure escalation paths in **On-call → Escalation paths**.
 
 ## How escalation paths work
 
-An escalation path consists of multiple levels that execute sequentially until someone acknowledges the alert:
+An escalation path consists of one or more levels. At each level, incident.io notifies responders and waits for acknowledgment before moving to the next level.
 
-<Steps>
-  <Step title="Level 1 triggers">
-    Alert routes to the escalation path and notifies all responders on level 1
-  </Step>
-  <Step title="Wait for acknowledgment">
-    incident.io waits for the configured duration (e.g., 5 minutes) for someone to acknowledge
-  </Step>
-  <Step title="Escalate if needed">
-    If no one acknowledges, escalate to level 2 and notify those responders
-  </Step>
-  <Step title="Continue escalating">
-    Repeat through all levels until someone acknowledges or all levels are exhausted
-  </Step>
-</Steps>
+**Basic escalation flow:**
+
+1. Alert fires and triggers an escalation path
+2. **Level 1**: Notify the first responder(s)
+3. Wait for acknowledgment (configurable delay)
+4. If not acknowledged, move to **Level 2**
+5. Continue through all levels until someone acknowledges
 
 <Info>
-Escalation stops immediately when any responder acknowledges the alert at any level.
+If no one acknowledges after all levels are exhausted, the escalation expires. Configure enough levels and responders to ensure coverage.
 </Info>
 
 ## Create an escalation path
 
 <Steps>
-  <Step title="Navigate to settings">
-    Using the sidebar, navigate to **Settings → Escalation paths**
+  <Step title="Name your escalation path">
+    Navigate to **On-call → Escalation paths** and click **Create escalation path**. Give it a descriptive name like "Platform Team - Business Hours" or "P1 - Infrastructure".
   </Step>
-  <Step title="Create new path">
-    Click **+ Create escalation path** and give it a descriptive name
+  <Step title="Link to teams (optional)">
+    Associate the escalation path with one or more [teams](/product-documentation/on-call/teams) for automatic filtering and catalog relationships.
   </Step>
-  <Step title="Add levels">
-    Add one or more levels, choosing responders for each:
-    - Specific users
-    - Everyone on a [schedule](/product-documentation/on-call/schedules-overview)
-    - Everyone on a [team](/product-documentation/on-call/teams)
+  <Step title="Configure working hours (optional)">
+    Set working hours to create different escalation behavior during and outside business hours.
   </Step>
-  <Step title="Configure timing">
-    Set how long to wait at each level before escalating (e.g., 5 minutes, 10 minutes)
+  <Step title="Add escalation levels">
+    Add levels to define who gets notified and when. Each level can notify schedules, individual users, or Slack channels.
   </Step>
-  <Step title="Set notification methods">
-    Choose notification methods for each level (push, SMS, voice)
-  </Step>
-  <Step title="Save and test">
-    Save the escalation path and send a test alert to verify behavior
+  <Step title="Set up branches (optional)">
+    Create conditional branches based on priority or working hours for intelligent routing.
   </Step>
 </Steps>
 
 ## Escalation levels
 
-Each level in an escalation path can include multiple responders. All responders on a level are notified simultaneously when that level triggers.
+Each level in an escalation path defines:
 
-### Who can be on a level
+- **Who to notify**: Schedules, users, or Slack channels
+- **How to notify**: All at once, one by one (round robin), or in sequence
+- **Urgency**: High-urgency or low-urgency notifications
+- **Delay before escalating**: How long to wait before moving to the next level
 
-<Tabs>
-  <Tab title="Schedule">
-    Notify whoever is currently on-call in a specific [schedule](/product-documentation/on-call/schedules-overview). This is the most common approach as it automatically adapts to rotation changes.
-    
-    **Example**: Level 1 notifies whoever is on the Platform team's primary schedule.
-  </Tab>
-  <Tab title="Specific users">
-    Notify specific individuals directly. Use this for subject matter experts or managers who should always be notified at certain escalation levels.
-    
-    **Example**: Level 3 notifies the VP of Engineering directly.
-  </Tab>
-  <Tab title="Team">
-    Notify all members of a [team](/product-documentation/on-call/teams) simultaneously. Use this for urgent issues that need immediate attention from anyone available.
-    
-    **Example**: Level 2 notifies everyone on the Security team for security incidents.
-  </Tab>
-</Tabs>
+### Who to notify
 
-### Escalation timing
+**Schedules**
 
-Configure how long to wait at each level before escalating:
+Notify whoever is currently on-call in a [schedule](/product-documentation/on-call/schedules-overview). When schedules rotate, the escalation path automatically routes to the new responder.
 
-- **Short intervals (1-5 minutes)**: For critical alerts that need immediate attention
-- **Medium intervals (5-15 minutes)**: Standard escalation timing for most alerts
-- **Long intervals (15-30 minutes)**: For lower priority issues where responders may need time to investigate
+**Individual users**
+
+Notify specific people directly, regardless of schedule. Useful for specialist escalations or when you always want to notify the same person.
+
+**Slack channels**
+
+Escalate to a Slack channel where anyone can acknowledge and take ownership. Best for shared responsibility or final escalation levels.
+
+### Notification strategy
+
+**All at once (parallel)**
+
+Notify everyone at the level simultaneously. The first person to acknowledge stops the escalation. Use for urgent situations requiring fast response.
+
+**One by one (round robin)**
+
+Rotate through responders, trying each in turn. Balances load across team members over time. Use for general coverage where any one person can handle the alert.
+
+**In sequence**
+
+Notify responders in order, trying the first person, then the second, and so on. Use when escalation follows a specific hierarchy or skill level.
+
+### Urgency levels
+
+Set urgency for each level to control notification behavior:
+
+- **High-urgency**: Aggressive notifications (immediate phone calls, critical push notifications)
+- **Low-urgency**: Gentler notifications (push notifications, email)
+
+Responders configure notification preferences for each urgency level from **Preferences → On-call notifications**.
+
+### Escalation delays
+
+Configure how long to wait before escalating to the next level:
+
+| Delay type | When to use | Example |
+|-----------|-------------|----------|
+| **Time-based** | Standard delays | Wait 5 minutes before escalating to Level 2 |
+| **Until working hours begin** | Hold escalations outside business hours | Wait until 9am before escalating to management |
+| **Until working hours end** | Escalate before business hours end | Escalate at 5pm if not resolved during the day |
+| **Don't wait** | Immediate escalation | Notify Slack channel immediately while waiting for primary responder |
+
+## Priority-based branches
+
+Create different escalation paths based on alert priority. Route P1 alerts more aggressively than P2 or P3 alerts.
+
+**To create priority-based branches:**
+
+1. Click **Add branch** when creating or editing an escalation path
+2. Select **Priority** as the condition
+3. Choose which priorities trigger this branch (e.g., P1 only)
+4. Configure escalation levels for this priority
+5. Add additional branches for other priorities
+
+**Example: Priority-based escalation**
+
+- **P1 alerts**: Immediately call the on-call engineer with high-urgency, escalate to team lead after 5 minutes
+- **P2 alerts**: Send push notification with low-urgency, escalate to Slack channel after 15 minutes
+- **P3 alerts**: Post to Slack channel only, no phone calls
 
 <Tip>
-Balance responsiveness with giving responders enough time to see and respond to notifications. Most teams start with 5-10 minute intervals.
+Configure priorities in **Settings → Alerts → Priorities** and map alert source severities to these priorities.
 </Tip>
 
-## Notification methods
+## Working hours branches
 
-Configure how responders are notified at each escalation level:
+Create different escalation behavior during and outside working hours. Protect responders from low-urgency pages at night while ensuring critical issues still reach someone.
 
-<CardGroup cols={3}>
-  <Card title="Push notifications" icon="mobile">
-    Via the [mobile app](/product-documentation/on-call/mobile-app-push-notifications)
-  </Card>
-  <Card title="SMS" icon="message">
-    Text message to phone
-  </Card>
-  <Card title="Voice call" icon="phone">
-    Automated voice call
-  </Card>
-</CardGroup>
+**To create working hours branches:**
 
-You can configure different notification methods for different levels. Common patterns:
+1. Configure working hours for the escalation path (days, times, timezone)
+2. Click **Add branch** and select **Working hours**
+3. Choose **Within working hours** or **Outside working hours**
+4. Configure appropriate escalation levels
 
-- **Level 1**: Push notification only
-- **Level 2**: Push + SMS
-- **Level 3**: Push + SMS + Voice call
+**Example: Working hours escalation**
 
-This graduated approach balances urgency with notification fatigue.
+- **Within working hours**: Low-urgency notifications, escalate to Slack after 10 minutes
+- **Outside working hours**: Only page for P1 alerts, immediately call on-call engineer with high-urgency
 
-Learn more about [SMS and voice notifications](/product-documentation/on-call/sms-and-voice) and [mobile app push notifications](/product-documentation/on-call/mobile-app-push-notifications).
+### Combined priority and working hours
 
-## Priority-based escalation
+Create sophisticated routing with both conditions:
 
-Create different escalation paths for different alert priorities:
+```
+Branch 1: Within working hours (any priority)
+  → Low-urgency notifications
+  → Escalate to Slack after 10 minutes
 
-<Tabs>
-  <Tab title="P1 - Critical">
-    Fast escalation with aggressive notifications:
-    - **Level 1** (2 min): Primary on-call via push + SMS + voice
-    - **Level 2** (3 min): Secondary on-call via push + SMS + voice
-    - **Level 3** (5 min): Engineering manager via voice call
-  </Tab>
-  <Tab title="P2 - High">
-    Standard escalation:
-    - **Level 1** (10 min): Primary on-call via push
-    - **Level 2** (15 min): Secondary on-call via push + SMS
-  </Tab>
-  <Tab title="P3 - Medium">
-    Relaxed escalation:
-    - **Level 1** (30 min): Primary on-call via push
-    - **Level 2** (60 min): Team channel notification
-  </Tab>
-</Tabs>
+Branch 2: Outside working hours + P1
+  → High-urgency notifications
+  → Immediate phone call
+  → Escalate to team lead after 5 minutes
 
-## Escalation states
+Branch 3: Outside working hours + P2/P3
+  → Low-urgency notifications
+  → Wait until working hours begin before escalating
+```
 
-Escalations progress through different states:
+## Round robin escalations
+
+Distribute alert load evenly across team members using round robin:
+
+1. Add a level to your escalation path
+2. Select **One by one** as the notification strategy
+3. Add a schedule or multiple users
+4. incident.io rotates through responders with each new alert
+
+The system remembers position in the rotation across alerts, ensuring fair distribution over time.
+
+<Info>
+Round robin works independently from schedules. You can combine both: use a schedule for primary on-call, and round robin for secondary escalation.
+</Info>
+
+## Escalate to Slack channels
+
+Add Slack channels as escalation levels to involve broader teams:
+
+1. Add a new level to your escalation path
+2. Select **Slack channel** as the target
+3. Search for and select a channel
+4. Choose urgency and escalation delay
+
+Anyone in the Slack channel can acknowledge the escalation and take ownership.
+
+**Common use cases:**
+
+- Final escalation level when individuals don't acknowledge
+- Parallel notification ("Don't wait") to give context while paging responders
+- Low-urgency escalations for shared team awareness
+
+## Link escalation paths to teams
+
+Associate escalation paths with [teams](/product-documentation/on-call/teams) to enable dynamic routing:
+
+1. Edit an escalation path
+2. Select one or more teams under **Teams**
+3. Save the escalation path
+
+incident.io creates a catalog relationship linking the team to the escalation path. Use this in alert routes:
+
+```
+Alert > Team > Escalation paths
+```
+
+When team ownership changes, routing automatically updates without modifying alert routes.
+
+## Escalation status
+
+Escalations progress through four states:
 
 | State | Description |
 |-------|-------------|
-| **Triggered** | Escalation has started and is actively notifying responders |
-| **Acknowledged** | A responder has acknowledged and will handle the alert |
-| **Cancelled** | The escalation was cancelled (alert resolved or manually stopped) |
-| **Expired** | All escalation levels completed without acknowledgment |
+| **Triggered** | Escalation started, notifications sent |
+| **Acknowledged** | Someone acknowledged, escalation stops |
+| **Cancelled** | Escalation cancelled (manually or automatically) |
+| **Expired** | No one acknowledged after all levels exhausted |
+
+View escalation status from:
+- **On-call → Escalations** in the dashboard
+- Alert sidebars
+- Incident timelines
+- Mobile app
+
+## Auto-cancel escalations
+
+Automatically cancel escalations when alerts resolve:
+
+1. Edit an alert route
+2. Enable **Auto-cancel escalations when alerts resolve**
+3. Save the route
+
+This prevents pages for issues that have already been resolved by monitoring tools or automation.
+
+## Test escalation paths
+
+Test escalation paths before using them in production:
+
+1. Navigate to **On-call → Escalation paths**
+2. Select an escalation path
+3. Click **Test escalation**
+4. Choose escalation details (priority, time)
+5. Click **Send test escalation**
+
+Test escalations create real notifications but are clearly marked as tests.
 
 <Warning>
-When an escalation expires (all levels exhausted without acknowledgment), no further notifications are sent. Configure enough escalation levels to ensure critical alerts always reach someone.
+Test escalations send actual push notifications, SMS, and voice calls. Warn responders before testing.
 </Warning>
-
-## Advanced patterns
-
-### Follow-the-sun escalation
-
-Use multiple schedules in level 1 to ensure someone in an appropriate timezone responds:
-
-- **Level 1**: US schedule + EU schedule + APAC schedule (whoever is in working hours)
-- **Level 2**: All regional managers
-
-### Round-robin attempts
-
-Configure a level with multiple users to try them one at a time:
-
-- **Level 1**: Try users A, B, C in sequence (30 seconds each)
-- **Level 2**: Notify all three simultaneously
-
-### Specialized escalation
-
-Create escalation paths for specific types of alerts:
-
-- **Database alerts**: DBA on-call → Database team → Infrastructure manager
-- **Security alerts**: Security on-call → Security team → CISO
-- **Customer-facing**: Support on-call → Support manager → Customer success
-
-## Best practices
-
-<AccordionGroup>
-  <Accordion title="Start with simple paths" icon="seedling">
-    Begin with 2-3 levels: primary on-call, secondary on-call, manager. Add complexity as you learn what works for your team.
-  </Accordion>
-  <Accordion title="Use schedules, not individuals" icon="calendar">
-    Reference schedules in escalation levels rather than specific people. This keeps escalation paths working as team membership changes.
-  </Accordion>
-  <Accordion title="Test your paths" icon="flask">
-    Send test alerts through escalation paths regularly to verify timing, notifications, and responder awareness.
-  </Accordion>
-  <Accordion title="Balance urgency with fatigue" icon="balance-scale">
-    Don't make every alert immediately trigger voice calls. Graduate notification intensity with escalation levels.
-  </Accordion>
-  <Accordion title="Have a final catch-all" icon="net">
-    Ensure your final escalation level reaches someone who will definitely respond (e.g., entire team or manager).
-  </Accordion>
-  <Accordion title="Enable auto-cancel" icon="circle-xmark">
-    Configure escalation paths to automatically cancel when alerts are resolved, preventing unnecessary pages.
-  </Accordion>
-</AccordionGroup>
 
 ## FAQs
 
 <AccordionGroup>
-  <Accordion title="What happens if everyone at a level is already on another alert?">
-    Responders still receive notifications even if they're handling other alerts. They can acknowledge multiple alerts and prioritize based on severity.
+  <Accordion title="What happens if the same person is on-call at multiple levels?">
+    incident.io skips duplicate notifications. If someone is on-call at Level 1 and Level 2, they're only notified at Level 1. If they don't acknowledge, escalation moves to Level 3.
   </Accordion>
 
-  <Accordion title="Can I manually escalate an alert?">
-    Yes. From the alert details page, you can manually trigger escalation to the next level or page specific people directly.
+  <Accordion title="Can I escalate to multiple schedules simultaneously?">
+    Yes. Add multiple schedules to a single level and select **All at once** to notify everyone simultaneously.
   </Accordion>
 
-  <Accordion title="What if someone acknowledges an alert by mistake?">
-    They can un-acknowledge the alert, which resumes the escalation from the current level.
+  <Accordion title="How do I prevent pages during nights and weekends?">
+    Use working hours branches to route alerts differently outside business hours. Configure the out-of-hours branch to:
+    - Only escalate P1 alerts
+    - Wait until working hours begin
+    - Send to Slack channels instead of paging individuals
   </Accordion>
 
-  <Accordion title="How do escalation paths interact with schedules?">
-    When an escalation level references a schedule, it notifies whoever is currently on-call according to that schedule (including any [overrides](/product-documentation/on-call/overrides-and-cover-requests)).
+  <Accordion title="What's the difference between 'All at once' and adding multiple levels?">
+    **All at once**: Notify everyone simultaneously, first acknowledgment stops escalation. Use for urgent parallel response.
+    
+    **Multiple levels**: Try each level sequentially with delays between. Use for hierarchical escalation.
   </Accordion>
 
-  <Accordion title="Can I have different escalation paths for the same team?">
-    Yes. Teams can have multiple escalation paths for different scenarios (e.g., business hours vs after hours, or P1 vs P2 alerts). Configure your [alert routes](/product-documentation/on-call/alert-routing) to choose the appropriate path based on conditions.
+  <Accordion title="Can I manually trigger an escalation without an alert?">
+    Yes. Use `/inc page` in Slack or select **Escalate to someone** from the dashboard. Useful for proactive escalations before declaring an incident.
+  </Accordion>
+
+  <Accordion title="How long do escalations persist if no one acknowledges?">
+    Escalations expire after exhausting all levels. Configure enough levels to ensure someone eventually responds. Consider adding a Slack channel as a final level.
+  </Accordion>
+
+  <Accordion title="Can I see escalation history and response times?">
+    Yes. Navigate to **On-call → Escalations** to view all historical escalations, acknowledgment times, and which levels were reached.
   </Accordion>
 </AccordionGroup>

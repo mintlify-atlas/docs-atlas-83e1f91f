@@ -1,17 +1,15 @@
 ---
 title: Custom dashboards and scheduled delivery
-description: Build personalized dashboards and deliver them automatically
+description: Build personalized dashboards with chart and text panels, apply filters, and schedule automatic delivery to stakeholders
 author: auto-ai-doc-migration
 icon: "/icons/chart.svg"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 Custom dashboards let you build exactly the view you need by combining panels from core Insights dashboards. Add chart and text panels, apply filters, and schedule automatic delivery to keep stakeholders informed.
 
-Use custom dashboards to focus on specific teams, incident types, or time periods. Schedule reports to deliver dashboard snapshots via email or Slack on a regular cadence.
+<Card title="Use Cases" icon="lightbulb">
+  Use custom dashboards to focus on specific teams, incident types, or time periods. Schedule reports to deliver dashboard snapshots via email or Slack on a regular cadence.
+</Card>
 
 ## Creating a custom dashboard
 
@@ -19,24 +17,39 @@ Use custom dashboards to focus on specific teams, incident types, or time period
   <Step title="Navigate to Insights">
     Go to the [Insights homepage](https://app.incident.io/~/insights) and click **Create dashboard** in the top right.
   </Step>
+  
   <Step title="Configure dashboard">
-    Give your dashboard a name, choose an icon and color, then click **Create**.
+    Give your dashboard a name, choose an icon and color to help identify it.
   </Step>
-  <Step title="Add panels">
-    New dashboards start empty. Add panels to populate them with data.
+  
+  <Step title="Create">
+    Click **Create** to initialize your new dashboard.
   </Step>
 </Steps>
+
+<Info>
+New dashboards start empty. Add panels to populate them with data.
+</Info>
 
 ## Adding panels
 
 Add panels containing charts or text to your dashboard by clicking the corresponding button:
 
 <CardGroup cols={2}>
-  <Card title="Chart panels" icon="chart-line">
+  <Card title="Chart panels" icon="chart-column">
     Select any panel from core Insights dashboards
+    
+    - Choose from all available metrics
+    - Inherits data from original dashboard
+    - Apply custom filters
   </Card>
+  
   <Card title="Text panels" icon="text">
-    Add markdown-formatted text for context or explanations
+    Add markdown-formatted text for context
+    
+    - Provide explanations
+    - Add documentation
+    - Include links and formatting
   </Card>
 </CardGroup>
 
@@ -48,14 +61,30 @@ Apply filters at the dashboard level to affect all panels, or at the panel level
 
 <Tabs>
   <Tab title="Dashboard-wide filters">
-    Add filters in the header bar using **Add filter**. These filters apply to every panel on the dashboard. For example, filter to show only major incidents across all charts.
-
+    ### Apply filters to all panels
+    
+    Add filters in the header bar using **Add filter**. These filters apply to every panel on the dashboard.
+    
+    **Example use case:** Filter to show only major incidents across all charts.
+    
+    <Check>
     Dashboard filters persist when you save the dashboard, so viewers always see the filtered view.
+    </Check>
   </Tab>
+  
   <Tab title="Panel filters">
+    ### Filter individual panels
+    
     Filter individual panels by clicking **Add filter** in the panel header. Panel filters apply in addition to dashboard-wide filters—panels show data matching both filter sets.
-
-    Use panel filters to compare different subsets within the same dashboard. For example, one panel showing critical incidents and another showing major incidents, both on a dashboard filtered to a specific team.
+    
+    **Example use case:** Compare different subsets within the same dashboard. For example:
+    - One panel showing critical incidents
+    - Another showing major incidents
+    - Both on a dashboard filtered to a specific team
+    
+    <Info>
+    Panel filters layer on top of dashboard filters for granular control.
+    </Info>
   </Tab>
 </Tabs>
 
@@ -63,52 +92,62 @@ Apply filters at the dashboard level to affect all panels, or at the panel level
 
 Schedule automatic delivery of dashboard snapshots via email or Slack. Reports capture the current state of your dashboard at the scheduled time and deliver it to specified recipients.
 
-Click **Schedule** in the top right of any custom dashboard to configure delivery:
-
-<ParamField path="Recipients" type="string" required>
-  Slack channels or email addresses (inside or outside your organization)
-</ParamField>
-
-<ParamField path="Frequency" type="string" required>
-  Daily, weekly, or monthly delivery
-</ParamField>
-
-<ParamField path="Test" type="action">
-  Send a test report to verify formatting and content
-</ParamField>
-
 <Note>
 Scheduled reports are only available for custom dashboards. To schedule reports for core dashboards, create a custom dashboard with the same panels.
 </Note>
+
+### Configuring scheduled delivery
+
+Click **Schedule** in the top right of any custom dashboard to configure delivery:
+
+<CardGroup cols={3}>
+  <Card title="Recipients" icon="users">
+    - Slack channels
+    - Email addresses
+    - Inside or outside org
+  </Card>
+  
+  <Card title="Frequency" icon="clock">
+    - Daily
+    - Weekly
+    - Monthly
+  </Card>
+  
+  <Card title="Test" icon="flask">
+    Send a test report to verify formatting and content
+  </Card>
+</CardGroup>
 
 ### Testing scheduled reports
 
 Click **Send a test report** at the bottom of the scheduling drawer to send a preview to your email address. Reports take up to one minute to generate.
 
-Review the test report to verify:
+<Steps>
+  <Step title="Send test report">
+    Click the test button to generate a preview.
+  </Step>
+  
+  <Step title="Review content">
+    Verify the following:
+    - All panels render correctly
+    - Filters are applied as expected
+    - Data shows the intended time period
+    - Formatting meets your needs
+  </Step>
+  
+  <Step title="Confirm schedule">
+    Once satisfied, confirm the schedule. Reports will be delivered according to your selected frequency.
+  </Step>
+</Steps>
 
-<Check>
-  All panels render correctly
-</Check>
-
-<Check>
-  Filters are applied as expected
-</Check>
-
-<Check>
-  Data shows the intended time period
-</Check>
-
-<Check>
-  Formatting meets your needs
-</Check>
-
-Once satisfied, confirm the schedule. Reports will be delivered according to your selected frequency.
+<Warning>
+Reports take up to one minute to generate. Don't close the drawer until the test completes.
+</Warning>
 
 ## Managing scheduled reports
 
 View and edit scheduled reports from the custom dashboard by clicking **Schedule** again. Modify recipients, change frequency, or disable delivery without deleting the schedule configuration.
 
 <Tip>
-Delete a scheduled report by removing all recipients and saving the configuration.
+**To delete a scheduled report:** Remove all recipients and save the configuration.
 </Tip>

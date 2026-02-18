@@ -1,0 +1,435 @@
+---
+title: Post-mortem writing
+description: Generate comprehensive post-mortem documents automatically from incident data, timelines, actions, and call transcripts.
+---
+
+# Post-mortem writing
+
+Writing thorough post-mortem documents after incidents is essential for organizational learning, but it's time-consuming and often delayed. AI-powered post-mortem generation assembles comprehensive post-mortem documents automatically from incident data, timelines, actions, and call transcripts, dramatically reducing the time required to document incidents.
+
+## Why automate post-mortem writing?
+
+Post-mortem writing faces consistent challenges:
+
+- **Time-consuming** - Manually compiling information from multiple sources takes hours
+- **Often delayed** - Responders prioritize other work over documentation
+- **Incomplete** - Important context is forgotten or not captured
+- **Inconsistent** - Different responders document incidents differently
+- **Cognitively demanding** - Synthesizing scattered information into coherent narrative is hard
+
+AI post-mortem generation addresses these challenges by automatically:
+- Assembling timelines from structured incident data
+- Extracting key moments from call transcripts
+- Summarizing investigation findings and mitigation steps
+- Identifying contributing factors and follow-up actions
+- Formatting everything according to your organization's template
+
+The result: a complete post-mortem draft ready for human review and refinement, available minutes after incident resolution.
+
+## How post-mortem generation works
+
+AI post-mortem generation pulls together information from multiple sources:
+
+<Steps>
+  <Step title="Data collection">
+    The AI gathers all incident-related data:
+    - Incident description, severity, and affected services
+    - Complete timeline with timestamps
+    - Actions created and completed
+    - Status updates shared during the incident
+    - Call transcripts from Scribe (if enabled)
+    - Investigation results and root cause analysis
+    - Slack messages from the incident channel
+  </Step>
+
+  <Step title="Narrative generation">
+    The AI synthesizes collected data into coherent narrative sections:
+    - Executive summary of what happened and impact
+    - Detailed timeline of events
+    - Root cause analysis
+    - What went well and what went poorly
+    - Contributing factors that enabled or worsened the incident
+  </Step>
+
+  <Step title="Action item extraction">
+    The AI identifies and categorizes follow-up actions:
+    - Prevention measures to avoid recurrence
+    - Detection improvements to catch issues sooner
+    - Response process improvements
+    - Technical debt or system improvements needed
+  </Step>
+
+  <Step title="Template formatting">
+    The AI formats the content according to your organization's post-mortem template, populating each section appropriately.
+  </Step>
+
+  <Step title="Human review">
+    The generated post-mortem is presented as a draft for human review, editing, and refinement before being finalized.
+  </Step>
+</Steps>
+
+## Generated post-mortem sections
+
+AI-generated post-mortems include comprehensive sections:
+
+### Executive summary
+
+A concise overview answering:
+- What happened?
+- What was the impact?
+- What was the root cause?
+- What are we doing to prevent recurrence?
+
+**Example:**
+```
+On January 15, 2026, from 14:32 to 15:47 UTC, our payment processing 
+system experienced a partial outage affecting approximately 15% of 
+checkout attempts. The incident was caused by database connection pool 
+exhaustion following a deployment that introduced inefficient queries. 
+We mitigated by rolling back the deployment and scaling database 
+connections. Estimated customer impact: $45K in delayed transactions. 
+Prevention measures include query performance testing in staging and 
+connection pool monitoring.
+```
+
+### Detailed timeline
+
+Chronological sequence of events with timestamps:
+
+```
+14:15 UTC - Deployment v2.4.1 completed
+14:32 UTC - Error rate began increasing on /api/checkout endpoint
+14:35 UTC - Automated alert triggered, incident declared
+14:38 UTC - Investigation identified database connection pool at 100%
+14:45 UTC - Decision made to rollback deployment
+14:52 UTC - Rollback completed, error rates decreasing
+15:10 UTC - Error rates returned to baseline
+15:47 UTC - Monitoring period completed, incident resolved
+```
+
+The AI automatically extracts this from incident timeline entries and call transcripts.
+
+### Root cause analysis
+
+Deep dive into why the incident occurred:
+
+**What happened:**
+Deployment v2.4.1 included a database query refactor that changed how order data was retrieved. The new query used a table scan instead of an index, increasing execution time from 50ms to 3 seconds.
+
+**Why it wasn't caught:**
+- Query tested with small dataset in staging (500 rows)
+- Production database had 5M rows, exposing performance issue
+- No query performance monitoring in deployment pipeline
+
+**Contributing factors:**
+- Database connection pool sized for fast queries (50ms average)
+- Long-running queries held connections, exhausting pool
+- No circuit breaker to prevent cascade failure
+
+### What went well
+
+Positive aspects of the incident response:
+
+- Automated alerting triggered within 3 minutes of impact
+- Investigation correctly identified database as culprit within 6 minutes
+- Rollback decision made quickly once connection pool issue was understood
+- Communication to customers was clear and timely
+- Scribe captured all technical discussions, preventing context loss
+
+### What went poorly
+
+Areas for improvement:
+
+- Query performance not tested with production-scale data
+- 10-minute delay between incident declaration and paging database expert
+- Status page update was 20 minutes after incident start
+- No runbook for database connection pool exhaustion
+- Monitoring didn't surface connection pool utilization proactively
+
+### Follow-up actions
+
+AI extracts and categorizes action items:
+
+**Prevention:**
+- [ ] Add query performance testing with production-scale datasets
+- [ ] Implement query execution time limits at application layer
+- [ ] Review all queries added in past 3 months for similar issues
+
+**Detection:**
+- [ ] Add alerting on database connection pool utilization >80%
+- [ ] Create dashboard showing query execution time percentiles
+- [ ] Enable slow query logging on production database
+
+**Response:**
+- [ ] Write runbook for database connection pool exhaustion
+- [ ] Add database expert to primary escalation path
+- [ ] Set up automatic status page updates for SEV-2+ incidents
+
+**Technical improvements:**
+- [ ] Implement connection pooling per-service instead of global
+- [ ] Add circuit breaker for database queries >1 second
+- [ ] Index optimization for orders table
+
+## Creating AI-generated post-mortems
+
+Generate post-mortems after incident resolution:
+
+<Steps>
+  <Step title="Navigate to post-incidents">
+    From the dashboard, go to **Post-incidents** or open the resolved incident's homepage.
+  </Step>
+
+  <Step title="Click 'Create post-mortem'">
+    incident.io detects available incident data and offers to generate a post-mortem.
+
+    <Note>
+      Post-mortems can only be generated for resolved incidents. Active incidents need to be closed first.
+    </Note>
+  </Step>
+
+  <Step title="Choose generation method">
+    Select how to generate the post-mortem:
+    - **AI-generated** - Automatic generation from incident data (recommended)
+    - **Manual** - Start with a blank template
+    - **From previous** - Copy structure from a past post-mortem
+  </Step>
+
+  <Step title="Select template">
+    Choose which post-mortem template to use. AI will populate sections according to the selected template's structure.
+  </Step>
+
+  <Step title="Review and edit">
+    The AI-generated draft appears in the post-mortem editor. Review each section:
+    - Verify factual accuracy
+    - Add context AI couldn't infer
+    - Adjust tone and framing
+    - Remove any sensitive information
+    - Add team-specific insights
+  </Step>
+
+  <Step title="Export or attach">
+    Once satisfied:
+    - **Edit in incident.io** - Use the built-in post-mortem editor
+    - **Export to Google Docs** - Create a Google Doc with the content
+    - **Export to Notion** - Create a Notion page
+    - **Export to Confluence** - Create a Confluence page
+    - **Copy to clipboard** - Paste into any editor
+
+    After exporting, attach the external document to the incident for easy reference.
+  </Step>
+</Steps>
+
+## Customizing post-mortem templates
+
+AI generates content matching your organization's post-mortem structure:
+
+### Creating templates
+
+1. Navigate to **Settings → Post-mortem**
+2. Click **Create template**
+3. Define sections:
+   - Section name
+   - Section description (helps AI understand what content belongs here)
+   - Section order
+   - Whether section is required
+
+### Standard template sections
+
+Common sections AI understands well:
+
+- **Executive Summary** - High-level overview
+- **Timeline** - Chronological sequence of events
+- **Impact** - Customer and business effects
+- **Root Cause** - Why the incident occurred
+- **Detection** - How the incident was discovered
+- **Response** - What was done to resolve it
+- **What Went Well** - Positive aspects
+- **What Could Be Improved** - Areas for growth
+- **Action Items** - Follow-up tasks
+- **Lessons Learned** - Key takeaways
+
+### Custom sections
+
+You can define organization-specific sections:
+
+- **Regulatory Compliance Notes** - For regulated industries
+- **Customer Communication Log** - Record of external communications
+- **Cost Analysis** - Financial impact breakdown
+- **Similar Past Incidents** - References to related incidents
+- **Architectural Context** - System design considerations
+
+Provide clear descriptions for custom sections so AI understands what content to generate.
+
+### Section variables
+
+Use variables in templates to automatically populate metadata:
+
+- `{{ incident.name }}` - Incident name
+- `{{ incident.severity }}` - Severity level
+- `{{ incident.started_at }}` - When incident began
+- `{{ incident.resolved_at }}` - When incident was resolved
+- `{{ incident.lead }}` - Incident lead name
+- `{{ incident.services }}` - Affected services
+
+AI-generated content appears in the body sections, while variables populate metadata fields.
+
+## Integration with external tools
+
+Seamlessly export post-mortems to your documentation system:
+
+### Google Docs integration
+
+Export directly to Google Docs:
+
+1. Click **Export to Google Docs**
+2. AI-generated content is formatted as a Google Doc
+3. Document is created in your Google Drive
+4. Share the doc link with the team
+5. Attach the doc to the incident in incident.io
+
+Formatting (headers, lists, tables) is preserved during export.
+
+### Notion integration
+
+Export to Notion databases:
+
+1. Connect Notion integration at **Settings → Integrations**
+2. Select target Notion database for post-mortems
+3. Click **Export to Notion**
+4. AI content populates Notion page properties and body
+5. Notion page link is automatically attached to the incident
+
+### Confluence integration
+
+Export to Confluence spaces:
+
+1. Connect Confluence at **Settings → Integrations**
+2. Select target Confluence space
+3. Click **Export to Confluence**
+4. AI content creates a new Confluence page
+5. Page link is attached to the incident
+
+### Copy to clipboard
+
+For other tools (Jira, Slab, Linear, custom wikis):
+
+1. Click **Copy to clipboard**
+2. Paste into your documentation tool
+3. Formatting is preserved in most modern editors
+4. Manually attach the document link to the incident
+
+## Enhancing post-mortem quality
+
+Improve AI-generated post-mortem accuracy:
+
+### During the incident
+
+**Add timeline entries** - Use `/inc timeline` to record key decisions and events with timestamps. These populate the post-mortem timeline automatically.
+
+**Document investigation** - When Investigation results appear, review and correct any inaccuracies before they propagate to the post-mortem.
+
+**Use Scribe** - Enable call transcription to capture detailed technical discussions that enrich root cause analysis.
+
+**Create actions explicitly** - Use `/inc action` to track follow-up items. These automatically populate action item sections.
+
+### After resolution
+
+**Review immediately** - Generate the post-mortem while the incident is fresh. Accuracy is highest right after resolution.
+
+**Add human insight** - AI captures facts well but may miss nuance. Add team insights about what was particularly challenging or surprising.
+
+**Validate technical details** - Verify AI correctly understood technical root cause. Adjust if oversimplified or incorrect.
+
+**Include learnings** - AI suggests learnings based on what happened, but humans should add broader organizational lessons.
+
+## Best practices
+
+<Tip>
+  **Generate early, refine later** - Create the AI draft immediately after resolution. You can always edit it before the post-mortem meeting.
+</Tip>
+
+<Tip>
+  **Use templates consistently** - Standardized templates make AI generation more accurate and help teams find information across post-mortems.
+</Tip>
+
+<Tip>
+  **Combine AI with collaboration** - Let AI create the first draft, then use collaborative editing (Google Docs, Notion) for team refinement.
+</Tip>
+
+<Tip>
+  **Link related incidents** - Reference similar past incidents in your post-mortem. AI sometimes suggests these; add others if relevant.
+</Tip>
+
+<Tip>
+  **Update action items** - Post-mortem action items should flow into your task tracking system (Jira, Linear, Asana). Track completion separately.
+</Tip>
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Generated post-mortem is too short or lacks detail">
+    Post-mortem quality depends on incident data richness. Improve detail by:
+    - Adding more timeline entries during incidents
+    - Enabling Scribe to capture call discussions
+    - Running Investigations for root cause analysis
+    - Creating explicit actions instead of just discussing them
+    - Writing detailed incident descriptions
+    
+    The more structured data incident.io has, the better the generated post-mortem.
+  </Accordion>
+
+  <Accordion title="Root cause section is inaccurate">
+    AI generates root cause from:
+    - Investigation results
+    - Timeline entries
+    - Call transcripts
+    - Status updates
+    
+    If root cause is wrong, the source data may be incomplete or unclear. Always review and correct root cause analysis manually—this is too critical to fully automate.
+  </Accordion>
+
+  <Accordion title="Timeline is missing important events">
+    The AI-generated timeline includes:
+    - Explicit timeline entries (from `/inc timeline`)
+    - Status changes
+    - Major actions created
+    - Key moments from call transcripts
+    
+    If events are missing, they likely weren't recorded during the incident. Add them manually to the post-mortem timeline.
+  </Accordion>
+
+  <Accordion title="Can I regenerate a post-mortem after editing?">
+    Currently, regeneration replaces the entire draft. If you've made significant edits:
+    - Save your edited version before regenerating
+    - Compare regenerated version to your edits
+    - Merge the best content from both
+    
+    Future versions may support section-level regeneration to preserve manual edits.
+  </Accordion>
+
+  <Accordion title="Post-mortem includes sensitive information">
+    AI-generated content may occasionally include:
+    - Customer names from incident discussions
+    - Internal system details that shouldn't be widely shared
+    - Sensitive debugging information
+    
+    Always review generated post-mortems before sharing, especially if they'll be accessible outside your immediate team. Redact sensitive details.
+  </Accordion>
+</AccordionGroup>
+
+## Privacy and data handling
+
+Post-mortem generation uses:
+- All incident data (description, timeline, actions, status updates)
+- Call transcripts (if Scribe enabled)
+- Investigation results
+- Slack messages from incident channels
+
+Data is processed by AI models (typically OpenAI or Anthropic) but is not used for model training. Generated post-mortems are stored as part of incident records. For complete details, see [AI Privacy Guidance](https://trust.incident.io/).
+
+## What's next?
+
+- Learn about [the AI co-pilot](/product-documentation/ai-sre/agentic-copilot)
+- Explore [call transcription with Scribe](/product-documentation/ai-sre/call-transcription)
+- Set up [Investigations](/product-documentation/ai-sre/investigations-and-root-cause)
+- Configure [post-incident workflows](/product-documentation/post-incident/structured-post-incident-process)

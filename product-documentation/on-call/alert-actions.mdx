@@ -4,7 +4,6 @@ description: Resolve alerts, reduce alert noise, and review the full alert lifec
 ---
 
 Manage alerts in incident.io to close the loop on addressed issues, reduce noise through deduplication and grouping, and trace what happened with alert timelines. Navigate to **On-call → Alerts** in the dashboard, or use the **Alerts** tab in the mobile app.
-
 ## Alert states
 
 Alerts in incident.io have two states.
@@ -18,10 +17,9 @@ Alerts in incident.io have two states.
 Alerts don't have an "acknowledged" state. Acknowledgment happens at the [escalation path](/product-documentation/on-call/escalation-paths) level when someone responds to a page.
 </Tip>
 
-## Alert timeline
+### Timeline and alert lifecycle
 
 Every alert has a timeline tracking its lifecycle. Track what happened by understanding an alert's timeline details. Select a specific alert (**On-call → Alerts → Click on an alert**) to review the timeline and related incidents or escalations.
-
 | Timeline event | Description |
 |----------------|-------------|
 | **Alert received from source** | The alert fires from your monitoring tool (e.g., Datadog, Sentry, HTTP) |
@@ -36,65 +34,44 @@ Resolve alerts to close the loop and remove noise from your alert dashboard. Whe
 
 ### Manual and bulk resolution
 
-<Tabs>
-  <Tab title="Manual resolution">
-    Manually resolve alerts in the dashboard or mobile app by selecting the relevant alert and clicking "Resolve".
-  </Tab>
-  <Tab title="Bulk resolution">
-    Bulk resolve several related alerts stemming from the same issue at once by selecting multiple alerts in the mobile app or dashboard.
-  </Tab>
-</Tabs>
+- **Manual resolution:** Manually resolve alerts in the dashboard or mobile app by selecting the relevant alert and clicking "Resolve".
+
+- **Bulk resolution:** Bulk resolve several related alerts stemming from the same issue at once by selecting multiple alerts in the mobile app or dashboard.
 
 ### Automatic resolution
 
-Alerts can resolve automatically in three ways:
+Alerts can resolve automatically in three ways.
 
-<AccordionGroup>
-  <Accordion title="Deduplication key" icon="key">
-    When resolved alerts are sent from sources using the same deduplication key as an active alert, incident.io will resolve the active alert accordingly. This happens automatically when monitoring tools send resolved messages by default (e.g., Grafana), but can be disabled in the source configuration.
-  </Accordion>
-  <Accordion title="Incident status" icon="circle-check">
-    When an incident is resolved, associated alerts can be automatically resolved.
-  </Accordion>
-</AccordionGroup>
+- **Deduplication key**: When resolved alerts are sent from sources using the same deduplication key as an active alert, incident.io will resolve the active alert accordingly. This happens automatically when monitoring tools send resolved messages by default (e.g., Grafana), but can be disabled in the source configuration.
+
+- **Incident status**: When an incident is resolved, associated alerts can be automatically resolved.
 
 <Tip>
 Automatically decline incidents in 'triage' status when linked alerts resolve, by enabling "Decline triage incidents if the linked alerts are resolved" when configuring alert routes.
 </Tip>
 
-## Reducing alert noise
+### Reducing alert noise
 
 incident.io has two mechanisms for reducing alert noise: **deduplication** (alert-level) and **grouping** (incident-level).
 
-<CardGroup cols={2}>
-  <Card title="Deduplication" icon="clone">
-    Prevents duplicate alerts from being created. If an alert arrives with the same deduplication key as an active alert, no new alert is created to reduce noise. Deduplication keys also handle automatic resolution.
-  </Card>
-  <Card title="Grouping" icon="layer-group">
-    Attaches related alerts to the same incident based on time windows and shared attributes (like service or team). Learn more about configuring [grouping alerts](/product-documentation/on-call/alert-routing#grouping-alerts) when configuring alert routes.
-  </Card>
-</CardGroup>
+**Deduplication** prevents duplicate alerts from being created. If an alert arrives with the same deduplication key as an active alert, no new alert is created to reduce noise. Deduplication keys also handle [automatic resolution](#automatic-resolution).
+
+**Grouping** attaches related alerts to the same incident based on time windows and shared attributes (like service or team). Learn more about configuring [grouping alerts](/product-documentation/on-call/alert-routing#grouping-alerts) when configuring alert routes.
 
 ## View and filter alerts
 
 ### Dashboard and mobile app
 
-View a complete list of triggered and resolved alerts within the dashboard or mobile app.
+View a complete list of triggered and resolved alerts within the dashboard or mobile app. 
 
-<Tabs>
-  <Tab title="Dashboard">
-    Central hub for investigating alerts and understanding their full context. Navigate to **On-call → Alerts** to view and manage all alerts.
-  </Tab>
-  <Tab title="Mobile app">
-    Perfect for quick triage and bulk resolution when responding to incidents. Navigate to the **Alerts** tab in the mobile app.
-  </Tab>
-</Tabs>
+- **Dashboard**: Central hub for investigating alerts and understanding their full context. Navigate to **On-call → Alerts** to view and manage all alerts.
+- **Mobile app**: Perfect for quick triage and bulk resolution when responding to incidents. Navigate to the **Alerts** tab in the mobile app.
 
 From the alerts list, you can:
-- View alerts in a table with customizable columns (status, alert source, priority, attributes)
-- Filter by date range, alert attributes, related incidents, or related escalations to investigate historic alerts
-- Click into individual alerts to see their full payload, timeline, attributes and more
-- Bulk resolve alerts, or attach to incidents
+- View alerts in a table with customizable columns (status, alert source, priority, attributes).
+- Filter by date range, alert attributes, related incidents, or related escalations to investigate historic alerts.
+- Click into individual alerts to see their full payload, timeline, attributes and more.
+- Bulk resolve alerts, or attach to incidents.
 
 ### Slack or Microsoft Teams channels
 

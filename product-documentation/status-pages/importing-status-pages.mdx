@@ -7,6 +7,8 @@ import { StatusBanner } from '/snippets/status-banner.mdx';
 
 <StatusBanner status="PLACEHOLDER" />
 
+# Importing status pages
+
 Migrating status pages shouldn't mean starting from scratch. Whether you're moving from Atlassian Statuspage or another provider, incident.io helps you bring your configuration, historical incidents, and subscribers along—so your users see continuity during the transition.
 
 ## Atlassian Statuspage migration
@@ -66,7 +68,7 @@ Navigate to **Status Pages** and click **Import from Atlassian Statuspage** to b
     - Your incident.io status page becomes the active source of truth
     - Update DNS if using a custom domain to point to incident.io
 
-    <Warning>Subscriber import happens at go-live to avoid double notifications. If you delay going live, new subscribers added to Atlassian after the initial import won't transfer automatically—you'll need to export and import them manually.</Warning>
+    **Important:** Subscriber import happens at go-live to avoid double notifications. If you delay going live, new subscribers added to Atlassian after the initial import won't transfer automatically—you'll need to export and import them manually.
   </Step>
 </Steps>
 
@@ -108,7 +110,7 @@ Import subscribers from any provider via CSV upload:
 - Component subscriptions (optional—specify which components each subscriber follows)
 - One subscriber per row
 
-<Warning>Only import subscribers who previously consented to status page notifications. Anti-spam regulations (CAN-SPAM, GDPR) require explicit opt-in. Don't add new addresses during migration.</Warning>
+**Important:** Only import subscribers who previously consented to status page notifications. Anti-spam regulations (CAN-SPAM, GDPR) require explicit opt-in. Don't add new addresses during migration.
 
 ### Timing considerations
 

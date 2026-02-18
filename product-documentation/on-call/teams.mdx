@@ -4,185 +4,210 @@ description: Manage on-call teams
 icon: "/icons/users.svg"
 ---
 
-Teams in incident.io represent groups of people who share on-call responsibilities. Teams are defined in your [Catalog](/product-documentation/catalog) and used throughout the on-call system to organize schedules, escalation paths, and alert routing.
+Teams in incident.io organize responders, schedules, and escalation paths by organizational structure. Use teams to automatically filter incidents and alerts, route pages to the right people, and maintain clear ownership of on-call responsibilities.
 
-## How teams work
+## Why use teams
 
-Teams serve as the organizational foundation for on-call management:
+Teams provide a consistent way to organize on-call across incident.io:
 
-<CardGroup cols={2}>
-  <Card title="Catalog-powered" icon="book">
-    Teams are defined in your Catalog, synced from your org structure
-  </Card>
-  <Card title="Dynamic membership" icon="users">
-    Team membership updates automatically from your identity provider
-  </Card>
-  <Card title="Own services" icon="server">
-    Teams own services and resources in your Catalog
-  </Card>
-  <Card title="Have escalation paths" icon="arrow-up">
-    Each team can have one or more escalation paths
-  </Card>
-</CardGroup>
+- **Automatic filtering**: View only incidents and alerts relevant to your teams
+- **Dynamic routing**: Route alerts to teams automatically based on service ownership or other catalog relationships
+- **Ownership clarity**: Link escalation paths and schedules to teams for clear responsibility
+- **Simplified configuration**: Configure once using team attributes, not separate rules for each team
 
-## Define teams in the Catalog
+## Set up teams
 
-Teams are defined as entries in your Catalog. To set up teams for on-call:
+Configure teams from **Settings → Teams** using the three-step setup wizard:
 
 <Steps>
-  <Step title="Create team type">
-    In your Catalog, create or verify you have a "Team" type (this may already exist)
+  <Step title="Choose a sync source">
+    Select how you want to manage team membership:
+    - Identity providers (Okta, Google Workspace, Microsoft Entra ID) via SCIM
+    - Service catalogs (Backstage, Cortex, Linear, OpsLevel)
+    - Slack user groups
+    - Manual management in incident.io
   </Step>
-  <Step title="Add team entries">
-    Create entries for each team (e.g., "Platform", "Payments", "Frontend")
+  <Step title="Configure team attributes">
+    Add attributes like Slack channel, PagerDuty service, or custom fields for workflows and alert routing
   </Step>
-  <Step title="Configure attributes">
-    Add attributes like Slack channel, email, and on-call contact information
-  </Step>
-  <Step title="Sync membership">
-    Connect to your identity provider to automatically sync team membership
+  <Step title="Link teams to schedules and escalation paths">
+    Associate existing or new schedules and escalation paths with teams
   </Step>
 </Steps>
-
-<Info>
-Learn more about setting up your [Catalog](/product-documentation/catalog).
-</Info>
-
-## Team attributes for on-call
-
-Enhance your team entries with these useful attributes for on-call:
-
-| Attribute | Purpose | Example |
-|-----------|---------|----------|
-| **Escalation path** | Default escalation path for alerts affecting this team | Platform team escalation path |
-| **Slack channel** | Where to send alerts for this team | #platform-alerts |
-| **Schedule** | Regular on-call schedule for this team | Platform on-call schedule |
-| **Email** | Team contact email for notifications | platform@company.com |
-| **Manager** | Team lead or manager | Sarah Chen |
 
 <Tip>
-Use the escalation path attribute to enable dynamic alert routing based on team ownership.
+Using SCIM or another integration ensures team membership stays up to date automatically as people join, leave, or change teams.
 </Tip>
 
-## Using teams for dynamic routing
+## Manage team membership
 
-Once teams are defined in your Catalog, use them for powerful dynamic routing:
+Choose the approach that matches how you manage teams:
 
-### Route alerts to owning teams
+### Manually in incident.io
 
-When you configure [alert attributes](/product-documentation/on-call/alert-attributes) to extract the affected service, you can automatically route to the owning team:
+Add, remove, and manage team members directly from **Settings → Teams**. Best for small organizations or when team membership doesn't change frequently.
+
+1. Navigate to **Settings → Teams**
+2. Select a team or create a new one
+3. Click **Manage members**
+4. Add or remove users
+5. Save changes
+
+### With SCIM
+
+Automatically sync teams and members from your identity provider. incident.io creates and updates teams based on groups in your IdP.
+
+**Supported SCIM providers:**
+- Okta
+- Google Workspace
+- Microsoft Entra ID (formerly Azure AD)
+- OneLogin
+- Any SCIM 2.0 compatible provider
+
+See [Using SCIM to create a Team catalog type](/help-centre/catalog/catalog-best-practices/using-scim-to-create-a-team-catalog-type) for setup details.
+
+### With service catalogs
+
+Sync teams from service catalog platforms:
+
+- **Backstage**: Import teams and ownership from Backstage catalog
+- **Cortex**: Sync teams and service ownership
+- **Linear**: Import teams from Linear workspace
+- **OpsLevel**: Bring in teams and service relationships
+
+Configure integrations from **Settings → Integrations**.
+
+### With catalog-importer or Terraform
+
+Manage teams as code using [catalog-importer](https://github.com/incident-io/catalog-importer) or the [incident.io Terraform provider](https://registry.terraform.io/providers/incident-io/incident/latest).
+
+Best for organizations that manage infrastructure and organizational structure as code.
+
+## Link teams to escalation paths
+
+Connect teams to escalation paths to enable dynamic routing:
+
+1. Navigate to **On-call → Escalation paths**
+2. Create or edit an escalation path
+3. Select **Teams** under "Owned by"
+4. Choose the team(s) that own this escalation path
+5. Save the escalation path
+
+incident.io automatically creates a catalog relationship linking the team to the escalation path. Use this relationship in alert routes and workflows:
 
 ```
-Alert > Service > Owner (Team) > Escalation path
+Alert > Team > Escalation paths
 ```
 
-This expression:
-1. Reads the Service from the alert
-2. Finds which Team owns that Service in your Catalog
-3. Routes to that Team's escalation path
+This expression routes alerts to whichever escalation path is linked to the alert's team attribute.
 
-### Send alerts to team channels
+## Link teams to schedules
 
-Route alerts to different Slack channels based on the affected team:
+Associate schedules with teams for easy filtering and organization:
+
+1. Navigate to **On-call → Schedules**
+2. Create or edit a schedule
+3. Select **Teams** under "Owned by"
+4. Choose the team(s) that own this schedule
+5. Save the schedule
+
+Schedules and escalation paths owned by your teams appear at the top of lists for quick access.
+
+## Team attributes for routing
+
+Add attributes to teams to enable dynamic routing and automation:
+
+| Common team attributes | Use case |
+|----------------------|----------|
+| **Slack channel** | Route alerts to team-specific channels using `Alert > Team > Slack channel` |
+| **Email** | Send notifications to team distribution lists |
+| **Escalation path** | Link default escalation path for the team (created automatically) |
+| **PagerDuty service** | Map to external PagerDuty services |
+| **Region** | Route based on geography for follow-the-sun support |
+
+Add custom attributes from **Settings → Teams → Configure → Attributes**.
+
+## Automatic filtering
+
+By default, the dashboard filters incidents and alerts to show only those relevant to your teams.
+
+### Configure filtering
+
+Customize automatic filtering from **Settings → Teams → Configure**:
+
+- **Incidents**: Choose which custom field determines team affiliation (default: "Affected teams")
+- **Alerts**: Choose which attribute determines team affiliation (default: "Team")
+- **Disable filtering**: Turn off automatic filtering if you want to see all incidents and alerts
+
+### User preferences
+
+Each user can control whether their dashboard filters by team from **Preferences → My dashboard**:
+
+- **Filter by my teams**: Show only items related to teams you're a member of
+- **Show everything**: Display all incidents and alerts regardless of team
+
+<Tip>
+Use ⌘+K (Ctrl+K on Windows) and search "preferences" to quickly access your preferences.
+</Tip>
+
+## Route alerts to teams
+
+Use teams in alert routing expressions to automatically page the right people:
+
+### Direct team routing
+
+Route alerts directly to a team's escalation path:
 
 ```
-Alert > Team > Slack channel
+Alert > Team > Escalation paths
 ```
 
-This dynamically sends alerts to the right team's channel without manual configuration per team.
+### Service ownership routing
 
-## Team schedules
+Route based on which team owns the affected service:
 
-Teams typically have one or more [schedules](/product-documentation/on-call/schedules-overview) that define who is on-call:
+```
+Alert > Service > Owner > Escalation paths
+```
 
-<AccordionGroup>
-  <Accordion title="Primary schedule" icon="calendar">
-    The main on-call rotation for the team. Usually includes all team members in a rotation.
-  </Accordion>
-  <Accordion title="Secondary/escalation schedule" icon="calendar-plus">
-    A backup schedule with senior team members for escalated issues.
-  </Accordion>
-  <Accordion title="Regional schedules" icon="globe">
-    Separate schedules for different timezones in follow-the-sun coverage.
-  </Accordion>
-</AccordionGroup>
+### Fallback routing
 
-## Best practices
+Provide fallbacks when team information is missing:
 
-<CardGroup cols={2}>
-  <Card title="Sync from identity provider" icon="sync">
-    Keep team membership automatically updated from Okta, Google Workspace, or Azure AD
-  </Card>
-  <Card title="Define ownership clearly" icon="user-check">
-    Ensure every service has a clear owning team in your Catalog
-  </Card>
-  <Card title="Use team hierarchies" icon="sitemap">
-    Model your org structure with parent/child team relationships
-  </Card>
-  <Card title="Keep attributes current" icon="rotate">
-    Regularly verify team attributes like Slack channels and escalation paths are accurate
-  </Card>
-</CardGroup>
+```
+Alert > Service > Owner > Escalation paths || Infrastructure team escalation path
+```
 
-## Team-based alerting workflows
-
-### Scenario 1: Service ownership routing
-
-<Steps>
-  <Step title="Alert fires">
-    Monitoring tool detects an issue with the Payments API
-  </Step>
-  <Step title="Extract service">
-    Alert attribute extraction identifies the affected service as "Payments API"
-  </Step>
-  <Step title="Find owning team">
-    Catalog lookup finds that the Payments team owns the Payments API
-  </Step>
-  <Step title="Route to team">
-    Alert automatically routes to the Payments team's escalation path
-  </Step>
-</Steps>
-
-### Scenario 2: Follow-the-sun coverage
-
-<Steps>
-  <Step title="Global team">
-    Define a team like "Platform" with members across multiple regions
-  </Step>
-  <Step title="Regional schedules">
-    Create separate schedules for US, EU, and APAC with region-specific working hours
-  </Step>
-  <Step title="Escalation path">
-    Configure escalation path to check all three schedules based on current time
-  </Step>
-  <Step title="Automatic routing">
-    Alerts always reach the person on-call in the appropriate timezone
-  </Step>
-</Steps>
+See [Alert routing](/product-documentation/on-call/alert-routing) for complete routing configuration.
 
 ## FAQs
 
 <AccordionGroup>
-  <Accordion title="How do I add someone to a team?">
-    Team membership is managed in your Catalog. If you've synced teams from your identity provider (Okta, Google Workspace, etc.), membership updates automatically. Otherwise, edit the team entry in your Catalog to add members.
+  <Accordion title="How do I change which teams I'm a member of?">
+    If using SCIM or another sync source, update team membership in your identity provider or service catalog. Changes sync automatically.
+    
+    If managing teams manually, ask an admin to update membership from **Settings → Teams**.
   </Accordion>
 
-  <Accordion title="Can a person be on multiple teams?">
-    Yes. People can be members of multiple teams and participate in multiple on-call rotations. Configure their notification preferences to manage alert volume.
+  <Accordion title="Can one escalation path belong to multiple teams?">
+    Yes. Link escalation paths to multiple teams if they're jointly owned. The escalation path appears for all linked teams.
   </Accordion>
 
-  <Accordion title="What's the difference between teams and schedules?">
-    **Teams** are organizational units that own services and resources. **Schedules** define who from a team is on-call at any given time. A team typically has one or more schedules.
+  <Accordion title="What happens if I delete a team?">
+    Deleting a team removes it from catalog relationships, but doesn't delete linked schedules or escalation paths. Update alert routes and workflows that reference the deleted team.
+    
+    Historical incidents and alerts retain the team information they had when created.
   </Accordion>
 
-  <Accordion title="How do I remove a team?">
-    Remove or archive the team entry in your Catalog. Before doing so, verify that:
-    - No services list this team as the owner
-    - No alert routes reference this team's escalation path
-    - No active schedules are associated with this team
+  <Accordion title="Can I nest teams hierarchically?">
+    Not currently. Teams are flat in incident.io. However, you can create custom catalog types to represent organizational hierarchy (departments, divisions, etc.) and link teams to those.
   </Accordion>
 
-  <Accordion title="Can teams have multiple escalation paths?">
-    Yes. Teams can have multiple escalation paths for different scenarios (e.g., business hours vs after hours, or different severity levels). Configure your [alert routes](/product-documentation/on-call/alert-routing) to choose the appropriate escalation path based on conditions.
+  <Accordion title="How do I migrate to SCIM after starting with manual teams?">
+    Run the team setup wizard again from **Settings → Teams → Configure**. Choose SCIM as your sync source. incident.io will guide you through mapping existing teams to SCIM groups.
+  </Accordion>
+
+  <Accordion title="Why don't I see any teams in my escalation path configuration?">
+    Ensure teams are created in **Settings → Teams** first. The team catalog type must exist before you can link it to schedules and escalation paths.
   </Accordion>
 </AccordionGroup>

@@ -4,6 +4,10 @@ description: "Close incidents properly to maintain clean records and move to pos
 icon: "/icons/sparkles.svg"
 ---
 
+import { StatusBanner } from '/snippets/status-banner.mdx';
+
+<StatusBanner status="PLACEHOLDER" />
+
 # Housekeeping and tidy up
 
 When the immediate impact is over, closing your incident properly keeps your records clean and helps your team move into post-incident learning and improvement.
@@ -12,21 +16,14 @@ When the immediate impact is over, closing your incident properly keeps your rec
 
 Once you've fixed the issue and confirmed there's no more ongoing impact, you'll want to resolve the incident. This moves it from active response mode into either the post-incident flow or closed state.
 
-<Tabs>
-  <Tab title="From Slack">
-    In your incident channel (`#inc-...`), use `/incident status` and update to your resolution status
-    
-    Or use `/inc resolve` to directly mark the incident as resolved
-  </Tab>
+**From Slack:**
+- In your incident channel (`#inc-...`), use `/incident status` and update to your resolution status
+- Or use `/inc resolve` to directly mark the incident as resolved
 
-  <Tab title="From the dashboard">
-    Go to the incident's homepage
-    
-    Click **Share update** in the top right
-    
-    Update the status to your resolution status
-  </Tab>
-</Tabs>
+**From the dashboard:**
+- Go to the incident's homepage
+- Click **Share update** in the top right
+- Update the status to your resolution status
 
 When you resolve an incident, you'll be prompted about whether to enter the post-incident flow. This is where your team can complete tasks like writing post-mortems, scheduling debriefs, and reviewing follow-ups.
 
@@ -34,44 +31,24 @@ When you resolve an incident, you'll be prompted about whether to enter the post
 
 After resolving, you have two options:
 
-<AccordionGroup>
-  <Accordion title="Enter the post-incident flow" icon="clipboard-list">
-    Choose this if you want to learn from the incident. You'll be guided through tasks like reviewing the timeline, creating a post-mortem document, and scheduling a debrief. The incident automatically progresses through these tasks and closes when complete.
-  </Accordion>
+**Enter the post-incident flow** - Choose this if you want to learn from the incident. You'll be guided through tasks like reviewing the timeline, creating a post-mortem document, and scheduling a debrief. The incident automatically progresses through these tasks and closes when complete.
 
-  <Accordion title="Skip to closed" icon="forward">
-    Choose this for minor incidents that don't need reflection. The incident closes immediately without going through post-incident tasks.
-  </Accordion>
-</AccordionGroup>
+**Skip to closed** - Choose this for minor incidents that don't need reflection. The incident closes immediately without going through post-incident tasks.
 
-<Note>
 Your organization can configure which incidents automatically require the post-incident flow (like all major incidents) in **Settings > Respond > Lifecycle**. Even if it's not required, responders can always opt in or out.
-</Note>
 
 ## What happens after resolution
 
 Once an incident is resolved (and any post-incident tasks are complete), a few things happen automatically:
 
-<Steps>
-  <Step title="Timeline preservation">
-    The incident timeline is preserved with all events, updates, and timestamps
-  </Step>
-  <Step title="Channel archiving">
-    The incident channel can be archived according to your team's configuration
-  </Step>
-  <Step title="Data retention">
-    All incident data remains searchable and available for reporting in Insights
-  </Step>
-  <Step title="Follow-up tracking">
-    Follow-ups you've created remain tracked and can be exported to tools like Jira
-  </Step>
-</Steps>
+- The incident timeline is preserved with all events, updates, and timestamps
+- The incident channel can be archived according to your team's configuration
+- All incident data remains searchable and available for reporting in Insights
+- Follow-ups you've created remain tracked and can be exported to tools like Jira
 
-<Tip>
 The incident remains in your system permanently for learning and analysis, even after the channel is archived.
-</Tip>
 
-## Frequently asked questions
+## FAQs
 
 <AccordionGroup>
   <Accordion title="Can I reopen an incident after it's closed?">

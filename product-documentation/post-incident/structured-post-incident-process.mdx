@@ -1,0 +1,203 @@
+---
+title: Structured post-incident process
+description: Define and automate your post-incident workflow with configurable tasks, statuses, and conditions to ensure consistent learning from incidents
+icon: "/icons/clipboard.svg"
+---
+
+## Overview
+
+The Post-Incident Flow provides a structured way to define tasks that should be completed after an incident is resolved but before it is closed. This ensures your team consistently learns from incidents and takes appropriate follow-up actions.
+
+<Info>
+Post-incident statuses are different from regular incident statuses. They have associated tasks that are automatically completed as you progress through the workflow, rather than being manually updated.
+</Info>
+
+## Key benefits
+
+<CardGroup cols={2}>
+  <Card title="Consistency" icon="check-circle">
+    Ensure every incident goes through the same structured learning process
+  </Card>
+  <Card title="Automation" icon="robot">
+    Tasks are automatically completed based on actions taken in incident.io
+  </Card>
+  <Card title="Flexibility" icon="sliders">
+    Configure different flows for different incident types and severities
+  </Card>
+  <Card title="Accountability" icon="user-check">
+    Assign tasks to specific roles with due dates and reminders
+  </Card>
+</CardGroup>
+
+## Configuring the post-incident flow
+
+Navigate to [Settings > Improve > Post-incident flow](https://app.incident.io/~/settings/post-incident-flow) to configure your workflow.
+
+### Default flow structure
+
+By default, incident.io creates a flow with two main phases:
+
+1. **Documenting** - Capturing what happened during the incident
+2. **Reviewing** - Learning from the incident and taking action
+
+### Available tasks
+
+The following suggested tasks are available to add to your flow:
+
+<AccordionGroup>
+  <Accordion title="Reviewing the incident timeline" icon="timeline">
+    Contains a link to jump directly to the incident timeline. Responders can review automatically captured events, pinned messages, and custom events.
+  </Accordion>
+
+  <Accordion title="Creating a post-mortem document" icon="file-lines">
+    Automatically completed when a post-mortem document is attached to the incident. Supports both in-house and external document providers.
+  </Accordion>
+
+  <Accordion title="Schedule the debrief" icon="calendar">
+    Contains a button to create a Google Calendar event with all users involved in the incident automatically invited.
+  </Accordion>
+
+  <Accordion title="Mark the post-mortem document as complete" icon="circle-check">
+    Automatically completed when the post-mortem document status is set to complete.
+  </Accordion>
+
+  <Accordion title="Share the debrief document" icon="share-nodes">
+    Automatically completed when you share the post-mortem to a Slack channel using the sharing feature.
+  </Accordion>
+
+  <Accordion title="Review follow-ups" icon="list-check">
+    Contains a link to open the incident's follow-ups for review and prioritization.
+  </Accordion>
+
+  <Accordion title="Assign specific roles" icon="user-tag">
+    Allows you to require that specific incident roles must be assigned before proceeding.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+Enterprise customers can create fully custom tasks with their own titles and descriptions, and configure different post-incident flows for different incident types.
+</Note>
+
+### Task configuration
+
+Each task can be configured with:
+
+- **Description** - Provide instructions to responders
+- **Due dates** - Set expressions based on incident fields to determine when tasks are due
+- **Default assignee** - Assign tasks to specific roles or users
+- **Conditions** - Control when tasks appear based on incident attributes
+
+## Requiring incidents to go through the post-incident flow
+
+### Manual opt-in
+
+By default, when closing an incident, users are prompted to opt into the post-incident flow.
+
+### Automatic enrollment
+
+You can configure incidents to automatically enter the post-incident flow based on conditions:
+
+1. Go to [Settings > Respond > Lifecycle](https://app.incident.io/~/settings/lifecycle)
+2. Click 'Edit' on the post-incident section
+3. Enable the toggle to automatically put incidents through the flow
+4. Configure conditions (e.g., only for Critical severity incidents)
+
+<Tabs>
+  <Tab title="Example: By severity">
+    ```
+    Condition: Severity is one of [Critical, Major]
+    Result: Automatically enters post-incident flow
+    ```
+  </Tab>
+  <Tab title="Example: By custom field">
+    ```
+    Condition: Customer Impact is "High"
+    Result: Automatically enters post-incident flow
+    ```
+  </Tab>
+</Tabs>
+
+## Using the post-incident flow
+
+### Entering the flow
+
+When closing an incident that requires post-incident work:
+
+1. You'll be prompted to confirm entry into the post-incident flow
+2. The incident enters the first post-incident status
+3. A notification is sent to the incident Slack channel
+4. All defined tasks for that status become visible
+
+### Working through tasks
+
+From the incident dashboard, you can:
+
+- **Mark tasks as completed** - Check off finished tasks
+- **Skip tasks** - Mark tasks as "Not doing" if they're not applicable
+- **Assign tasks** - Assign tasks to specific users (they'll be notified)
+- **Add comments** - Provide context or ask questions about tasks
+
+<Info>
+When all tasks in a post-incident status are completed or skipped, the incident automatically moves to the next post-incident status. If it's the final status, the incident is marked as closed.
+</Info>
+
+### Due dates and reminders
+
+Tasks can have due dates that are dynamically calculated based on incident attributes:
+
+```javascript
+if (incident.severity === "Critical") {
+  return 1; // 1 day for critical incidents
+} else {
+  return 3; // 3 days for other incidents
+}
+```
+
+**Pro and Enterprise customers** can enable automatic reminders that notify assignees when tasks become overdue.
+
+## Opting out of the post-incident flow
+
+If an incident enters the flow but you determine it's not worthwhile:
+
+1. Type `/inc close` in the incident channel, or
+2. Select **Opt out of post-incident** from the overflow menu in the dashboard
+3. Provide a reason for opting out
+4. The incident will be closed and the reason will be shared in the Slack channel
+
+## Best practices
+
+<CardGroup cols={2}>
+  <Card title="Start simple" icon="seedling">
+    Begin with the default two-phase flow and add complexity as needed
+  </Card>
+  <Card title="Set realistic due dates" icon="clock">
+    Use expressions to set different due dates based on incident severity
+  </Card>
+  <Card title="Assign ownership" icon="user">
+    Assign tasks to specific roles to ensure accountability
+  </Card>
+  <Card title="Review and iterate" icon="arrows-rotate">
+    Regularly review which tasks are being skipped and adjust your flow
+  </Card>
+</CardGroup>
+
+## Hiding the post-incident flow
+
+If you don't want to use the post-incident flow, you can [remove all post-incident statuses](https://app.incident.io/~/settings/post-incident-flow) and you won't be prompted about it when closing incidents.
+
+## Related resources
+
+<CardGroup cols={2}>
+  <Card title="Timeline" href="/product-documentation/post-incident/timeline" icon="timeline">
+    Learn how to capture and review incident timelines
+  </Card>
+  <Card title="Post-mortem documents" href="/product-documentation/post-incident/post-mortem-documents" icon="file-lines">
+    Create comprehensive post-mortem documentation
+  </Card>
+  <Card title="Follow-up actions" href="/product-documentation/post-incident/follow-up-actions" icon="list-check">
+    Track and complete follow-up actions
+  </Card>
+  <Card title="Policies and SLAs" href="/product-documentation/post-incident/policies-and-slas" icon="gavel">
+    Enforce completion requirements with policies
+  </Card>
+</CardGroup>

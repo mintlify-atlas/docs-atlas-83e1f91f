@@ -6,9 +6,7 @@ icon: "shield"
 
 Team roles let teams manage their own escalation paths and schedules without accessing other teams' resources. Create granular permissions scoped to specific teams—for example, allowing team members to set schedule overrides while restricting schedule editing to team admins.
 
-<Info>
 Team roles work alongside [user roles](/product-documentation/security/user-roles). Users with account-level permissions can make changes regardless of team role assignments.
-</Info>
 
 Configure team roles at **Settings → Permissions → Team**.
 
@@ -20,70 +18,35 @@ Team roles are only available for organizations with the on-call product and cur
 
 Team role assignments are controlled through the catalog. Each team role corresponds to an attribute on your Team catalog type. Configure which catalog type represents teams at **Settings → Teams**.
 
-<Info>
 Create multiple team roles (for example, Members and Admins) to give certain team members additional permissions. Team roles add permissions—they never remove them. Users with multiple roles on a team receive the union of permissions across all roles.
-</Info>
 
 If teams are managed externally (Linear, GitHub, catalog importer, Terraform), anyone with permission to update teams in the external system controls team role assignments within incident.io.
 
 ## Creating team roles
 
-Create team roles at **Settings → Permissions → Team** by clicking **Create**. 
-
-<Steps>
-  <Step title="Define role name">
-    Choose a name like "Members" or "Admins"
-  </Step>
-  <Step title="Select permissions">
-    Choose which permissions to grant:
-    - Escalation path management
-    - Schedule editing
-    - Override creation
-  </Step>
-  <Step title="Save role">
-    The role becomes an attribute on your Team catalog type
-  </Step>
-</Steps>
+Create team roles at **Settings → Permissions → Team** by clicking **Create**. Define:
+- Role name (e.g., "Members" or "Admins")
+- Permissions to grant (escalation path management, schedule editing, override creation)
 
 Each team role becomes an attribute on your Team catalog type. Assign users to roles through the catalog or on the team's Members tab.
 
 ## Managing team role assignments
 
-View and edit team role assignments on each team's Members tab. 
-
-<CardGroup cols={2}>
-  <Card title="Add users" icon="user-plus">
-    Add or remove users from roles
-  </Card>
-  <Card title="Change roles" icon="rotate">
-    Modify which roles a user has
-  </Card>
-</CardGroup>
-
-Users appear with all their assigned roles on the team.
+View and edit team role assignments on each team's Members tab. Add or remove users from roles, or change which roles a user has. Users appear with all their assigned roles on the team.
 
 ## Example: Team-managed schedules
 
 To let all team members create schedule overrides while restricting schedule editing to team managers:
 
-<Steps>
-  <Step title="Configure schedule ownership">
-    Set each schedule's owning team in the schedule configuration
-  </Step>
-  <Step title="Create team roles">
-    Navigate to **Settings → Permissions → Team → Create** and set up:
-    
-    - **Members** role with "Create schedule overrides" permission
-    - **Admins** role with "Edit schedules" permission
-  </Step>
-  <Step title="Assign roles">
-    On each team's Members tab:
-    
-    - Assign the Members role to all team members
-    - Assign the Admins role to team managers
-  </Step>
-</Steps>
+**1. Configure schedule ownership**
+Set each schedule's owning team in the schedule configuration.
 
-<Info>
+**2. Create team roles**
+Navigate to **Settings → Permissions → Team → Create** and set up:
+- **Members** role with "Create schedule overrides" permission
+- **Admins** role with "Edit schedules" permission
+
+**3. Assign roles**
+On each team's Members tab, assign the Members role to all team members and the Admins role to team managers.
+
 Team members can now create overrides for their schedules, but only team admins can modify schedule structure (working hours, shift handovers, rotation patterns).
-</Info>

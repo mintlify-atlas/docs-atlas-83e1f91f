@@ -1,0 +1,471 @@
+---
+title: Relationship mapping and automation
+description: Connect Catalog types to enable dynamic routing and context-aware automation.
+---
+
+Relationship mapping is how you define connections between Catalog types. These relationships power dynamic routing, workflow expressions, and context-aware automation throughout incident.io.
+
+When you map relationships - like "Services are owned by Teams" or "Customers have Account Managers" - you create a graph of your organization's structure that incident.io can traverse to make intelligent decisions.
+
+## What are Catalog relationships?
+
+Relationships are attributes on Catalog types that reference other types. They answer questions like:
+
+- Which **Team** owns this **Service**?
+- Which **User** manages this **Customer**?
+- What **Services** does this **Team** own?
+- Which **Escalation Path** should we use for this **Product**?
+
+These connections enable expressions like:
+```
+incident.service.owner.escalation_path
+```
+
+This traverses from incident → service → owning team → escalation path, letting one workflow configuration handle all services automatically.
+
+## Types of relationships
+
+### One-to-one relationships
+
+One entry links to exactly one other entry.
+
+**Examples:**
+- Each Service has one Owner (Team)
+- Each Incident has one Incident Lead (User)
+- Each Customer has one Account Manager (User)
+
+**Configure as:** Single-select Catalog attribute
+
+### One-to-many relationships
+
+One entry links to multiple other entries.
+
+**Examples:**
+- A Service depends on multiple other Services
+- A Team owns multiple Services
+- An Incident affects multiple Customers
+
+**Configure as:** Multi-select Catalog attribute
+
+### Many-to-many relationships
+
+Multiple entries on both sides of the relationship.
+
+**Examples:**
+- Services and Teams (teams own multiple services, services can be co-owned)
+- Products and Services (products use multiple services, services power multiple products)
+- Users and Teams (users belong to multiple teams, teams have multiple members)
+
+**Configure as:** Multi-select attributes on both types
+
+## Setting up relationships
+
+<Steps>
+  <Step title="Identify the connection you need">
+    Determine which types should connect and in which direction.
+    
+    Example: "Each Service should have an Owner that is a Team"
+  </Step>
+  
+  <Step title="Navigate to Catalog type configuration">
+    Go to **Catalog** → select the source type → **Edit type**
+    
+    Example: Edit the **Services** type
+  </Step>
+  
+  <Step title="Add relationship attribute">
+    Click **Add attribute** and configure:
+    
+    - **Name**: Descriptive name for the relationship (e.g., "Owner")
+    - **Type**: Link to Catalog
+    - **Links to**: Choose the target Catalog type (e.g., "Teams")
+    - **Cardinality**: Single entry or multiple entries
+    - **Required**: Whether this relationship must be set
+  </Step>
+  
+  <Step title="Configure reverse relationship (optional)">
+    Create the inverse relationship on the target type if needed.
+    
+    Example: Add "Owned Services" (multi-select) on Teams that links back to Services
+    
+    This enables bidirectional traversal:
+    - From Service → Owner (Team)
+    - From Team → Owned Services (list of Services)
+  </Step>
+  
+  <Step title="Populate relationship data">
+    Set relationship values on Catalog entries:
+    - Manually in the dashboard
+    - Via API or Terraform
+    - Through integration syncs
+  </Step>
+</Steps>
+
+## Common relationship patterns
+
+### Service ownership
+
+**Pattern:** Services are owned by Teams
+
+**Setup:**
+- Add "Owner" attribute to Services → links to Teams (single)
+- Optionally add "Owned Services" to Teams → links to Services (multi)
+
+**Enables:**
+- Route alerts to the owning team: `alert.service.owner.escalation_path`
+- Send incident notifications to team channel: `incident.service.owner.slack_channel`
+- Report incidents by owning team
+
+### Service dependencies
+
+**Pattern:** Services depend on other Services
+
+**Setup:**
+- Add "Depends On" attribute to Services → links to Services (multi)
+- Add "Used By" attribute to Services → links to Services (multi)
+
+**Enables:**
+- Surface dependency context when incidents are created
+- Notify dependent services when upstream service has incident
+- Map blast radius of outages
+- Report on most critical dependencies
+
+### Customer account management
+
+**Pattern:** Customers have Account Managers and CSM Teams
+
+**Setup:**
+- Add "Account Manager" to Customers → links to Users (single)
+- Add "CSM Team" to Customers → links to Teams (single)
+- Add "Tier" to Customers → single select (Enterprise, Business, Standard)
+
+**Enables:**
+- Notify account manager when customer is affected: `incident.affected_customer.account_manager`
+- Escalate high-tier customers differently based on tier
+- Report customer-facing incident volume by CSM team
+
+### Product and service mapping
+
+**Pattern:** Products are built on Services
+
+**Setup:**
+- Add "Built On" to Products → links to Services (multi)
+- Add "Powers Products" to Services → links to Products (multi)
+
+**Enables:**
+- Determine product impact from service incidents
+- Route incidents by product to product management teams
+- Report service reliability by customer-facing product impact
+
+### Regional infrastructure
+
+**Pattern:** Services run in Regions
+
+**Setup:**
+- Create Regions type (entries: us-east, eu-west, ap-south)
+- Add "Region" to Services → links to Regions (single or multi)
+- Add "Oncall Team" to Regions → links to Teams (single)
+
+**Enables:**
+- Route by region: `alert.service.region.oncall_team.escalation_path`
+- Follow-the-sun support based on affected region
+- Report incidents by geographic region
+
+## Using relationships in workflows
+
+Relationships unlock powerful dynamic automation:
+
+### Dynamic escalation
+
+**Scenario:** Page the team that owns the affected service
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set
+
+Step: Create escalation
+  Escalation path: incident.custom_fields.affected_service.owner.escalation_path
+  Message: "Incident affecting {{incident.custom_fields.affected_service.name}}"
+```
+
+This works for all services without hardcoding any service or team names.
+
+### Cascade notifications
+
+**Scenario:** Notify all teams whose services depend on the affected service
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set
+
+Step: Create loop
+  Loop over: incident.custom_fields.affected_service.used_by
+  
+  For each dependent_service:
+    Step: Send message
+      Channel: dependent_service.owner.slack_channel
+      Message: "Heads up: {{incident.service.name}} incident may affect {{dependent_service.name}}"
+```
+
+This automatically notifies all downstream teams when an upstream dependency has an issue.
+
+### Context enrichment
+
+**Scenario:** Post relevant service information in incident channel
+
+```
+Trigger: Incident is created  
+Condition: Affected Service is set
+
+Step: Send message to incident channel
+  Message:
+    **Service:** {{incident.service.name}}
+    **Owner:** {{incident.service.owner.name}}
+    **Runbook:** {{incident.service.runbook_url}}
+    **On-call:** {{incident.service.owner.current_oncall}}
+    **Dependencies:** {{incident.service.depends_on | join: ", "}}
+```
+
+Responders immediately see context without searching for it.
+
+### Conditional routing
+
+**Scenario:** Different escalation behavior for customer tiers
+
+```
+Trigger: Incident is created
+Condition: Affected Customer is set
+
+Expression: Priority Escalation Path
+  If: incident.customer.tier == "Enterprise"
+    Return: lookup_escalation_path("executive-escalation")
+  Else if: incident.customer.tier == "Business"  
+    Return: incident.customer.csm_team.escalation_path
+  Else:
+    Return: lookup_escalation_path("standard-support")
+
+Step: Create escalation
+  Escalation path: expression.priority_escalation_path
+```
+
+This routes based on customer importance without checking customer names.
+
+## Maintaining relationship data
+
+### Use external syncs when possible
+
+If you maintain service ownership in a service catalog (Backstage, Cortex, etc.), sync it automatically:
+1. Connect the integration at **Settings → Integrations**
+2. Map their fields to your Catalog attributes
+3. Let incident.io pull updates on schedule
+
+This keeps relationships accurate without manual maintenance.
+
+### Audit missing relationships
+
+Identify gaps in relationship data:
+
+1. Go to **Catalog** → select a type
+2. Filter entries where relationship field is empty
+3. Bulk edit to populate missing values
+
+For example, find all Services without an Owner and assign them.
+
+### Validate relationships in workflows
+
+Add workflow steps that flag missing relationships:
+
+```
+Trigger: Incident is created
+Condition: Affected Service is set AND Affected Service owner is not set
+
+Step: Send message to incident channel
+  Message: "⚠️ {{incident.service.name}} has no owner set in Catalog. Please update at [Catalog link]."
+```
+
+This surfaces data quality issues during incidents when they matter most.
+
+### Use Terraform for consistent configuration
+
+Manage Catalog relationships as code:
+
+```hcl
+resource "incidentio_catalog_entry" "payments_service" {
+  catalog_type_id = data.incidentio_catalog_type.services.id
+  name            = "payments-api"
+  attribute_values = {
+    owner      = data.incidentio_catalog_entry.platform_team.id
+    depends_on = [
+      data.incidentio_catalog_entry.auth_service.id,
+      data.incidentio_catalog_entry.database.id
+    ]
+  }
+}
+```
+
+Version control and code review ensure relationship data stays accurate.
+
+## Best practices
+
+### Model real organizational structures
+
+Catalog relationships should reflect how your organization actually works:
+- Who genuinely owns and maintains services?
+- Which teams are responsible for responding to issues?
+- What dependencies actually exist in production?
+
+Don't model aspirational structures or org charts. Model reality.
+
+### Keep relationship depth reasonable
+
+Limit expression traversal to 2-3 levels:
+- ✅ `service.owner.escalation_path` (2 hops)
+- ✅ `customer.csm_team.current_oncall.phone_number` (3 hops)
+- ❌ `service.product.team.region.manager.backup.phone` (6 hops)
+
+Deep traversals are fragile - any missing link breaks the chain. Consider flattening by adding direct relationships.
+
+### Make critical relationships required
+
+For relationships used in essential automations, mark them as required:
+- Service Owner (required for alert routing)
+- Team Escalation Path (required for paging)
+- Customer Tier (required for SLA enforcement)
+
+This ensures automation never fails due to missing data.
+
+### Document relationship semantics
+
+Use attribute descriptions to clarify meaning:
+- "Owner" - "The team responsible for maintaining this service and responding to incidents"
+- "Depends On" - "Services that must be functioning for this service to work"
+- "Account Manager" - "Primary customer contact for incident communication"
+
+Clear semantics prevent inconsistent data entry.
+
+### Prefer single relationships for routing
+
+When routing alerts or creating escalations, use single-entry relationships:
+- ✅ "Primary Owner" (one team) for routing
+- ❌ "All Stakeholders" (multiple teams) for routing
+
+Multiple-entry relationships require looping, which complicates workflows. Use them for notifications, not routing.
+
+## Troubleshooting relationships
+
+### Workflow expression returns nothing
+
+**Symptom:** Workflow step skips or uses default value
+
+**Causes:**
+- Relationship field is empty on the Catalog entry
+- Intermediate relationship in chain is empty
+- Target entry was deleted
+
+**Fix:** Check each step in the expression path and populate missing relationships
+
+### Can't find entry when setting relationship
+
+**Symptom:** Entry doesn't appear in autocomplete
+
+**Causes:**
+- Entry doesn't exist yet
+- Entry is archived or deleted  
+- Wrong Catalog type selected for relationship
+
+**Fix:** Verify entry exists and relationship attribute points to correct type
+
+### Circular relationships
+
+**Symptom:** Infinite loops or unexpected behavior
+
+**Cause:** Entry references itself (Service depends on Service, Team owns Team)
+
+**Fix:** Audit relationship data and remove self-references
+
+### Relationship data out of sync
+
+**Symptom:** Workflow routes to wrong team
+
+**Causes:**
+- External sync hasn't run recently
+- Manual edits overrode sync
+- Sync configuration changed
+
+**Fix:** Trigger manual sync or verify sync configuration at **Settings → Integrations**
+
+## Frequently asked questions
+
+<AccordionGroup>
+  <Accordion title="Can I create relationships between any Catalog types?">
+    Yes. Any type can have an attribute linking to any other type (or itself).
+
+    Common patterns:
+    - Services → Teams (ownership)
+    - Services → Services (dependencies)
+    - Customers → Users (account management)
+    - Products → Services (architecture)
+
+    Create relationships that model your organization's structure.
+  </Accordion>
+
+  <Accordion title="What happens if I delete an entry that's referenced in a relationship?">
+    incident.io will warn you before deletion if the entry is referenced.
+
+    If you proceed:
+    - Relationships pointing to the deleted entry become empty
+    - Workflows using that relationship will skip or use default values
+    - Historical incidents retain the entry name but lose the link
+
+    Consider archiving entries instead of deleting them.
+  </Accordion>
+
+  <Accordion title="Can I have bi-directional relationships?">
+    Yes, by creating attributes on both types:
+
+    - Services have "Owner" → Team (single)
+    - Teams have "Owned Services" → Services (multi)
+
+    These are separate attributes, so you must keep them in sync:
+    - Manually when editing entries
+    - Automatically via integration syncs
+    - Programmatically via API or Terraform
+  </Accordion>
+
+  <Accordion title="How do I handle co-ownership of services?">
+    Use a multi-select relationship:
+
+    - Change "Owner" from single → multi-select
+    - Allow selecting multiple teams
+
+    For routing, create a "Primary Owner" (single) for escalations and "All Owners" (multi) for notifications.
+  </Accordion>
+
+  <Accordion title="Can workflows traverse relationships dynamically?">
+    Yes. Expressions can traverse any relationship defined in Catalog:
+
+    `incident.service.owner.escalation_path` walks:
+    1. Get service from incident
+    2. Get owner team from service
+    3. Get escalation path from team
+
+    You can chain as many relationships as needed (though 2-3 hops is recommended).
+  </Accordion>
+</AccordionGroup>
+
+## Related documentation
+
+<CardGroup cols={2}>
+  <Card title="Catalog overview" icon="book" href="/product-documentation/catalog/overview">
+    Understand Catalog types and entries
+  </Card>
+  <Card title="Custom fields" icon="pencil" href="/product-documentation/catalog/custom-fields">
+    Add Catalog relationships to incidents
+  </Card>
+  <Card title="Workflow expressions" icon="code" href="/product-documentation/workflows/workflow-expressions">
+    Use relationships in workflow logic
+  </Card>
+  <Card title="Alert routing" icon="route" href="/product-documentation/on-call/alert-routing">
+    Dynamic routing with Catalog
+  </Card>
+</CardGroup>

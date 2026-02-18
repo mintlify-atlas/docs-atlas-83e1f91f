@@ -54,18 +54,6 @@ You can import schedules and escalation policies directly from PagerDuty into in
   Both single and bulk imports are supported, so you can bring over all your schedules and escalation policies at once if you prefer.
 </Info>
 
-<Steps>
-  <Step title="Navigate to schedules">
-    In incident.io, go to **On-call > Schedules** to access the schedule management area.
-  </Step>
-  <Step title="Import from PagerDuty">
-    Select the option to import schedules from PagerDuty. You can choose to import individual schedules or perform a bulk import.
-  </Step>
-  <Step title="Review and confirm">
-    Review the imported schedules to ensure they match your PagerDuty configuration, then confirm the import.
-  </Step>
-</Steps>
-
 ## Mirror schedules to PagerDuty
 
 We have built out the ability to mirror an incident.io schedule into a PagerDuty schedule(s). This allows organizations to test out cover requests and overrides in earnest within incident.io, and have that reflect back into PagerDuty.
@@ -96,7 +84,7 @@ See our [Terraform provider documentation](https://registry.terraform.io/provide
 
 If you don't use Terraform and have many Datadog monitors pointing to PagerDuty, our migration tool can automatically update everything to point to incident.io.
 
-See [Datadog monitor migration tool](/product-documentation/migration/datadog-monitor-migrationtool).
+See [Datadog monitor migration tool](/migration/datadog-monitor-migration-tool).
 
 ## Import historical incidents
 

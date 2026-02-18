@@ -3,150 +3,157 @@ title: SMS & Voice
 description: Configure SMS and voice call notifications
 ---
 
-SMS and voice call notifications ensure critical alerts reach on-call responders even when they're away from their computers or mobile apps. Configure these notification methods as part of your escalation paths to provide reliable fallback options for urgent issues.
+SMS and voice call notifications ensure critical alerts reach on-call responders through direct phone-based communication channels. Configure these notification methods to guarantee responders receive urgent pages even when they're away from their devices or the mobile app.
 
-## How SMS and voice notifications work
+## Configure SMS and voice notifications
 
-When an alert triggers an escalation path, incident.io can notify responders through multiple channels in sequence:
+Set up SMS and voice call notifications from your user preferences:
 
-<Steps>
-  <Step title="Mobile push notification">
-    First attempt via the incident.io mobile app
-  </Step>
-  <Step title="SMS message">
-    If configured, send an SMS with alert details
-  </Step>
-  <Step title="Voice call">
-    If configured, place a voice call to read alert information
-  </Step>
-</Steps>
-
-<Info>
-Configure notification methods and timing in your [escalation paths](/product-documentation/on-call/escalation-paths).
-</Info>
-
-## SMS notifications
-
-SMS notifications deliver alert details as text messages to responders' phone numbers. Each SMS includes:
-
-- Alert title and description
-- Key [alert attributes](/product-documentation/on-call/alert-attributes) like priority, team, and service
-- Link to view full alert details in the dashboard
-- Instructions for acknowledging or resolving the alert
-
-### Configure SMS notifications
-
-<Steps>
-  <Step title="Add phone number">
-    Each user must add their phone number in their profile settings
-  </Step>
-  <Step title="Configure escalation path">
-    In your escalation path settings, enable SMS as a notification method
-  </Step>
-  <Step title="Set timing">
-    Define how long to wait before sending SMS (e.g., send immediately, or after 2 minutes if mobile push is not acknowledged)
-  </Step>
-</Steps>
-
-<Warning>
-Ensure phone numbers include country codes for international delivery.
-</Warning>
-
-## Voice call notifications
-
-Voice calls provide the most intrusive notification method for critical alerts. When a responder receives a voice call:
-
-1. Their phone rings from the incident.io call system
-2. An automated voice reads the alert title, priority, and key details
-3. The responder can press buttons to acknowledge or get more information
-4. Call continues until acknowledged or times out
-
-### Configure voice notifications
-
-<Steps>
-  <Step title="Add phone number">
-    Each user must add their phone number in their profile settings
-  </Step>
-  <Step title="Configure escalation path">
-    In your escalation path settings, enable voice calls as a notification method
-  </Step>
-  <Step title="Set timing">
-    Define when to escalate to voice (e.g., after mobile push and SMS are not acknowledged for 5 minutes)
-  </Step>
-</Steps>
-
-### Voice call actions
-
-During a voice call, responders can take actions using their phone keypad:
-
-| Key | Action |
-|-----|--------|
-| **1** | Acknowledge the alert |
-| **2** | Hear alert details again |
-| **3** | Get incident information |
-| **9** | End the call |
+1. Click your profile and select **Preferences**
+2. Navigate to **On-call notifications**
+3. Add your phone number under **Contact methods**
+4. Configure notification rules for when you should receive SMS or voice calls
 
 <Tip>
-Add your incident.io voice number to your phone's contacts so you recognize critical alerts immediately.
+Verify your phone number by entering the confirmation code sent via SMS during setup.
 </Tip>
+
+## Notification preferences
+
+Customize when and how you receive SMS and voice notifications:
+
+### Contact methods
+
+Add and verify your phone number to enable SMS and voice notifications. You can add multiple phone numbers if needed, such as a mobile phone and a desk phone.
+
+### Notification rules
+
+Configure up to 10 levels of incrementally delayed notifications. For example:
+
+- **Immediate**: Mobile app push notification
+- **After 2 minutes**: SMS notification
+- **After 5 minutes**: Voice call
+- **After 10 minutes**: Voice call (repeated)
+
+Create different notification strategies for high-urgency vs. low-urgency escalations based on priority or working hours.
+
+### High-urgency vs. low-urgency
+
+Escalation paths can specify urgency levels for each escalation level. Configure separate notification preferences for each:
+
+- **High-urgency**: Aggressive notification strategy with voice calls starting immediately or after short delays
+- **Low-urgency**: Gentler notification strategy starting with push notifications and email
+
+## Voice call behavior
+
+When you receive a voice call notification:
+
+1. Your phone rings with a call from the incident.io notification number
+2. An automated message describes the alert (title, priority, affected service)
+3. Press **1** to acknowledge the escalation
+4. Press **2** to hear the alert details again
+5. Press **3** to ignore this notification (escalation continues)
+
+<Warning>
+Add the incident.io notification number to your phone's do-not-disturb bypass list to ensure you receive critical calls.
+</Warning>
+
+## SMS message format
+
+SMS notifications include:
+
+- Alert title
+- Priority level
+- Key alert attributes (team, service, customer)
+- Link to view full alert details
+- Instructions to acknowledge
+
+Respond to SMS notifications by clicking the link to open the mobile app or dashboard.
 
 ## Supported regions
 
-SMS and voice notifications are available in the following regions:
+SMS and voice notifications are available in most countries worldwide. incident.io uses regional phone numbers to deliver notifications based on your phone number's country code.
 
-<CardGroup cols={3}>
-  <Card title="United States" icon="flag-usa" />
-  <Card title="Canada" icon="flag" />
-  <Card title="United Kingdom" icon="flag" />
-  <Card title="European Union" icon="flag" />
-  <Card title="Australia" icon="flag" />
-  <Card title="New Zealand" icon="flag" />
-</CardGroup>
+**Supported regions include:**
 
-For countries not listed, contact [support@incident.io](mailto:support@incident.io) to request availability.
+- United States (+1)
+- United Kingdom (+44)
+- Canada (+1)
+- Australia (+61)
+- Germany (+49)
+- France (+33)
+- Netherlands (+31)
+- And many more...
+
+<Tip>
+If your region isn't listed or you experience delivery issues, [contact support](mailto:support@incident.io) to verify coverage.
+</Tip>
+
+## Testing notifications
+
+Test your SMS and voice notification setup before going on-call:
+
+1. Navigate to **Preferences → On-call notifications**
+2. Click **Test** next to your notification rules
+3. Select notification types to test (SMS, voice, or both)
+4. Verify you receive notifications as expected
+
+<Info>
+Test notifications don't create real alerts or trigger escalations. They only verify your notification delivery paths.
+</Info>
 
 ## Best practices
 
-<AccordionGroup>
-  <Accordion title="Layer notification methods" icon="layer-group">
-    Configure escalation paths to try mobile push first, then SMS, then voice. This reduces notification fatigue while ensuring critical alerts get through.
-  </Accordion>
-  <Accordion title="Test your setup" icon="flask">
-    Send test alerts to verify SMS and voice notifications reach responders correctly before going live.
-  </Accordion>
-  <Accordion title="Set do-not-disturb bypass" icon="moon">
-    Add incident.io's phone numbers to your device's do-not-disturb bypass list to ensure voice calls come through.
-  </Accordion>
-  <Accordion title="Keep phone numbers current" icon="phone">
-    Regularly verify that team members' phone numbers in their profiles are accurate and up to date.
-  </Accordion>
-</AccordionGroup>
+### Multiple notification channels
+
+Configure multiple notification methods (push, SMS, voice) with increasing urgency. Don't rely solely on one channel.
+
+### Save incident.io contact numbers
+
+Add notification numbers to your phone contacts as "incident.io Alerts" so you recognize incoming calls.
+
+### Configure Do Not Disturb bypass
+
+Set up your phone to allow calls and SMS from incident.io numbers even during Do Not Disturb or silent modes.
+
+### Verify regularly
+
+Test your notification setup monthly or whenever you change phone numbers or devices.
+
+### Use shift reminders
+
+Enable shift change notifications to receive reminders before your on-call shift begins, giving you time to verify your phone is configured correctly.
 
 ## FAQs
 
 <AccordionGroup>
-  <Accordion title="How much do SMS and voice notifications cost?">
-    SMS and voice notifications are included in your incident.io on-call plan. Check the [pricing page](https://incident.io/pricing) for details on what's included in each plan tier.
+  <Accordion title="What number will calls and SMS come from?">
+    Calls and SMS come from incident.io notification numbers, which vary by region. The dashboard shows your specific notification number after adding your phone number. Save this number to your contacts.
   </Accordion>
 
-  <Accordion title="Can I customize SMS message content?">
-    SMS messages automatically include the most relevant alert information. You cannot customize the exact format, but you can control which [alert attributes](/product-documentation/on-call/alert-attributes) are extracted and displayed.
+  <Accordion title="Can I receive notifications on a landline?">
+    Yes for voice calls only. Landlines can receive voice call notifications but cannot receive SMS messages. Add both a landline and mobile number for complete coverage.
   </Accordion>
 
-  <Accordion title="What happens if I don't answer a voice call?">
-    The escalation path continues to the next level or person. Configure your escalation path timing to control how long to wait before moving to the next escalation.
+  <Accordion title="Why didn't I receive a voice call or SMS?">
+    Common causes:
+    - Phone number not verified in preferences
+    - Do Not Disturb blocking the notification
+    - Carrier filtering incident.io numbers as spam
+    - Phone out of service area
+    
+    Test your notification setup from preferences to diagnose issues.
   </Accordion>
 
-  <Accordion title="Can I use SMS/voice without the mobile app?">
-    Yes. SMS and voice work independently of the mobile app. However, we recommend using all three methods for the most reliable alerting.
+  <Accordion title="How do I acknowledge an escalation via SMS or voice?">
+    For voice calls, press **1** during the call to acknowledge. For SMS, click the link in the message to open the mobile app or dashboard and acknowledge from there.
   </Accordion>
 
-  <Accordion title="Why am I not receiving SMS or voice notifications?">
-    Check these common issues:
-    - Verify your phone number is correct in your profile settings
-    - Ensure your phone number includes the country code
-    - Check that SMS/voice is enabled in the escalation path
-    - Confirm your carrier allows messages from incident.io's numbers
-    - Review escalation path timing settings
+  <Accordion title="Are SMS and voice notifications included in all plans?">
+    SMS and voice notifications require an On-call seat. See the [pricing page](https://incident.io/pricing) for details on what's included in each plan.
+  </Accordion>
+
+  <Accordion title="Can I customize the voice message content?">
+    Voice messages automatically include alert title, priority, and key attributes. You cannot customize the message content, but you can customize which alert attributes are extracted in your [alert source configuration](/product-documentation/on-call/alert-sources).
   </Accordion>
 </AccordionGroup>

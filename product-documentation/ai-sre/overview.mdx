@@ -1,0 +1,165 @@
+---
+title: AI SRE Overview
+description: Leverage AI-powered capabilities to accelerate incident response, investigation, and learning across your entire incident lifecycle.
+icon: "/icons/ai-sre.svg"
+---
+
+# AI SRE Overview
+
+incident.io's AI SRE capabilities bring artificial intelligence into every phase of your incident response lifecycle. From automatic call transcription and investigation assistance to post-mortem generation and contextual communication, AI SRE helps your teams respond faster, investigate more thoroughly, and learn more effectively from every incident.
+
+## What is AI SRE?
+
+AI SRE combines multiple AI-powered features that work together to support incident responders throughout the incident lifecycle. Rather than replacing human expertise, these capabilities augment your team's abilities, handling time-consuming tasks like note-taking, information synthesis, and documentation while your engineers focus on resolving incidents.
+
+AI SRE features are designed to:
+- **Reduce cognitive load** during high-stress incidents
+- **Preserve context** that would otherwise be lost
+- **Accelerate investigation** by surfacing relevant information from past incidents
+- **Streamline documentation** by automatically generating summaries and timelines
+- **Enable continuous learning** by making incident knowledge more accessible
+
+## Core AI SRE capabilities
+
+### [Call transcription and summary](/product-documentation/ai-sre/call-transcription)
+
+Scribe, incident.io's AI-powered note taker, automatically joins incident calls to transcribe conversations, extract key moments, and provide real-time summaries. Never miss important context from incident calls, and help responders who join mid-incident get up to speed quickly.
+
+**Key features:**
+- Real-time transcription with speaker identification
+- Continuous call summaries
+- Proactive key moment extraction
+- Current topic tracking
+- Integrated transcript viewing
+
+### [Investigations and root cause analysis](/product-documentation/ai-sre/investigations-and-root-cause)
+
+Investigations is an AI-powered multi-agent system that analyzes alerts, past incidents, recent code changes, and Slack conversations to help you understand what's happening during an incident. Get intelligent suggestions for root cause and next steps within the first minutes of incident declaration.
+
+**Key features:**
+- Initial diagnosis based on alert context
+- Analysis of past incident learnings
+- Code change correlation
+- Root cause suggestions
+- Recommended next steps
+
+### [Resolution and recovery](/product-documentation/ai-sre/resolution-and-recovery)
+
+AI-powered suggestions help responders take appropriate actions during incident resolution. By analyzing incident context, severity, and patterns from similar past incidents, the system recommends mitigation strategies and recovery procedures tailored to your specific situation.
+
+**Key features:**
+- Suggested mitigation strategies
+- Recovery procedure recommendations
+- Action item generation
+- Impact assessment assistance
+- Resolution pattern recognition
+
+### [Contextual communication](/product-documentation/ai-sre/contextual-communication)
+
+AI-generated summaries and updates help you communicate incident status to stakeholders quickly and clearly. Get intelligent suggestions for incident summaries, status page updates, and customer communications that accurately reflect the current state of your incident.
+
+**Key features:**
+- Suggested incident summaries
+- Status update drafts
+- Customer communication templates
+- Stakeholder notification content
+- Impact statement generation
+
+### [Post-mortem writing](/product-documentation/ai-sre/post-mortem-writing)
+
+Generate comprehensive post-mortem documents automatically from incident data, timelines, actions, and call transcripts. The AI assembles all relevant context into a structured document that follows your organization's template, dramatically reducing the time required to document incidents.
+
+**Key features:**
+- Automatic timeline assembly
+- Context extraction from multiple sources
+- Custom template support
+- Key moment highlighting
+- Follow-up action suggestions
+
+### [Agentic co-pilot and natural language interaction](/product-documentation/ai-sre/agentic-copilot)
+
+Interact with incident.io using natural language to query incident data, retrieve context, update incidents, and perform common actions. The AI co-pilot understands intent and can execute complex multi-step workflows through simple conversational commands.
+
+**Key features:**
+- Natural language queries
+- Conversational incident updates
+- Context-aware assistance
+- Multi-step workflow execution
+- Learning from past interactions
+
+## How AI SRE works across the incident lifecycle
+
+AI SRE capabilities integrate seamlessly across every phase of incident response:
+
+<Steps>
+  <Step title="Incident declaration">
+    When an incident begins, Investigations automatically analyzes the alert context and begins searching for relevant information from past incidents, recent code changes, and configured Slack channels. Within minutes, responders receive an initial assessment with potential root causes and suggested next steps.
+  </Step>
+
+  <Step title="Active response">
+    During active response, Scribe joins incident calls to capture everything discussed, posting key moments and summaries to the incident channel in real-time. The AI co-pilot can answer questions about past similar incidents, retrieve relevant documentation, and help with status updates.
+  </Step>
+
+  <Step title="Resolution">
+    As the incident moves toward resolution, AI-powered suggestions help craft appropriate communications for different audiences. The system recommends follow-up actions based on the incident's characteristics and lessons learned from similar past incidents.
+  </Step>
+
+  <Step title="Post-incident">
+    After resolution, AI assembles a comprehensive post-mortem document automatically, pulling together the timeline, key decisions from call transcripts, actions taken, and impact assessment. This document serves as the foundation for your post-incident review.
+  </Step>
+</Steps>
+
+## Getting started with AI SRE
+
+AI SRE features are available on Pro and Enterprise plans. Most features can be enabled independently based on your team's needs:
+
+1. **Start with call transcription** - Enable Scribe at Settings → AI to begin capturing incident call context
+2. **Try Investigations** - Request early access to get AI-powered root cause analysis
+3. **Use suggested summaries** - Enable AI-generated summary suggestions for incident updates
+4. **Automate post-mortems** - Configure post-mortem templates and let AI assemble the initial draft
+
+Each AI feature can be enabled or disabled independently, giving you control over which capabilities your team uses.
+
+## Privacy and data handling
+
+incident.io takes AI privacy seriously. Here's how we handle data for AI features:
+
+- **Transcription data** - Call transcripts are stored in incident.io databases. Audio/video is never retained after the call ends.
+- **Third-party processors** - We use Recall.ai for raw transcription data. They store temporary recordings deleted when the last human leaves the call.
+- **AI model providers** - Content may be sent to AI providers (like OpenAI or Anthropic) for processing but is not used for model training.
+- **Data retention** - AI-generated content follows standard incident.io retention policies.
+- **Opt-out** - Organizations can disable AI features at any time.
+
+For complete details, see the [AI Privacy Guidance](https://trust.incident.io/) in our Trust Centre.
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Start with one feature at a time">
+    Don't enable all AI features at once. Start with call transcription, get comfortable with how it works, then gradually add other capabilities. This helps your team build trust in the AI systems progressively.
+  </Accordion>
+
+  <Accordion title="Review AI suggestions before using them">
+    AI-generated content should be reviewed by humans before being shared externally or used for critical decisions. The AI provides suggestions and drafts to accelerate your work, not replace human judgment.
+  </Accordion>
+
+  <Accordion title="Provide feedback to improve accuracy">
+    incident.io collects feedback on AI features to improve their accuracy and usefulness. Take a moment to rate suggestions and provide comments when AI-generated content is particularly helpful or misses the mark.
+  </Accordion>
+
+  <Accordion title="Customize templates and prompts">
+    Many AI features work better when configured for your organization's specific needs. Customize post-mortem templates, configure which Slack channels Investigations should analyze, and adjust settings based on your incident response process.
+  </Accordion>
+
+  <Accordion title="Combine AI with automation">
+    AI SRE features work best when combined with incident.io's workflow automation. For example, automatically generate post-mortem documents when incidents are resolved, or trigger Investigation analysis when high-severity incidents are declared.
+  </Accordion>
+</AccordionGroup>
+
+## What's next?
+
+Explore specific AI SRE capabilities:
+- [Set up call transcription with Scribe](/product-documentation/ai-sre/call-transcription)
+- [Enable Investigations for root cause analysis](/product-documentation/ai-sre/investigations-and-root-cause)
+- [Generate post-mortems automatically](/product-documentation/ai-sre/post-mortem-writing)
+- [Use the AI co-pilot](/product-documentation/ai-sre/agentic-copilot)

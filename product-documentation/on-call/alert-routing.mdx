@@ -9,6 +9,7 @@ Alert routes are the set of filters and rules determining what happens to alerts
 
 Alert routes ingest incoming alerts from [sources](/product-documentation/on-call/alert-sources) through four configurable stages:
 
+
 <Steps>
   <Step title="Filter alerts (optional)">
     Exclude irrelevant alerts using [alert attributes](/product-documentation/on-call/alert-attributes) (e.g., filter out staging environments)
@@ -43,46 +44,32 @@ Choose between **static routing** for simple, predictable escalations or **dynam
 
 Dynamic routing uses [alert attributes](/product-documentation/on-call/alert-attributes) to read context from the alert payload and traverse your [catalog](/product-documentation/catalog) to find the correct escalation path.
 
-<Steps>
-  <Step title="Read attribute from alert">
-    Read the impacted <Badge color="yellow">Service</Badge> from the alert attributes (e.g., "Billing API")
-  </Step>
-  <Step title="Find owner in catalog">
-    Find which <Badge color="purple">Team</Badge> owns that service in your catalog (e.g., "Payments")
-  </Step>
-  <Step title="Page the team">
-    Page that team's escalation path automatically
-  </Step>
-</Steps>
+For example, an dynamic alert route can:
+1. Read the impacted <Badge color="yellow">Service</Badge> from the alert attributes (e.g., "Billing API")
+2. Find which <Badge color="purple">Team</Badge> owns that service in your catalog (e.g., "Payments")
+3. Page that team's escalation path automatically
 
 This approach allows one alert route configuration to work across all services and teams without manual updates. For example, when team ownership changes in your catalog, routing updates automatically without reconfiguring alert routes.
 
-<Tip>
 Set up **fallback expressions** to ensure alerts always reach someone when metadata is incomplete. For example, when an escalation paths aren't available for the <Badge color="purple">Payments</Badge> team, always alert the <Badge color="purple">Infrastructure</Badge> team's escalation path: <br/>`Alert > Service > Owner > Escalation paths || Infrastructure escalation path`
-</Tip>
 
-<Info>
+<Tip>
 Enable **auto-cancel escalations** to automatically cancel pages when alerts resolve.
-</Info>
+</Tip>
 
 ## 3. Create incidents from alerts
 
 Create incidents directly from alerts to group related alerts together, and provide a central place to triage whether issues require action. This approach enables tracking alert patterns and tuning quality over time. Choose when alerts create incidents using [alert attributes](/product-documentation/on-call/alert-attributes):
 
-<Tabs>
-  <Tab title="When to create incidents">
-    **Create incidents automatically with alert routes to:**
-    - Track and investigate specific high priority alerts (e.g., `P1` and `P2` alerts, or alerts from a specific <Badge color="yellow">Service</Badge>)
-    - Group related alerts together for centralized triage and response
-    - Monitor and tune alerts workload and quality over time
-  </Tab>
-  <Tab title="When to skip incident creation">
-    **Skip incident creation from alert routes when:**
-    - Attributes suggest quick routine fixes which don't need a full incident workflow
-    - Alerts are for game days or testing scenarios
-    - Alerts come from support ticketing systems that don't require incident workflow
-  </Tab>
-</Tabs>
+**Create incidents automatically with alert routes to:**
+- Track and investigate specific high priority alerts (e.g., `P1` and `P2` alerts, or alerts from a specific <Badge color="yellow">Service</Badge>)
+- Group related alerts together for centralized triage and response
+- Monitor and tune alerts workload and quality over time
+
+**Skip incident creation from alert routes when:**
+- Attributes suggest quick routine fixes which don't need a full incident workflow
+- Alerts are for game days or testing scenarios
+- Alerts come from support ticketing systems that don't require incident workflow
 
 ### Grouping alerts
 
@@ -109,8 +96,6 @@ Route alerts to **public** or **private** channels, and add further filter condi
 
 Use expressions and [catalog](/product-documentation/catalog) relationships to send alerts to different channels based on alert attributes. For example, `Alert > Team > Slack channel` sends alerts to the Slack channel associated with the impacted team, configured in your Catalog.
 
-### Customize incident details
-
 Customise the details shown in incidents appearing in Slack or Microsoft Teams channels. Configure the following fields, with custom expressions:
 
 | Configurable fields | Description |
@@ -119,13 +104,11 @@ Customise the details shown in incidents appearing in Slack or Microsoft Teams c
 | **Summary** | Defaults to alert description. Customizable using alert attributes, and can be set with AI |
 | **Incident mode** | Defaults to real incidents. Optionally create test, retrospective, or tutorial incidents |
 | **Type** | Set incident type based on alert attributes (e.g., `Production incident`, `Security incident`) |
-| **Severity** | Set incident severity based on alert attributes (e.g., `Major`, `Minor`, `Critical`) |
+| **Severity** | Set incident severity based on alert attributes (e.g., `Major`, `Minor`, `Critical`) 
 
 <Tip>
 Add further details as fields shown in incidents appearing in channels (e.g., impacted <Badge color="yellow">Service</Badge>)
 </Tip>
-
-### Actions from Slack or Microsoft Teams
 
 From alerts posted in Slack or Microsoft Teams, responders can:
 

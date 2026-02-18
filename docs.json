@@ -7,6 +7,7 @@
     "light": "#f25533",
     "dark": "#f25533"
   },
+  "favicon": "/favicon.svg",
   "navbar": {
     "primary": {
       "type": "github",
