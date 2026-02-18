@@ -102,32 +102,32 @@ Expressions make policies flexible and context-aware.
 ### Common expression patterns
 
 **Severity-based SLAs:**
-```
+```text
 If Incident → Severity is Critical, return 1
 If Incident → Severity is Major, return 3
 Otherwise, return 7
-```
+```text
 
 **Team-based SLAs:**
-```
+```text
 If Incident → Affected Team is Security, return 2
 If Incident → Affected Team is Platform, return 5
 Otherwise, return 10
-```
+```text
 
 **Custom field-based SLAs:**
-```
+```text
 If Incident → Customer Impacting is Yes, return 3
 Otherwise, return 14
-```
+```text
 
 **Combined conditions:**
-```
+```text
 If Incident → Severity is Critical AND Follow-up → Priority is Urgent, return 1
 If Incident → Severity is Critical, return 3
 If Follow-up → Priority is Urgent, return 5
 Otherwise, return 14
-```
+```text
 
 ### SLA calculation start point
 

@@ -138,27 +138,27 @@ Use catalog relationships to route alerts dynamically:
 ### Direct team routing
 
 Route alerts tagged with a team attribute:
-```
+```text
 Alert > Team > Escalation paths
-```
+```text
 
 This routes alerts directly to the escalation path linked to the affected team.
 
 ### Service-based routing
 
 Route alerts based on the service's owning team:
-```
+```text
 Alert > Service > Owner > Escalation paths
-```
+```text
 
 This routes alerts to the team that owns the affected service, without requiring alerts to specify the team directly.
 
 ### Using team attributes
 
 Send notifications to team-specific channels:
-```
+```text
 Alert > Team > Slack channel
-```
+```text
 
 Add a "Slack channel" attribute to your Team catalog type, then reference it in alert routes to send alerts to the right channel for each team.
 

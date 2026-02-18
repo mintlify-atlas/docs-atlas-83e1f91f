@@ -68,14 +68,14 @@ Every workflow has three key components:
 
 **Scenario:** Page the right on-call engineer based on affected service
 
-```
+```text
 Trigger: Incident is created
 Condition: Severity is High or Critical
 Steps:
   1. Use expression: Affected Service → Owning Team → Escalation Policy
   2. Escalate to PagerDuty using the escalation policy
   3. Send DM to incident lead confirming escalation
-```
+```text
 
 **Result:** Critical incidents automatically page the correct team's on-call without manual lookup.
 
@@ -83,7 +83,7 @@ Steps:
 
 **Scenario:** Notify leadership of high-severity incidents
 
-```
+```text
 Trigger: Incident severity changes
 Condition: New severity is Critical
 Steps:
@@ -91,7 +91,7 @@ Steps:
   2. Send DM to VP Engineering
   3. If Affected Customers includes VIP customers:
      - Notify CEO
-```
+```text
 
 **Result:** Leadership is immediately aware of critical incidents with appropriate context.
 
@@ -99,7 +99,7 @@ Steps:
 
 **Scenario:** Notify account managers when their customers are affected
 
-```
+```text
 Trigger: Incident is created or Affected Customers field changes
 Condition: Affected Customers is set
 Steps:
@@ -109,7 +109,7 @@ Steps:
      - Include incident details and expected impact
   3. If customer tier is Enterprise:
      - Post to #customer-success-escalations
-```
+```text
 
 **Result:** Account managers are proactively notified so they can manage customer communications.
 
@@ -117,7 +117,7 @@ Steps:
 
 **Scenario:** Help new incident leads with decision points
 
-```
+```text
 Trigger: Someone joins incident channel
 Condition: User is in "New Incident Leads" group
 Steps:
@@ -125,7 +125,7 @@ Steps:
   2. Post reminder about key resources in incident channel
   3. After 5 minutes:
      - Prompt decision flow: "Do you need help?"
-```
+```text
 
 **Result:** New incident leads get contextual help without asking.
 
@@ -133,7 +133,7 @@ Steps:
 
 **Scenario:** Create standard follow-up tasks based on severity
 
-```
+```text
 Trigger: Incident status changes to "Resolved"
 Condition: Severity was High or Critical
 Steps:
@@ -141,7 +141,7 @@ Steps:
   2. Create follow-up: "Document root cause"
   3. Create follow-up: "Update runbooks"
   4. Assign follow-ups to incident lead
-```
+```text
 
 **Result:** Important post-incident tasks are never forgotten.
 
@@ -294,14 +294,14 @@ See [Workflow Expressions](/product-documentation/workflows/workflow-expressions
 
 Return different values based on conditions:
 
-```
+```text
 If Severity is Critical:
   Return: #critical-incidents
 Else if Severity is High:
   Return: #high-incidents
 Else:
   Return: #all-incidents
-```
+```text
 
 ## Workflow management
 
@@ -380,12 +380,12 @@ Deleted workflows cannot be restored. Consider setting to "Draft" instead if you
 
 Repeat steps for each item in a multi-valued field:
 
-```
+```text
 Create loop over: Affected Services
 For each service:
   1. Post to service's Slack channel
   2. Page service's on-call
-```
+```text
 
 Loops automatically "catch up" - if the field changes, the loop runs only for new values.
 
@@ -395,20 +395,20 @@ Learn more: [Using loops in workflows](/help-centre/configure-your-account/workf
 
 Prompt responders to make decisions:
 
-```
+```text
 Step: Prompt decision flow: "Should we engage external comms?"
 Options: Yes / No
 
 Next workflow (triggered on decision):
 Condition: Decision was "Yes"
 Step: Invite communications team
-```
+```text
 
 ### Webhooks
 
 Integrate with external systems:
 
-```
+```text
 Step: Send webhook
 URL: https://api.example.com/incidents
 Method: POST
@@ -417,7 +417,7 @@ Body: {
   "severity": "{Severity}",
   "affected_service": "{Affected Service}"
 }
-```
+```text
 
 Learn more: [Sending webhooks from workflows](/help-centre/configure-your-account/workflows/sending-a-webhook-from-a-workflow)
 
@@ -441,7 +441,7 @@ resource "incident_workflow" "escalate_critical" {
     # ... configuration
   }
 }
-```
+```text
 
 Learn more: [Managing workflows in Terraform](/help-centre/configure-your-account/workflows/managing-workflows-in-terraform)
 

@@ -23,7 +23,7 @@ With expressions, you can:
 
 Escalate incidents to the specific on-call engineer for the affected product:
 
-```
+```text
 IF Affected Service is "Payments":
   Escalation Team = Payments Team
   
@@ -32,7 +32,7 @@ ELSE IF Affected Service is "Onboarding":
   
 ELSE:
   Escalation Team is not set
-```
+```text
 
 Later in your workflow, use `Escalation Team` in an "Escalate to PagerDuty" step. The expression determines which team's on-call policy to page based on the affected service.
 
@@ -159,7 +159,7 @@ ELSE IF Affected Team is "Product":
   
 ELSE:
   RETURN #general-incidents
-```
+```text
 
 ```text Severity-based escalation
 IF Severity is "Critical":
@@ -170,7 +170,7 @@ ELSE IF Severity is "High":
   
 ELSE:
   RETURN Team On-call Policy
-```
+```text
 
 ```text Customer tier notifications
 IF Customer Tier is "Enterprise":
@@ -181,7 +181,7 @@ ELSE IF Customer Tier is "Professional":
   
 ELSE:
   RETURN #standard-support
-```
+```text
 </CodeGroup>
 
 ### Catalog navigation
@@ -193,25 +193,25 @@ Traverse relationships to find values:
 Affected Service → Owning Team
 
 Returns: The team that owns the service
-```
+```text
 
 ```text Find on-call policy through hierarchy
 Affected Service → Owning Team → Escalation Policy
 
 Returns: The escalation policy for the team that owns the service
-```
+```text
 
 ```text Find stakeholder contact
 Affected Customer → Account Manager → Slack Handle
 
 Returns: The Slack handle of the customer's account manager
-```
+```text
 
 ```text Get monitoring resources
 Affected Service → Monitoring Dashboard URL
 
 Returns: Direct link to the service's dashboard
-```
+```text
 </CodeGroup>
 
 ### Combined logic
@@ -225,7 +225,7 @@ IF Affected Service → Service Tier is "Critical":
   
 ELSE:
   RETURN Affected Service → Owning Team → Team Lead
-```
+```text
 
 ```text Notify based on customer value
 IF Affected Customer → Annual Value > $100,000:
@@ -233,7 +233,7 @@ IF Affected Customer → Annual Value > $100,000:
   
 ELSE:
   RETURN Affected Customer → Account Manager
-```
+```text
 
 ```text Route by business hours
 IF Current Time is between 9am-5pm:
@@ -241,7 +241,7 @@ IF Current Time is between 9am-5pm:
   
 ELSE:
   RETURN Affected Service → Owning Team → On-call Engineer
-```
+```text
 </CodeGroup>
 
 ## Real-world examples
@@ -394,13 +394,10 @@ ELSE:
   </Step>
   
   <Step title="Use in workflow">
-    Add step: "Post message to incident channel"
-    - Message:
-    ```
-    📊 Dashboard: {Expression: Monitoring Dashboard}
-    📖 Runbook: {Expression: Incident Runbook}
-    💬 Team: {Affected Service → Owning Team → Slack Channel}
-    ```
+    Add step: "Post message to incident channel" with a message containing:
+    - Dashboard: Expression referencing "Monitoring Dashboard"
+    - Runbook: Expression referencing "Incident Runbook"  
+    - Team: Navigate from Affected Service to Owning Team to Slack Channel
   </Step>
 </Steps>
 
@@ -412,7 +409,7 @@ ELSE:
 
 Provide multiple fallback options:
 
-```
+```text
 IF Affected Service → Primary On-call is set:
   RETURN Affected Service → Primary On-call
   
@@ -421,7 +418,7 @@ ELSE IF Affected Service → Owning Team → Team Lead is set:
   
 ELSE:
   RETURN Engineering Manager (default)
-```
+```text
 
 **Use case:** Ensure someone is always contacted even if data is incomplete.
 
@@ -429,7 +426,7 @@ ELSE:
 
 Combine multiple conditions with AND/OR:
 
-```
+```text
 IF (Severity is "Critical" OR Severity is "High")
    AND Affected Service → Service Tier is "Customer-facing":
   RETURN #exec-team
@@ -439,31 +436,31 @@ ELSE IF Severity is "Critical":
   
 ELSE:
   RETURN #general-incidents
-```
+```text
 
 **Use case:** Complex routing based on multiple factors.
 
 ### Time-based routing
 
-```
+```text
 IF Current time is between 6pm and 9am:
   RETURN Affected Service → After-hours On-call
   
 ELSE:
   RETURN Affected Service → Business-hours Team
-```
+```text
 
 **Use case:** Different escalation paths for business hours vs. off-hours.
 
 ### Aggregate calculations
 
-```
+```text
 IF SUM(Affected Customers → Annual Value) > $1,000,000:
   RETURN VP Customer Success
   
 ELSE:
   RETURN Customer Success Manager
-```
+```text
 
 **Use case:** Escalate based on total customer value affected.
 

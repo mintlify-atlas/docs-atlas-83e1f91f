@@ -70,30 +70,30 @@ Updating status pages during incidents requires careful wording—technical enou
 AI suggests different update styles based on incident stage:
 
 **Investigating:**
-```
+```text
 We're investigating increased error rates affecting checkout functionality. 
 Customers may experience payment processing delays. We're actively working 
 to identify the root cause and will provide updates every 30 minutes.
-```
+```text
 
 **Identified:**
-```
+```text
 We've identified a database connection issue causing checkout errors. 
 Our team is implementing a fix. Estimated time to resolution is 20-30 minutes.
-```
+```text
 
 **Monitoring:**
-```
+```text
 A fix has been deployed and error rates are returning to normal. We're 
 monitoring closely to ensure full recovery. Checkout functionality should 
 be working normally now.
-```
+```text
 
 **Resolved:**
-```
+```text
 The incident has been resolved. All checkout functionality is operating 
 normally. We apologize for any inconvenience caused.
-```
+```text
 
 ### Public vs. internal status pages
 
@@ -107,11 +107,11 @@ AI adjusts tone and detail based on status page type:
 
 For status pages with multiple components, AI suggests which components to mark as affected and crafts component-specific updates:
 
-```
+```text
 API Gateway: Degraded Performance
 Payment Processing: Partial Outage
 Dashboard: Operational
-```
+```text
 
 Updates reference only affected components, keeping status page noise minimal.
 
@@ -147,10 +147,10 @@ For customer support teams responding to incident-related tickets, AI suggests:
 
 For organizations that communicate via Twitter, Slack communities, or other social channels, AI suggests brief, appropriate responses:
 
-```
+```text
 We're aware of login issues and investigating. We'll share updates 
 here and on our status page: [link]
-```
+```text
 
 Short-form messages prioritize transparency and provide links to detailed information.
 
@@ -169,12 +169,12 @@ For leadership, AI suggests concise summaries covering:
 - **Ownership** - Who's leading the response?
 
 **Example executive summary:**
-```
+```text
 SEV-2 incident affecting payment processing. Approximately $15K/hour 
 revenue impact. Root cause identified as database connection issue. 
 Fix in progress, estimated resolution in 30 minutes. Chris Lee leading 
 response with support team paged.
-```
+```text
 
 ### Cross-team notifications
 
@@ -203,14 +203,14 @@ AI identifies when follow-up communication is needed:
 
 For incidents lasting over 30-60 minutes, AI prompts for periodic updates:
 
-```
+```text
 ⏰ It's been 45 minutes since the last status update. Consider sharing 
 an update with stakeholders.
 
 Suggested update:
 "Investigation continues. We've ruled out recent deployments and are 
 focusing on database performance issues. Next update in 30 minutes."
-```
+```text
 
 ### After incident resolution
 
@@ -224,12 +224,12 @@ AI suggests timing for post-resolution communications:
 
 If incident discussions raised questions that weren't answered, AI reminds responders to follow up:
 
-```
+```text
 ❓ From incident call transcript: "Will this affect the deployment 
 scheduled for tomorrow?" — No answer recorded.
 
 Consider following up with the team.
-```
+```text
 
 ## Communication patterns and learning
 

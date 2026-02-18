@@ -22,14 +22,14 @@ Also, let us know if there is something else that you'd need help with migrating
 You can connect your PagerDuty instance directly to incident.io as an alert source. This lets you test on-call features like schedules and escalation paths without having to reconfigure your alert providers (like Datadog or Grafana).
 
 Your testing setup would look like:
-```
+```text
 Datadog → PagerDuty → escalate via incident.io
-```
+```text
 
 Once you're ready to fully migrate, you'll move to:
-```
+```text
 Datadog → escalate via incident.io
-```
+```text
 
 <Tip>
   Using PagerDuty as an alert source significantly reduces time to testing since you don't need to reconfigure all your monitoring tools upfront.
@@ -75,7 +75,7 @@ resource "datadog_monitor" "example" {
   message = "@incident-io-alert-source"
   # ... other configuration
 }
-```
+```text
 
 See our [Terraform provider documentation](https://registry.terraform.io/providers/incident-io/incident/latest/docs).
 

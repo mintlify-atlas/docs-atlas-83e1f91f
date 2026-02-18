@@ -131,7 +131,7 @@ Create pay reports to calculate compensation for a specific time period:
 
 When using multiple pay configurations, map users to configurations using catalog expressions:
 
-```
+```text
 if User > Office > Name == "London"
   then UK_Configuration
 else if User > Office > Name == "New York"
@@ -140,7 +140,7 @@ else if User > Office > Name == "Melbourne"
   then Australia_Configuration
 else
   Default_Configuration
-```
+```text
 
 This automatically applies the correct pay configuration based on each user's office location from the catalog.
 

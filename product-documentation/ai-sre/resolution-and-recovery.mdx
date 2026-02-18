@@ -99,14 +99,14 @@ If you've configured runbooks in incident.io or connected systems, AI can:
 For complex incidents affecting multiple systems, AI suggests the order in which to recover components:
 
 **Example recovery sequence:**
-```
+```text
 1. Restore database primary (5-10 min)
 2. Verify replica sync completes (2-5 min)
 3. Restart application services (3-5 min)
 4. Re-enable load balancer traffic (immediate)
 5. Monitor error rates for 15 minutes
 6. Gradually increase traffic to 100%
-```
+```text
 
 These sequences are derived from successful recovery patterns in your incident history.
 

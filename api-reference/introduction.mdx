@@ -51,7 +51,7 @@ All API requests require authentication using an API key. You can generate API k
 curl https://api.incident.io/v2/incidents \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json"
-```
+```text
 
 <Warning>
   Keep your API keys secure. Treat them like passwords and never commit them to version control.
@@ -72,9 +72,9 @@ Our API follows RESTful principles:
 
 The current API version is `v2`. The version is included in the URL path:
 
-```
+```text
 https://api.incident.io/v2/{resource}
-```
+```text
 
 <Info>
   We maintain backward compatibility within major versions. Breaking changes will only be introduced in new major versions with advance notice.
@@ -89,11 +89,11 @@ API requests are rate limited to ensure platform stability:
 
 Rate limit information is included in response headers:
 
-```
+```text
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 95
 X-RateLimit-Reset: 1609459200
-```
+```text
 
 <Accordion title="What happens if I hit the rate limit?">
   When you exceed the rate limit, you'll receive a `429 Too Many Requests` response. Your application should implement exponential backoff and retry logic. The `X-RateLimit-Reset` header indicates when you can make requests again.
@@ -228,7 +228,7 @@ def verify_webhook(payload, signature, secret):
         hashlib.sha256
     ).hexdigest()
     return hmac.compare_digest(expected, signature)
-```
+```text
 
 <Info>
   Configure webhooks in **Settings** > **Webhooks** in your incident.io dashboard.
@@ -276,7 +276,7 @@ def send_alert_to_incident(alert_data):
         }
     )
     return response.json()
-```
+```text
 
 ### Creating Incidents from CI/CD
 
@@ -303,7 +303,7 @@ const createIncident = async (deploymentInfo) => {
   });
   return response.json();
 };
-```
+```text
 
 ### Querying Incident Metrics
 
@@ -312,7 +312,7 @@ const createIncident = async (deploymentInfo) => {
 curl "https://api.incident.io/v2/incidents?created_at[gte]=$(date -d '7 days ago' -u +%Y-%m-%dT%H:%M:%SZ)" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   | jq '.incidents | length'
-```
+```text
 
 ## Error Handling
 

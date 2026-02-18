@@ -66,19 +66,19 @@ The co-pilot breaks complex requests into steps:
 
 The co-pilot maintains context throughout conversations:
 
-```
+```text
 You: Show me recent database incidents
 Co-pilot: [Displays 5 recent database incidents]
 
 You: Which one took the longest to resolve?
 Co-pilot: INC-1842 took 3 hours 45 minutes
 
-You: What was the root cause?
+What was the root cause?
 Co-pilot: Connection pool exhaustion caused by inefficient queries
 
 You: Show me the post-mortem
 Co-pilot: [Displays post-mortem document link]
-```
+```text
 
 The co-pilot remembers previous queries in the conversation, so you can ask follow-up questions naturally.
 
@@ -104,7 +104,7 @@ Interact with the co-pilot directly in Slack:
 ### Example Slack interactions
 
 **Querying incident history:**
-```
+```text
 You: @incident.io show me incidents affecting payments from last month
 
 Co-pilot: Found 7 incidents affecting payment services in January:
@@ -114,10 +114,10 @@ Co-pilot: Found 7 incidents affecting payment services in January:
 [...]
 
 View full list: [link]
-```
+```text
 
 **Getting mitigation suggestions:**
-```
+```text
 You: @incident.io what should we try next?
 
 Co-pilot: Based on similar past incidents (INC-1847, INC-1765), I recommend:
@@ -127,10 +127,10 @@ Co-pilot: Based on similar past incidents (INC-1847, INC-1765), I recommend:
 3. Scale up payment-service pods to handle load
 
 Want me to create these as action items?
-```
+```text
 
 **Updating incidents:**
-```
+```text
 You: @incident.io escalate this to SEV-2 and page the database team
 
 Co-pilot: ✓ Updated severity to SEV-2
@@ -138,7 +138,7 @@ Co-pilot: ✓ Updated severity to SEV-2
 
 Database on-call: Alice Chen
 Notified via: Slack, SMS, phone call
-```
+```text
 
 ## Using the co-pilot in the dashboard
 
@@ -170,7 +170,7 @@ The co-pilot appears contextually when it can help:
 ### Example dashboard interactions
 
 **Explaining metrics:**
-```
+```text
 You: Why is our MTTD increasing?
 
 Co-pilot: Your Mean Time to Detection increased 22% last month because:
@@ -183,10 +183,10 @@ Recommendations:
 - Add monitoring for services with manual incident reports
 - Review alert coverage for customer-reported issues
 - Assign on-call to alert route #3
-```
+```text
 
 **Finding incidents:**
-```
+```text
 You: Find incidents similar to this one
 
 Co-pilot: Found 4 similar incidents based on affected services and symptoms:
@@ -197,10 +197,10 @@ Co-pilot: Found 4 similar incidents based on affected services and symptoms:
 • INC-1501 (resolved in 2h via query optimization)
 
 Common pattern: All involved database connection pool issues
-```
+```text
 
 **Generating reports:**
-```
+```text
 You: Create a summary of this month's SEV-1 incidents
 
 Co-pilot: Generated summary report:
@@ -215,7 +215,7 @@ Co-pilot: Generated summary report:
 Top improvement opportunity: Add database connection pool monitoring
 
 [Download full report] [Share to Slack]
-```
+```text
 
 ## Common co-pilot commands
 
@@ -324,13 +324,13 @@ Control what data the co-pilot can access:
 
 Create organization-specific shortcuts:
 
-```
+```text
 Command: "weekly incident summary"
 Action: Generate summary of past week's incidents and post to #engineering
 
 Command: "escalate to leadership"
 Action: Update severity to SEV-1 and notify executive on-call
-```
+```text
 
 Custom commands enable team-specific workflows through simple phrases.
 

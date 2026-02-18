@@ -34,12 +34,12 @@ Alerts include key information:
 - **Source**: Which monitoring system sent the alert
 
 **Example alert flow:**
-```
+```text
 Datadog alert fires → Alert route evaluates → Decision:
   - Minor issue → Post to #alerts channel
   - Major issue → Create escalation + page on-call
   - Critical issue → Create incident + page multiple teams
-```
+```text
 
 ### Escalation
 
@@ -155,12 +155,12 @@ An alert route determines what happens when an alert comes in. Think of it as a 
 **Grouping rules:** You can also configure alert routes to group related alerts into the same incident, preventing alert fatigue and keeping related issues together.
 
 Example:
-```
+```text
 Group alerts by: service + environment
 Window: 30 minutes
 
 Result: All alerts for "api-gateway" in "production" within 30 minutes → Same incident
-```
+```text
 
 ### Schedule
 
@@ -190,7 +190,7 @@ A schedule defines who's available to respond at specific times. It manages your
 - **Coverage requests**: Let team members request coverage from colleagues
 
 **Example schedule structure:**
-```
+```text
 Schedule: Platform On-call
 ├─ Layer 1 (Primary): Weekly rotation, 24/7
 │  └─ Alice → Bob → Carol → David → repeat
@@ -198,7 +198,7 @@ Schedule: Platform On-call
 │  └─ Eve → Frank → repeat
 └─ Layer 3 (Manager): Business hours only
    └─ Grace
-```
+```text
 
 ### Escalation path
 
@@ -232,7 +232,7 @@ An escalation path defines the route an escalation takes to reach people. It ans
 
 **Conditional routing:** Paths can branch based on conditions:
 
-```
+```text
 IF escalation.priority = "urgent"
   → Page primary on-call immediately
   → Skip to manager after 2 minutes
@@ -240,7 +240,7 @@ IF escalation.priority = "urgent"
 IF escalation.priority = "in-hours"
   → Only page during business hours
   → Send Slack DM if outside hours
-```
+```text
 
 <Info>
 This flexibility means you're not waking people up at 3 AM for issues that can wait until morning.
@@ -326,7 +326,7 @@ Think of the Catalog as a set of interconnected spreadsheets, or a set of databa
 
 **Example Catalog structure:**
 
-```
+```text
 Catalog Type: Services
 ├─ Entry: payments-api
 │  ├─ On-call team → Platform Team
@@ -344,7 +344,7 @@ Catalog Type: Teams
 │  ├─ Schedule → Platform On-call
 │  └─ Manager → Alice
 └─ ...
-```
+```text
 
 ### Why the Catalog matters
 
@@ -502,7 +502,7 @@ Workflows are powerful because they codify your team's processes and ensure cons
 
 Here's how everything fits together in a real-world scenario:
 
-```
+```text
 1. Alert fires from Datadog
    ↓
 2. Alert route evaluates conditions
@@ -541,7 +541,7 @@ Here's how everything fits together in a real-world scenario:
 16. Follow-up actions tracked through to completion
     ↓
 17. Policy validates: post-mortem completed within 7 days ✓
-```
+```text
 
 ## Next steps
 

@@ -88,7 +88,7 @@ Use default HTTP sources when you control the webhook payload from external tool
     "service": "api"
   }
 }
-```
+```text
 
 Use the `metadata` field to set [alert attributes](/product-documentation/on-call/alert-attributes) for routing and filtering. See the [Alert Events API documentation](https://api-docs.incident.io/tag/Alert-Events-V2/) for full field specifications and validation rules.
 
@@ -105,7 +105,7 @@ Use custom HTTP sources when working with tools that send webhooks with HTTP pay
   "team": "platform",
   "severity": "critical"
 }
-```
+```text
 
 ```javascript Your transform expression
 // $ represents your incoming payload
@@ -116,7 +116,7 @@ return {
   source_url: $.url,
   metadata: { team: $.team, severity: $.severity }
 }
-```
+```text
 
 ## Email sources
 
@@ -126,7 +126,7 @@ When you create an email source, incident.io generates a unique email address fo
 
 ```text Example email address
 abc123xyz-f769e4dda22b@inbound.incident.io
-```
+```text
 
 Use email sources for:
 - Monitoring tools or scripts that send email notifications but don't support webhooks

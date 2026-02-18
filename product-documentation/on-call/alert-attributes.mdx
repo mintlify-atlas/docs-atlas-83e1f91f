@@ -185,7 +185,7 @@ When a monitoring tool sends data in arrays, filter to find the specific value y
 $.metadata.tags.filter(function(tag) {
   return tag.startsWith("feature:")
 })
-```
+```text
 
 **Add fallback values**
 
@@ -194,7 +194,7 @@ When different alert sources use different field names, add fallbacks to ensure 
 ```javascript
 // Try multiple possible locations for team name
 $.metadata.team || $.labels.team || "unknown"
-```
+```text
 
 This tries `$.metadata.team` first, then `$.labels.team` if that's empty, and finally defaults to "unknown" if neither exists.
 

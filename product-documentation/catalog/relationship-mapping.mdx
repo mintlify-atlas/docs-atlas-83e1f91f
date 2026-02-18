@@ -95,7 +95,7 @@ The most powerful catalog structures use multiple levels of relationships:
 
 Here's how an e-commerce company might structure their catalog:
 
-```
+```text
 ┌─────────────────┐
 │   Products      │
 └────────┬────────┘
@@ -118,7 +118,7 @@ Here's how an e-commerce company might structure their catalog:
 │   Environments  │
 │ (Prod, Staging) │
 └─────────────────┘
-```
+```text
 
 **How this enables automation:**
 
@@ -139,7 +139,7 @@ Here's how an e-commerce company might structure their catalog:
 
 A rail operator models their infrastructure to handle signal failures:
 
-```
+```text
 ┌───────────────────────┐
 │ Signal Failure Point  │
 └──────────┬────────────┘
@@ -160,7 +160,7 @@ A rail operator models their infrastructure to handle signal failures:
 ┌───────────────────────┐
 │  Status Page SubPage  │
 └───────────────────────┘
-```
+```text
 
 **Automation flow:**
 
@@ -222,7 +222,7 @@ entries:
       dependencies:
         - payment-processor
         - order-database
-```
+```text
 
 ```yaml Example: Team with relationships
 type: teams
@@ -237,7 +237,7 @@ entries:
       services:
         - checkout-api
         - payment-processor
-```
+```text
 </CodeGroup>
 
 ### Via API
@@ -263,7 +263,7 @@ POST /v2/catalog_types/{type_id}/entries
     }
   ]
 }
-```
+```text
 </CodeGroup>
 
 ## Using relationships in automation
@@ -356,13 +356,13 @@ See [Using loops in workflows](/help-centre/configure-your-account/workflows/usi
 
 ### Service ownership hierarchy
 
-```
+```text
 Service → Team → Division
         → Tech Lead
         → Product Manager
         → Escalation Policy
         → Slack Channel
-```
+```text
 
 **Enables:**
 - Auto-populate affected team from service
@@ -372,12 +372,12 @@ Service → Team → Division
 
 ### Customer impact tracking
 
-```
+```text
 Customer → Account Manager
         → Pricing Tier
         → Annual Value
         → Services Used
-```
+```text
 
 **Enables:**
 - Notify account managers of customer impact
@@ -387,12 +387,12 @@ Customer → Account Manager
 
 ### Infrastructure dependencies
 
-```
+```text
 Service → Database
         → Cache
         → Message Queue
         → External APIs
-```
+```text
 
 **Enables:**
 - Identify cascading impact

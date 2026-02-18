@@ -85,7 +85,7 @@ Incident enrichment flows through three connected systems:
        - Use expression: `Affected Service → Owning Team → Escalation Policy`
     3. Send DM to Tech Lead
        - Use expression: `Affected Service → Tech Lead`
-       - Message: "Your service {Affected Service} is experiencing an incident"
+       - Message: "Your service \{Affected Service\} is experiencing an incident"
   </Step>
 </Steps>
 
@@ -117,7 +117,7 @@ Incident enrichment flows through three connected systems:
     2. For each customer:
        - Send DM to Account Manager
          - Use expression: `Each Affected Customer → Account Manager`
-         - Message: "Your customer {Each Affected Customer} is impacted by incident #{Incident Number}"
+          - Message: "Your customer \{Each Affected Customer\} is impacted by incident #\{Incident Number\}"
        - If Customer Tier is VIP:
          - Post to #leadership channel
   </Step>
@@ -351,7 +351,7 @@ Track these metrics to quantify the value of catalog-powered enrichment:
     
     **After:** Should decrease significantly with auto-invites
     
-    **Target:** <2 minutes for auto-invited responders
+    **Target:** Less than 2 minutes for auto-invited responders
   </Card>
   
   <Card title="Manual lookups" icon="magnifying-glass">
@@ -367,7 +367,7 @@ Track these metrics to quantify the value of catalog-powered enrichment:
     
     **After:** Should decrease with automated routing
     
-    **Target:** <5% incorrect auto-escalations
+    **Target:** Less than 5% incorrect auto-escalations
   </Card>
   
   <Card title="Time to resolution" icon="stopwatch">

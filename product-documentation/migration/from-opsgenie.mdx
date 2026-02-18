@@ -22,14 +22,14 @@ Also, let us know if there is something else that you'd need help with migrating
 You can connect your Opsgenie instance directly to incident.io as an alert source. This lets you test on-call features like schedules and escalation paths without having to reconfigure your alert providers (like Datadog or Grafana).
 
 Your testing setup would look like:
-```
+```text
 Grafana → Opsgenie → escalate via incident.io
-```
+```text
 
 Once you're ready to fully migrate, you move to:
-```
+```text
 Grafana → escalate via incident.io
-```
+```text
 
 <Tip>
   This simplified testing approach significantly reduces the time it takes to start evaluating incident.io's on-call features.
@@ -82,7 +82,7 @@ resource "datadog_monitor" "example" {
   message = "@incident-io-alert-source"
   # ... other configuration
 }
-```
+```text
 
 See our [Terraform provider documentation](https://registry.terraform.io/providers/incident-io/incident/latest/docs).
 
