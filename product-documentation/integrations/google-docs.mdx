@@ -11,38 +11,54 @@ Our Google Docs Integration allows you to export post-mortems into Google Docs. 
 
 <img src="/images/integrations/google-docs/google-docs-overview.png" alt="Google Docs post-mortem export interface" />
 
----
+## Installation
 
-# Installation
-
+<Info>
 It's important to know that when the integration is installed, the connection to incident.io will belong to **the user that installed it**. Google Workspace connections like this, which use OAuth, belong to a specific user — for this reason, you may wish to set up a dedicated service or "bot" account.
 
 We use the same user account connection for all our Google integrations. Therefore, the account you use to connect this integration will need to be the same for Google Meet and Calendar.
+</Info>
 
-## 1. Installing the Integration
+### 1. Installing the Integration
 
-Go to [Settings → Integrations](https://app.incident.io/settings/integrations), find "Google Docs" and click "Install".
+<Steps>
+  <Step title="Navigate to integrations settings">
+    Go to [Settings → Integrations](https://app.incident.io/settings/integrations), find "Google Docs" and click "Install".
+  </Step>
 
-Click "Install" and you'll be redirected to the install flow within Google Workspace. Review the permissions we're requesting and click "Next".
+  <Step title="Review permissions">
+    Click "Install" and you'll be redirected to the install flow within Google Workspace. Review the permissions we're requesting and click "Next".
 
-<img src="/images/integrations/google-docs/google-docs-install-permissions.png" alt="Google Workspace permissions review screen" />
+    <img src="/images/integrations/google-docs/google-docs-install-permissions.png" alt="Google Workspace permissions review screen" />
+  </Step>
 
-Once you've completed the Google flow, you'll be redirected back to incident.io:
+  <Step title="Complete installation">
+    Once you've completed the Google flow, you'll be redirected back to incident.io:
 
-<img src="/images/integrations/google-docs/google-docs-install-success.png" alt="Google Docs integration successfully installed" />
+    <img src="/images/integrations/google-docs/google-docs-install-success.png" alt="Google Docs integration successfully installed" />
+  </Step>
+</Steps>
 
-## 2. Setting up a Postmortem Destination
+### 2. Setting up a Postmortem Destination
 
 incident.io has now been connected to Google Docs. Next, we need to specify where in your Google Drive you'd like to export postmortems to.
 
-Go to [Settings → Postmortems](https://app.incident.io/settings/post-mortem), then click "Add destination"
+<Steps>
+  <Step title="Navigate to postmortem settings">
+    Go to [Settings → Postmortems](https://app.incident.io/settings/post-mortem), then click "Add destination"
 
-<img src="/images/integrations/google-docs/google-docs-postmortem-destination.png" alt="Add postmortem destination dialog" />
+    <img src="/images/integrations/google-docs/google-docs-postmortem-destination.png" alt="Add postmortem destination dialog" />
+  </Step>
 
-Within your web browser, navigate to the folder in Google Drive where you'd like to export postmortems to. This should look like:
+  <Step title="Get the Google Drive folder URL">
+    Within your web browser, navigate to the folder in Google Drive where you'd like to export postmortems to. This should look like:
 
-`https://drive.google.com/drive/folders/1OLTvX7Ak7Z03...`
+    `https://drive.google.com/drive/folders/1OLTvX7Ak7Z03...`
+  </Step>
 
-Paste the link in, give it a sensible name, and click "Create".
+  <Step title="Create the destination">
+    Paste the link in, give it a sensible name, and click "Create".
 
-You should now be good to go!
+    You should now be good to go!
+  </Step>
+</Steps>

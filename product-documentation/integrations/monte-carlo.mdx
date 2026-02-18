@@ -9,35 +9,51 @@ This article provides step by step instructions for setting up Monte Carlo as an
 
 ## Instructions to set up
 
-### 1. Head over to the Alerts section in your incident.io dashboard
+<Steps>
+  <Step title="Navigate to Alerts in incident.io">
+    Head over to the [Alerts](https://app.incident.io/~/alerts/sources) section in your incident.io dashboard.
+  </Step>
 
-Navigate to the [Alerts](https://app.incident.io/~/alerts/sources) section in your incident.io dashboard.
+  <Step title="Select the Configuration tab">
+    Select the Configuration tab at the top of the page
 
-### 2. Select the Configuration tab at the top of the page
+    <img src="/images/integrations/monte-carlo/configuration-tab.png" alt="Configuration tab in Alerts section" />
+  </Step>
 
-<img src="/images/integrations/monte-carlo/configuration-tab.png" alt="Configuration tab in Alerts section" />
+  <Step title="Create new alert source">
+    Press the 'New alert source' button
+  </Step>
 
-### 3. Press the 'New alert source' button
+  <Step title="Select Monte Carlo">
+    Search for 'Monte Carlo' and click continue to create the alert source
 
-### 4. Search for 'Monte Carlo' and click continue to create the alert source
+    <img src="/images/integrations/monte-carlo/select-monte-carlo.png" alt="Select Monte Carlo as alert source" />
+  </Step>
 
-<img src="/images/integrations/monte-carlo/select-monte-carlo.png" alt="Select Monte Carlo as alert source" />
+  <Step title="Navigate to Monte Carlo notification settings">
+    Head over to the [notification settings page](https://getmontecarlo.com/settings/notifications/settings) in Monte Carlo.
+  </Step>
 
-### 5. Head over to the notification settings page in Monte Carlo
+  <Step title="Create or edit an audience">
+    Create an [audience](https://docs.getmontecarlo.com/docs/how-to-add-an-audience) or edit an existing audience.
+  </Step>
 
-Navigate to the [notification settings page](https://getmontecarlo.com/settings/notifications/settings) in Monte Carlo.
+  <Step title="Configure incident.io as recipient">
+    Name the Audience and select incident.io as the Recipient channel
+  </Step>
 
-### 6. Create an audience or edit an existing audience
+  <Step title="Enter incident.io credentials">
+    Enter the destination incident.io URL from incident.io and token if applicable
+  </Step>
 
-Create an [audience](https://docs.getmontecarlo.com/docs/how-to-add-an-audience) or edit an existing audience.
+  <Step title="Name the recipient (optional)">
+    [Optional] Name this recipient, as a single audience can have multiple recipients
+  </Step>
 
-### 7. Name the Audience and select incident.io as the Recipient channel
-
-### 8. Enter the destination incident.io URL from incident.io and token if applicable
-
-### 9. [Optional] Name this recipient, as a single audience can have multiple recipients
-
-### 10. Create the audience
+  <Step title="Create the audience">
+    Create the audience
+  </Step>
+</Steps>
 
 ## Alert events and updates
 
@@ -52,9 +68,11 @@ The following events receive an update to incident.io:
 7. Alert is unmarked as incident
 8. Alert is resolved
 
+<Info>
 Monte Carlo integration will use 'Last wins' in the alert updates, meaning that every new alert we receive with the same "incident_id", we'll update the fields to the newest value.
 
 Incident.io uses "incident_id" as a deduplication key, so if there are other alerts coming with the same id, it will not create new alerts for them.
+</Info>
 
 ### Key fields changed by alert updates
 

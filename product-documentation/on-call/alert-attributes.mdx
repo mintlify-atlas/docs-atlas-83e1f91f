@@ -1,6 +1,6 @@
 ---
 title: Alert attributes
-description: Turn alert data into critical context for responders to power routing, escalations, and automation.
+description: Turn alert data into critical context for responders to power routing, escalations, and automation
 ---
 
 Alerts from different sources (observability platforms, error tracking tools, ticketing platforms and more) arrive with inconsistent formats and field names. Alert attributes create a consistent language to describe alerts regardless of source.
@@ -47,16 +47,30 @@ Define attributes in **Settings → Alerts → Attributes** and configure attrib
 
 Set up attributes once, use them everywhere. Define which fields matter for your organization:
 
-1. Using the sidebar, navigate to **Settings → Alerts**
-2. Click the **Settings icon** (gear icon in top right)
-3. Select **Attributes**
-4. Click **+ Add attribute** to create a new attribute (see [recommended attributes](#recommended-attributes) below)
-5. Configure the fields:
-   - **Name**: What to call the attribute (e.g., Team, Service, Customer)
-   - **Resource type**: Link to Catalog types or store as plain text (String)
-   - **Multi-value**: Allow multiple values per alert
-   - **Required**: Mark as required when this attribute is critical for routing and escalation
-6. Click **Save changes**
+<Steps>
+  <Step title="Navigate to attributes settings">
+    Using the sidebar, navigate to **Settings → Alerts**
+  </Step>
+  <Step title="Access attributes configuration">
+    Click the **Settings icon** (gear icon in top right)
+  </Step>
+  <Step title="Select attributes">
+    Select **Attributes**
+  </Step>
+  <Step title="Add new attribute">
+    Click **+ Add attribute** to create a new attribute (see [recommended attributes](#recommended-attributes) below)
+  </Step>
+  <Step title="Configure fields">
+    Configure the fields:
+    - **Name**: What to call the attribute (e.g., Team, Service, Customer)
+    - **Resource type**: Link to Catalog types or store as plain text (String)
+    - **Multi-value**: Allow multiple values per alert
+    - **Required**: Mark as required when this attribute is critical for routing and escalation
+  </Step>
+  <Step title="Save changes">
+    Click **Save changes**
+  </Step>
+</Steps>
 
 **String (text) attributes** store freeform data like error messages or URLs. **Catalog-powered attributes** link to your organizational structure and enable dynamic routing.
 
@@ -108,12 +122,22 @@ AI analyzes your alert payload and automatically suggests which attributes to ex
 
 **To use AI-powered extraction:**
 
-1. Follow the [alert source setup](/product-documentation/on-call/alert-sources) steps and navigate to the final stage **Configure your setup**
-2. Click **Review attributes** to see AI suggestions based on your payload
-3. For each suggested attribute:
-   - Click **Accept** to add the attribute extraction (e.g., parse Team from payload)
-   - Click **Skip** to ignore the suggestion
-4. Accepted attributes appear in **Your attributes** section
+<Steps>
+  <Step title="Navigate to final setup stage">
+    Follow the [alert source setup](/product-documentation/on-call/alert-sources) steps and navigate to the final stage **Configure your setup**
+  </Step>
+  <Step title="Review AI suggestions">
+    Click **Review attributes** to see AI suggestions based on your payload
+  </Step>
+  <Step title="Accept or skip suggestions">
+    For each suggested attribute:
+    - Click **Accept** to add the attribute extraction (e.g., parse Team from payload)
+    - Click **Skip** to ignore the suggestion
+  </Step>
+  <Step title="Verify accepted attributes">
+    Accepted attributes appear in **Your attributes** section
+  </Step>
+</Steps>
 
 ### Extract with custom logic
 
@@ -121,16 +145,34 @@ Extract specific attributes from alerts or transform values when you need custom
 
 **To link an existing attribute from the alert source payload:**
 
-1. In the Attributes section during source setup, click **+ Add**
-2. Select **Link an existing attribute** and choose an attribute from your catalog
-3. The attribute automatically maps to matching fields in your payload
+<Steps>
+  <Step title="Add attribute">
+    In the Attributes section during source setup, click **+ Add**
+  </Step>
+  <Step title="Link existing attribute">
+    Select **Link an existing attribute** and choose an attribute from your catalog
+  </Step>
+  <Step title="Auto-map fields">
+    The attribute automatically maps to matching fields in your payload
+  </Step>
+</Steps>
 
 **To create custom extraction with JavaScript:**
 
-1. In the Attributes section during source setup, click **+ Add**
-2. Select **Create a new attribute** and enter the attribute name (e.g., Team slack channel)
-4. Write JavaScript (ES5) expression to extract the value from your payload
-5. Configure the result type (String, Customer, Business functionality, etc.)
+<Steps>
+  <Step title="Add attribute">
+    In the Attributes section during source setup, click **+ Add**
+  </Step>
+  <Step title="Create new attribute">
+    Select **Create a new attribute** and enter the attribute name (e.g., Team slack channel)
+  </Step>
+  <Step title="Write extraction logic">
+    Write JavaScript (ES5) expression to extract the value from your payload
+  </Step>
+  <Step title="Configure result type">
+    Configure the result type (String, Customer, Business functionality, etc.)
+  </Step>
+</Steps>
 
 **Common custom extraction scenarios:**
 

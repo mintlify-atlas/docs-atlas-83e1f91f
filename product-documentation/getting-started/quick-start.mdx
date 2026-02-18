@@ -1,390 +1,370 @@
 ---
 title: Quick Start
-description: Get up and running with incident.io in 15 minutes
+description: A hands-on tutorial to get you responding to your first incident in under 30 minutes
 icon: "/icons/rocket.svg"
 ---
 
-# Quick Start
+# Quick Start Tutorial
 
-Get your first incident response up and running in 15 minutes. This guide focuses on the essentials - you can expand your setup later.
+This hands-on guide walks you through creating and managing your first incident in incident.io. By the end, you'll understand the core workflow and be ready to handle real incidents with confidence.
 
 <Note>
-  Already have an incident.io account? Follow these steps to configure the basics. Need to sign up first? Visit [incident.io](https://incident.io) to create an account.
+**Time to complete:** 20-30 minutes
+
+**Prerequisites:**
+- incident.io installed in your Slack workspace or Microsoft Teams
+- Admin access to your incident.io dashboard
 </Note>
 
-## Prerequisites
+## Step 1: Set up your profile
 
-Before you begin, make sure you have:
-
-<CardGroup cols={2}>
-  <Card title="Admin Access" icon="user-shield">
-    Administrator permissions in your Slack workspace or Microsoft Teams organization
-  </Card>
-  <Card title="incident.io Account" icon="id-card">
-    An active incident.io account with admin privileges
-  </Card>
-</CardGroup>
-
-## 15-Minute Setup
+Before jumping into incidents, let's make sure you can be reached when needed.
 
 <Steps>
-  <Step title="Connect Slack or Microsoft Teams">
-    Choose your team's communication platform:
-
-    <Tabs>
-      <Tab title="Slack (Recommended)">
-        **Installation** (2 minutes)
-        
-        1. Log in to [app.incident.io](https://app.incident.io)
-        2. Navigate to **Settings → Integrations**
-        3. Find **Slack** and click **Install**
-        4. Click **Allow** to authorize the app
-
-        **Configuration**
-        
-        5. Create or select an `#incidents` channel for announcements
-        6. Click **Save**
-
-        <Check>
-          incident.io will post a welcome message in your `#incidents` channel confirming the connection.
-        </Check>
-      </Tab>
-
-      <Tab title="Microsoft Teams">
-        **Installation** (3 minutes)
-        
-        1. Log in to [app.incident.io](https://app.incident.io)
-        2. Navigate to **Settings → Integrations**
-        3. Find **Microsoft Teams** and click **Install**
-        4. Sign in with your Microsoft account
-        5. Grant permissions to incident.io
-
-        **Configuration**
-        
-        6. Create an **Incidents** team in Microsoft Teams
-        7. Add the incident.io app to this team
-        8. Configure the **General** channel for announcements
-
-        <Check>
-          incident.io will post a welcome message confirming the connection.
-        </Check>
-      </Tab>
-    </Tabs>
-  </Step>
-
-  <Step title="Declare your first test incident">
-    **Create a test incident** (2 minutes)
+  <Step title="Add your contact methods">
+    Navigate to **Settings > My Profile** in the incident.io dashboard.
     
-    Let's verify everything works with a test incident:
-
-    <Tabs>
-      <Tab title="From Slack">
-        1. In any Slack channel, type `/incident` and press **Enter**
-        2. Fill in the incident form:
-           - **What's going on?**: "Test incident - ignore"
-           - **Severity**: Select your lowest severity
-           - **Status**: Choose **Active incident**
-        3. Click **Declare incident**
-
-        <Tip>
-          Use the shortcut `/inc` instead of `/incident` to save time.
-        </Tip>
-      </Tab>
-
-      <Tab title="From Microsoft Teams">
-        1. Open the **Incidents** team
-        2. Go to the **General** channel
-        3. Click the **incident.io** tab
-        4. Fill in the incident form:
-           - **What's going on?**: "Test incident - ignore"
-           - **Severity**: Select your lowest severity
-           - **Status**: Choose **Active incident**
-        5. Click **Declare incident**
-      </Tab>
-
-      <Tab title="From Web Dashboard">
-        1. Visit [app.incident.io/declare](https://app.incident.io/declare)
-        2. At the top of the form, select **Test incident**
-        3. Fill in basic information:
-           - **What's going on?**: "Test incident - ignore"
-           - **Severity**: Select your lowest severity
-        4. Click **Declare incident**
-
-        <Info>
-          Test incidents are clearly marked and don't affect your metrics or analytics.
-        </Info>
-      </Tab>
-    </Tabs>
-
-    **What happens next:**
-
-    - A dedicated incident channel is created (e.g., `#inc-test-incident-ignore`)
-    - An announcement is posted in your `#incidents` channel
-    - A timeline starts tracking all incident activity
+    Add:
+    - **Phone number** for SMS and voice calls
+    - **Push notification** preferences via the mobile app
+    - **Time zone** so on-call schedules work correctly
   </Step>
-
-  <Step title="Assign an incident lead">
-    **Set incident roles** (1 minute)
-
-    Every incident needs someone coordinating the response:
-
-    1. In your new incident channel, type `/inc roles`
-    2. Click **Assign** next to **Incident Lead**
-    3. Select yourself or a team member
-    4. Click **Assign role**
-
-    The assigned person receives a private message with instructions on their responsibilities.
-
-    <Tip>
-      Quick assignment: Type `/inc role lead @username` to assign the lead role directly.
-    </Tip>
+  
+  <Step title="Install the mobile app (optional)">
+    Download the incident.io mobile app from the App Store or Google Play to:
+    - Receive push notifications for alerts and incidents
+    - Acknowledge escalations from anywhere
+    - View and update incidents on the go
   </Step>
+</Steps>
 
-  <Step title="Share a status update">
-    **Communicate progress** (1 minute)
+## Step 2: Explore the Catalog
 
-    Keep stakeholders informed:
+The Catalog is your organizational knowledge base. Let's add your first service.
 
-    1. In the incident channel, type `/inc update`
-    2. Fill in the update form:
-       - **Message**: "This is a test - everything is working correctly"
-       - **Affected**: No customers affected (if prompted)
-    3. Click **Share update**
-
-    The update posts to:
-    - The incident channel timeline
-    - The announcement in `#incidents` (as a reply)
-    - Any configured status pages
+<Steps>
+  <Step title="Navigate to the Catalog">
+    Go to **Catalog** in your incident.io dashboard. You'll see default catalog types:
+    - Services
+    - Teams
+    - Users (automatically imported from Slack/Teams)
   </Step>
-
-  <Step title="Resolve the incident">
-    **Close it out** (1 minute)
-
-    Once your test is complete:
-
-    1. Type `/inc resolve` in the incident channel
-    2. Add a resolution note: "Test completed successfully"
-    3. Click **Resolve**
-
-    The incident moves to **Resolved** status. The channel remains available for post-incident activities.
-
+  
+  <Step title="Create a test service">
+    Click **Add entry** in the Services catalog:
+    
+    ```
+    Name: API Gateway
+    Description: Main API gateway handling customer requests
+    On-call team: [Your team]
+    Status: Active
+    ```
+    
     <Info>
-      Resolving an incident doesn't delete the channel. It preserves all context and triggers post-incident workflows.
+    In production, you'll add all your critical services. For now, one service is enough to practice with.
+    </Info>
+  </Step>
+  
+  <Step title="Link a team">
+    In the Teams catalog, ensure your team exists. If not, create one:
+    
+    ```
+    Name: Platform Team
+    Slack channel: #platform
+    Members: [Add yourself and teammates]
+    ```
+    
+    Link this team to your service by editing the service's "On-call team" field.
+  </Step>
+</Steps>
+
+## Step 3: Create a simple on-call schedule
+
+Let's set up a basic schedule so you can test alert routing and escalations.
+
+<Steps>
+  <Step title="Create your first schedule">
+    Navigate to **On-call > Schedules** and click **New schedule**:
+    
+    ```
+    Name: Platform On-call
+    Time zone: [Your time zone]
+    Rotation type: Weekly
+    Handoff time: 9:00 AM Monday
+    ```
+  </Step>
+  
+  <Step title="Add yourself to the rotation">
+    Add a layer to your schedule:
+    - Click **Add layer**
+    - Select **Weekly rotation**
+    - Add yourself as the first person
+    - Set coverage to **24/7** (or restrict to business hours for testing)
+  </Step>
+  
+  <Step title="Verify you're on-call">
+    Check the schedule preview - you should see yourself listed as currently on-call.
+    
+    <Info>
+    The person "on-call" is the first responder when alerts fire or incidents need attention.
     </Info>
   </Step>
 </Steps>
 
-<Check>
-  **Congratulations!** You've completed your first incident flow. Your team can now declare incidents, assign responsibilities, share updates, and track resolutions.
-</Check>
+## Step 4: Create your first incident
 
-## Next Steps
+Time to experience the incident workflow from the responder's perspective.
 
-Now that you have the basics working, expand your incident response capabilities:
-
-<Tabs>
-  <Tab title="Incident Response">
-    <CardGroup cols={1}>
-      <Card title="Customize incident forms" icon="clipboard-list">
-        Add custom fields to capture service impacts, customer effects, or business context
-        
-        Navigate to **Settings → Forms** to configure declaration and resolution forms.
-      </Card>
-
-      <Card title="Create additional roles" icon="users">
-        Define roles like Communications Lead, Subject Matter Expert, or Technical Lead
-        
-        Go to **Settings → Incident Roles** to create and configure roles.
-      </Card>
-
-      <Card title="Set up workflows" icon="diagram-project">
-        Automate tasks like paging on-call teams, creating follow-up actions, or updating status pages
-        
-        Explore **Workflows** to build automation based on incident triggers.
-      </Card>
-    </CardGroup>
-  </Tab>
-
-  <Tab title="On-Call Setup">
-    <Steps>
-      <Step title="Create on-call schedules">
-        Define who's available to respond at different times:
-        
-        1. Go to **On-Call → Schedules**
-        2. Click **Create Schedule**
-        3. Add your team members and set rotation frequency
-      </Step>
-
-      <Step title="Configure escalation paths">
-        Set up who to contact when alerts need attention:
-        
-        1. Navigate to **On-Call → Escalation Paths**
-        2. Create a path with multiple levels
-        3. Reference your schedules for automatic routing
-      </Step>
-
-      <Step title="Connect monitoring tools">
-        Send alerts from your monitoring systems:
-        
-        1. Go to **Settings → Integrations**
-        2. Connect Datadog, Grafana, Sentry, or other tools
-        3. Configure alert routes to determine what happens when alerts fire
-      </Step>
-    </Steps>
-  </Tab>
-
-  <Tab title="Catalog Setup">
-    Build your organizational map:
-
-    <AccordionGroup>
-      <Accordion title="Add Services" icon="server">
-        Create entries for your critical services:
-        
-        1. Navigate to **Catalog → Services**
-        2. Click **Add Service**
-        3. Fill in name, description, and owner
-        4. Link to on-call schedules
-
-        **Pro tip**: Import services from Backstage, Cortex, or OpsLevel if you already use a service catalog.
-      </Accordion>
-
-      <Accordion title="Define Teams" icon="people-group">
-        Map your organizational structure:
-        
-        1. Go to **Catalog → Teams**
-        2. Create teams and add members
-        3. Assign team leads
-        4. Connect teams to the services they own
-
-        **Pro tip**: Sync teams from your HR system or Okta to keep this up to date automatically.
-      </Accordion>
-
-      <Accordion title="Add Custom Types" icon="puzzle-piece">
-        Create catalog types specific to your needs:
-        
-        - Products or business lines
-        - Customer segments
-        - Environments (production, staging)
-        - Infrastructure components
-
-        Navigate to **Settings → Catalog Types** to create custom types.
-      </Accordion>
-    </AccordionGroup>
-  </Tab>
-
-  <Tab title="Integrations">
-    Connect your existing tools:
-
-    **Popular integrations:**
-
-    <CardGroup cols={2}>
-      <Card title="Datadog" icon="chart-line">
-        Send monitors as alerts and trigger incidents automatically
-      </Card>
-      <Card title="Jira" icon="list-check">
-        Create issues from incidents and track follow-up actions
-      </Card>
-      <Card title="PagerDuty" icon="pager">
-        Import schedules and migrate on-call setup
-      </Card>
-      <Card title="GitHub" icon="github">
-        Link pull requests and deployments to incidents
-      </Card>
-      <Card title="Zoom" icon="video">
-        Launch video calls from incident channels
-      </Card>
-      <Card title="Statuspage" icon="signal">
-        Auto-update your status page during incidents
-      </Card>
-    </CardGroup>
-
-    Browse all integrations at **Settings → Integrations**.
-  </Tab>
-</Tabs>
-
-## Common Quick Start Questions
-
-<AccordionGroup>
-  <Accordion title="How do I invite my team?">
-    Team members are automatically invited when they:
-    - Join your `#incidents` channel in Slack
-    - Are added to the **Incidents** team in Microsoft Teams
-    - Receive an incident channel invite
-
-    You can also manually invite users from **Settings → Users**.
-  </Accordion>
-
-  <Accordion title="Can I customize the incident channel name?">
-    Yes! Navigate to **Settings → Incidents** to customize:
-    - Channel name format (e.g., `inc-`, `incident-`, or custom prefix)
-    - Channel naming pattern
-    - Whether to include timestamps or IDs
-
-    Changes apply to new incidents - existing channels keep their names.
-  </Accordion>
-
-  <Accordion title="What's the difference between severity levels?">
-    Severity indicates how serious an incident is. Most organizations use 3-5 levels:
-
-    - **Critical/SEV1**: Complete outage, all customers affected
-    - **Major/SEV2**: Significant degradation, many customers affected
-    - **Minor/SEV3**: Limited impact, small number of customers affected
-    - **Low/SEV4**: Minimal impact, internal issues
-
-    Configure your severity levels at **Settings → Severities**.
-  </Accordion>
-
-  <Accordion title="How do I delete a test incident?">
-    Test incidents can be fully deleted:
+<Steps>
+  <Step title="Start an incident from Slack">
+    In any Slack channel, type:
     
-    1. Open the incident in the web dashboard
-    2. Click the **⋮** menu in the top right
-    3. Select **Delete incident**
-    4. Confirm deletion
+    ```
+    /incident
+    ```
+    
+    This opens the incident creation modal.
+  </Step>
+  
+  <Step title="Fill in incident details">
+    Complete the form:
+    
+    ```
+    Title: API Gateway Returning 500 Errors
+    Severity: Minor (this is just a test)
+    Summary: Elevated error rate detected on main API gateway
+    Affected service: API Gateway (select from catalog)
+    ```
+    
+    <Note>
+    In a real incident, severity determines who gets notified and how urgently. For this test, use Minor to avoid unnecessary alerts.
+    </Note>
+  </Step>
+  
+  <Step title="Watch the incident channel get created">
+    When you click **Create incident**, incident.io automatically:
+    - Creates a dedicated Slack channel (e.g., `#inc-123-api-gateway-500-errors`)
+    - Posts an initial status message
+    - Starts the incident timeline
+    - Invites you to the channel
+  </Step>
+</Steps>
 
-    **Note**: Regular incidents can only be resolved, not deleted - this preserves your incident history for learning and compliance.
-  </Accordion>
+## Step 5: Work the incident
 
-  <Accordion title="Can I import incidents from another tool?">
-    Yes! incident.io supports importing historical incidents from:
-    - PagerDuty
-    - Jira
-    - ServiceNow
-    - CSV files
+Now let's explore what happens during active incident response.
 
-    Contact support@incident.io for help with bulk imports.
-  </Accordion>
-</AccordionGroup>
+<Steps>
+  <Step title="Assign the Incident Lead role">
+    In the incident channel, incident.io will prompt you to assign roles.
+    
+    Click **Assign roles** and set:
+    - **Incident Lead**: Yourself
+    - **Communications Lead**: (optional for now)
+    
+    <Info>
+    The Incident Lead coordinates the response and makes key decisions. In real incidents, this might be the on-call engineer or an experienced team member.
+    </Info>
+  </Step>
+  
+  <Step title="Create an action item">
+    Practice creating follow-up tasks. In the channel, type:
+    
+    ```
+    Check API gateway logs for error patterns
+    ```
+    
+    React to your message with the 👉 emoji. incident.io converts it into a tracked action item.
+    
+    Try:
+    - Assigning the action to yourself
+    - Marking it as complete with ✅
+  </Step>
+  
+  <Step title="Post a status update">
+    Keep stakeholders informed. Type in the channel:
+    
+    ```
+    /incident update
+    ```
+    
+    Fill in the update form:
+    
+    ```
+    Message: Investigating elevated 500 errors. Initial analysis suggests database connection issues.
+    Affected users: Minimal impact
+    ```
+    
+    Status updates can be shared to:
+    - Slack channels (e.g., #incidents)
+    - Status pages
+    - Custom Slack notifications
+  </Step>
+  
+  <Step title="Update incident severity (optional)">
+    If the situation changes, you can escalate:
+    
+    ```
+    /incident severity major
+    ```
+    
+    This would trigger additional notifications based on your configuration.
+  </Step>
+</Steps>
 
-## Getting Help
+## Step 6: Resolve and close the incident
+
+Time to wrap up your test incident.
+
+<Steps>
+  <Step title="Mark the incident as resolved">
+    When the issue is fixed (or in this case, when you're done testing), type:
+    
+    ```
+    /incident resolve
+    ```
+    
+    Add a resolution message:
+    
+    ```
+    Test incident completed. Issue was simulated for training purposes.
+    ```
+  </Step>
+  
+  <Step title="Review the incident timeline">
+    Before closing, check the timeline:
+    - Click **View timeline** in the channel
+    - See all events: creation, role assignments, actions, updates, resolution
+    
+    <Info>
+    The timeline is automatically generated and becomes invaluable for post-incident reviews.
+    </Info>
+  </Step>
+  
+  <Step title="Close the incident">
+    When all follow-up actions are complete:
+    
+    ```
+    /incident close
+    ```
+    
+    This:
+    - Archives the incident channel
+    - Finalizes the timeline
+    - Triggers any post-incident workflows (like post-mortem creation)
+  </Step>
+</Steps>
+
+## Step 7: Explore post-incident features
+
+incident.io helps you learn from every incident.
+
+<Steps>
+  <Step title="View the incident in the dashboard">
+    Navigate to **Incidents** in your dashboard and find your test incident.
+    
+    Explore:
+    - Complete timeline of all events
+    - Assigned actions and their status
+    - Time to resolve metrics
+    - Links to related incidents (if any)
+  </Step>
+  
+  <Step title="Check the post-mortem (if configured)">
+    If you have post-incident workflows enabled, a post-mortem document may have been created automatically.
+    
+    Post-mortems include:
+    - Incident summary and timeline
+    - Root cause analysis
+    - Action items to prevent recurrence
+    - Links to relevant resources
+  </Step>
+  
+  <Step title="Review insights (optional)">
+    Navigate to **Insights** to see how incidents are tracked over time:
+    - Total incidents by severity
+    - Mean time to resolve
+    - Top affected services
+    - Action item completion rates
+  </Step>
+</Steps>
+
+## Next: Configure advanced features
+
+Now that you understand the basic workflow, enhance your setup:
 
 <CardGroup cols={2}>
-  <Card title="Full Setup Guide" icon="book" href="/product-documentation/getting-started/start-guide">
-    Complete step-by-step setup instructions
+  <Card title="Connect alert sources" icon="bell" href="/product-documentation/on-call/alert-sources">
+    Integrate Datadog, Sentry, or other monitoring tools to automatically create incidents from alerts.
   </Card>
-  <Card title="Core Concepts" icon="lightbulb" href="/product-documentation/getting-started/concepts">
-    Understand the building blocks of incident.io
+  
+  <Card title="Set up escalation paths" icon="sitemap" href="/product-documentation/on-call/escalation-paths">
+    Define who gets paged when alerts fire and how to escalate if they don't respond.
   </Card>
-  <Card title="Help Centre" icon="circle-question" href="/help-centre">
-    Search common questions and troubleshooting guides
+  
+  <Card title="Build automated workflows" icon="robot" href="/product-documentation/incident-response/automated-workflows">
+    Create workflows that automatically assign roles, create actions, or send updates based on incident properties.
   </Card>
-  <Card title="Contact Support" icon="envelope">
-    Email support@incident.io for personalized assistance
+  
+  <Card title="Configure status pages" icon="browser" href="/product-documentation/status-pages/overview">
+    Keep customers informed with public status pages that update automatically during incidents.
   </Card>
 </CardGroup>
 
-## What's Next?
+## Common workflows cheat sheet
 
-<Steps>
-  <Step title="Learn incident response">
-    Read the [incident response overview](/product-documentation/incident-response/overview) to understand the full incident lifecycle.
-  </Step>
+Bookmark these for quick reference during real incidents:
 
-  <Step title="Explore workflows">
-    Discover how [workflows](/workflows/overview) can automate your incident response process.
-  </Step>
+<AccordionGroup>
+  <Accordion title="Essential Slack commands">
+    ```bash
+    /incident                    # Create a new incident
+    /incident update            # Post a status update
+    /incident severity [level]  # Change incident severity
+    /incident assign            # Assign roles to responders
+    /incident resolve           # Mark incident as resolved
+    /incident close             # Close incident fully
+    ```
+  </Accordion>
+  
+  <Accordion title="Quick actions in incident channels">
+    - **👉 emoji**: Convert any message into an action item
+    - **✅ emoji**: Mark an action as complete
+    - **@incident**: Mention the bot for help
+    - **Pin messages**: Important context appears in channel description
+  </Accordion>
+  
+  <Accordion title="Navigating the dashboard">
+    - **Incidents tab**: View all incidents, filter by status/severity
+    - **On-call tab**: See who's currently on-call, manage schedules
+    - **Catalog tab**: Manage services, teams, and custom types
+    - **Workflows tab**: Build automation
+    - **Insights tab**: Analyze incident trends
+  </Accordion>
+</AccordionGroup>
 
-  <Step title="Set up post-incident process">
-    Configure [follow-up actions](/post-incident/overview) and post-mortem workflows.
-  </Step>
-</Steps>
+## What you've learned
+
+Congratulations! You now know how to:
+
+- ✅ Create and manage incidents from Slack
+- ✅ Assign roles and track action items
+- ✅ Post status updates to keep stakeholders informed
+- ✅ Resolve and close incidents properly
+- ✅ Review incident timelines and post-mortems
+- ✅ Navigate the incident.io dashboard
+
+<Info>
+The best way to get comfortable is practice. Consider running regular incident drills with your team to keep these skills sharp.
+</Info>
+
+## Getting help
+
+Stuck or have questions?
+
+- **📚 Documentation**: Browse detailed guides for every feature
+- **💬 In-app chat**: Click the help icon in your dashboard
+- **📧 Email support**: Reach our team directly
+- **🎓 Training**: Request a custom training session for your team
+
+Welcome to incident.io - you're ready to handle incidents like a pro!

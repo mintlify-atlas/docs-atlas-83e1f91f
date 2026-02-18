@@ -1,164 +1,232 @@
 ---
-title: "Scribe and incident calls"
-description: "Diagnosing issues with incident calls, call creation, and Scribe."
+title: "Scribe and Incident Calls"
+description: "Diagnosing and resolving issues with incident calls, call creation, and Scribe transcription"
 mode: "wide"
 ---
 
-<Info>
-Troubleshoot common issues with incident calls and Scribe, our AI-powered transcription and summarization feature.
-</Info>
+Manage incident calls effectively with incident.io's call integration and Scribe transcription service. This guide helps you diagnose and resolve common issues across Zoom, Google Meet, and Microsoft Teams.
 
 ## Overview
 
-<Card title="Scribe and Incident Calls" icon="microphone" href="/help-centre/scribe-and-incident-calls/scribe-and-incident-calls">
-  Learn how Scribe works and how to use incident calls effectively.
-</Card>
-
-<Tip>
-Scribe automatically joins your incident calls to provide transcription and AI-generated summaries, making it easier to document and review what happened during incidents.
-</Tip>
-
-## Platform-specific troubleshooting
+Incident.io automatically creates and manages incident calls, with Scribe providing real-time transcription to keep your team aligned during critical incidents.
 
 <CardGroup cols={3}>
-  <Card
-    title="Zoom Issues"
-    icon="video"
+  <Card 
+    title="Zoom" 
+    icon="video" 
     href="/help-centre/scribe-and-incident-calls/zoom-diagnosing-common-issues"
   >
-    Diagnose and resolve common problems with Zoom incident calls.
+    Troubleshoot Zoom call integration and Scribe issues
   </Card>
-  <Card
-    title="Google Meet Issues"
-    icon="google"
+  <Card 
+    title="Google Meet" 
+    icon="google" 
     href="/help-centre/scribe-and-incident-calls/google-meet-diagnosing-common-issues"
   >
-    Troubleshoot Google Meet integration and call issues.
+    Resolve Google Meet connection and transcription problems
   </Card>
-  <Card
-    title="Microsoft Teams Issues"
-    icon="microsoft"
+  <Card 
+    title="Microsoft Teams" 
+    icon="microsoft" 
     href="/help-centre/scribe-and-incident-calls/microsoft-teams-calls-diagnosing-common-issues"
   >
-    Fix problems with Microsoft Teams incident calls.
+    Fix Microsoft Teams call setup and access issues
   </Card>
 </CardGroup>
 
-## Common issues and solutions
+## Common Scribe Errors
 
-<AccordionGroup>
-  <Accordion title="Zoom: Diagnosing common issues" icon="video">
-    **Common Zoom problems:**
-    - Scribe not joining calls
-    - Missing transcription
-    - Audio quality issues
-    - Permission errors
-    - Zoom account configuration
-    
-    **Quick fixes:**
-    - Verify Zoom integration is properly configured
-    - Check that Scribe has permission to join meetings
-    - Ensure the Zoom account has recording permissions
-    - Verify network connectivity
-    
-    [View detailed Zoom troubleshooting →](/help-centre/scribe-and-incident-calls/zoom-diagnosing-common-issues)
-  </Accordion>
+### [Scribe and Incident Calls Overview](/help-centre/scribe-and-incident-calls/scribe-and-incident-calls)
 
-  <Accordion title="Google Meet: Diagnosing common issues" icon="google">
-    **Common Google Meet problems:**
-    - Scribe cannot access the meeting
-    - Recording not starting
-    - Transcription missing or incomplete
-    - Permission denied errors
-    - Calendar integration issues
-    
-    **Quick fixes:**
-    - Check Google Calendar permissions
-    - Verify Google Meet recording settings
-    - Ensure Scribe is added as a participant
-    - Review Google Workspace policies
-    
-    [View detailed Google Meet troubleshooting →](/help-centre/scribe-and-incident-calls/google-meet-diagnosing-common-issues)
-  </Accordion>
+Understand the most common errors you might encounter when using Scribe and how to resolve them.
 
-  <Accordion title="Microsoft Teams: Diagnosing common issues" icon="microsoft">
-    **Common Teams problems:**
-    - Scribe not appearing in calls
-    - Recording fails to start
-    - Transcription unavailable
-    - Permission issues
-    - Teams policy restrictions
-    
-    **Quick fixes:**
-    - Verify Teams recording policies
-    - Check admin consent for required permissions
-    - Ensure Scribe has meeting access
-    - Review Teams compliance settings
-    
-    [View detailed Teams troubleshooting →](/help-centre/scribe-and-incident-calls/microsoft-teams-calls-diagnosing-common-issues)
-  </Accordion>
-</AccordionGroup>
-
-## How Scribe works
-
-<Steps>
-  <Step title="Call creation">
-    When an incident call is started, Scribe automatically receives an invitation to join.
-  </Step>
-  <Step title="Joining the call">
-    Scribe joins the call as a participant and begins recording and transcription.
-  </Step>
-  <Step title="Real-time transcription">
-    As the call progresses, Scribe transcribes the conversation in real-time.
-  </Step>
-  <Step title="AI summarization">
-    After the call ends, AI generates a summary of key points and action items.
-  </Step>
-  <Step title="Documentation">
-    Transcription and summary are automatically added to the incident timeline.
-  </Step>
-</Steps>
-
-## Best practices
-
-<CardGroup cols={2}>
-  <Card title="Before the call" icon="clipboard-check">
-    - Ensure integration is properly configured
-    - Verify permissions are granted
-    - Test with a non-incident call first
-    - Check your organization's recording policies
-  </Card>
-  <Card title="During the call" icon="microphone">
-    - Speak clearly for better transcription
-    - Use names when addressing participants
-    - Explicitly state action items
-    - Pause briefly between topics
-  </Card>
-  <Card title="After the call" icon="list-check">
-    - Review the AI-generated summary
-    - Edit or add context as needed
-    - Verify action items are captured
-    - Share summary with stakeholders
-  </Card>
-  <Card title="Troubleshooting" icon="wrench">
-    - Check platform-specific guides first
-    - Verify all permissions are granted
-    - Review integration settings
-    - Contact support if issues persist
-  </Card>
-</CardGroup>
-
-## All Scribe and incident call articles
-
-- [Scribe and incident calls](/help-centre/scribe-and-incident-calls/scribe-and-incident-calls)
-- [Zoom: diagnosing common issues](/help-centre/scribe-and-incident-calls/zoom-diagnosing-common-issues)
-- [Google Meet: diagnosing common issues](/help-centre/scribe-and-incident-calls/google-meet-diagnosing-common-issues)
-- [Microsoft Teams calls: diagnosing common issues](/help-centre/scribe-and-incident-calls/microsoft-teams-calls-diagnosing-common-issues)
-
-<Note>
-Scribe requires appropriate permissions from your video conferencing platform. Review the platform-specific guides above to ensure proper configuration.
-</Note>
+### Call Not Found
 
 <Warning>
-Call recording and transcription may be subject to legal requirements in your jurisdiction. Ensure you comply with all applicable laws and inform participants when calls are being recorded.
+No call could be found for the given incident, preventing Scribe from joining.
 </Warning>
+
+**Resolution:**
+- Start a new call for the incident
+- Update the call link to an existing call URL
+- Scribe will automatically join the updated call
+
+### Scribe Cannot Join Multiple Calls
+
+**Issue:** Multiple active calls exist for a single incident.
+
+**Resolution:**
+1. End one of the active calls
+2. If the error persists, contact support
+3. Ensure only one call link is active per incident
+
+### Scribe Was Blocked
+
+<Note>
+This error occurs when meeting restrictions prevent Scribe from joining.
+</Note>
+
+**Common Causes:**
+- Google Meet guest restrictions enabled
+- Zoom security settings blocking external participants
+- Meeting host has disabled web client access
+
+**Resolution:**
+- Check your video conferencing platform's guest access settings
+- Ensure web clients are allowed to join meetings
+- Review meeting security configurations
+
+### Scribe Was Removed
+
+**Issue:** The meeting host removed Scribe from the call.
+
+**Resolution:**
+- Add Scribe again from the incident dashboard
+- Communicate with your team about Scribe's role in incidents
+- Configure automatic Scribe joining if available
+
+### Rate Limited
+
+<Info>
+Some providers limit the number of calls that can be created within a specific time period.
+</Info>
+
+**Example:** Zoom may impose a limit of 100 calls per day per user account.
+
+**Resolution:**
+- Consider disabling automatic incident call creation
+- Use a different user account for the integration
+- Spread call creation across multiple authorized users
+
+## Zoom-Specific Issues
+
+### [Zoom: Diagnosing Common Issues](/help-centre/scribe-and-incident-calls/zoom-diagnosing-common-issues)
+
+#### Meeting Not Found
+
+**Cause:** Unable to fetch information about the current call.
+
+**Resolution:**
+- Verify the call URL is correct
+- Ensure the Zoom account used for integration can access the call
+- Check that the meeting exists and is active
+
+#### Host Has Disallowed Web Clients
+
+<Warning>
+The meeting host has forbidden joining from the web, blocking Scribe access.
+</Warning>
+
+**Common Causes:**
+- E2E encryption enabled for the call
+- Zoom account settings restricting web client access
+
+**Resolution:**
+- Disable E2E encryption for incident calls
+- Update Zoom account settings to allow web clients
+- Configure meeting templates with appropriate settings
+
+#### Scribe Not Joining Calls
+
+**Issue:** Scribe is enabled but doesn't join your calls.
+
+**Resolution:**
+1. Re-authenticate the Zoom integration to ensure latest permissions
+2. Verify recording is allowed in your Zoom app settings
+3. Check that all required permissions are granted
+
+#### Missing Transcripts
+
+<Note>
+Scribe relies on Zoom meeting captions to generate transcripts.
+</Note>
+
+**Resolution:**
+1. Enable **Allow Closed Captioning** in **Host Caption Control Settings** during meetings
+2. Navigate to [Zoom settings](https://zoom.us/profile/setting?tab=meeting)
+3. Enable **Automated captions** toggle
+4. For new Zoom installations, ensure shared access permissions are enabled
+
+## Google Meet Issues
+
+### [Google Meet: Diagnosing Common Issues](/help-centre/scribe-and-incident-calls/google-meet-diagnosing-common-issues)
+
+Resolve connection issues, permission errors, and transcription problems specific to Google Meet integration.
+
+**Key Areas:**
+- Calendar permissions for automatic call creation
+- Guest access settings
+- Workspace admin configurations
+- Recording and transcription permissions
+
+## Microsoft Teams Issues
+
+### [Microsoft Teams: Diagnosing Common Issues](/help-centre/scribe-and-incident-calls/microsoft-teams-calls-diagnosing-common-issues)
+
+Troubleshoot Microsoft Teams call integration challenges.
+
+**Common Topics:**
+- Teams meeting policies
+- Guest access configuration
+- Bot permissions
+- Call recording settings
+
+## Managing Scribe Manually
+
+### [Manually Adding and Removing Scribe](/help-centre/manually-adding-and-removing-scribe-from-your-incident-calls)
+
+Learn how to control Scribe's presence in your incident calls:
+
+- Add Scribe to calls after they've started
+- Remove Scribe from sensitive discussions
+- Temporarily disable transcription
+- Re-enable Scribe when needed
+
+## Call Transcription Deep Dive
+
+### [How Does Call Transcription Work?](/help-centre/how-does-call-transcription-work)
+
+Understand the technology and processes behind Scribe's transcription capabilities:
+
+- Real-time speech-to-text processing
+- Accuracy and limitations
+- Data handling and privacy
+- Supported languages and accents
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card icon="check" title="Pre-flight Checks">
+    Test your call integration before critical incidents
+  </Card>
+  <Card icon="users" title="Team Training">
+    Ensure your team understands Scribe's role and capabilities
+  </Card>
+  <Card icon="gear" title="Configure Defaults">
+    Set up automatic call creation and Scribe joining
+  </Card>
+  <Card icon="shield" title="Security Settings">
+    Balance security with accessibility for incident response
+  </Card>
+</CardGroup>
+
+## Integration Setup
+
+Ensure your call integrations are properly configured:
+
+1. **Grant Required Permissions**: Re-authenticate if you see permission errors
+2. **Test Call Creation**: Verify automatic call generation works
+3. **Validate Scribe Access**: Confirm Scribe can join and transcribe
+4. **Configure Meeting Settings**: Adjust host controls and security settings
+
+## Need Help?
+
+If you continue experiencing issues:
+
+- **In-app support**: Contact us through your organization selector
+- **Email**: [help@incident.io](mailto:help@incident.io)
+- **Documentation**: Review platform-specific integration guides
+
+<Info>
+Most call and transcription issues can be resolved by re-authenticating your integration and verifying meeting permissions.
+</Info>

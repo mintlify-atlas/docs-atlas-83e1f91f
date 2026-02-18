@@ -1,424 +1,332 @@
 ---
 title: Post-mortem meetings
-description: Schedule and conduct effective debrief meetings to discuss post-mortems, create follow-ups, and ensure shared understanding across your team
+description: Schedule and run effective debrief meetings to discuss incidents and drive organizational learning
 ---
 
-## Overview
+# Post-mortem meetings
 
-A debrief (also called a post-mortem meeting or retrospective) is a meeting held after an incident has been resolved to discuss what happened, create follow-ups, and learn from the experience. incident.io provides tools to streamline scheduling, inviting the right people, and tracking meeting outcomes.
+Running an incident debrief (also called a post-mortem meeting or retrospective) is often a helpful way to ensure everyone is on the same page. These meetings help you review the post-mortem document, ensure all follow-up tasks are captured, and distill shared learnings.
 
-<Info>
-**Why debriefs matter:** Asynchronous post-mortem documents are valuable, but synchronous discussion ensures shared understanding, surfaces different perspectives, and builds team cohesion.
-</Info>
+incident.io helps you schedule debriefs with the right people automatically, manage calendar logistics, and integrate debrief activities into your post-incident workflow.
 
-## What is a debrief?
+## Why hold debrief meetings
 
-A debrief is typically a Google Calendar event where you:
+While written post-mortems are valuable, synchronous discussion adds important context:
 
-<CardGroup cols={3}>
-  <Card title="Discuss the post-mortem" icon="comments">
-    Walk through the timeline and findings together
-  </Card>
-  <Card title="Create follow-ups" icon="list-check">
-    Identify actions to prevent recurrence
-  </Card>
-  <Card title="Align on learnings" icon="lightbulb">
-    Ensure everyone understands what happened and why
-  </Card>
-</CardGroup>
+**Shared understanding**
+Ensure everyone involved understands what happened and why decisions were made.
 
-### When to hold debriefs
+**Uncover hidden issues**
+Conversation often reveals insights that weren't captured in the timeline or document.
 
-Not every incident requires a synchronous meeting. Consider holding a debrief when:
+**Build psychological safety**
+Reinforce a blameless culture by discussing incidents constructively as a team.
 
-- The incident was high severity (Critical or Major)
-- Multiple teams were involved
-- The root cause is unclear or complex
-- There are opportunities for significant improvements
-- Stakeholders need to be aligned on what happened
+**Capture missing follow-ups**
+Discussion surfaces improvements that might not have been obvious during the incident.
 
-<Tip>
-You can use policies to automatically require debriefs for incidents that meet certain criteria (e.g., Critical severity, high customer impact).
-</Tip>
+**Distribute knowledge**
+Share learnings with team members who weren't directly involved but could benefit from the insights.
 
-## Scheduling debriefs
+## Scheduling a debrief
 
-### From the post-incident flow
-
-If your [post-incident flow](/product-documentation/post-incident/structured-post-incident-process) includes a "Schedule the debrief" task:
-
-1. Navigate to the incident in the dashboard
-2. Find the "Schedule the debrief" task
-3. Click the button to create a Google Calendar event
-4. The event is pre-filled with:
-   - Incident ID in the title
-   - Automatically invited attendees based on your configuration
-   - Link to the incident and post-mortem
-
-### Manual scheduling
-
-From the incident homepage, click **Schedule a debrief** to create a pre-filled Google Calendar event.
-
-### Automatic attachment
-
-With the [Google Calendar integration](/help-centre/api-and-integrations/communication/google-calendar):
-
-1. Create a calendar event with the incident ID (e.g., `INC-108`) in the title or description
-2. incident.io detects the event and posts to the Slack channel
-3. Confirm it's a debrief
-4. Event details are shared with the incident channel
-
-## Configuring debrief invitees
-
-Automate who gets invited to debriefs based on incident attributes.
-
-### Setting up invitees
-
-Navigate to [Settings → Debriefs](https://app.incident.io/~/settings/debriefs) to configure:
+Schedule debriefs directly from the incident homepage.
 
 <Steps>
-  <Step title="Default invitees">
-    By default, active responders are invited. You can edit or remove this.
+  <Step title="Navigate to the incident">
+    Open the incident homepage for the resolved incident.
   </Step>
-  <Step title="Add conditional invitees">
-    Click **Add invitee** to add people or groups with optional conditions
+  
+  <Step title="Click 'Schedule a debrief'">
+    Find the debrief section and click **Schedule a debrief**.
   </Step>
-  <Step title="Configure conditions">
-    Choose when this invitee should be included (e.g., only for Critical incidents)
+  
+  <Step title="Choose scheduling method">
+    Select one of:
+    - **Use a placeholder slot** (Enterprise only)
+    - **Schedule manually** in Google Calendar or Outlook
   </Step>
-  <Step title="Select invitees">
-    Choose from:
-    - Active participants
-    - Observers
-    - Specific incident roles
-    - Custom expressions returning users
-    - Raw email addresses (for group emails)
+  
+  <Step title="Review pre-filled invitees">
+    incident.io automatically adds relevant people based on your configuration. Adjust the invite list if needed.
+  </Step>
+  
+  <Step title="Finalize and save">
+    Set the time and save the calendar event. If you have the calendar integration installed, the event is automatically attached to the incident.
   </Step>
 </Steps>
 
-### Invitee options
+The debrief is now linked to the incident, and all participants know when it's happening.
 
-<Tabs>
-  <Tab title="Incident participants">
-    ### Active responders
-    
-    Everyone who was actively involved in responding to the incident.
-    
-    ### Observers
-    
-    People who followed the incident but weren't actively responding.
-    
-    ### Specific roles
-    
-    People who filled specific incident roles (Incident Lead, Comms Lead, etc.).
-  </Tab>
+## Customizing invitee lists
 
-  <Tab title="Custom expressions">
-    ### Catalog-based invitees
-    
-    Use the catalog to dynamically invite people:
-    
-    ```
-    incident.affectedServices.map(s => s.teamLead)
-    ```
-    
-    This invites the team lead of every affected service.
-    
-    ### Field-based invitees
-    
-    ```
-    incident.customFields.escalationManager
-    ```
-    
-    Invite based on custom field values.
-  </Tab>
+The right people make debriefs effective. incident.io lets you configure sophisticated rules to automatically invite the right participants.
 
-  <Tab title="Group emails">
-    ### Distribution lists
-    
-    Add email addresses that aren't individual users:
-    
-    - `engineering-leads@company.com`
-    - `product-team@company.com`
-    - `executives@company.com`
-    
-    Click **Enter email(s) instead** to add raw email addresses.
-  </Tab>
+### Default invitees
 
-  <Tab title="Conditional invites">
-    ### Severity-based
-    
-    ```
-    Condition: Severity is one of [Critical]
-    Invitees: Executive team
-    ```
-    
-    ### Team-based
-    
-    ```
-    Condition: Affected Services contains [Payments API]
-    Invitees: Finance team stakeholders
-    ```
-    
-    ### Custom field-based
-    
-    ```
-    Condition: Customer Impact = "High"
-    Invitees: Customer success managers
-    ```
-  </Tab>
-</Tabs>
+By default, incident.io invites:
+- Active responders who participated in the incident
+- Users assigned to specific incident roles
 
-### Example invitee configuration
+You can customize this default list in debrief settings.
 
-```yaml
-Default invitees:
-  - Active responders
+### Adding conditional invitees
 
-Conditional invitees:
-  - Team leads of affected services (always)
-  - VP Engineering (if Critical severity)
-  - Customer Success team (if Customer Impact = High)
-  - Security team (if Security-related = Yes)
-  - executives@company.com (if Critical severity)
-```
+Create rules to invite people based on incident attributes:
 
-## Running effective debriefs
+<Steps>
+  <Step title="Navigate to debrief settings">
+    Go to [Settings → Debriefs](https://app.incident.io/~/settings/debriefs).
+  </Step>
+  
+  <Step title="Add an invitee rule">
+    Click **Add invitee** to create a new rule.
+  </Step>
+  
+  <Step title="Set conditions">
+    Define when this invitee should be added. For example:
+    - Only for major incidents
+    - Only when specific services are affected
+    - Only for incidents lasting more than 2 hours
+  </Step>
+  
+  <Step title="Specify who to invite">
+    Choose from:
+    - Specific users
+    - Incident roles (Incident Lead, Communications Lead, etc.)
+    - Custom expressions (e.g., service owners from the catalog)
+    - Raw email addresses (for team emails)
+  </Step>
+</Steps>
+
+### Inviting from the catalog
+
+If you use the incident.io catalog, you can create powerful invitee rules:
+
+**Example:** Invite team leads of all affected services
+- Condition: Incident → Severity is Major or Critical
+- Invitees: Affected Services → Team → Team Lead
+
+This automatically invites the right people based on which services were impacted, without manual tracking.
+
+**Example:** Invite security team for security incidents
+- Condition: Incident → Type is Security
+- Invitees: Security Team (from catalog)
+
+### Raw email addresses
+
+For team or group email addresses that aren't individual users:
+
+1. Click **Add invitee**
+2. Select **Enter email(s) instead**
+3. Type the email address (e.g., `engineering-leads@company.com`)
+
+This is useful for distribution lists or shared inboxes.
+
+## Debrief placeholders (Enterprise)
+
+For teams with busy calendars or distributed timezones, finding a time for debriefs can be challenging. Debrief placeholders pre-reserve time slots for potential debriefs.
+
+### How placeholders work
+
+1. Create recurring placeholder events in your calendar (e.g., every Wednesday at 2pm)
+2. Add the tag `#incident-io-debrief-placeholder` to the event description
+3. When scheduling a debrief, responders see available placeholder slots
+4. Select a slot, and incident.io converts it to a real debrief event
+5. If no incidents need debriefs, everyone gets the time back
+
+### Setting up placeholders
+
+<Steps>
+  <Step title="Subscribe to the calendar">
+    Ensure the calendar that will hold placeholders is subscribed in incident.io. Follow the instructions in the [calendar integration documentation](/help-centre/api-and-integrations/communication/google-calendar).
+  </Step>
+  
+  <Step title="Create a placeholder event">
+    Option A: Create manually in Google Calendar or Outlook:
+    - Make it recurring (weekly, bi-weekly, etc.)
+    - Add `#incident-io-debrief-placeholder` to the description
+    - Invite relevant stakeholders
+    
+    Option B: Use incident.io to create it:
+    - Go to [Settings → Debriefs](https://app.incident.io/settings/debriefs)
+    - Click **Add placeholder**
+    - Click **Create with Google Calendar**
+    - Configure frequency, time, and attendees
+  </Step>
+  
+  <Step title="Verify the placeholder">
+    The placeholder should appear in the Placeholders section of Settings → Debriefs.
+  </Step>
+</Steps>
+
+<Note>
+Placeholders must be recurring events with `#incident-io-debrief-placeholder` in the description. incident.io only shows available slots (ones not already used for a debrief).
+</Note>
+
+### Scheduling outside placeholders
+
+If none of the placeholder slots work, you can still schedule manually by clicking **Schedule manually** when creating the debrief.
+
+## Running an effective debrief
+
+A good debrief meeting follows a structure that encourages learning without blame.
 
 ### Before the meeting
 
-<AccordionGroup>
-  <Accordion title="Prepare the post-mortem" icon="file-lines">
-    Ensure the [post-mortem document](/product-documentation/post-incident/post-mortem-documents) is drafted with:
-    - Complete timeline
-    - Initial analysis of what happened
-    - Areas that need discussion marked
-  </Accordion>
+**Prepare the post-mortem document**
+Ensure the timeline and initial post-mortem draft are ready. Attendees should have a chance to review beforehand.
 
-  <Accordion title="Review the timeline" icon="timeline">
-    Incident Lead should review the [timeline](/product-documentation/post-incident/timeline) and add any missing context or events.
-  </Accordion>
+**Share context**
+Send the post-mortem link and any relevant background to attendees 24 hours in advance.
 
-  <Accordion title="Start discussions early" icon="comments">
-    Use timeline comments to surface questions or ambiguities before the meeting.
-  </Accordion>
-
-  <Accordion title="Set expectations" icon="bullseye">
-    Share the meeting agenda in advance:
-    - Review timeline (15 min)
-    - Discuss root cause (15 min)
-    - Identify follow-ups (15 min)
-    - Review learnings (15 min)
-  </Accordion>
-</AccordionGroup>
+**Set the tone**
+Remind participants that the debrief is blameless and focused on system improvements, not individual actions.
 
 ### During the meeting
 
-<Steps>
-  <Step title="Set the tone">
-    Emphasize blamelessness. The goal is learning, not attribution of fault.
-  </Step>
-  <Step title="Walk through the timeline">
-    Go through events chronologically. Ask clarifying questions and add context.
-  </Step>
-  <Step title="Discuss the why">
-    Move beyond surface-level "what" to deeper "why" - why did the issue occur? Why didn't we detect it sooner? Why did it take X minutes to resolve?
-  </Step>
-  <Step title="Identify systemic issues">
-    Look for patterns and underlying system weaknesses, not just immediate causes.
-  </Step>
-  <Step title="Create actionable follow-ups">
-    Document specific, assignable follow-ups with owners and due dates. Avoid vague action items.
-  </Step>
-  <Step title="Capture learnings">
-    Document what went well and what could be improved for future incidents.
-  </Step>
-</Steps>
+**Review the timeline (10-15 minutes)**
+- Walk through what happened chronologically
+- Clarify any ambiguities or gaps
+- Ensure everyone understands the sequence of events
+
+**Discuss contributing factors (15-20 minutes)**
+- What conditions allowed this incident to occur?
+- What systemic issues contributed?
+- What worked well in the response?
+
+**Identify improvements (15-20 minutes)**
+- What can we change to prevent this incident?
+- How can we improve detection and response?
+- What follow-ups are needed?
+
+**Assign ownership (5-10 minutes)**
+- Ensure every follow-up has an owner
+- Set target completion dates
+- Clarify next steps
 
 ### After the meeting
 
-<CardGroup cols={2}>
-  <Card title="Update the post-mortem" icon="pen-to-square">
-    Incorporate discussion insights into the post-mortem document
-  </Card>
-  <Card title="Mark as complete" icon="circle-check">
-    Mark the post-mortem as complete in incident.io
-  </Card>
-  <Card title="Share learnings" icon="megaphone">
-    Share the completed post-mortem to relevant Slack channels
-  </Card>
-  <Card title="Track follow-ups" icon="list-check">
-    Ensure all follow-ups have owners and are tracked to completion
-  </Card>
-</CardGroup>
+**Update the post-mortem**
+Incorporate insights from the discussion into the written post-mortem.
+
+**Share learnings**
+Post the completed post-mortem to relevant Slack channels or team spaces.
+
+**Track follow-ups**
+Ensure follow-ups are exported to your issue tracker and assigned.
+
+<Info>
+Sharing the post-mortem to Slack automatically completes the "Share the debrief document" task in your post-incident flow.
+</Info>
 
 ## Debrief best practices
 
-<CardGroup cols={2}>
-  <Card title="Hold debriefs promptly" icon="clock">
-    Schedule within 2-3 days while the incident is fresh. Use policies to enforce this.
-  </Card>
-  <Card title="Keep it focused" icon="bullseye">
-    Limit to 45-60 minutes. If more time is needed, schedule a follow-up.
-  </Card>
-  <Card title="Invite the right people" icon="users">
-    Include responders and key stakeholders, but avoid making it too large (5-10 people is ideal).
-  </Card>
-  <Card title="Have a facilitator" icon="user-tie">
-    Designate someone to guide the conversation and keep it on track (often the Incident Lead).
-  </Card>
-  <Card title="Use the Five Whys" icon="question">
-    Ask "why" multiple times to get to root causes, not just symptoms.
-  </Card>
-  <Card title="Celebrate successes" icon="party-horn">
-    Acknowledge what went well and good decisions made under pressure.
-  </Card>
-  <Card title="Make it blameless" icon="handshake">
-    Focus on systems and processes, not individuals. Create psychological safety.
-  </Card>
-  <Card title="Document decisions" icon="file-check">
-    Record key insights and decisions made during the meeting.
-  </Card>
-</CardGroup>
-
-## Removing or rescheduling debriefs
-
-If you've attached a debrief to an incident but need to change it:
-
-1. Go to the incident details page
-2. Find the debrief in the sidebar
-3. Click the overflow menu
-4. Select **Remove debrief** or update the calendar event directly
-
-## Debrief policies
-
-Enforce debrief requirements using [policies](/product-documentation/post-incident/policies-and-slas):
-
-### Example: Major incident debrief policy
-
-<CodeGroup>
-```yaml Policy configuration
-Name: Major incidents require debrief
-Type: Debriefs
-Scope: Severity is one of [Critical, Major]
-Requirement: Debrief is scheduled
-SLA: 3 days after resolution
-```
-
-```yaml Notifications
-Assignee: Incident Lead
-Notify:
-  - On due date
-  - 1 day after due date
-  - Every 2 days thereafter
-```
-</CodeGroup>
-
-### Example: Completed debrief policy
-
-<CodeGroup>
-```yaml Policy configuration
-Name: Debrief must be held
-Type: Debriefs  
-Scope: Debrief is scheduled
-Requirement: Debrief date has passed
-SLA: 7 days after scheduling
-```
-</CodeGroup>
-
-<Tip>
-Combine a "schedule debrief" policy with a "complete debrief" policy to ensure meetings both happen and occur in a timely manner.
-</Tip>
-
-## Debrief facilitation tips
-
-### Creating psychological safety
-
-- Start with a blamelessness reminder
-- Thank participants for their response efforts
-- Model vulnerability by discussing your own uncertainties
-- Redirect blame-focused language to systems-focused language
-
-### Asking good questions
-
 <AccordionGroup>
-  <Accordion title="Discovery questions" icon="magnifying-glass">
-    - "What were you thinking at this point?"
-    - "What information did you have available?"
-    - "What alternatives did you consider?"
+  <Accordion title="Schedule within 3-5 days">
+    Hold the debrief while the incident is still fresh in everyone's memory, but after immediate stress has subsided. 3-5 days after resolution is usually ideal.
   </Accordion>
-
-  <Accordion title="Systems questions" icon="diagram-project">
-    - "Why didn't our monitoring catch this?"
-    - "What made this difficult to diagnose?"
-    - "What would have helped you respond faster?"
+  
+  <Accordion title="Keep it focused">
+    Limit debriefs to 45-60 minutes. Longer meetings lose effectiveness. If you need more time, schedule a follow-up specifically for complex technical deep-dives.
   </Accordion>
-
-  <Accordion title="Prevention questions" icon="shield-halved">
-    - "How can we prevent this class of issue?"
-    - "What would give us earlier warning?"
-    - "What systematic changes would help?"
+  
+  <Accordion title="Facilitate, don't dominate">
+    The incident lead or a designated facilitator should guide the discussion but encourage broad participation. Quieter team members often have valuable insights.
   </Accordion>
-
-  <Accordion title="Learning questions" icon="graduation-cap">
-    - "What surprised you during this incident?"
-    - "What did we handle well?"
-    - "What should we do differently next time?"
+  
+  <Accordion title="Focus on systems, not people">
+    When discussing what went wrong, frame it in terms of system weaknesses rather than individual mistakes. Ask "Why did our system allow this?" not "Why did you do that?"
+  </Accordion>
+  
+  <Accordion title="Celebrate what went right">
+    Always discuss what went well. Recognition reinforces good practices and builds team confidence.
+  </Accordion>
+  
+  <Accordion title="Prioritize follow-ups in the meeting">
+    Don't create an overwhelming list of follow-ups. Identify the 3-5 highest-impact improvements and prioritize those.
+  </Accordion>
+  
+  <Accordion title="Not every incident needs a meeting">
+    Reserve synchronous debriefs for incidents with sufficient complexity or impact. Minor incidents might only need a written post-mortem with asynchronous review.
   </Accordion>
 </AccordionGroup>
 
-### Managing difficult dynamics
+## Calendar integrations
 
-- **Dominating participants:** Thank them, then specifically invite quieter people to share
-- **Getting stuck:** Move on and return later, or take a 5-minute break
-- **Blame language:** Reframe to focus on systems: "What about our system made that choice seem reasonable?"
-- **Scope creep:** Note tangential topics for follow-up, return to agenda
+### Google Calendar
+
+With the Google Calendar integration:
+- Automatically attach debrief events to incidents
+- Sync event details to the incident timeline
+- Update incident status when debriefs are scheduled
+- See debrief placeholders in scheduling
+
+Configure the integration in [Settings → Integrations → Google Calendar](https://app.incident.io/settings/integrations).
+
+### Outlook Calendar
+
+With the Outlook Calendar integration:
+- Same capabilities as Google Calendar
+- Support for Microsoft 365 organizations
+- Placeholder support for Enterprise customers
+
+Configure the integration in [Settings → Integrations → Outlook](https://app.incident.io/settings/integrations).
+
+### Service accounts
+
+For organizations that want to manage calendar events via a service account rather than individual user accounts, incident.io supports:
+- Google service account integration
+- Microsoft service account integration
+
+This ensures calendar functionality continues even when individual users leave or change roles.
 
 ## Integration with post-incident flow
 
-Debrief tasks in your [structured post-incident process](/product-documentation/post-incident/structured-post-incident-process):
+Debrief scheduling integrates with your structured post-incident process:
 
-<Steps>
-  <Step title="Schedule the debrief">
-    Task with button to create calendar event
-  </Step>
-  <Step title="Hold the debrief">
-    Can be marked complete manually or use a policy to verify it occurred
-  </Step>
-  <Step title="Update post-mortem">
-    Incorporate debrief insights
-  </Step>
-  <Step title="Complete follow-ups">
-    Ensure action items from the debrief are tracked
-  </Step>
-</Steps>
+**"Schedule the debrief" task**
+Automatically completed when you schedule a debrief for the incident.
 
-## Asynchronous alternatives
+**Due dates**
+Set due dates for scheduling debriefs (e.g., "within 5 days of resolution for major incidents").
 
-For lower-severity incidents or distributed teams, consider:
+**Reminders**
+(Pro and Enterprise) Automatically remind the incident lead if a debrief hasn't been scheduled within the expected timeframe.
 
-- **Slack-based discussion:** Use timeline comments and Slack threads
-- **Collaborative document editing:** Use commenting in the post-mortem document
-- **Recorded video:** Record a walkthrough and share for async viewing
-- **Written Q&A:** Collect questions async, answer in the document
+**Conditional requirements**
+Require debriefs only for certain incident types (e.g., major incidents, security incidents, customer-impacting incidents).
 
-<Info>
-Asynchronous approaches work well for clear-cut incidents but are less effective when alignment on complex issues is needed.
-</Info>
+Configure post-incident flow tasks in **Settings → Improve → Post-incident flow**.
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="Who should facilitate the debrief?">
+    Typically the Incident Lead or a designated facilitator. The facilitator should be someone who can guide discussion neutrally and ensure all voices are heard. For very complex incidents, consider using someone who wasn't deeply involved in the response.
+  </Accordion>
+  
+  <Accordion title="Should executives attend debriefs?">
+    It depends on your culture. Executive presence can signal the importance of learning, but may also inhibit candid discussion if psychological safety is still developing. Consider having executives review post-mortems asynchronously rather than attending all debriefs.
+  </Accordion>
+  
+  <Accordion title="What if key people can't attend?">
+    If someone critical to understanding the incident can't attend, consider rescheduling. For less critical attendees, record the meeting or take detailed notes and share afterward.
+  </Accordion>
+  
+  <Accordion title="How do I handle disagreement about what happened?">
+    Disagreement is valuable - it often reveals important gaps in understanding. Document multiple perspectives in the post-mortem and use the disagreement to identify areas where better observability or documentation is needed.
+  </Accordion>
+  
+  <Accordion title="Should I record debrief meetings?">
+    Recording can be helpful for absent team members or future reference, but may reduce candor. If you record, be explicit about who has access and ensure participants are comfortable.
+  </Accordion>
+</AccordionGroup>
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Post-mortem documents" href="/product-documentation/post-incident/post-mortem-documents" icon="file-lines">
-    Prepare comprehensive post-mortems before debriefs
-  </Card>
-  <Card title="Timeline" href="/product-documentation/post-incident/timeline" icon="timeline">
-    Use timelines to guide debrief discussions
-  </Card>
-  <Card title="Follow-up actions" href="/product-documentation/post-incident/follow-up-actions" icon="list-check">
-    Create and track action items from debriefs
-  </Card>
-  <Card title="Policies and SLAs" href="/product-documentation/post-incident/policies-and-slas" icon="gavel">
-    Enforce debrief scheduling and completion
-  </Card>
-</CardGroup>
+- [Post-mortem documents](/product-documentation/post-incident/post-mortem-documents) - Prepare the document discussed in debriefs
+- [Structured post-incident process](/product-documentation/post-incident/structured-post-incident-process) - Integrate debriefs into your workflow
+- [Follow-up actions](/product-documentation/post-incident/follow-up-actions) - Track improvements identified in debriefs
+- [Google Calendar integration](/help-centre/api-and-integrations/communication/google-calendar) - Set up calendar integration
+- [Outlook Calendar integration](/help-centre/api-and-integrations/communication/outlook-calendar) - Configure Microsoft calendar support

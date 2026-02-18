@@ -1,5 +1,5 @@
 ---
-title: 'SCIM'
+title: SCIM
 description: 'Automate user provisioning and permission management'
 icon: "shield"
 ---
@@ -10,17 +10,46 @@ Use SCIM to eliminate manual user management, ensure permissions stay synchroniz
 
 Configure SCIM at **Settings → Users → SCIM tab**. Once enabled, your IdP becomes the source of truth for user permissions.
 
+<Info>
+SCIM is available exclusively on the Enterprise plan and requires an identity provider that supports SCIM 2.0.
+</Info>
+
 ## How it works
 
 **Without SCIM**, incident.io automatically creates users when they join incident Slack channels or sign in to the dashboard using Slack or SAML. Users are deactivated when deactivated in Slack. Admins manually assign roles and permissions at **Settings → Users**.
 
 **With SCIM**, users are automatically created when assigned the application in your IdP and deactivated when unassigned. User permissions are automatically managed by your IdP and can no longer be edited in incident.io. Permission changes in your IdP automatically sync to incident.io.
 
+### Key differences
+
+| Capability | Without SCIM | With SCIM |
+|------------|--------------|------------|
+| User creation | Automatic (on Slack/dashboard access) | Automatic (on IdP assignment) |
+| User deactivation | When deactivated in Slack | When unassigned in IdP |
+| Permission management | Manual in incident.io | Automatic via IdP groups |
+| Source of truth | incident.io | Identity Provider |
+
 ## Setting up SCIM
 
 To install SCIM, you need Owner permissions in incident.io (or a custom role with **Manage security settings**), plus admin permissions in your IdP.
 
-Navigate to **Settings → Users → SCIM tab** and click **Install**. Choose your identity provider from the list and follow the setup instructions.
+<Steps>
+  <Step title="Navigate to SCIM settings">
+    Go to **Settings → Users → SCIM tab** and click **Install**.
+  </Step>
+  
+  <Step title="Choose your identity provider">
+    Select your identity provider from the list. Supported providers include Okta, Microsoft Entra, OneLogin, and others.
+  </Step>
+  
+  <Step title="Follow setup instructions">
+    Complete the configuration steps specific to your IdP. You'll receive API credentials to configure in your IdP.
+  </Step>
+  
+  <Step title="Test the connection">
+    Verify that user provisioning is working correctly before rolling out to your entire organization.
+  </Step>
+</Steps>
 
 <Note>
 Not all providers are listed. Contact support if your provider shows as unsupported—we enable providers as we confirm they send appropriate group membership updates.
@@ -39,6 +68,22 @@ Define relationships between IdP groups and incident.io roles. Map only groups r
 Ensure at least one group has Owner permissions and you're a member of that group. Removing yourself from all Owner groups locks you out of SCIM settings. Contact [help@incident.io](mailto:help@incident.io) if this occurs.
 </Warning>
 
+### Creating role mappings
+
+<Steps>
+  <Step title="Identify groups in your IdP">
+    Determine which groups in your IdP should have elevated permissions in incident.io.
+  </Step>
+  
+  <Step title="Map groups to roles">
+    In the SCIM configuration, create mappings between IdP groups and incident.io roles (Admin, Owner, or custom roles).
+  </Step>
+  
+  <Step title="Confirm setup">
+    Review your mappings and confirm. incident.io will begin creating users from SCIM and reassigning permissions to match your group-to-role mappings.
+  </Step>
+</Steps>
+
 After defining mappings, confirm your setup. incident.io will begin creating users from SCIM and reassigning permissions to match your group-to-role mappings.
 
 ## Managing on-call seats
@@ -47,11 +92,19 @@ Automatically assign on-call seats through SCIM groups. In the SCIM configuratio
 
 Once configured, those group members' on-call seats are automatically managed—you cannot manually control them. Adding members to assigned groups grants seats automatically. Members leaving assigned groups retain their seats until manually revoked.
 
+<Info>
+Automatically managing on-call seats ensures that only active on-call engineers consume paid seats, reducing administrative overhead.
+</Info>
+
 ## Existing users
 
 When you install SCIM, incident.io links existing users to SCIM users by email address and updates their permissions according to your group-to-role mappings. Users with elevated roles who aren't in mapped groups will be downgraded.
 
 Users existing in incident.io but not in SCIM retain their current role and appear as "Unlinked" in the user list. To restrict dashboard access to only SCIM users, install SAML linked to the same IdP.
+
+<Warning>
+Review your existing users and role mappings carefully before enabling SCIM. Users not in mapped groups may lose elevated permissions when SCIM is activated.
+</Warning>
 
 ## Permission management
 
@@ -59,10 +112,27 @@ Once SCIM is enabled, it becomes the source of truth for user permissions. You c
 
 When you uninstall SCIM, users remain in their current state with their existing roles. Users are not deactivated.
 
+### Permission updates
+
+Permission changes in your IdP automatically sync to incident.io within minutes. The sync frequency depends on your IdP's configuration:
+- **Okta**: Syncs immediately on group changes
+- **Microsoft Entra**: Syncs every 40 minutes by default
+- **Other providers**: Varies by provider
+
 ## User deactivation
 
 Users deactivated in your IdP but still active in your Slack workspace remain active in incident.io. incident.io treats users as active if they're active in Slack. To prevent this, manage Slack users through the same IdP.
 
+<Note>
+For complete lifecycle management, configure both SCIM for incident.io and your IdP's Slack integration to ensure users are properly deactivated across all systems.
+</Note>
+
 ## SAML integration
 
 SCIM works independently from SAML but can use the same identity provider. See the [SAML documentation](/product-documentation/security/saml-sso) for setup details.
+
+Using SCIM and SAML together provides:
+- Automated user provisioning (SCIM)
+- Secure authentication (SAML)
+- Complete identity lifecycle management
+- Centralized access control

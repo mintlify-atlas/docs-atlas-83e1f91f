@@ -1,5 +1,5 @@
 ---
-title: 'User roles'
+title: User roles
 description: 'Control user access with base roles and custom permissions'
 icon: "shield"
 ---
@@ -9,6 +9,10 @@ User permissions in incident.io are controlled through base roles and custom rol
 Base roles define broad permission levels, while custom roles let you grant specific permissions to individual users or groups. For information on how roles interact with billing, see [Seats](/product-documentation/billing/seats).
 
 Configure roles at **Settings → Users → Roles tab**. Assign roles to users at **Settings → Users → Users tab**.
+
+<Info>
+Roles control what users can configure and manage in incident.io. Seat types (Viewer, Response, On-call) control what actions users can take during incidents.
+</Info>
 
 ## Base roles
 
@@ -37,6 +41,22 @@ Slack workspace admins already have access to all private Slack channels, meanin
 
 Customize base role permissions at **Settings → Users → Roles tab**. Click the edit icon on any base role to modify its permissions. For example, restrict Admin billing access so only Owners can manage billing.
 
+### Customizing base roles
+
+<Steps>
+  <Step title="Navigate to Roles settings">
+    Go to **Settings → Users → Roles tab** to view all base and custom roles.
+  </Step>
+  
+  <Step title="Edit base role">
+    Click the edit icon next to a base role (Standard, Admin, or Owner) to customize its permissions.
+  </Step>
+  
+  <Step title="Adjust permissions">
+    Enable or disable specific permissions for that base role. Changes apply immediately to all users with that role.
+  </Step>
+</Steps>
+
 ## Custom roles
 
 Create custom roles to grant specific permissions to individual users beyond their base role. Custom roles add permissions—they never remove them. Users receive the union of all permissions from their base role plus any custom roles.
@@ -48,12 +68,67 @@ Create custom roles to grant specific permissions to individual users beyond the
 
 Create custom roles at **Settings → Users → Roles tab** by clicking **Add new**. Define the role name, description, and specific permissions to grant.
 
+<Info>
+Custom roles are ideal for granting specific permissions to users without promoting them to Admin or Owner, maintaining the principle of least privilege.
+</Info>
+
+### Creating custom roles
+
+<Steps>
+  <Step title="Navigate to Roles settings">
+    Go to **Settings → Users → Roles tab** and click **Add new**.
+  </Step>
+  
+  <Step title="Define role details">
+    Enter a name and description for the custom role that clearly explains its purpose.
+  </Step>
+  
+  <Step title="Select permissions">
+    Choose which specific permissions this role should grant. You can select from categories like security, billing, workflows, and more.
+  </Step>
+  
+  <Step title="Save and assign">
+    Save the role and assign it to users who need these specific permissions.
+  </Step>
+</Steps>
+
+### Available permissions
+
+Custom roles can grant permissions in these categories:
+- **Security**: Manage SAML/SSO, SCIM, audit logs, view private incidents
+- **Billing**: View and manage billing, seats, and invoices
+- **Configuration**: Manage integrations, API keys, webhooks, catalogs
+- **Incident management**: Manage workflows, announcement rules, status pages
+- **On-call**: Manage schedules, escalation paths, alert routes
+
 ## Managing user permissions
 
 View and edit user permissions at **Settings → Users → Users tab**. Each user shows their current seat type, base role, and custom roles.
 
 To modify a user's permissions, click the edit icon next to their name. Change their base role or add custom roles as needed. Users can have multiple custom roles simultaneously.
 
+<Steps>
+  <Step title="Find the user">
+    Navigate to **Settings → Users → Users tab** and locate the user you want to modify.
+  </Step>
+  
+  <Step title="Edit permissions">
+    Click the edit icon next to their name to open the permissions dialog.
+  </Step>
+  
+  <Step title="Update roles">
+    Change their base role (Standard, Admin, or Owner) and add or remove custom roles as needed.
+  </Step>
+  
+  <Step title="Save changes">
+    Confirm your changes. The user's permissions update immediately.
+  </Step>
+</Steps>
+
 ## Inviting users
 
 Invite new users at **Settings → Users → Users tab** by clicking **Invite user**. Select their base role and any custom roles during invitation. New users receive access according to their assigned roles.
+
+<Note>
+Users are automatically created when they join incident Slack channels or sign in via SAML. Manual invites are useful when you want to pre-configure permissions before a user's first access.
+</Note>

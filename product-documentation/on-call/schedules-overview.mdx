@@ -1,9 +1,9 @@
 ---
 title: Schedules overview
-description: Define who is on-call and when, so alerts can be routed to the right responders.
+description: Define who is on-call and when, so alerts can be routed to the right responders
 ---
 
-Schedules form the foundation of reliable on-call behaviour across incident.io, elimating manual coordination about who responds to alerts at any moment. Once configured, schedules are referenced across [alert routes](/product-documentation/on-call/alert-routing) and [escalation paths](/product-documentation/on-call/escalation-paths), to automatically determine who should be notified and when.
+Schedules form the foundation of reliable on-call behaviour across incident.io, eliminating manual coordination about who responds to alerts at any moment. Once configured, schedules are referenced across [alert routes](/product-documentation/on-call/alert-routing) and [escalation paths](/product-documentation/on-call/escalation-paths), to automatically determine who should be notified and when.
 
 Configure schedules in **On-call → Schedules** to create, edit, and preview coverage.
 
@@ -12,7 +12,7 @@ Configure schedules in **On-call → Schedules** to create, edit, and preview co
 Every schedule is made up of a small set of core components that control who is on-call and when.
 
 | Element | Description | Example |
-|--------|-------------|------|
+|--------|-------------|---------|  
 | **Responders** | Users and teams that can be scheduled on call. | Individual <Badge color="blue">Users</Badge>, one or more <Badge color="purple">Teams</Badge>, or a combination. |
 | **Rotations** | The order responders take turns being on call. | Rotate through responders sequentially. |
 | **Handover time** | The moment responsibility passes to the next responder. | Every Monday at 09:00 (UTC). |
@@ -44,13 +44,13 @@ For more advanced setups, schedules can include multiple rotations to support us
 
 Once a schedule is configured, incident.io uses its rules to determine who is responsible for responding to alerts over time. Schedule behaviour is deterministic and applies consistently across alerting and escalation.
 
-#### Timezone handling
+### Timezone handling
 
 Each schedule uses a defined timezone to calculate handover times.
 
 Rotations advance according to this timezone regardless of where responders are located. Different rotations within the same schedule can use different timezones, supporting follow-the-sun coverage across regions.
 
-#### Resolving on-call responsibility
+### Resolving on-call responsibility
 
 To determine who is on call at a given moment, incident.io evaluates the current time, the configured working hours, the active rotations, and the schedule timezone.
 
@@ -58,28 +58,29 @@ Each rotation resolves to a single on-call responder at any point in time.
 
 When multiple rotations are active simultaneously, all responders from active rotations are considered on-call. Escalation paths and notifications will include all users who have active shifts at that moment across all rotations.
 
-#### Asymmetric rotations
+### Asymmetric rotations
 
 Rotations do not need to use equal shift lengths.
 
 You can configure unequal shift durations, such as a three day shift followed by a four day shift. When the number of shifts matches the number of responders, incident.io balances on-call hours evenly over time, even if individual shifts differ in length.
 
-#### Repeating responders
+### Repeating responders
 
 A responder can appear multiple times within the same rotation.
 
 This increases their on-call frequency relative to others and can be used to weight coverage or model escalation layers. incident.io surfaces a warning when responders are repeated but allows the configuration.
 
 ## Managing schedule changes
+
 Schedules are expected to change over time as teams grow, availability shifts, or coverage requirements evolve. incident.io provides mechanisms to preview changes, apply updates safely in the future, and handle temporary or unexpected adjustments without affecting historical on-call data.
 
-#### Preview changes before saving
+### Preview changes before saving
 
 Preview upcoming handovers before saving schedule changes. Toggle between timeline and calendar views to verify rotation order and coverage.
 
 When editing an existing schedule, the preview shows both the current configuration and proposed changes side by side.
 
-#### Schedule changes for future dates
+### Schedule changes for future dates
 
 Set schedule updates to take effect at a specific future date and time. Until that moment, the schedule continues using its current configuration.
 
@@ -89,11 +90,11 @@ Use scheduled changes when onboarding new responders mid-rotation, adjusting cov
 Rotations advance based on handover time, not the scheduled change effective time. Always verify rotation order using the preview after scheduling changes.
 </Tip>
 
-#### Temporary coverage changes
+### Temporary coverage changes
 
 Use [overrides](/product-documentation/on-call/overrides-and-cover-requests) to replace scheduled responders for defined time windows without modifying rotation configuration. Overrides expire automatically when the window ends.
 
-#### Version history
+### Version history
 
 Restore previous schedule versions from the schedule dropdown menu. Preview the version before restoring it to confirm it matches your needs.
 
@@ -108,6 +109,34 @@ incident.io can sync schedule information to external systems:
 
 Configure syncing from **On-call → Schedules**. Changes to schedules automatically update connected systems.
 
+### Syncing to Google Calendar
+
+Sync your shifts to Google Calendar or Outlook:
+
+<Steps>
+  <Step title="Access sync settings">
+    Navigate to **On-call → Schedules** and select a schedule
+  </Step>
+  <Step title="Click sync schedule">
+    Click **Sync schedule** from the top right
+  </Step>
+  <Step title="Choose sync scope">
+    Choose whether to sync:
+    - **Your shifts only** - Only your on-call shifts appear in your calendar
+    - **All shifts** - All shifts from the schedule appear in your calendar
+  </Step>
+  <Step title="Copy calendar URL">
+    Copy the calendar URL provided
+  </Step>
+  <Step title="Add to calendar app">
+    Add the URL as a subscribed calendar in Google Calendar, Outlook, or your preferred calendar application
+  </Step>
+</Steps>
+
+<Info>
+Schedule syncs show shifts within the next 3 months. This balances visibility with keeping schedules up-to-date.
+</Info>
+
 ## FAQs
 
 <AccordionGroup>
@@ -117,7 +146,7 @@ Configure syncing from **On-call → Schedules**. Changes to schedules automatic
     Review your interval configuration if you expect coverage during that time window.
   </Accordion>
 
-    <Accordion title="How do I change who is on-call temporarily?">
+  <Accordion title="How do I change who is on-call temporarily?">
     Use [overrides](/product-documentation/on-call/overrides-and-cover-requests) to replace scheduled responders for defined time windows. Overrides expire automatically and do not modify the underlying schedule.
   </Accordion>
 
@@ -133,5 +162,18 @@ Configure syncing from **On-call → Schedules**. Changes to schedules automatic
     - Escalations automatically skip deactivated users
 
     Edit the schedule to remove deactivated users and maintain proper coverage.
+  </Accordion>
+
+  <Accordion title="Can I use teams instead of individual users in schedules?">
+    Yes. When you add a team to a schedule, incident.io includes all team members in the rotation. As team membership changes, the schedule automatically reflects those changes.
+  </Accordion>
+
+  <Accordion title="How do follow-the-sun schedules work?">
+    Create multiple rotations within the same schedule, each with different timezones and working hours. For example:
+    - Rotation 1: APAC team, 09:00-17:00 AEST
+    - Rotation 2: EMEA team, 09:00-17:00 GMT
+    - Rotation 3: Americas team, 09:00-17:00 EST
+    
+    All three rotations work together to provide 24/7 coverage during business hours.
   </Accordion>
 </AccordionGroup>

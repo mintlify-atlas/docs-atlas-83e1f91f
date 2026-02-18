@@ -1,276 +1,259 @@
 ---
 title: Compensation calculator and reporting
-description: How to calculate and report on-call compensation
+description: Track on-call hours and generate pay reports for responders
 icon: "/icons/money.svg"
 ---
 
-The compensation calculator tracks on-call hours for each responder, enabling fair compensation for time spent on-call. Export detailed reports for payroll, analyze on-call burden distribution, and ensure equitable coverage across your team.
+The compensation calculator provides a streamlined way to track on-call hours and generate pay reports for responders without managing internal tooling and scripts. Calculate compensation based on configurable rules for different regions, roles, tiers, and time periods.
 
-Access compensation reporting from **On-call → Compensation** in the dashboard.
+Access the pay calculator in **On-call → Pay calculator** (available to On-call customers only).
 
-## Why track on-call compensation
+## Pay configurations
 
-Many organizations compensate responders for on-call time, either through:
+Pay configurations define the rules for calculating on-call compensation. Create one or more configurations depending on your organization's compensation structure.
 
-- **Hourly compensation**: Pay per hour on-call
-- **Stipends**: Fixed payment per shift or week
-- **Time off in lieu**: Compensatory time off for on-call hours
-- **Burden analysis**: Ensure fair distribution without financial compensation
+### Single pay configuration
 
-incident.io's compensation calculator provides the data you need to implement any compensation model.
+Use a single pay configuration when all on-call responders receive the same compensation rates.
 
-## How compensation tracking works
+<Steps>
+  <Step title="Create configuration">
+    Navigate to **On-call → Pay calculator** and click **Configure**
+  </Step>
+  <Step title="Set currency and timezone">
+    Choose the currency for payments and the timezone for time-based calculations
+  </Step>
+  <Step title="Define pay rates">
+    Configure hourly or daily rates for different time periods:
+    - **Standard hours** - Weekday business hours
+    - **Outside standard hours** - Evenings and weekends
+    - **Holidays** - Special rates for holidays
+  </Step>
+  <Step title="Configure holidays">
+    Select which holidays require special compensation rates
+  </Step>
+  <Step title="Save configuration">
+    Save the configuration for use in reports
+  </Step>
+</Steps>
 
-incident.io automatically tracks:
+**Example single configuration:**
+- **Currency:** USD
+- **Timezone:** America/New_York (EST)
+- **Hourly rates:**
+  - Monday-Friday 9:00-17:00: $0/hr (no additional pay during business hours)
+  - All other times: $25/hr
+  - Holidays: $50/hr
 
-- **Scheduled hours**: Time each person was scheduled on-call
-- **Override hours**: Time covering for someone else via overrides
-- **Actual coverage**: Who was on-call accounting for schedule changes
-- **Shift types**: Differentiate weekday vs. weekend vs. overnight
-- **Team and schedule attribution**: Break down hours by team or schedule
+### Multiple pay configurations
+
+Use multiple pay configurations when responders receive different compensation based on location, role, or other factors.
+
+**Common scenarios for multiple configurations:**
+- **Location-based compensation** - Different rates for responders in different countries or regions
+- **Role-based compensation** - Different rates for junior vs. senior engineers
+- **Tier-based compensation** - Different rates for Tier 1 vs. Tier 2 on-call support
+
+<Steps>
+  <Step title="Create multiple configurations">
+    Click **Configure** and create a separate pay configuration for each group (e.g., one for UK team, one for US team)
+  </Step>
+  <Step title="Set up catalog relationships">
+    Create catalog attributes that link users to the appropriate pay configuration:
+    - Create a catalog type (e.g., "Office" with values like "London", "New York", "Melbourne")
+    - Add a relationship from User to Office in your catalog
+    - Link each user to their office location
+  </Step>
+  <Step title="Use expressions in reports">
+    When generating reports, use expressions to map users to their appropriate pay configuration based on catalog relationships
+  </Step>
+</Steps>
+
+**Example multiple configurations setup:**
+
+**UK Configuration:**
+- Currency: GBP
+- Timezone: Europe/London (GMT)
+- Hourly rates: £10/hr outside Monday-Friday 9:00-17:00
+- Holidays: United Kingdom
+
+**US Configuration:**
+- Currency: USD
+- Timezone: America/New_York (EST)
+- Hourly rates: $15/hr outside Monday-Friday 8:00-18:00
+- Holidays: United States
+
+**Australia Configuration:**
+- Currency: AUD
+- Timezone: Australia/Melbourne (AEST)
+- Hourly rates: $10/hr outside Monday-Friday 9:30-17:30
+- Holidays: Australia
 
 <Info>
-Compensation tracking runs automatically. No configuration required.
+See the [detailed walkthrough video](https://www.loom.com/share/05d4d78fdcfa41e9915d3a9d078d8055?sid=0410146b-74fd-4ee7-892a-c745dbb35eec) for setting up location-based compensation.
 </Info>
 
-## View compensation data
+## Generating pay reports
 
-Access compensation reports from **On-call → Compensation**:
+Create pay reports to calculate compensation for a specific time period:
 
-### Date range selection
+<Steps>
+  <Step title="Create new report">
+    Navigate to **On-call → Pay calculator** and click **Create report**
+  </Step>
+  <Step title="Configure settings">
+    - **Name** - Descriptive name for the report (e.g., "January 2026 on-call pay")
+    - **Time range** - Period covered by the report (e.g., past month, specific date range)
+  </Step>
+  <Step title="Select schedules">
+    Choose which schedules should be included in compensation calculations
+  </Step>
+  <Step title="Configure payments">
+    Choose payment approach:
+    - **Same pay rules for everyone** - Select a single pay configuration
+    - **Different pay rules for different groups** - Use expressions to map users to appropriate pay configurations via catalog relationships
+  </Step>
+  <Step title="Verify holidays">
+    Review and adjust holiday dates if needed. You can:
+    - Import public holidays automatically
+    - Add custom company holidays
+    - Remove holidays that don't apply
+  </Step>
+  <Step title="Generate draft">
+    Generate the report in draft state to review calculations before finalizing
+  </Step>
+  <Step title="Review and publish">
+    Review individual user compensation, verify calculations, and publish the report when ready
+  </Step>
+</Steps>
 
-Select the time period for your report:
+### Payment configuration with expressions
 
-- **This week**: Current week's hours
-- **Last week**: Previous week for payroll processing
-- **This month**: Current month's hours
-- **Last month**: Previous month for monthly compensation
-- **Custom range**: Any date range for analysis
-
-### Filter by team or schedule
-
-Narrow results to specific teams or schedules:
-
-- **All teams**: View organization-wide on-call hours
-- **Specific team**: See hours for one team
-- **Specific schedule**: View hours for a single schedule
-
-### Compensation breakdown
-
-The report shows:
-
-| Column | Description |
-|--------|-------------|
-| **Responder** | Person who was on-call |
-| **Total hours** | Total on-call hours in the period |
-| **Scheduled hours** | Hours from regular schedule |
-| **Override hours** | Hours covering for others |
-| **Weekday hours** | On-call hours during weekdays |
-| **Weekend hours** | On-call hours on weekends |
-| **Overnight hours** | On-call hours during nights (configurable) |
-| **Team** | Which team(s) the schedule belongs to |
-
-## Export compensation data
-
-Export detailed compensation data for payroll systems or analysis:
-
-1. Navigate to **On-call → Compensation**
-2. Select your date range and filters
-3. Click **Export** in the top right
-4. Choose format:
-   - **CSV**: Import into spreadsheets or payroll systems
-   - **PDF**: Printable reports for records
-
-### CSV export structure
-
-The CSV export includes:
-
-```csv
-Responder,Email,Team,Schedule,Total Hours,Scheduled Hours,Override Hours,Weekday Hours,Weekend Hours,Overnight Hours
-Alice Johnson,alice@example.com,Platform,Platform Primary,42.0,38.0,4.0,30.0,12.0,8.0
-Bob Smith,bob@example.com,Platform,Platform Primary,38.0,38.0,0.0,38.0,0.0,0.0
-```
-
-Use this data to:
-- Calculate compensation payments
-- Import into payroll systems (Workday, ADP, Gusto)
-- Analyze on-call distribution
-- Audit compensation fairness
-
-## Configure shift types
-
-Customize which hours count as weekday, weekend, or overnight:
-
-1. Navigate to **Settings → On-call → Compensation**
-2. Configure shift type definitions:
-
-### Weekday vs. weekend
-
-Define which days are weekends:
-
-- **Standard**: Saturday and Sunday
-- **Custom**: Choose specific days (e.g., Friday and Saturday for some regions)
-
-### Overnight hours
-
-Define overnight shift hours:
-
-- **Standard**: 10 PM - 8 AM
-- **Custom**: Set specific start and end times
-- **Timezone**: Use schedule timezone or responder timezone
-
-<Tip>
-Different schedules can use different shift type definitions. Configure per-schedule if needed.
-</Tip>
-
-## Compensation models
-
-Common approaches to on-call compensation:
-
-### Hourly rate model
-
-Pay responders per hour on-call:
-
-- **Weekday rate**: $X per hour during business days
-- **Weekend rate**: $Y per hour on weekends (often higher)
-- **Overnight rate**: $Z per hour for night shifts (often higher)
-
-**Example calculation:**
+When using multiple pay configurations, map users to configurations using catalog expressions:
 
 ```
-Alice's weekly compensation:
-- 30 weekday hours × $15/hour = $450
-- 12 weekend hours × $25/hour = $300  
-- 8 overnight hours × $20/hour = $160
-Total: $910
+if User > Office > Name == "London"
+  then UK_Configuration
+else if User > Office > Name == "New York"
+  then US_Configuration  
+else if User > Office > Name == "Melbourne"
+  then Australia_Configuration
+else
+  Default_Configuration
 ```
 
-### Weekly stipend model
+This automatically applies the correct pay configuration based on each user's office location from the catalog.
 
-Pay fixed amount for being primary on-call:
+## Report features
 
-- **Primary on-call**: $X per week regardless of hours
-- **Secondary on-call**: $Y per week (often less)
-- **Override hours**: Additional $Z per hour
+### Deduplication
 
-**Example calculation:**
+When responders are on-call for multiple schedules simultaneously, deduplication prevents double-counting hours:
 
-```
-Bob's weekly compensation:
-- Primary on-call (Mon-Fri): $500
-- 4 override hours: 4 × $25 = $100
-Total: $600
-```
+- **Enabled** (recommended) - Pay only once for overlapping shifts
+- **Disabled** - Pay for each schedule separately (may result in double payment)
 
-### Time off in lieu
+Enable deduplication by selecting **Pay only once for overlapping shifts** when generating reports.
 
-Grant compensatory time off instead of payment:
+### Reusing previous reports
 
-- 1 hour on-call = 0.5 hours time off (50% rate)
-- Weekend/overnight multiplier: 1 hour = 1 hour time off (100% rate)
+Create new reports based on previous ones to save configuration time:
 
-Track accrued time off and deduct when used.
+1. Open an existing report
+2. Click **Create using this report**
+3. Update the time range
+4. Generate the new report (schedules and pay configurations are reused)
 
-### No financial compensation
+This is especially useful for monthly recurring reports where configuration stays consistent.
 
-Use compensation reporting for burden analysis:
+### Export and share
 
-- Identify uneven distribution of on-call hours
-- Ensure fair rotation across team members
-- Spot responders carrying too much load
-- Plan hiring based on on-call burden
+Export reports in various formats for payroll systems or accounting:
+- CSV for spreadsheet import
+- PDF for records and approvals
+- View detailed breakdown by user in the dashboard
+
+## Holidays
+
+Configure holidays that require special compensation rates:
+
+### Import public holidays
+
+Automatically import standard holidays for supported countries:
+- United States
+- United Kingdom
+- Australia
+- And more
+
+Public holidays update automatically based on official holiday calendars.
+
+### Custom holidays
+
+Add company-specific holidays:
+- Company founding day
+- Office closure days
+- Floating holidays
+- Regional holidays not in public calendars
+
+Custom holidays can have the same compensation rate as public holidays or different rates.
 
 ## Best practices
 
-### Run reports weekly
+### Set up configurations before reports
 
-Export compensation data weekly for payroll processing. Most organizations process on-call payments in the regular pay cycle.
+Create and test pay configurations before you need to generate reports. This ensures rates are correct and catalog relationships are properly configured.
 
-### Audit monthly
+### Use catalog for multiple configurations
 
-Review monthly compensation reports to:
+When using multiple pay configurations, always use catalog relationships (Office, Role, etc.) rather than manually mapping users to configurations. This scales better and updates automatically as users change locations or roles.
 
-- Verify fair distribution across responders
-- Identify responders with excessive on-call burden
-- Plan schedule adjustments to balance load
+### Generate draft reports first
 
-### Document your model
+Always generate reports in draft state first. Review calculations, verify hourly totals, and confirm holiday handling before publishing.
 
-Clearly document your compensation policy:
+### Document pay configuration changes
 
-- Hourly rates or stipend amounts
-- Weekend and overnight multipliers
-- How overrides are compensated
-- Time off in lieu accrual rates
+When you update pay configurations, note the effective date and reason. This creates an audit trail for compensation changes.
 
-Share the policy with responders so everyone understands compensation.
+### Review deduplication settings
 
-### Account for overrides
+Ensure deduplication settings match your organization's compensation policy. Most organizations enable deduplication to avoid paying twice for overlapping shifts.
 
-Ensure overrides are compensated fairly:
+### Schedule regular report generation
 
-- Person providing coverage receives compensation
-- Original scheduled person does not
-- Make this clear in your compensation policy
-
-### Track retroactive changes
-
-When creating overrides retroactively, re-run compensation reports for affected periods to ensure accurate payment.
-
-## Integration with payroll systems
-
-Export compensation data to payroll systems:
-
-### Manual CSV import
-
-1. Export compensation CSV from incident.io
-2. Map columns to payroll system fields
-3. Import into payroll system (Workday, ADP, Gusto, BambooHR)
-4. Process payments in regular pay cycle
-
-### Automated integration
-
-Use the incident.io API to automate compensation data export:
-
-```bash
-curl https://api.incident.io/v2/on-call/compensation \
-  -H "Authorization: Bearer YOUR_API_KEY" \
-  -d "start_date=2026-02-01" \
-  -d "end_date=2026-02-07"
-```
-
-See the [API documentation](https://api-docs.incident.io) for full details.
+Generate reports on a consistent schedule (e.g., monthly) to provide predictable compensation timing for responders.
 
 ## FAQs
 
 <AccordionGroup>
-  <Accordion title="Does compensation tracking include time spent responding to incidents?">
-    No. Compensation tracking measures time on-call (available to respond), not active incident response time. Track incident response time separately if needed for additional compensation.
-  </Accordion>
-
-  <Accordion title="How are overlapping schedules handled?">
-    If someone is on-call for multiple schedules simultaneously, hours are counted once per schedule. The compensation report shows separate rows for each schedule.
-    
-    Example: If Alice is on-call for both "Platform Primary" and "Platform Secondary" for 8 hours, the report shows 8 hours for each schedule (16 total hours).
-  </Accordion>
-
-  <Accordion title="What happens if I create an override after running a report?">
-    Re-run the report for the affected time period. incident.io recalculates compensation based on the current schedule configuration, including retroactive overrides.
-  </Accordion>
-
-  <Accordion title="Can I export compensation data for a single person?">
-    Yes. Filter by team or use the search function to find a specific responder, then export. The CSV will include only filtered results.
+  <Accordion title="Can I edit a published report?">
+    No. Once published, reports are immutable to maintain audit trails. If you need to make changes, generate a new report with corrected settings.
   </Accordion>
 
   <Accordion title="How are partial hours calculated?">
-    Hours are calculated precisely, including partial hours. If someone is on-call for 3 hours and 45 minutes, the report shows 3.75 hours.
+    Compensation calculates based on actual minutes on-call, then converts to hours. For example, 30 minutes at $20/hour = $10.
   </Accordion>
 
-  <Accordion title="Does compensation tracking account for different timezones?">
-    Yes. Hours are calculated based on the schedule's configured timezone. Weekday/weekend/overnight classifications use the schedule timezone unless configured otherwise.
+  <Accordion title="What happens with overrides?">
+    Overrides are reflected in compensation reports. The person who covered the shift (not the originally scheduled person) receives compensation for that time.
   </Accordion>
 
-  <Accordion title="Can I customize the CSV export format?">
-    The CSV format is fixed, but you can use the API to retrieve raw data and format it as needed. See the [API documentation](https://api-docs.incident.io) for details.
+  <Accordion title="Can I have different rates for weekdays vs weekends?">
+    Yes. Configure different hourly rates for different time periods when setting up pay configurations. For example:
+    - Monday-Friday 9:00-17:00: $0/hr
+    - Monday-Friday outside 9:00-17:00: $20/hr
+    - Saturday-Sunday: $30/hr
+  </Accordion>
+
+  <Accordion title="How do timezones affect pay calculations?">
+    Pay calculations use the timezone specified in the pay configuration. This determines when "business hours" start and end for rate calculations. Ensure the timezone matches where the responder is located.
+  </Accordion>
+
+  <Accordion title="Can I export reports to payroll systems?">
+    Yes. Export reports as CSV and import into your payroll system. The CSV includes user details, total hours, and total compensation.
+  </Accordion>
+
+  <Accordion title="What if someone is on-call across multiple timezones?">
+    The pay configuration's timezone determines rate calculations. If a responder travels across timezones while on-call, calculations still use the pay configuration's timezone (typically their home timezone).
   </Accordion>
 </AccordionGroup>

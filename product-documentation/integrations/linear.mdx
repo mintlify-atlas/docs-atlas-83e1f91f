@@ -3,17 +3,11 @@ title: Linear
 description: Export and automatically sync your incident actions with Linear
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Linear
 
 Using Linear to track your team's tasks? Using Linear to *triage* your team's tasks?
 
 This is how you can export [your incident to-dos](https://help.incident.io/en/articles/5948204-keeping-track-of-who-s-doing-what) to Linear to keep everything centralized, *and* automatically assign tasks according to your [incident schedules](https://help.incident.io/en/articles/8978989-building-schedules).
-
----
 
 ## What we can do with Linear
 
@@ -23,51 +17,53 @@ If you use [On-call](https://incident.io/on-call) with incident.io, you can comb
 
 ### Exporting follow-ups
 
-1. **Export [your incident follow-ups](https://help.incident.io/en/articles/7172472-follow-ups) to Linear;**
+**1. Export [your incident follow-ups](https://help.incident.io/en/articles/7172472-follow-ups) to Linear**
 
 <img src="/images/integrations/linear/linear-export-followups.png" alt="Export follow-ups to Linear" />
 
-2. **Sync the status of your tasks between Linear and incident.io**, so you can work in Linear without worrying about updating statuses manually in incident.io!
+**2. Sync the status of your tasks between Linear and incident.io**, so you can work in Linear without worrying about updating statuses manually in incident.io!
 
-3. **Bulk Exports through the Follow-ups tab.**
+**3. Bulk Exports through the Follow-ups tab**
 
 <img src="/images/integrations/linear/linear-bulk-export.png" alt="Bulk export follow-ups" />
 
-4. **Export templates,** this enables you to pre-set values to fields that can be used when exporting follow-ups.
+**4. Export templates**, this enables you to pre-set values to fields that can be used when exporting follow-ups.
 
 <img src="/images/integrations/linear/linear-export-templates.png" alt="Export templates" />
 
-5. **Auto-exports to Linear,** you can automate the export process of follow-ups based on certain incident criteria, such as severity, and specific custom fields such as responsible teams
+**5. Auto-exports to Linear**, you can automate the export process of follow-ups based on certain incident criteria, such as severity, and specific custom fields such as responsible teams
 
+<Note>
 ... [get in touch](http://incident.io/community) to give us your wishlist!
-
----
+</Note>
 
 ## Setting Up
 
 Adding Linear to incident.io is simple.
 
-1. **Go to Settings >** [**Integrations**](https://app.incident.io/settings/integrations)
+<Steps>
+  <Step title="Go to Settings > Integrations">
+    Navigate to [Settings > Integrations](https://app.incident.io/settings/integrations) and click `Connect` next to Linear.
 
-Hit `Connect` next to Linear.
+    <img src="/images/integrations/linear/linear-connect.png" alt="Connect Linear integration" />
+  </Step>
 
-<img src="/images/integrations/linear/linear-connect.png" alt="Connect Linear integration" />
+  <Step title="Log into Linear">
+    <Note>
+    We currently only support one single Linear workspace.
+    </Note>
 
-2. **Log into Linear**
+    <img src="/images/integrations/linear/linear-login.png" alt="Log into Linear" />
+  </Step>
 
-<Note>
-We currently only support one single Linear workspace.
-</Note>
+  <Step title="Enable a Triage action for your team on Linear">
+    In `linear.app/settings/teams/your-team/triage`, select `Notify` or `Assign` as a Triage action and click **Use schedule** to pick which incident.io schedule you want to automatically use.
 
-<img src="/images/integrations/linear/linear-login.png" alt="Log into Linear" />
+    <img src="/images/integrations/linear/linear-triage-setup.png" alt="Enable triage action on Linear" />
 
-3. **Enable a Triage action for your team on Linear**
-
-In `linear.app/settings/teams/your-team/triage`, select `Notify` or `Assign` as a Triage action and click **Use schedule** to pick which incident.io schedule you want to automatically use.
-
-<img src="/images/integrations/linear/linear-triage-setup.png" alt="Enable triage action on Linear" />
-
-That's it!
+    That's it!
+  </Step>
+</Steps>
 
 ## FAQ
 

@@ -3,15 +3,9 @@ title: Jira
 description: Export and automatically sync your incident actions with tickets in Jira
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Jira
 
 [incident.io](http://incident.io/) integrates with Jira so you can colocate follow-ups of incidents with your teams' planned work.
-
----
 
 ## What we can do with Jira
 
@@ -23,7 +17,9 @@ With Jira connected to [incident.io](http://incident.io/) you can export follow-
 
 <img src="/images/integrations/jira/jira-export-followups.png" alt="Export follow-ups to Jira" />
 
+<Info>
 You can also configure this to have them **automatically exported** based on attributes of an incident. This ensures that tickets are created in the right Jira projects without incident responders having to think about it.
+</Info>
 
 <img src="/images/integrations/jira/jira-auto-export.png" alt="Auto-export follow-ups to Jira" />
 
@@ -37,9 +33,9 @@ Just like auto-exporting follow-ups, you are also able to configure exactly whic
 
 <img src="/images/integrations/jira/jira-configure-projects.png" alt="Configure Jira projects" />
 
+<Note>
 If an incident has a Jira ticket associated with it, we will mark it as related to any exported follow-ups.
-
----
+</Note>
 
 ## Setting Up
 
@@ -47,13 +43,33 @@ If an incident has a Jira ticket associated with it, we will mark it as related 
 
 Integrate Jira (and Confluence) to incident.io via our Atlassian Marketplace app.
 
-1. Visit our [Atlassian Marketplace listing](https://marketplace.atlassian.com/apps/1233901/incident-io?tab=overview&hosting=cloud)
-2. Click on "**Get it now**" to install our app into your Jira and/or Confluence site
-3. Next, navigate to your Jira/Confluence site and click on "**Apps** > **Manage Apps**"
-4. You should see the incident.io app in this page, click on the row to expand it, then click on the "**Get started**" button
-5. You will be navigated to a page with a "**Link an incident.io organisation**" button. Click on it and you will be navigated to the incident.io dashboard
-6. Within incident.io dashboard, verify the incident.io organisation that you'd like to connected to is correctly selected. Hit the "**Connect**" button
-7. All done!
+<Steps>
+  <Step title="Visit the Atlassian Marketplace">
+    Visit our [Atlassian Marketplace listing](https://marketplace.atlassian.com/apps/1233901/incident-io?tab=overview&hosting=cloud)
+  </Step>
+
+  <Step title="Install the app">
+    Click on "**Get it now**" to install our app into your Jira and/or Confluence site
+  </Step>
+
+  <Step title="Navigate to Manage Apps">
+    Next, navigate to your Jira/Confluence site and click on "**Apps** > **Manage Apps**"
+  </Step>
+
+  <Step title="Get started with incident.io">
+    You should see the incident.io app in this page, click on the row to expand it, then click on the "**Get started**" button
+  </Step>
+
+  <Step title="Link your organisation">
+    You will be navigated to a page with a "**Link an incident.io organisation**" button. Click on it and you will be navigated to the incident.io dashboard
+  </Step>
+
+  <Step title="Connect">
+    Within incident.io dashboard, verify the incident.io organisation that you'd like to connected to is correctly selected. Hit the "**Connect**" button
+
+    All done!
+  </Step>
+</Steps>
 
 If you run into any issues, [get in touch](http://incident.io/community).
 
@@ -63,7 +79,9 @@ Depending on your billing plan, you may be able to enable multiple Jira sites to
 
 You can do this by clicking on the edit button next to the site name in the Jira integration settings page, where you will be able to enable more sites.
 
+<Note>
 If you don't see the desired sites, make sure that you have installed the Atlassian Marketplace app in all sites you'd like to enable.
+</Note>
 
 ## Frequently Asked Questions
 

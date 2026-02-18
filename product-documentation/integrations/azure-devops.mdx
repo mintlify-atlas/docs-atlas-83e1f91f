@@ -3,10 +3,6 @@ title: Azure DevOps
 description: Automatically track your incidents in Azure DevOps by creating and maintaining work items
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Syncing incidents with Azure DevOps
 
 incident.io allows you to automatically track your incidents in Azure DevOps by creating and maintaining "Issue" work items.
@@ -15,10 +11,11 @@ This is helpful if Azure DevOps is your source of truth, and you need everything
 
 Each issue will be updated in real-time with the latest title and description, and comments will be added for each incident update.
 
+<Info>
 You can also use templates and conditions to create different issues in different projects depending on custom fields and incident types within incident.io. For example:
-
 - Create issues in your Security project where Incident Type = Security
 - Create issues in your Engineering project where Incident Type = Production
+</Info>
 
 ## Getting started
 
@@ -52,7 +49,9 @@ Once your template has been configured, use the toggle to 'Create tickets for in
 
 If there are no conditions specified we will use the first template in the list and create a ticket for all new, active incidents.
 
+<Info>
 Conditions can be used to control which template should be used for any given incident. For example, incidents of type "Security" may need to be directed to a security-specific Azure DevOps project.
+</Info>
 
 ## Private incidents
 
@@ -60,4 +59,6 @@ If you wish to create tickets for private incidents, then tick this checkbox.
 
 <img src="/images/integrations/azure-devops/azure-private.png" alt="Screenshot 2025-02-11 at 17.30.10.png" />
 
+<Warning>
 **Note:** Anyone with access to the chosen Azure DevOps project will be able to see these tickets.
+</Warning>

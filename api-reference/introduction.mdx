@@ -1,6 +1,405 @@
 ---
-title: 'Introduction'
-description: 'Our API Docs'
+title: 'API Reference'
+description: 'Complete API documentation for incident.io'
 ---
 
-Our API docs can be found at: https://api-docs.incident.io/
+<Note>
+  The complete, interactive API documentation is available at [api-docs.incident.io](https://api-docs.incident.io/)
+</Note>
+
+## Overview
+
+The incident.io API provides programmatic access to all core functionality of the platform. Use our API to:
+
+- **Declare and manage incidents** - Create, update, and resolve incidents programmatically
+- **Manage on-call schedules** - Configure schedules, rotas, and overrides
+- **Send and route alerts** - Integrate your monitoring tools to trigger incidents
+- **Access catalog data** - Read and write catalog entries, types, and attributes
+- **Trigger workflows** - Automate incident response and communication
+- **Query insights** - Pull metrics and analytics data for reporting
+
+<Card
+  title="View Full API Documentation"
+  icon="book-open"
+  href="https://api-docs.incident.io/"
+>
+  Explore all endpoints, request/response schemas, and interactive examples
+</Card>
+
+## Getting Started
+
+### Authentication
+
+All API requests require authentication using an API key. You can generate API keys from your incident.io dashboard.
+
+<Steps>
+  <Step title="Navigate to Settings">
+    Go to **Settings** > **API keys** in your incident.io dashboard
+  </Step>
+  <Step title="Create a new API key">
+    Click **Create API key** and give it a descriptive name
+  </Step>
+  <Step title="Copy your key">
+    Copy the generated key - you won't be able to see it again
+  </Step>
+  <Step title="Use in requests">
+    Include the key in the `Authorization` header of your requests
+  </Step>
+</Steps>
+
+```bash Example Request
+curl https://api.incident.io/v2/incidents \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+<Warning>
+  Keep your API keys secure. Treat them like passwords and never commit them to version control.
+</Warning>
+
+## API Architecture
+
+### RESTful Design
+
+Our API follows RESTful principles:
+
+- **Resources** are accessed via predictable URLs
+- **HTTP methods** indicate the action (GET, POST, PUT, PATCH, DELETE)
+- **Status codes** communicate success or failure
+- **JSON** is used for request and response bodies
+
+### Versioning
+
+The current API version is `v2`. The version is included in the URL path:
+
+```
+https://api.incident.io/v2/{resource}
+```
+
+<Info>
+  We maintain backward compatibility within major versions. Breaking changes will only be introduced in new major versions with advance notice.
+</Info>
+
+### Rate Limiting
+
+API requests are rate limited to ensure platform stability:
+
+- **Standard tier**: 100 requests per minute
+- **Enterprise tier**: 500 requests per minute
+
+Rate limit information is included in response headers:
+
+```
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 95
+X-RateLimit-Reset: 1609459200
+```
+
+<Accordion title="What happens if I hit the rate limit?">
+  When you exceed the rate limit, you'll receive a `429 Too Many Requests` response. Your application should implement exponential backoff and retry logic. The `X-RateLimit-Reset` header indicates when you can make requests again.
+</Accordion>
+
+## Core Resources
+
+### Incidents
+
+Manage the full incident lifecycle from declaration to closure.
+
+<CardGroup cols={2}>
+  <Card title="Create incidents" icon="plus" href="https://api-docs.incident.io/#tag/Incidents-V2/operation/Incidents_V2_Create">
+    Declare new incidents with custom fields and metadata
+  </Card>
+  <Card title="Update incidents" icon="pen" href="https://api-docs.incident.io/#tag/Incidents-V2/operation/Incidents_V2_Update">
+    Modify incident properties, status, and severity
+  </Card>
+  <Card title="List incidents" icon="list" href="https://api-docs.incident.io/#tag/Incidents-V2/operation/Incidents_V2_List">
+    Query incidents with filtering and pagination
+  </Card>
+  <Card title="Get incident details" icon="file-magnifying-glass" href="https://api-docs.incident.io/#tag/Incidents-V2/operation/Incidents_V2_Show">
+    Retrieve full incident information including timeline
+  </Card>
+</CardGroup>
+
+### Alerts
+
+Ingest alerts from monitoring systems and route them intelligently.
+
+<CardGroup cols={2}>
+  <Card title="Create alerts" icon="bell" href="https://api-docs.incident.io/#tag/Alerts-V2/operation/Alerts_V2_Create">
+    Send alerts from any monitoring system
+  </Card>
+  <Card title="Alert sources" icon="plug" href="https://api-docs.incident.io/#tag/Alert-Sources-V2">
+    Configure integrations and webhooks
+  </Card>
+  <Card title="Alert routes" icon="route" href="https://api-docs.incident.io/#tag/Alert-Routes-V2">
+    Define routing logic and escalation paths
+  </Card>
+  <Card title="Alert events" icon="timeline" href="https://api-docs.incident.io/#tag/Alert-Events-V2">
+    Track alert lifecycle and state changes
+  </Card>
+</CardGroup>
+
+### Catalog
+
+Access your organization's service catalog and metadata.
+
+<CardGroup cols={2}>
+  <Card title="Catalog types" icon="folder" href="https://api-docs.incident.io/#tag/Catalog-V2/operation/Catalog_V2_ListTypes">
+    Manage catalog schemas (Services, Teams, etc.)
+  </Card>
+  <Card title="Catalog entries" icon="file" href="https://api-docs.incident.io/#tag/Catalog-V2/operation/Catalog_V2_ListEntries">
+    Create and update catalog items
+  </Card>
+  <Card title="Relationships" icon="diagram-project" href="https://api-docs.incident.io/#tag/Catalog-V2">
+    Map dependencies between catalog entries
+  </Card>
+  <Card title="Query catalog" icon="magnifying-glass" href="https://api-docs.incident.io/#tag/Catalog-V2">
+    Search and filter catalog data
+  </Card>
+</CardGroup>
+
+### Schedules & On-call
+
+Manage on-call rotations and schedules programmatically.
+
+<CardGroup cols={2}>
+  <Card title="Schedules" icon="calendar" href="https://api-docs.incident.io/#tag/Schedules-V2">
+    Create and manage on-call schedules
+  </Card>
+  <Card title="Overrides" icon="calendar-xmark" href="https://api-docs.incident.io/#tag/Schedule-Overrides-V2">
+    Handle temporary schedule changes
+  </Card>
+  <Card title="Escalations" icon="arrow-up-right-dots" href="https://api-docs.incident.io/#tag/Escalation-Paths-V2">
+    Configure escalation paths and policies
+  </Card>
+  <Card title="Who's on-call" icon="user-clock" href="https://api-docs.incident.io/#tag/Schedules-V2/operation/Schedules_V2_Show">
+    Query current on-call engineers
+  </Card>
+</CardGroup>
+
+## Webhooks
+
+Receive real-time notifications when events occur in incident.io.
+
+### Available Events
+
+<AccordionGroup>
+  <Accordion title="Incident events">
+    - `incident.created` - New incident declared
+    - `incident.updated` - Incident properties changed
+    - `incident.status_updated` - Status changed
+    - `incident.severity_updated` - Severity changed
+    - `incident.resolved` - Incident resolved
+    - `incident.closed` - Incident closed
+  </Accordion>
+  
+  <Accordion title="Alert events">
+    - `alert.created` - New alert received
+    - `alert.grouped` - Alert grouped into incident
+    - `alert.resolved` - Alert marked resolved
+    - `alert.escalated` - Alert escalated
+  </Accordion>
+  
+  <Accordion title="On-call events">
+    - `schedule.user_going_on_call` - User's shift starting soon
+    - `schedule.user_going_off_call` - User's shift ending soon
+    - `escalation.triggered` - Escalation path activated
+  </Accordion>
+  
+  <Accordion title="Follow-up events">
+    - `follow_up.created` - New follow-up action created
+    - `follow_up.completed` - Follow-up marked complete
+    - `follow_up.overdue` - Follow-up is overdue
+  </Accordion>
+</AccordionGroup>
+
+### Webhook Security
+
+All webhook requests include a signature header for verification:
+
+```python
+import hmac
+import hashlib
+
+def verify_webhook(payload, signature, secret):
+    expected = hmac.new(
+        secret.encode(),
+        payload.encode(),
+        hashlib.sha256
+    ).hexdigest()
+    return hmac.compare_digest(expected, signature)
+```
+
+<Info>
+  Configure webhooks in **Settings** > **Webhooks** in your incident.io dashboard.
+</Info>
+
+## SDKs and Libraries
+
+We provide official SDKs to make integration easier:
+
+<CardGroup cols={2}>
+  <Card title="Python SDK" icon="python" href="https://github.com/incident-io/incident-python">
+    pip install incident-io
+  </Card>
+  <Card title="Go SDK" icon="golang" href="https://github.com/incident-io/incident-go">
+    go get github.com/incident-io/incident-go
+  </Card>
+  <Card title="TypeScript SDK" icon="js" href="https://github.com/incident-io/incident-typescript">
+    npm install @incident-io/client
+  </Card>
+  <Card title="Ruby SDK" icon="gem" href="https://github.com/incident-io/incident-ruby">
+    gem install incident-io
+  </Card>
+</CardGroup>
+
+## Common Use Cases
+
+### Integrating Monitoring Tools
+
+```python
+import requests
+
+def send_alert_to_incident(alert_data):
+    response = requests.post(
+        'https://api.incident.io/v2/alerts',
+        headers={
+            'Authorization': 'Bearer YOUR_API_KEY',
+            'Content-Type': 'application/json'
+        },
+        json={
+            'deduplication_key': alert_data['id'],
+            'title': alert_data['message'],
+            'description': alert_data['details'],
+            'status': 'firing',
+            'metadata': alert_data['labels']
+        }
+    )
+    return response.json()
+```
+
+### Creating Incidents from CI/CD
+
+```javascript
+const createIncident = async (deploymentInfo) => {
+  const response = await fetch('https://api.incident.io/v2/incidents', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.INCIDENT_IO_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: `Deployment failed: ${deploymentInfo.service}`,
+      summary: deploymentInfo.error,
+      severity: 'major',
+      mode: 'standard',
+      status: 'triage',
+      custom_fields: {
+        service: deploymentInfo.service,
+        environment: deploymentInfo.environment,
+        commit: deploymentInfo.commit_sha
+      }
+    })
+  });
+  return response.json();
+};
+```
+
+### Querying Incident Metrics
+
+```bash
+# Get all incidents from the last 7 days
+curl "https://api.incident.io/v2/incidents?created_at[gte]=$(date -d '7 days ago' -u +%Y-%m-%dT%H:%M:%SZ)" \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  | jq '.incidents | length'
+```
+
+## Error Handling
+
+The API uses standard HTTP status codes:
+
+| Status Code | Meaning |
+|------------|--------|
+| 200 | Success |
+| 201 | Resource created |
+| 400 | Bad request - check your parameters |
+| 401 | Unauthorized - invalid or missing API key |
+| 403 | Forbidden - you don't have permission |
+| 404 | Not found - resource doesn't exist |
+| 422 | Unprocessable - validation error |
+| 429 | Rate limited - slow down |
+| 500 | Server error - try again later |
+
+### Error Response Format
+
+```json
+{
+  "type": "validation_error",
+  "status": 422,
+  "title": "Validation failed",
+  "errors": [
+    {
+      "field": "severity",
+      "message": "must be one of: minor, major, critical"
+    }
+  ]
+}
+```
+
+<Tip>
+  Always check the `errors` array for detailed validation messages when you receive a 4xx response.
+</Tip>
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use idempotency keys">
+    For POST requests that create resources, include an `Idempotency-Key` header to prevent duplicate creations if you retry requests.
+    
+    ```bash
+    curl -X POST https://api.incident.io/v2/incidents \
+      -H "Authorization: Bearer YOUR_API_KEY" \
+      -H "Idempotency-Key: unique-key-123" \
+      -H "Content-Type: application/json"
+    ```
+  </Accordion>
+  
+  <Accordion title="Implement retry logic">
+    Use exponential backoff when retrying failed requests, especially for 429 and 5xx errors. Most SDKs handle this automatically.
+  </Accordion>
+  
+  <Accordion title="Paginate large result sets">
+    Use pagination parameters (`page_size` and `after`) to fetch large datasets efficiently. Default page size is 25, maximum is 100.
+  </Accordion>
+  
+  <Accordion title="Cache catalog data">
+    Catalog data changes infrequently. Cache it locally and refresh periodically rather than fetching on every request.
+  </Accordion>
+  
+  <Accordion title="Use webhooks for real-time updates">
+    Instead of polling the API for changes, configure webhooks to receive push notifications when events occur.
+  </Accordion>
+</AccordionGroup>
+
+## Support
+
+Need help with the API?
+
+<CardGroup cols={2}>
+  <Card title="Interactive API Docs" icon="book-open" href="https://api-docs.incident.io/">
+    Try endpoints directly in your browser
+  </Card>
+  <Card title="Community Slack" icon="slack" href="https://incident.io/community">
+    Chat with other developers
+  </Card>
+  <Card title="Email Support" icon="envelope" href="mailto:support@incident.io">
+    Get help from our team
+  </Card>
+  <Card title="Status Page" icon="signal" href="https://status.incident.io">
+    Check API health and incidents
+  </Card>
+</CardGroup>
+
+<Note>
+  For detailed endpoint documentation, authentication guides, and interactive examples, visit [api-docs.incident.io](https://api-docs.incident.io/)
+</Note>

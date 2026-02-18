@@ -1,195 +1,215 @@
 ---
 title: Mobile app push notifications
-description: Configure mobile app push notifications
+description: Configure mobile app push notifications for instant alert delivery
 ---
 
-The incident.io mobile app provides push notifications that bypass Do Not Disturb settings, ensuring critical alerts reach on-call responders anywhere, anytime. Push notifications are the fastest and most reliable way to receive escalations.
+The incident.io mobile app provides the richest notification experience for on-call responders, with critical alerts that bypass Do Not Disturb mode, full alert context, and quick actions to acknowledge or resolve alerts.
 
-## Download the mobile app
+## Getting started with the mobile app
 
-Download the incident.io mobile app for iOS or Android:
-
-- **iOS**: Available on the [App Store](https://apps.apple.com/app/incident-io/id1548383270)
-- **Android**: Available on [Google Play](https://play.google.com/store/apps/details?id=io.incident.mobile)
-
-Or scan the QR code at [app.incident.io/qr](https://app.incident.io/qr) to download for your device.
-
-## Set up push notifications
-
-When you first sign into the mobile app, incident.io guides you through notification setup:
+Download the incident.io mobile app for iOS or Android and complete the setup process to enable push notifications.
 
 <Steps>
-  <Step title="Enable push notifications">
-    Allow the app to send notifications when prompted by your device
+  <Step title="Download the app">
+    Download the incident.io mobile app from the App Store (iOS) or Google Play (Android)
   </Step>
-  <Step title="Enable critical notifications">
-    Allow critical alerts to bypass Do Not Disturb and silent modes (iOS only)
+  <Step title="Sign in">
+    Sign in using your Slack account or SAML credentials
   </Step>
-  <Step title="Save contact card">
-    Save the incident.io contact card to your phone to recognize SMS and voice calls
+  <Step title="Complete onboarding">
+    Follow the onboarding flow to configure notifications:
+    - Enable Push Notifications
+    - Enable Critical Notifications
+    - Save the incident.io Contact Card
+    - Verify your phone number
+    - Configure Do Not Disturb bypass
   </Step>
-  <Step title="Verify phone number">
-    Enter and verify your phone number for SMS and voice notifications
-  </Step>
-  <Step title="Configure Do Not Disturb bypass">
-    Set up your phone to allow incident.io notifications during Do Not Disturb
+  <Step title="Test notifications">
+    Use the test feature in the app to verify notifications are working correctly
   </Step>
 </Steps>
 
-Complete all steps to ensure you never miss critical alerts.
+## Critical notifications
 
-## Critical notifications (iOS)
-
-iOS critical notifications override Do Not Disturb, Focus modes, and the mute switch. incident.io uses critical notifications for high-urgency escalations.
-
-**To enable critical notifications on iOS:**
-
-1. Open the incident.io app
-2. Go to **Settings** (gear icon)
-3. Tap **Notifications**
-4. Enable **Critical Alerts**
-5. Grant permission when iOS prompts you
+Critical notifications are a special type of push notification that:
+- **Bypass Do Not Disturb mode** - Alerts reach you even when your phone is silenced
+- **Use distinct sounds** - Unique alert tones help you distinguish on-call notifications from other app notifications
+- **Display prominently** - Critical alerts appear on your lock screen and banner notifications
+- **Repeat if not acknowledged** - Follow escalation rules to ensure you see the notification
 
 <Warning>
-iOS requires explicit permission for critical notifications. Grant this permission to ensure you receive urgent alerts even when your phone is silenced.
+Enable critical notifications during onboarding to ensure you never miss an escalation. This is the most reliable way to receive on-call alerts.
 </Warning>
-
-## Configure Do Not Disturb bypass
-
-### iOS
-
-Allow incident.io notifications to bypass Do Not Disturb and Focus modes:
-
-1. Open iOS **Settings**
-2. Navigate to **Focus**
-3. Select each Focus mode (Do Not Disturb, Sleep, Work, etc.)
-4. Tap **Apps**
-5. Under **Allowed Apps**, add **incident.io**
-6. Repeat for all Focus modes
-
-Additionally, add incident.io phone numbers to your Favorites to ensure voice calls bypass Focus modes.
-
-### Android
-
-Allow incident.io notifications as exceptions to Do Not Disturb:
-
-1. Open Android **Settings**
-2. Navigate to **Notifications** → **Do Not Disturb**
-3. Tap **Apps**
-4. Find and enable **incident.io**
-5. Grant override permissions when prompted
-
-Android may also require configuring notification channels to ensure on-call notifications are set as high priority.
-
-## Notification types
-
-The mobile app sends different notification types based on urgency:
-
-| Notification type | When it's used | Behavior |
-|------------------|----------------|----------|
-| **Critical push** | High-urgency escalations | Bypasses Do Not Disturb, plays custom alert sound, displayed prominently |
-| **Standard push** | Low-urgency escalations, shift reminders | Respects Do Not Disturb settings, uses default notification sound |
-| **Silent push** | Background updates | Updates app data without alerting, no sound or vibration |
-
-## Test notifications
-
-Test your notification setup to verify everything works correctly:
-
-1. Open the incident.io mobile app
-2. Navigate to **Settings** → **Notifications**
-3. Tap **Test notifications**
-4. Select notification types to test
-5. Verify you receive each notification type
-
-<Tip>
-Test notifications with your phone in Do Not Disturb mode to ensure critical alerts bypass silence settings.
-</Tip>
-
-## Mobile app capabilities
-
-Respond to incidents and manage alerts directly from the mobile app:
-
-### Alert management
-- View triggered and resolved alerts
-- Acknowledge escalations
-- Resolve alerts individually or in bulk
-- Attach alerts to incidents
-- View alert timelines and attributes
-
-### Schedule and coverage
-- View your on-call schedule
-- See who else is on-call
-- Create overrides
-- Request cover for shifts
-- Respond to cover requests
-
-### Incident response
-- Join incident channels
-- Update incident status and severity
-- Post timeline updates
-- View incident details and context
-- Escalate to additional responders
 
 ## Notification preferences
 
-Customize notification behavior from **Preferences → On-call notifications**:
+Customize notification behavior in the mobile app or dashboard:
 
-- Configure notification timing (immediate, delayed)
-- Set up multi-level notification rules
-- Choose different strategies for high vs. low urgency
-- Enable shift change reminders
+### Escalation notifications
 
-See [SMS and voice notifications](/product-documentation/on-call/sms-and-voice) for complete notification configuration details.
+Configure how you're notified when alerts are escalated to you:
+- **Immediate push notification** - Receive notification as soon as you're escalated
+- **Progressive notifications** - Set up multiple notification attempts with delays
+- **Notification channels** - Combine mobile app push with SMS and voice for redundancy
 
-## Mobile app settings
+### Shift change reminders
 
-Customize app behavior in **Settings**:
+Stay aware of your on-call schedule with shift change notifications:
+- **Before shift starts** - Reminder before your shift begins (configurable timing)
+- **When shift starts** - Notification when you go on-call
+- **Before shift ends** - Reminder before your shift concludes
 
-### Appearance
-- **Light mode**: Light color scheme
-- **Dark mode**: Dark color scheme
-- **Follow device**: Match your phone's appearance settings
+Configure shift change rules in **Preferences** to ensure you're always prepared for your on-call shifts.
 
-### Notification sounds
-Customize alert sounds for different notification types (iOS only).
+## Mobile app features
 
-### Badge count
-Show unacknowledged escalation count on the app icon.
+The mobile app provides full on-call management capabilities:
 
-## Troubleshooting
+### Alert management
+- View all triggered and resolved alerts
+- Filter alerts by status, priority, or attributes
+- View full alert details including timeline and context
+- Acknowledge or resolve alerts with one tap
+- Bulk resolve multiple related alerts
+- Attach alerts to incidents
+
+### Schedule management
+- View your on-call schedule
+- See all schedules across your organization
+- Create and manage overrides
+- Request cover for shifts
+- Respond to cover requests
+- Sync shifts to your device calendar
+
+### Incident response
+- Declare incidents from alerts
+- Join incident channels
+- View incident details and timeline
+- Post updates to incident channels
+- Complete incident workflows
+
+## Bypassing Do Not Disturb
+
+Ensure critical notifications reach you even when your phone is silenced:
+
+### iOS setup
+
+<Steps>
+  <Step title="Enable Critical Alerts">
+    When prompted during onboarding, allow Critical Alerts for the incident.io app
+  </Step>
+  <Step title="Add to Focus bypass (optional)">
+    In iOS Settings → Focus, allow notifications from incident.io to bypass Focus modes
+  </Step>
+  <Step title="Save contact card">
+    Save the incident.io contact card to allow voice calls to bypass Do Not Disturb
+  </Step>
+</Steps>
+
+### Android setup
+
+<Steps>
+  <Step title="Enable Critical Notifications">
+    When prompted during onboarding, allow Critical Notifications for the incident.io app
+  </Step>
+  <Step title="Disable battery optimization">
+    Disable battery optimization for incident.io to ensure notifications arrive promptly
+  </Step>
+  <Step title="Add to priority contacts">
+    Add incident.io to priority contacts to allow calls through Do Not Disturb
+  </Step>
+</Steps>
+
+<Info>
+The mobile app guides you through these settings during onboarding. You can review and update settings later in the app's settings screen.
+</Info>
+
+## Work profile support (Android)
+
+If you use a work profile on Android, you can install the incident.io app in either your personal or work profile. Both installations work equally well for on-call notifications.
+
+<Tip>
+Install in your personal profile if you want to receive on-call notifications outside work hours without needing your work profile active.
+</Tip>
+
+## App appearance
+
+Customize the mobile app's appearance:
+- **Light mode** - Use light theme
+- **Dark mode** - Use dark theme
+- **Follow device theme** - Match your device's system theme
+
+Change appearance settings in the mobile app's settings screen.
+
+## Testing notifications
+
+After setting up the mobile app and notification preferences:
+
+1. Navigate to the settings screen in the mobile app
+2. Tap **Test notifications**
+3. Verify you receive a test push notification
+4. Confirm critical notification features work (sound, banner, bypassing Do Not Disturb)
+
+<Warning>
+If test notifications don't arrive, check notification permissions in your device settings and ensure the app is allowed to send critical notifications.
+</Warning>
+
+## Best practices
+
+### Complete full onboarding
+
+Don't skip steps during the onboarding flow. Each step ensures critical notifications work reliably:
+- Push notifications provide instant delivery
+- Critical notifications bypass Do Not Disturb
+- Contact card enables voice call bypass
+- Phone verification enables SMS and voice fallback
+
+### Test before your first shift
+
+Test all notification channels before your first on-call shift. Verify:
+- Push notifications arrive promptly
+- Critical notifications bypass Do Not Disturb
+- Sound and vibration work as expected
+- You can acknowledge and resolve alerts from notifications
+
+### Keep the app updated
+
+Regularly update the mobile app to get the latest features, performance improvements, and bug fixes.
+
+### Enable multiple notification channels
+
+Configure both mobile app push notifications and SMS/voice as backup channels. This provides redundancy if one channel fails.
+
+## FAQs
 
 <AccordionGroup>
-  <Accordion title="I'm not receiving push notifications">
-    Check the following:
-    - Notifications are enabled in the app settings
-    - Notifications are allowed in your device's system settings
-    - incident.io is allowed to override Do Not Disturb
-    - Critical notifications are enabled (iOS)
-    - You're signed into the app
-    - Your device has an active internet connection
+  <Accordion title="Why am I not receiving push notifications?">
+    Common issues:
+    - Notification permissions not granted (check device settings)
+    - Critical notifications not enabled (required for bypassing Do Not Disturb)
+    - Battery optimization preventing notifications (disable for incident.io app)
+    - App not running in background (ensure it's not force-closed)
     
-    If issues persist, sign out and sign back in to re-register for notifications.
+    Use the test notification feature to diagnose the issue.
   </Accordion>
 
-  <Accordion title="Critical notifications aren't bypassing Do Not Disturb">
-    **iOS**: Verify critical notifications are enabled in app settings and iOS granted permission. Check that incident.io is allowed in all Focus modes.
-    
-    **Android**: Ensure incident.io has override Do Not Disturb permission and notification channels are set to high priority.
+  <Accordion title="How do I disable critical notifications temporarily?">
+    You can disable critical notifications in your device's app notification settings. However, this means you may miss escalations during Do Not Disturb mode. Consider using overrides or cover requests instead if you need time off from on-call duties.
   </Accordion>
 
-  <Accordion title="How do I acknowledge an escalation from the mobile app?">
-    Tap the notification to open the alert details, then tap **Acknowledge**. You can also acknowledge from the Alerts tab by swiping on an alert and tapping **Acknowledge**.
+  <Accordion title="Can I use the app without enabling critical notifications?">
+    Yes, but you may miss escalations when your phone is in Do Not Disturb mode. Critical notifications are strongly recommended for on-call responders.
   </Accordion>
 
-  <Accordion title="Can I use the mobile app without installing it?">
-    No. Push notifications require the native mobile app. The mobile web browser cannot send push notifications or bypass Do Not Disturb.
+  <Accordion title="Do I need to keep the app open to receive notifications?">
+    No. The app doesn't need to be open or running in the foreground to receive notifications. Push notifications work even when the app is closed, as long as it's installed and notification permissions are granted.
   </Accordion>
 
-  <Accordion title="Does the mobile app work offline?">
-    The app requires an internet connection to receive new alerts and send acknowledgments. Cached data (schedules, recent alerts) remains viewable offline.
+  <Accordion title="Can I customize notification sounds?">
+    Critical notification sounds are controlled by your device's system settings. You can customize notification sounds for the incident.io app in your device's notification settings.
   </Accordion>
 
-  <Accordion title="How do I add multiple accounts?">
-    The mobile app supports switching between multiple incident.io organizations. Sign in with multiple accounts from **Settings → Accounts**.
+  <Accordion title="What happens if I uninstall and reinstall the app?">
+    You'll need to complete the onboarding flow again to re-enable notifications. Your on-call schedule and alert preferences are stored on incident.io's servers, so they'll sync automatically when you sign in.
   </Accordion>
 </AccordionGroup>

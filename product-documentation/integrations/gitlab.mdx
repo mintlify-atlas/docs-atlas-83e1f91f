@@ -3,10 +3,6 @@ title: GitLab
 description: Export and automatically sync your incident follow-ups with GitLab
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # GitLab
 
 ## What our GitLab integration can do
@@ -41,8 +37,6 @@ You can also attach an MR by mentioning the incident number in the MR title or s
 
 <img src="/images/integrations/gitlab/gitlab-attach-mr.png" alt="Attach MR by mentioning incident number" />
 
----
-
 ## Setting Up
 
 Adding GitLab to incident.io is simple.
@@ -51,43 +45,47 @@ Adding GitLab to incident.io is simple.
 You'll need a GitLab top-level group owner to perform some of these steps.
 </Note>
 
-### 1. Create a Service Account user in GitLab
+<Steps>
+  <Step title="Create a Service Account user in GitLab">
+    Follow [GitLab's guide to creating a service account](https://docs.gitlab.com/ee/user/profile/service_accounts.html#create-a-service-account). We recommend using 'incident.io' for the `name`, since this will show up in the UI on issues and comments created by the integration.
 
-Follow [GitLab's guide to creating a service account](https://docs.gitlab.com/ee/user/profile/service_accounts.html#create-a-service-account). We recommend using 'incident.io' for the `name`, since this will show up in the UI on issues and comments created by the integration.
+    <Note>
+    Make sure the bot user has access to create and edit issues, and view and comment on merge requests in all relevant projects.
+    </Note>
 
-<Note>
-Make sure the bot user has access to create and edit issues, and view and comment on merge requests in all relevant projects.
-</Note>
+    We recommend assigning the `Reporter` role to your incident.io service account user.
 
-We recommend assigning the `Reporter` role to your incident.io service account user.
+    See GitLab.com: [Permissions and roles](https://docs.gitlab.com/ee/user/permissions.html)
+  </Step>
 
-See GitLab.com: [Permissions and roles](https://docs.gitlab.com/ee/user/permissions.html)
+  <Step title="Create a personal access token with no expiry">
+    Follow [GitLab's guide here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-service-account-personal-access-token-with-no-expiry-date).
 
-### 2. Create a personal access token with no expiry
+    For **scopes**, pass `api`. For **name** use 'incident.io integration'.
 
-Follow [GitLab's guide here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-service-account-personal-access-token-with-no-expiry-date).
+    Note the token value for the next step!
+  </Step>
 
-For **scopes**, pass `api`. For **name** use 'incident.io integration'.
+  <Step title="Connect the integration">
+    Go to [Settings → Integrations](https://app.incident.io/~/settings/integrations), click on GitLab, then Connect.
 
-Note the token value for the next step!
+    <img src="/images/integrations/gitlab/gitlab-connect.png" alt="Connect GitLab integration" />
 
-### 3. Connect the integration
+    Paste in the access token created in step 2 and click **Connect**. That's it!
 
-Go to [Settings → Integrations](https://app.incident.io/~/settings/integrations), click on GitLab, then Connect.
+    <Warning>
+    For GitLab users to connect with their incident.io accounts, their GitLab public email must:
+    - Match their incident.io user email
+    - Be visible on their GitLab profile
 
-<img src="/images/integrations/gitlab/gitlab-connect.png" alt="Connect GitLab integration" />
+    <img src="/images/integrations/gitlab/gitlab-email-visibility.png" alt="Screenshot 2025-06-09 at 08.45.05.png" />
+    </Warning>
+  </Step>
+</Steps>
 
-Paste in the access token created in step 2 and click **Connect**. That's it!
-
-<Warning>
-For GitLab users to connect with their incident.io accounts, their GitLab public email must:
-- Match their incident.io user email
-- Be visible on their GitLab profile
-
-<img src="/images/integrations/gitlab/gitlab-email-visibility.png" alt="Screenshot 2025-06-09 at 08.45.05.png" />
-</Warning>
-
+<Info>
 If you're using self-managed GitLab, make sure traffic from [our IPs](https://help.incident.io/articles/8242295180-allowlisting-ip-addresses-for-jira-server) can reach your instance.
+</Info>
 
 ### Next up
 

@@ -4,10 +4,6 @@ description: Track incident progress from triage through resolution with customi
 icon: "/icons/refresh1.svg"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Incident lifecycle
 
 Your incidents move through stages that track their progress from detection through resolution. The lifecycle gives your team shared context about where each incident stands, helping everyone understand what's happening and what comes next.
@@ -63,13 +59,23 @@ Define custom metrics as the difference between two timestamps at **Settings** â
 
 incident.io offers four incident modes that serve different purposes:
 
-**Real** - Live incidents when something has gone wrong. Declare these using `/incident` in Slack, from the dashboard, or by turning a Slack message into an incident.
+<CardGroup cols={2}>
+  <Card title="Real" icon="circle-exclamation">
+    Live incidents when something has gone wrong. Declare these using `/incident` in Slack, from the dashboard, or by turning a Slack message into an incident.
+  </Card>
 
-**Test** - For testing new automations and configurations without affecting production systems or metrics. Test incidents aren't announced in your incidents channel and don't appear in Insights. Create them with `/incident test` in Slack or from the dashboard.
+  <Card title="Test" icon="flask">
+    For testing new automations and configurations without affecting production systems or metrics. Test incidents aren't announced in your incidents channel and don't appear in Insights. Create them with `/incident test` in Slack or from the dashboard.
+  </Card>
 
-**Tutorial** - A 5-minute guided walkthrough for learning incident.io. Run it with `/inc tutorial` in any Slack channel. Tutorial incidents don't count as Responder usage for billing.
+  <Card title="Tutorial" icon="graduation-cap">
+    A 5-minute guided walkthrough for learning incident.io. Run it with `/inc tutorial` in any Slack channel. Tutorial incidents don't count as Responder usage for billing.
+  </Card>
 
-**Retrospective** - For recording incidents after they occurred. Create these via the API or from the dashboard. Useful when documenting historical incidents or migrating from another system.
+  <Card title="Retrospective" icon="clock-rotate-left">
+    For recording incidents after they occurred. Create these via the API or from the dashboard. Useful when documenting historical incidents or migrating from another system.
+  </Card>
+</CardGroup>
 
 Test incidents by default only show up when you filter by incident mode in the dashboard.
 
@@ -79,11 +85,13 @@ Pause an incident when you're waiting on a third party, it's outside working hou
 
 Use `/inc pause` in the incident channel to pause an incident. Set when it should resume and add a message explaining why it's paused.
 
+<Info>
 While paused:
 - Announcements and the dashboard clearly show the incident isn't being worked on
 - Workflows configured for active incidents won't run
 - Nudges to the incident channel are suppressed
 - Time spent paused doesn't count toward duration metrics
+</Info>
 
 The incident automatically resumes at the time you specified and returns to its previous status. You can always resume earlier using `/inc update`.
 
@@ -105,6 +113,8 @@ When you merge incidents:
 - All attachments move to the target incident
 - A message in the target incident shows another incident was merged into it
 - The target incident keeps all its existing properties (severity, custom fields, etc.)
+
+## Frequently asked questions
 
 <AccordionGroup>
   <Accordion title="Can I rename an incident?">

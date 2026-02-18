@@ -1,581 +1,565 @@
 ---
 title: Workflows Overview
-description: Automate incident response actions with triggers, conditions, and steps.
+description: Automate incident response with powerful workflows that adapt to your organization's unique processes
 icon: "/icons/workflows.svg"
 ---
 
-Workflows automate actions during incidents and across your incident.io account. When specific events occur - like incidents being created, alerts firing, or messages posted - workflows execute configured steps to handle repetitive tasks automatically.
+## What are workflows?
 
-This frees your team to focus on solving problems rather than following process.
+Workflows allow you to automate actions and behaviors based on specific triggers during incident response. Instead of manually inviting people, posting updates, creating tasks, or escalating issues, workflows handle these repetitive actions automatically - ensuring consistency and speed.
 
-## Why use workflows?
+<iframe src="https://www.loom.com/embed/3a7ea36474bc468abdab045b19d27d06" width="100%" height="400" allowfullscreen></iframe>
 
-**Consistent incident response**
-Ensure every incident follows your established process without relying on humans to remember steps.
+<Info>
+**From manual to automated**
 
-**Faster response**
-Automatically assign roles, page teams, and create actions immediately when incidents occur.
+Without workflows: Every time a critical incident occurs, someone manually pages the on-call engineer, posts to the exec channel, invites stakeholders, and creates follow-up tasks.
 
-**Context-aware automation**
-Use Catalog data and expressions to vary behavior based on incident properties - one workflow handles all scenarios.
-
-**Reduce toil**
-Eliminate manual tasks like posting status updates, creating follow-ups, or notifying stakeholders.
-
-**Enforce standards**
-Guarantee compliance requirements are met, documentation is created, and teams are notified according to policy.
+With workflows: These actions happen automatically and consistently, every time.
+</Info>
 
 ## How workflows work
 
-Every workflow has three components:
-
-### 1. Trigger
-
-The event that starts the workflow. Workflows run when:
-
-**Incident events:**
-- Incident is created or changed
-- Someone joins an incident channel
-- Someone posts a message in an incident channel
-
-**Alert events:**
-- Alert is created or changed
-- Alert route matches
-
-**Schedule events:**
-- Run on a schedule (daily, weekly, custom)
-- Run at a specific time
-
-**Manual triggers:**
-- Run manually from dashboard or Slack command
-- Invoked by another workflow
-
-### 2. Conditions
-
-Optional filters that control when the workflow runs. Even if the trigger fires, the workflow only executes if conditions are met.
-
-Examples:
-- Only for incidents with severity "Critical"
-- Only when "Affected Service" field changes
-- Only during business hours
-- Only for incidents in specific Slack channels
-
-### 3. Steps
-
-Actions the workflow performs when triggered and conditions match.
-
-Common steps:
-- Send messages to Slack channels or users
-- Assign incident roles
-- Create incident actions and follow-ups
-- Create or update incidents
-- Escalate to PagerDuty or Opsgenie
-- Make HTTP requests to external APIs
-- Prompt decision flows
-- Run sub-workflows
-- Wait for time delays or user input
-
-Steps run sequentially. Each step can reference data from previous steps, the trigger event, and your Catalog.
-
-## Common workflow patterns
-
-### Auto-assign incident lead
-
-Assign the on-call engineer for the affected service as incident lead:
-
-```
-Trigger: Incident is created
-
-Conditions:
-- Affected Service is set
-- Incident lead is not assigned
-
-Steps:
-1. Assign role
-   - Role: Incident Lead
-   - User: incident.custom_fields.affected_service.owner.current_oncall
-```
-
-### Post announcements for critical incidents
-
-Notify a status channel when critical incidents are created:
-
-```
-Trigger: Incident is created
-
-Conditions:
-- Severity is "Critical"
-
-Steps:
-1. Send message to Slack channel
-   - Channel: #incidents-status
-   - Message: "🚨 Critical incident: {{incident.name}} - {{incident.summary}}"
-```
-
-### Create follow-up actions automatically
-
-Generate standard post-incident actions:
-
-```
-Trigger: Incident status changed
-
-Conditions:
-- Status changed to "Closed"
-
-Steps:
-1. Create action
-   - Description: "Write post-mortem"
-   - Assignee: incident.incident_lead
-   - Due: 2 days from now
-   
-2. Create action  
-   - Description: "Review metrics and update dashboards"
-   - Assignee: incident.custom_fields.affected_service.owner
-   - Due: 1 week from now
-```
-
-### Route alerts to service owners
-
-Automatically escalate alerts based on affected service:
-
-```
-Trigger: Alert is created
-
-Conditions:
-- Alert service is set
-- Alert priority is "Urgent"
-
-Steps:
-1. Create escalation
-   - Escalation path: alert.service.owner.escalation_path
-   - Message: "Alert: {{alert.title}} - {{alert.service.name}}"
-```
-
-### Prompt decision flows for compliance
-
-Ask if incident requires regulatory notification:
-
-```
-Trigger: Incident is created
-
-Conditions:
-- Severity is "Critical" or "High"
-- Affected Customer is set
-
-Steps:
-1. Prompt decision flow
-   - Flow: "Compliance notification required?"
-   - Prompt user: incident.incident_lead
-```
-
-### Notify customer account managers
-
-Send DMs to account managers when their customers are affected:
-
-```
-Trigger: Incident is created or changed
-
-Conditions:
-- Affected Customers changed
-
-Steps:
-1. Create loop over Affected Customers
-   For each customer:
-   
-   2. Send direct message
-      - User: customer.account_manager
-      - Message: "Incident {{incident.reference}} may be affecting {{customer.name}}"
-```
-
-## Workflow expressions
-
-Expressions let you vary workflow behavior based on conditions and Catalog data. Instead of creating separate workflows for each team or service, use expressions to make one workflow handle all scenarios.
-
-See [Workflow expressions](/product-documentation/workflows/workflow-expressions) for detailed documentation.
-
-**Example: Dynamic escalation based on service**
-
-```
-Expression: Escalation Path
-
-  If: incident.custom_fields.affected_service.owner.name == "Platform Team"
-    Return: lookup_escalation_path("platform-oncall")
-  
-  Else if: incident.custom_fields.affected_service.owner.name == "Product Team"
-    Return: lookup_escalation_path("product-oncall")
-  
-  Else:
-    Return: incident.custom_fields.affected_service.owner.escalation_path
-
-Step: Create escalation
-  Escalation path: expression.escalation_path
-```
-
-Expressions support:
-- If/else conditional logic
-- Catalog relationship traversal
-- String manipulation and formatting
-- Lists and loops
-- Default values when data is missing
-
-## Workflow building blocks
-
-### Variables and data sources
-
-Workflows can access data from multiple sources:
-
-**Incident data**
-- `incident.name`, `incident.severity`, `incident.status`
-- `incident.incident_lead`, `incident.participants`
-- `incident.custom_fields.affected_service`
-
-**Alert data**
-- `alert.title`, `alert.priority`, `alert.status`
-- `alert.service`, `alert.team`
-- `alert.attributes` (custom alert attributes)
-
-**Catalog data**
-- `catalog.services`, `catalog.teams`, `catalog.users`
-- Traverse relationships: `service.owner.escalation_path`
-
-**Workflow step outputs**
-- Previous step results
-- HTTP response data
-- User selections from prompts
-
-### Loops
-
-Repeat steps for each item in a list:
-
-```
-Step: Create loop
-  Loop over: incident.custom_fields.affected_services
-  
-  For each service:
-    Step: Send message
-      Channel: service.owner.slack_channel
-      Message: "Your service {{service.name}} is affected"
-```
-
-Loops work with:
-- Multi-select custom fields
-- Catalog attributes that return lists
-- Expression results that return multiple values
-
-### Delays and waiting
-
-Pause workflow execution:
-
-```
-Step: Wait
-  Duration: 15 minutes
-  
-Step: Send message
-  Channel: #incidents
-  Message: "15 minute update: incident still active"
-```
-
-Use delays for:
-- Scheduled reminders
-- Follow-up checks
-- Grace periods before escalation
-
-### Conditional steps
-
-Run steps only when conditions are met:
-
-```
-Step: If condition
-  If: incident.severity == "Critical"
-  
-  Then:
-    Step: Create escalation
-      Escalation path: executive-oncall
-  
-  Else:
-    Step: Send message
-      Channel: #incidents
-      Message: "Monitor incident progress"
-```
-
-Conditional steps let you branch workflow logic based on data.
-
-### Sub-workflows
-
-Invoke other workflows as steps:
-
-```
-Step: Run workflow
-  Workflow: "Post incident summary"
-  Pass data: incident.id
-```
-
-Use sub-workflows to:
-- Reuse common workflow sequences
-- Organize complex workflows into modules
-- Separate concerns (e.g., customer notifications vs. internal process)
-
-## Creating workflows
+Every workflow has three key components:
 
 <Steps>
-  <Step title="Navigate to Workflows">
-    Go to **Workflows** in your dashboard
+  <Step title="Trigger: What starts the workflow">
+    A trigger is an event that causes the workflow to run. Available triggers:
+    
+    - **Incident created or changed** - When incidents are declared or updated
+    - **Someone joins incident channel** - When a new person enters the channel
+    - **Message posted in incident channel** - When messages are sent
+    - **Custom field changes** - When specific field values are updated
+    - **Severity changes** - When incident severity is modified
+    - **Status changes** - When incident status updates
   </Step>
   
-  <Step title="Create new workflow">
-    Click **Create workflow**
+  <Step title="Conditions: When should it run">
+    Conditions control which incidents or users trigger the workflow. Without conditions, the workflow runs for ALL events.
     
-    Give it a descriptive name that explains what it does:
-    - ✅ "Auto-assign leads for critical incidents"
-    - ❌ "Workflow 1"
+    **Example conditions:**
+    - Only for Critical or High severity incidents
+    - Only when Affected Service is "Payments"
+    - Only for incidents where you're the incident lead
+    - Only for messages containing specific text
+    
+    You can combine multiple conditions with AND/OR logic.
   </Step>
   
-  <Step title="Configure trigger">
-    Select the event that starts this workflow:
-    - Incident created, changed, or status changed
-    - Alert created or changed
-    - Schedule (recurring time-based)
-    - Manual
-  </Step>
-  
-  <Step title="Add conditions (optional)">
-    Filter when the workflow should run:
-    - Click **Add condition**
-    - Choose field to check (severity, status, custom fields)
-    - Set comparison and value
+  <Step title="Steps: What actions to take">
+    Steps are the actions executed when conditions are met. You can add up to 20 steps per workflow.
     
-    Multiple conditions use AND logic - all must be true.
-  </Step>
-  
-  <Step title="Add workflow steps">
-    Click **Add step** and choose action type.
-    
-    Configure each step:
-    - Set required parameters
-    - Use variables from incident, Catalog, or previous steps
-    - Add expressions for dynamic values
-    
-    Steps run in order from top to bottom.
-  </Step>
-  
-  <Step title="Test the workflow">
-    Click **Test** and select a test incident or alert.
-    
-    incident.io runs the workflow steps (but not conditions) against test data.
-    
-    Verify outputs look correct.
-  </Step>
-  
-  <Step title="Save and activate">
-    Click **Save** to store the workflow.
-    
-    Toggle **Active** to enable it for real incidents.
-    
-    Monitor workflow activity in the workflow logs.
+    **Common step types:**
+    - Send message to Slack channel
+    - Send direct message to users
+    - Invite users to incident channel
+    - Escalate to PagerDuty/Opsgenie
+    - Create incident actions or follow-ups
+    - Prompt a Decision Flow
+    - Update custom fields
+    - Send webhooks
+    - Create loops to repeat actions
   </Step>
 </Steps>
 
-## Managing workflows
+## Common workflow patterns
 
-### Workflow versioning
+### Automatic escalation
 
-Every workflow edit creates a new version. Previous versions are archived and can be restored.
+**Scenario:** Page the right on-call engineer based on affected service
 
-View version history:
+```
+Trigger: Incident is created
+Condition: Severity is High or Critical
+Steps:
+  1. Use expression: Affected Service → Owning Team → Escalation Policy
+  2. Escalate to PagerDuty using the escalation policy
+  3. Send DM to incident lead confirming escalation
+```
+
+**Result:** Critical incidents automatically page the correct team's on-call without manual lookup.
+
+### Executive notifications
+
+**Scenario:** Notify leadership of high-severity incidents
+
+```
+Trigger: Incident severity changes
+Condition: New severity is Critical
+Steps:
+  1. Post incident summary to #exec-incidents
+  2. Send DM to VP Engineering
+  3. If Affected Customers includes VIP customers:
+     - Notify CEO
+```
+
+**Result:** Leadership is immediately aware of critical incidents with appropriate context.
+
+### Customer impact management
+
+**Scenario:** Notify account managers when their customers are affected
+
+```
+Trigger: Incident is created or Affected Customers field changes
+Condition: Affected Customers is set
+Steps:
+  1. Create loop over Affected Customers
+  2. For each customer:
+     - Send DM to customer's Account Manager
+     - Include incident details and expected impact
+  3. If customer tier is Enterprise:
+     - Post to #customer-success-escalations
+```
+
+**Result:** Account managers are proactively notified so they can manage customer communications.
+
+### Onboarding and guidance
+
+**Scenario:** Help new incident leads with decision points
+
+```
+Trigger: Someone joins incident channel
+Condition: User is in "New Incident Leads" group
+Steps:
+  1. Send DM with incident lead cheat sheet
+  2. Post reminder about key resources in incident channel
+  3. After 5 minutes:
+     - Prompt decision flow: "Do you need help?"
+```
+
+**Result:** New incident leads get contextual help without asking.
+
+### Automatic follow-ups
+
+**Scenario:** Create standard follow-up tasks based on severity
+
+```
+Trigger: Incident status changes to "Resolved"
+Condition: Severity was High or Critical
+Steps:
+  1. Create follow-up: "Schedule incident review meeting"
+  2. Create follow-up: "Document root cause"
+  3. Create follow-up: "Update runbooks"
+  4. Assign follow-ups to incident lead
+```
+
+**Result:** Important post-incident tasks are never forgotten.
+
+## Using Catalog with workflows
+
+Workflows become dramatically more powerful when combined with [Catalog](/product-documentation/catalog/overview) data:
+
+<Tabs>
+  <Tab title="Expressions">
+    Navigate catalog relationships to derive values:
+    
+    ```
+    Affected Service → Owning Team → Slack Channel
+    ```
+    
+    Use this to post messages to the team's channel automatically.
+    
+    Learn more: [Workflow Expressions](/product-documentation/workflows/workflow-expressions)
+  </Tab>
+  
+  <Tab title="Conditional logic">
+    Make decisions based on catalog attributes:
+    
+    ```
+    If Affected Service → Tier is "Critical Infrastructure"
+      Then escalate to Director
+    Else
+      Escalate to Manager
+    ```
+  </Tab>
+  
+  <Tab title="Loops">
+    Iterate over multi-valued catalog fields:
+    
+    ```
+    For each Team in Affected Teams:
+      - Page the team's escalation policy
+      - Post to the team's Slack channel
+    ```
+    
+    Learn more: [Using loops in workflows](/help-centre/configure-your-account/workflows/using-loops-in-workflows)
+  </Tab>
+</Tabs>
+
+## Building your first workflow
+
+<Steps>
+  <Step title="Navigate to Workflows">
+    Open [Workflows](https://app.incident.io/workflows) in your dashboard
+  </Step>
+  
+  <Step title="Choose a starting point">
+    **Option A: Start from template**
+    - Browse pre-built templates
+    - Click "Start from this template"
+    - Customize to your needs
+    
+    **Option B: Start from scratch**
+    - Click "New workflow"
+    - Choose your trigger
+    - Build from the ground up
+  </Step>
+  
+  <Step title="Configure the trigger">
+    Select what event should start this workflow:
+    - Incident created/changed
+    - User joins channel
+    - Message posted
+    - Field changed
+  </Step>
+  
+  <Step title="Add conditions (optional)">
+    Click "Add condition" to filter when the workflow runs:
+    - Select a field (Severity, Status, Custom Fields)
+    - Choose an operator (is one of, contains, is set)
+    - Pick values
+    
+    Add multiple conditions with AND/OR logic.
+  </Step>
+  
+  <Step title="Add steps">
+    Click "Add a step" to define actions:
+    
+    1. Choose step type (message, escalation, etc.)
+    2. Configure the step:
+       - For messages: write content, select channel
+       - For escalations: select policy
+       - For invites: select users or groups
+    3. Use "Use variable" to insert dynamic values
+    4. Create expressions for advanced logic
+    
+    Drag and drop to reorder steps.
+  </Step>
+  
+  <Step title="Name your workflow">
+    Give it a descriptive name like:
+    - ✅ "Escalate critical payments incidents to on-call"
+    - ❌ "Workflow 1"
+    
+    The name appears in Slack when the workflow posts.
+  </Step>
+  
+  <Step title="Test your workflow">
+    Click "Test" and select a test incident:
+    - Choose an incident that matches your conditions
+    - Select a user if your trigger involves users
+    - Review the test results
+    
+    **Important:** Testing will actually execute steps (send messages, create follow-ups, etc.). Use a test incident!
+  </Step>
+  
+  <Step title="Save and enable">
+    - **"Save as draft"** - Save without enabling (for testing)
+    - **"Save and set live"** - Enable the workflow immediately
+    
+    Once live, the workflow runs automatically for matching events.
+  </Step>
+</Steps>
+
+<Note>
+**Use test incidents**
+
+Create a [test incident](https://app.incident.io) specifically for testing workflows. This prevents accidental messages, pages, or notifications during development.
+</Note>
+
+## Dynamic values and variables
+
+Workflows use dynamic values to personalize actions:
+
+### Built-in variables
+
+Available in any workflow:
+
+- **Incident attributes:** Severity, Status, Incident Lead, Summary, Slack Channel
+- **Custom fields:** Any custom field value
+- **User attributes:** Name, Email, Slack handle (for user-triggered workflows)
+- **Timestamps:** Incident created at, updated at
+
+### Catalog expressions
+
+Navigate catalog relationships:
+
+- `Affected Service → Owning Team`
+- `Affected Customer → Account Manager`
+- `Affected Service → Monitoring Dashboard URL`
+
+See [Workflow Expressions](/product-documentation/workflows/workflow-expressions) for details.
+
+### Conditional expressions
+
+Return different values based on conditions:
+
+```
+If Severity is Critical:
+  Return: #critical-incidents
+Else if Severity is High:
+  Return: #high-incidents
+Else:
+  Return: #all-incidents
+```
+
+## Workflow management
+
+### Viewing workflow runs
+
+Monitor workflow execution:
+
+<Steps>
+  <Step title="Open workflow details">
+    Click the workflow name in the Workflows list
+  </Step>
+  
+  <Step title="Click 'Activity' tab">
+    View the run history with:
+    - When the workflow ran
+    - Which incident triggered it
+    - Whether it succeeded or failed
+    - Error messages (if any)
+  </Step>
+  
+  <Step title="Debug issues">
+    Click individual runs to see:
+    - Step-by-step execution
+    - Values used in each step
+    - Why steps were skipped
+    - Error details
+  </Step>
+</Steps>
+
+### Editing workflows
+
+<Note>
+**You cannot change the trigger**
+
+If you need a different trigger, create a new workflow. All other aspects can be edited.
+</Note>
+
+<Steps>
+  <Step title="Open the workflow">
+    Click the workflow name
+  </Step>
+  
+  <Step title="Make changes">
+    Modify:
+    - Name and description
+    - Conditions
+    - Steps (add, remove, reorder)
+    - Step configuration
+  </Step>
+  
+  <Step title="Test changes">
+    Use the "Test" button to verify modifications
+  </Step>
+  
+  <Step title="Save">
+    Click "Save" - changes apply to future workflow runs immediately
+  </Step>
+</Steps>
+
+### Deleting workflows
+
+<Warning>
+**Deletion is permanent**
+
+Deleted workflows cannot be restored. Consider setting to "Draft" instead if you might need it later.
+</Warning>
+
 1. Open the workflow
-2. Click **Version history**
-3. Preview or restore previous versions
+2. Click the "..." menu
+3. Select "Delete workflow"
+4. Confirm deletion
 
-This lets you safely experiment with workflow changes and roll back if needed.
+## Advanced features
 
-### Workflow logs
+### Loops
 
-See when workflows ran and what they did:
+Repeat steps for each item in a multi-valued field:
 
-1. Go to **Workflows**
-2. Select a workflow
-3. Click **Activity** tab
+```
+Create loop over: Affected Services
+For each service:
+  1. Post to service's Slack channel
+  2. Page service's on-call
+```
 
-Logs show:
-- Trigger events that fired the workflow
-- Whether conditions were met
-- Each step that executed
-- Any errors or failures
-- Step outputs and variables
+Loops automatically "catch up" - if the field changes, the loop runs only for new values.
 
-Use logs to debug workflows that aren't behaving as expected.
+Learn more: [Using loops in workflows](/help-centre/configure-your-account/workflows/using-loops-in-workflows)
 
-### Pausing workflows
+### Decision Flows
 
-Temporarily disable a workflow without deleting it:
+Prompt responders to make decisions:
 
-1. Open the workflow
-2. Toggle **Active** to off
+```
+Step: Prompt decision flow: "Should we engage external comms?"
+Options: Yes / No
 
-Paused workflows won't run even if triggers fire. Re-enable when ready.
+Next workflow (triggered on decision):
+Condition: Decision was "Yes"
+Step: Invite communications team
+```
 
-Useful for:
-- Testing workflow changes safely
-- Temporarily disabling automation during incidents
-- Seasonal workflows that only run at certain times
+### Webhooks
 
-### Workflow permissions
+Integrate with external systems:
 
-Control who can create and edit workflows:
+```
+Step: Send webhook
+URL: https://api.example.com/incidents
+Method: POST
+Body: {
+  "incident_id": "{Incident ID}",
+  "severity": "{Severity}",
+  "affected_service": "{Affected Service}"
+}
+```
 
-1. Go to **Settings → Roles**
-2. Configure workflow permissions per role
+Learn more: [Sending webhooks from workflows](/help-centre/configure-your-account/workflows/sending-a-webhook-from-a-workflow)
 
-Options:
-- View workflows
-- Create workflows
-- Edit workflows
-- Delete workflows
-- Run workflows manually
+### Terraform management
 
-Restrict workflow editing to prevent accidental changes to critical automation.
+Manage workflows as code:
+
+```hcl
+resource "incident_workflow" "escalate_critical" {
+  name = "Escalate critical incidents"
+  trigger = "incident.created"
+  
+  condition {
+    subject = "incident.severity"
+    operation = "one_of"
+    values = ["critical"]
+  }
+  
+  step {
+    type = "escalate_pagerduty"
+    # ... configuration
+  }
+}
+```
+
+Learn more: [Managing workflows in Terraform](/help-centre/configure-your-account/workflows/managing-workflows-in-terraform)
 
 ## Best practices
 
-### Start simple, iterate
-
-Begin with straightforward workflows:
-- One trigger
-- Simple conditions
-- A few steps
-
-Test and validate before adding complexity. It's easier to debug simple workflows.
-
-### Use descriptive names
-
-Name workflows clearly:
-- ✅ "Page service owner when critical alert fires"
-- ❌ "Workflow 3"
-
-Good names help teams understand automation at a glance.
-
-### Handle missing data
-
-Not all incidents have all data. Use expressions with defaults:
-
-```
-Escalation path: incident.service.owner.escalation_path | default: "general-oncall"
-```
-
-This prevents workflows from failing when Catalog data is incomplete.
-
-### Avoid over-automation
-
-Don't automate everything. Preserve human judgment for:
-- Complex decisions
-- Sensitive communications
-- High-stakes actions
-
-Workflows should reduce toil, not remove thinking.
-
-### Test with real data
-
-Use the workflow test feature with actual incidents from your environment. This reveals edge cases that mock data misses.
-
-### Document complex workflows
-
-Add comments in workflow descriptions explaining:
-- Why the workflow exists
-- What it's trying to accomplish
-- Any gotchas or edge cases
-- Who to contact with questions
-
-This helps future maintainers understand intent.
-
-### Monitor workflow performance
-
-Regularly check workflow logs for:
-- Frequent failures
-- Steps that time out
-- Workflows that no longer trigger
-
-Proactively fix issues before they impact incidents.
-
-## Frequently asked questions
-
 <AccordionGroup>
-  <Accordion title="Can workflows run on private incidents?">
-    By default, workflows don't run on private incidents to prevent bypassing membership protections.
-
-    Account owners can enable workflows on private incidents at **Settings → Advanced → Run workflows on private incidents**.
-
-    Only account owners can configure this, and they're responsible for ensuring workflows don't expose more of the incident than intended.
-  </Accordion>
-
-  <Accordion title="What happens if a workflow step fails?">
-    If a step fails, incident.io stops executing subsequent steps in that workflow run.
-
-    The failure is logged in the workflow activity log with error details.
-
-    Common causes:
-    - Expression returns no value and step requires it
-    - Network error calling external API
-    - Invalid user or channel reference
-    - Permissions issues
-
-    Fix the issue and the workflow will run correctly on future triggers.
-  </Accordion>
-
-  <Accordion title="Can workflows trigger other workflows?">
-    Yes, in two ways:
-
-    1. **Indirectly** - A workflow creates or updates an incident, which triggers other workflows watching for those events
+  <Accordion title="Start simple, iterate" icon="seedling">
+    Begin with one high-value workflow:
+    - Critical incident escalation
+    - Executive notifications
+    - Customer impact alerts
     
-    2. **Directly** - Use the "Run workflow" step to invoke another workflow as a sub-workflow
-
-    Be careful of infinite loops - workflow A triggers B, which triggers A again.
+    Perfect it, measure impact, then add more.
   </Accordion>
-
-  <Accordion title="How do I prevent a workflow from running multiple times?">
-    Use conditions to check if the action already happened:
-
-    ```
-    Condition: Incident lead is not assigned
-    Step: Assign incident lead
-    ```
-
-    This prevents re-assigning the lead if the workflow runs multiple times.
-
-    For message posting, use "changed" triggers:
-    ```
-    Trigger: Incident is created or changed
-    Condition: Affected Service changed
-    ```
-
-    This only runs when the field actually changes, not on every incident update.
+  
+  <Accordion title="Use descriptive names" icon="tag">
+    Good names explain:
+    - **When** it runs: "On critical incident creation..."
+    - **What** it does: "...escalate to engineering on-call"
+    
+    Bad names: "Workflow 1", "Test", "New Workflow"
   </Accordion>
-
-  <Accordion title="Can I use workflows to integrate with external systems?">
-    Yes. Use the HTTP Request step to:
-    - Call webhooks
-    - Update records in external systems
-    - Fetch data from APIs
-    - Trigger automations in other tools
-
-    Example: Create Jira ticket when incident closes.
-    Example: Post incident summary to internal dashboard.
-    Example: Trigger deployment rollback via CI/CD API.
+  
+  <Accordion title="Test thoroughly" icon="vial">
+    Before setting live:
+    - Test with realistic incidents
+    - Verify messages format correctly
+    - Check that expressions return expected values
+    - Confirm correct people are notified
+    - Test edge cases (empty fields, multiple values)
+  </Accordion>
+  
+  <Accordion title="Monitor workflow runs" icon="chart-line">
+    Regularly review:
+    - Are workflows running when expected?
+    - Are there failures or errors?
+    - Are steps being skipped unexpectedly?
+    - Is the workflow still relevant?
+  </Accordion>
+  
+  <Accordion title="Avoid notification fatigue" icon="bell-slash">
+    Be judicious with messages and escalations:
+    - Use conditions to target appropriately
+    - Don't duplicate information
+    - Consolidate multiple notifications
+    - Provide opt-out mechanisms for sensitive incidents
+  </Accordion>
+  
+  <Accordion title="Document complex workflows" icon="book">
+    For workflows with intricate logic:
+    - Add comments explaining why decisions were made
+    - Document expected behavior
+    - Note any quirks or edge cases
+    - Keep runbooks for troubleshooting
+  </Accordion>
+  
+  <Accordion title="Use templates wisely" icon="clone">
+    Templates provide great starting points but:
+    - Customize to your organization
+    - Remove unnecessary steps
+    - Adjust conditions to your severity levels
+    - Update placeholder text and channels
   </Accordion>
 </AccordionGroup>
 
-## What's next?
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Workflow not running" icon="play-slash">
+    **Check:**
+    - Is the workflow set to "Live" (not "Draft")?
+    - Do the conditions match the incident?
+    - Is the trigger configured correctly?
+    - Look at Activity tab for "Skipped" runs
+  </Accordion>
+  
+  <Accordion title="Step failing" icon="triangle-exclamation">
+    **Check:**
+    - Are all required fields populated?
+    - Are expressions returning valid values?
+    - Do integrations (PagerDuty, etc.) have correct credentials?
+    - Look at error message in Activity tab
+  </Accordion>
+  
+  <Accordion title="Expression returning nothing" icon="empty-set">
+    **Check:**
+    - Is the source field set on the incident?
+    - Does the catalog relationship exist?
+    - Is the target attribute populated?
+    - Navigate the expression path manually in Catalog
+  </Accordion>
+  
+  <Accordion title="Too many workflow runs" icon="bolt">
+    **Cause:** Workflow triggers on "changed" and field updates frequently
+    
+    **Solution:**
+    - Make conditions more specific
+    - Use "once per incident" trigger option
+    - Check for loops (workflow updates field that triggers itself)
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Workflow expressions" icon="code" href="/product-documentation/workflows/workflow-expressions">
-    Use conditional logic in workflows
+  <Card title="Workflow Expressions" icon="code" href="/product-documentation/workflows/workflow-expressions">
+    Learn how to use conditional logic and catalog navigation
   </Card>
-  <Card title="Catalog overview" icon="book" href="/product-documentation/catalog/overview">
-    Understand data available in workflows
+  
+  <Card title="Catalog Overview" icon="book" href="/product-documentation/catalog/overview">
+    Understand catalog data that powers workflows
   </Card>
-  <Card title="Automated workflows" icon="wand-magic-sparkles" href="/product-documentation/incident-response/automated-workflows">
-    Incident-specific workflow patterns
+  
+  <Card title="Using Loops" icon="repeat" href="/help-centre/configure-your-account/workflows/using-loops-in-workflows">
+    Repeat workflow steps for multiple values
   </Card>
-  <Card title="Custom fields" icon="pencil" href="/product-documentation/catalog/custom-fields">
-    Add data to power workflows
+  
+  <Card title="Workflow Templates" icon="clone" href="https://app.incident.io/workflows">
+    Browse pre-built workflows to get started quickly
   </Card>
 </CardGroup>

@@ -3,57 +3,61 @@ title: "Zoom"
 description: "Automatically generate and surface individual call URLs when incidents are declared"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Zoom
 
 Having responders create a Zoom meeting whenever they start an incident is best practice, but it's also easily forgotten and not very scalable...
 
 We can take on that work for you! We'll **automatically generate and surface an individual call URL when an incident is declared**, so you have a dedicated 'war room' for every incident.
 
----
-
-# Installation
+## Installation
 
 You can add Zoom to incident.io and configure auto create in just a few clicks.
 
-### 1. Go to [Settings → Integrations](https://app.incident.io/settings/integrations)
+<Steps>
+  <Step title="Go to Settings → Integrations">
+    Navigate to [Settings → Integrations](https://app.incident.io/settings/integrations)
+  </Step>
 
-### 2. Click 'Connect' on the Zoom Integration
+  <Step title="Connect Zoom">
+    Click 'Connect' on the Zoom Integration
 
-<img src="/images/integrations/zoom/connect-zoom.png" alt="Zoom integration connect button" />
+    <img src="/images/integrations/zoom/connect-zoom.png" alt="Zoom integration connect button" />
+  </Step>
 
-### 3. Log in using a service account
+  <Step title="Log in using a service account">
+    Clicking 'Connect' will take you to the Zoom Marketplace, where you'll be asked to sign-in and install the app by accepting the permissions.
 
-Clicking 'Connect' will take you to the Zoom Marketplace, where you'll be asked to sign-in and install the app by accepting the permissions.
+    To access our full range of incident calls features, you'll need to install with an account that has role permissions to view users, and check the box "Allow this app to use my shared access permissions".
 
-To access our full range of incident calls features, you'll need to install with an account that has role permissions to view users, and check the box "Allow this app to use my shared access permissions".
+    <Warning>
+    Make sure to create/sign-in with a **[service account](https://help.incident.io/en/articles/5963467-which-zoom-account-should-we-use-for-incident-io)**!
+    </Warning>
 
-Make sure to create/sign-in with a **[service account](https://help.incident.io/en/articles/5963467-which-zoom-account-should-we-use-for-incident-io)**!
+    On the following screen you will be able to see which permissions our app requests.
 
-On the following screen you will be able to see which permissions our app requests.
+    <img src="/images/integrations/zoom/zoom-permissions.png" alt="Zoom permissions screen" />
 
-<img src="/images/integrations/zoom/zoom-permissions.png" alt="Zoom permissions screen" />
+    <Note>
+    Be sure to tick the option to allow shared access permissions at the bottom.
 
-Be sure to tick the option to allow shared access permissions at the bottom.
+    Without this, features such as Scribe will not work correctly and we will not be able to call participant information to display which users are currently on the call.
+    </Note>
 
-Without this, features such as Scribe will not work correctly and we will not be able to call participant information to display which users are currently on the call.
+    After authorising the app, you'll be redirected back to the integrations page where Zoom should show as connected.
+  </Step>
 
-After authorising the app, you'll be redirected back to the integrations page where Zoom should show as connected.
+  <Step title="Enable auto create">
+    With Zoom installed, you can now configure it to automatically create video calls for your incidents.
 
-### 4. Enable auto create
+    <img src="/images/integrations/zoom/enable-auto-create.png" alt="Enable auto create for Zoom" />
+  </Step>
 
-With Zoom installed, you can now configure it to automatically create video calls for your incidents.
+  <Step title="All set!">
+    You're good to go.
+  </Step>
+</Steps>
 
-<img src="/images/integrations/zoom/enable-auto-create.png" alt="Enable auto create for Zoom" />
-
-### 5. All set!
-
-You're good to go.
-
-# Automatically creating calls
+## Automatically creating calls
 
 With this configuration applied, incident.io will create a Zoom meeting whenever an incident is declared.
 
@@ -62,7 +66,7 @@ With this configuration applied, incident.io will create a Zoom meeting whenever
 
 If you need help with this, [get in touch](http://incident.io/community)!
 
-# Permissions
+## Permissions
 
 Installing Zoom will authorise incident.io to:
 
@@ -73,15 +77,13 @@ Installing Zoom will authorise incident.io to:
 
 Additionally, ensure that your settings in the Zoom workspace allows users to request local recordings, this will allow Scribe to starting transcribing the call.
 
-# Connecting multiple accounts
+## Connecting multiple accounts
 
 Zoom allows only a single access token per app, per user. This means that once you connect incident.io to Zoom, any previously issued access token for that app and user is invalidated. This means that if (for example) you have a production account connected to to Zoom, and you then connect the same Zoom user to your sandbox account, that the production account will be disconnected from Zoom.
 
 This behaviour from Zoom aligns with OAuth 2.0 best practices to ensure secure access control and prevent simultaneous sessions with multiple tokens.
 
----
-
-# FAQs
+## FAQs
 
 <AccordionGroup>
   <Accordion title="Which Zoom account should we use for incident.io?">

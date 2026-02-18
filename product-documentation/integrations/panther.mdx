@@ -9,40 +9,60 @@ This article provides step by step instructions for setting up Panther as an ale
 
 ## Instructions
 
-1. Head over to the [Alerts](https://app.incident.io/~/alerts/sources) section in your incident.io dashboard
+<Steps>
+  <Step title="Navigate to Alerts">
+    Head over to the [Alerts](https://app.incident.io/~/alerts/sources) section in your incident.io dashboard
 
-<img src="/images/integrations/panther/panther-01.png" alt="Alerts section in incident.io dashboard" />
+    <img src="/images/integrations/panther/panther-01.png" alt="Alerts section in incident.io dashboard" />
+  </Step>
 
-2. Select the sources tab at the top of the page
+  <Step title="Select the sources tab">
+    Select the sources tab at the top of the page
 
-<img src="/images/integrations/panther/panther-02.png" alt="Sources tab at top of page" />
+    <img src="/images/integrations/panther/panther-02.png" alt="Sources tab at top of page" />
+  </Step>
 
-3. Press the 'New alert source' button
+  <Step title="Create new alert source">
+    Press the 'New alert source' button
 
-<img src="/images/integrations/panther/panther-03.png" alt="New alert source button" />
+    <img src="/images/integrations/panther/panther-03.png" alt="New alert source button" />
+  </Step>
 
-4. Search for 'Panther' and click continue to create the alert source
+  <Step title="Select Panther">
+    Search for 'Panther' and click continue to create the alert source
 
-<img src="/images/integrations/panther/panther-04.png" alt="Search for Panther and click continue" />
+    <img src="/images/integrations/panther/panther-04.png" alt="Search for Panther and click continue" />
+  </Step>
 
-5. Switch over to your Panther dashboard, and select 'Alert Destinations' under the 'Configure' section
+  <Step title="Navigate to Panther Alert Destinations">
+    Switch over to your Panther dashboard, and select 'Alert Destinations' under the 'Configure' section
 
-<img src="/images/integrations/panther/panther-05.png" alt="Alert Destinations in Panther dashboard" />
+    <img src="/images/integrations/panther/panther-05.png" alt="Alert Destinations in Panther dashboard" />
+  </Step>
 
-6. If you already have another alert destination set up, click the 'Create New' button in the top right hand corner. Otherwise, click 'Add your first Destination'.
+  <Step title="Create new destination">
+    If you already have another alert destination set up, click the 'Create New' button in the top right hand corner. Otherwise, click 'Add your first Destination'.
 
-<img src="/images/integrations/panther/panther-06.png" alt="Create New button" />
+    <img src="/images/integrations/panther/panther-06.png" alt="Create New button" />
 
-<img src="/images/integrations/panther/panther-07.png" alt="Add your first Destination button" />
+    <img src="/images/integrations/panther/panther-07.png" alt="Add your first Destination button" />
+  </Step>
 
-7. Choose 'Custom Webhook' from the list of destinations
+  <Step title="Choose Custom Webhook">
+    Choose 'Custom Webhook' from the list of destinations
 
-<img src="/images/integrations/panther/panther-08.png" alt="Choose Custom Webhook from destinations list" />
+    <img src="/images/integrations/panther/panther-08.png" alt="Choose Custom Webhook from destinations list" />
+  </Step>
 
-8. Copy the Webhook URL provided to you after you created a Panther alert source in the incident.io dashboard, and make sure to add a custom HTTP header for 'Authorization'. The value for this header is provided to you in the incident.io dashboard, alongside the Webhook URL.
+  <Step title="Configure webhook">
+    Copy the Webhook URL provided to you after you created a Panther alert source in the incident.io dashboard, and make sure to add a custom HTTP header for 'Authorization'. The value for this header is provided to you in the incident.io dashboard, alongside the Webhook URL.
 
-<img src="/images/integrations/panther/panther-09.png" alt="Copy Webhook URL and add Authorization header" />
+    <img src="/images/integrations/panther/panther-09.png" alt="Copy Webhook URL and add Authorization header" />
+  </Step>
 
-9. Click 'Add Destination' and then 'Send Test Alert' to test your integration. You should be able to see a test alert in your incident.io dashboard!
+  <Step title="Test the integration">
+    Click 'Add Destination' and then 'Send Test Alert' to test your integration. You should be able to see a test alert in your incident.io dashboard!
 
-<img src="/images/integrations/panther/panther-10.png" alt="Add Destination and Send Test Alert" />
+    <img src="/images/integrations/panther/panther-10.png" alt="Add Destination and Send Test Alert" />
+  </Step>
+</Steps>

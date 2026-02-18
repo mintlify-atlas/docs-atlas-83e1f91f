@@ -4,10 +4,6 @@ description: Coordinate incident response in dedicated Slack or Teams channels w
 icon: "/icons/slack-channel.svg"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Channel management (on Slack and MS Teams)
 
 Incident channels are where incident response happens. When you declare an incident, incident.io creates a dedicated Slack or Microsoft Teams channel where your team coordinates, shares updates, and tracks progress.
@@ -36,13 +32,23 @@ You can create custom bookmarks to provide snapshot information specific to your
 
 There are three types:
 
-- **Pre-defined property** - Shows live incident data like severity or status that updates as the incident changes
-- **Pre-defined link** - Links to incident-related resources like Jira tickets or postmortems
-- **Custom link** - Links to any external resource, useful for frequently-accessed runbooks or documentation
+<CardGroup cols={3}>
+  <Card title="Pre-defined property" icon="gear">
+    Shows live incident data like severity or status that updates as the incident changes
+  </Card>
+  <Card title="Pre-defined link" icon="link">
+    Links to incident-related resources like Jira tickets or postmortems
+  </Card>
+  <Card title="Custom link" icon="arrow-up-right-from-square">
+    Links to any external resource, useful for frequently-accessed runbooks or documentation
+  </Card>
+</CardGroup>
 
 You can set conditions for when bookmarks appear. For example, show a link to your critical incident runbook only for SEV-1 incidents.
 
-Note that Slack's API limits bookmark ordering, so bookmarks may not always appear in your configured order. The most reliable way to control order is through announcement messages.
+<Note>
+Slack's API limits bookmark ordering, so bookmarks may not always appear in your configured order. The most reliable way to control order is through announcement messages.
+</Note>
 
 ## Incident streams
 
@@ -90,7 +96,9 @@ You can create private streams from public incidents to handle these scenarios. 
 
 To create a private stream, use `/incident stream` and select **Only invited users (private)** when prompted. You can also convert an existing stream to private by making its Slack channel private.
 
-Note that workspace owners always have access to private streams, even without explicit invitations.
+<Warning>
+Workspace owners always have access to private streams, even without explicit invitations.
+</Warning>
 
 To enable private streams for your workspace, navigate to **Settings** → **Security** and enable the feature. Admins and Owners can grant or revoke access to private streams through the dashboard.
 

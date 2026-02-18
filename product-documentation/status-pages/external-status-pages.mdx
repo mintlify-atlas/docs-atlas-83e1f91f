@@ -3,10 +3,6 @@ title: External status pages
 description: Communicate with customers during incidents using public and customer status pages
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # External status pages
 
 External status pages keep your customers informed when incidents happen. Whether you're communicating with everyone at once through public pages or providing dedicated updates to specific customers, external pages build trust by showing transparency during outages. This guide covers both public and customer status pages—your tools for external incident communication.
@@ -29,11 +25,27 @@ Public status pages show all your users the current state of your service. Anyon
 
 Navigate to **Status Pages** → **Create public page** and configure:
 
-1. **Page title and URL** - Choose your status page name and URL (e.g., `status.yourcompany.com`)
-2. **Components** - Add services or systems you'll report status for (API, Dashboard, Mobile App, etc.)
-3. **Branding** - Upload your logo and favicon
-4. **Theme** - Choose light or dark mode
-5. **Custom domain** (optional) - Use your own domain instead of `statuspage.incident.io`
+<Steps>
+  <Step title="Page title and URL">
+    Choose your status page name and URL (e.g., `status.yourcompany.com`).
+  </Step>
+  
+  <Step title="Components">
+    Add services or systems you'll report status for (API, Dashboard, Mobile App, etc.).
+  </Step>
+  
+  <Step title="Branding">
+    Upload your logo and favicon.
+  </Step>
+  
+  <Step title="Theme">
+    Choose light or dark mode.
+  </Step>
+  
+  <Step title="Custom domain (optional)">
+    Use your own domain instead of `statuspage.incident.io`.
+  </Step>
+</Steps>
 
 Each component can have different status levels: **Operational**, **Degraded Performance**, **Partial Outage**, or **Major Outage**.
 
@@ -69,8 +81,6 @@ Users can navigate between sub-pages, and each has its own subscription options.
 
   <Step title="Configure Catalog">
     Either create a new Catalog type (e.g., "Regions") or use an existing one. Each Catalog entry becomes a sub-page.
-
-    <img src="/images/status-pages/sub-pages-create.png" alt="Sub-pages creation form showing Catalog integration and component mapping" style={{maxWidth: "480px"}} />
   </Step>
 
   <Step title="Map components">
@@ -82,7 +92,9 @@ Users can navigate between sub-pages, and each has its own subscription options.
   </Step>
 </Steps>
 
-**Note:** Sub-pages are available on Enterprise plans.
+<Note>
+Sub-pages are available on Enterprise plans.
+</Note>
 
 ## Customer status pages
 
@@ -104,10 +116,23 @@ Customer pages provide authenticated, per-customer status views. Each customer s
 
 Navigate to **Status Pages** → **Create customer page** and configure:
 
-1. **Customer identification** - Choose or create a Catalog type for customers
-2. **Domain allowlist** - Add email domains allowed to access each customer page (e.g., `customera.com`)
-3. **Components** - Map components to specific customers via Catalog
-4. **Branding** - Logo, favicon, and theme (applies to all customer pages)
+<Steps>
+  <Step title="Customer identification">
+    Choose or create a Catalog type for customers.
+  </Step>
+  
+  <Step title="Domain allowlist">
+    Add email domains allowed to access each customer page (e.g., `customera.com`).
+  </Step>
+  
+  <Step title="Components">
+    Map components to specific customers via Catalog.
+  </Step>
+  
+  <Step title="Branding">
+    Upload logo, favicon, and choose theme (applies to all customer pages).
+  </Step>
+</Steps>
 
 Like sub-pages, customer pages are powered by Catalog. Each Catalog entry represents a customer and gets its own authenticated status page.
 
@@ -120,9 +145,9 @@ Customer pages use email-based authentication via magic links. Access is control
 - Access is checked on every page load—removing a domain immediately revokes access
 - **Never add public email domains** like `gmail.com` to allowlists
 
-**Sharing customer pages:**
-
-Customer page URLs aren't publicly visible. Send customers their unique URL (found in Settings or by visiting the page yourself).
+<Warning>
+**Sharing customer pages:** Customer page URLs aren't publicly visible. Send customers their unique URL (found in Settings or by visiting the page yourself).
+</Warning>
 
 ## Publishing incidents
 
@@ -132,13 +157,35 @@ Publish incidents to your external status pages to keep users informed during ou
 
 From any active incident:
 
-1. Navigate to the incident details page
-2. Click **Publish to status page**
-3. Select which status page(s) to publish to
-4. Choose affected components
-5. Set component status levels (Degraded, Partial Outage, Major Outage)
-6. Write a customer-facing update message
-7. Notify subscribers (optional)
+<Steps>
+  <Step title="Navigate to the incident details page">
+    Open the incident you want to publish.
+  </Step>
+  
+  <Step title="Click Publish to status page">
+    Initiate the publishing workflow.
+  </Step>
+  
+  <Step title="Select which status page(s) to publish to">
+    Choose the appropriate status page(s).
+  </Step>
+  
+  <Step title="Choose affected components">
+    Select which components are impacted.
+  </Step>
+  
+  <Step title="Set component status levels">
+    Choose Degraded, Partial Outage, or Major Outage.
+  </Step>
+  
+  <Step title="Write a customer-facing update message">
+    Craft a clear message for your users.
+  </Step>
+  
+  <Step title="Notify subscribers (optional)">
+    Decide whether to send notifications immediately.
+  </Step>
+</Steps>
 
 Updates appear immediately on your status page. Post additional updates as you investigate and resolve the incident.
 
@@ -164,7 +211,9 @@ Components represent the services or systems you report status for. Examples: AP
 - **Partial Outage** - Some functionality unavailable (orange)
 - **Major Outage** - Service completely unavailable (red)
 
+<Info>
 Users see the worst status among all components on the main page. If one component is Major Outage, the overall status shows as Major Outage.
+</Info>
 
 ### Component organization
 
@@ -193,17 +242,35 @@ Display past events as a **Calendar** view or **List** view. Users can navigate 
 
 ### Customization limits
 
+<Note>
 Currently, you cannot customize colors, fonts, or layout beyond the options above. Custom CSS and advanced styling aren't supported.
+</Note>
 
 ## Scheduled maintenance
 
 Schedule maintenance windows to inform users about planned downtime.
 
-1. Navigate to your status page settings
-2. Create a maintenance window with start/end times
-3. Select affected components
-4. Write a description of the maintenance
-5. Maintenance automatically publishes and resolves based on scheduled times
+<Steps>
+  <Step title="Navigate to your status page settings">
+    Access the settings for your status page.
+  </Step>
+  
+  <Step title="Create a maintenance window with start/end times">
+    Set the schedule for your planned maintenance.
+  </Step>
+  
+  <Step title="Select affected components">
+    Choose which services will be impacted.
+  </Step>
+  
+  <Step title="Write a description of the maintenance">
+    Explain what work will be performed and expected impact.
+  </Step>
+  
+  <Step title="Maintenance automatically publishes and resolves">
+    The system will handle publishing and resolution based on scheduled times.
+  </Step>
+</Steps>
 
 Subscribers receive notifications when maintenance begins and ends. Maintenance windows appear differently from incidents on your status page.
 

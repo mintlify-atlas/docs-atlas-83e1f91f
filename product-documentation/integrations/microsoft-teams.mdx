@@ -3,10 +3,6 @@ title: "Microsoft Teams Online Meetings"
 description: "Automatically generate and surface individual call URLs for incidents with Microsoft Teams integration"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Microsoft Teams Online Meetings
 
 We offer a Microsoft Teams integration for **Slack** organisations. We'll **automatically generate and surface an individual call URL when an incident is declared**, so you have a dedicated 'war room' for every incident.
@@ -27,9 +23,15 @@ We use the same user account connection for all our Microsoft integrations. Ther
 
 ### 1. Installing the Integration
 
-Go to [Settings → Integrations](https://app.incident.io/settings/integrations), find "Microsoft Teams" and click "Connect".
+<Steps>
+  <Step title="Navigate to integrations">
+    Go to [Settings → Integrations](https://app.incident.io/settings/integrations), find "Microsoft Teams" and click "Connect".
+  </Step>
 
-Click "Sign in with Microsoft" and you'll be redirected to the install flow within Microsoft. Review the permissions we're requesting and click "Next".
+  <Step title="Sign in with Microsoft">
+    Click "Sign in with Microsoft" and you'll be redirected to the install flow within Microsoft. Review the permissions we're requesting and click "Next".
+  </Step>
+</Steps>
 
 ### 2. Turn on auto-create call
 

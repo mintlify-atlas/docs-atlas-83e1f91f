@@ -4,144 +4,328 @@ description: 'Quick reference guide to terms in incident.io'
 icon: "/icons/book.svg"
 ---
 
-Here are a some terms used throughout incident.io's products and documentation, most should be self-explanatory. Refer to the relevant section for further details.
+Here are some terms used throughout incident.io's products and documentation. Most should be self-explanatory, but refer to the relevant section for further details.
 
-**@incident** - Chat bot in Slack channels to manage incidents, draft updates, and answer questions
+<Info>
+  This glossary covers key terminology used across incident management, on-call operations, alerts, and the incident.io platform.
+</Info>
 
-**Action** - Something that needs to be done during the active phase of an incident to mitigate or communicate (cf. Follow-up)
+## A
 
-**Alert** - Automated event from a monitoring system signaling something unusual or problematic was detected
+<Accordion title="@incident">
+  Chat bot in Slack channels to manage incidents, draft updates, and answer questions. This AI-powered assistant helps teams coordinate response efforts without leaving Slack.
+</Accordion>
 
-**Alert attributes** - Meta-tagging system on alerts, similar to custom fields; can use catalog
+<Accordion title="Action">
+  Something that needs to be done during the active phase of an incident to mitigate or communicate (cf. Follow-up). Actions are typically time-sensitive and required for incident resolution.
+</Accordion>
 
-**Alert route** - Configuration that determines what to do with incoming alerts
+<Accordion title="Alert">
+  Automated event from a monitoring system signaling something unusual or problematic was detected. Alerts can be routed to create incidents or page on-call engineers.
+</Accordion>
 
-**Alert source** - Integration that sends alerts (monitoring systems, webhooks, email, etc.)
+<Accordion title="Alert attributes">
+  Meta-tagging system on alerts, similar to custom fields; can use catalog data to enrich alert context and enable sophisticated routing logic.
+</Accordion>
 
-**Alias** - Alternate name for an entry referenced in other systems
+<Accordion title="Alert route">
+  Configuration that determines what to do with incoming alerts. Routes can create incidents, page specific teams, or suppress noise based on conditions.
+</Accordion>
 
-**Announcement** - Dynamic post announcing that an incident has happened
+<Accordion title="Alert source">
+  Integration that sends alerts (monitoring systems, webhooks, email, etc.). Common sources include Datadog, PagerDuty, Sentry, and custom webhooks.
+</Accordion>
 
-**Call routing** - Phone number setup to directly call users or create incidents
+<Accordion title="Alias">
+  Alternate name for an entry referenced in other systems. Aliases help map external identifiers to your catalog entries.
+</Accordion>
 
-**Catalog Attribute** - Information that correlates to an entry (like a column); can be text, number, boolean, or another catalog type
+<Accordion title="Announcement">
+  Dynamic post announcing that an incident has happened. Announcements can be automatically posted to Slack channels or status pages.
+</Accordion>
 
-**Catalog Entry** - A single item in a catalog type (like a row)
+## C
 
-**Catalog Type** - A list of items in the catalog (like a spreadsheet); e.g., Services, Teams, Products
+<Accordion title="Call routing">
+  Phone number setup to directly call users or create incidents. Enable voice-based incident declaration and escalation.
+</Accordion>
 
-**Catalog** - Connected map of everything in your organization; integrates context and structure to power automations and reporting
+<Accordion title="Catalog">
+  Connected map of everything in your organization; integrates context and structure to power automations and reporting. The catalog is the foundation for understanding relationships between services, teams, and infrastructure.
+</Accordion>
 
-**Components** - Parts of your system displayed on status pages or used in incident attributes
+<Accordion title="Catalog Attribute">
+  Information that correlates to an entry (like a column); can be text, number, boolean, or another catalog type. Attributes define the schema for catalog types.
+</Accordion>
 
-**Condition** - Function that determines when an automation runs (if X then Y)
+<Accordion title="Catalog Entry">
+  A single item in a catalog type (like a row). For example, a specific service or team in your organization.
+</Accordion>
 
-**Contact methods** - How someone wants to be contacted when paged (e.g., phone, SMS, push)
+<Accordion title="Catalog Type">
+  A list of items in the catalog (like a spreadsheet); e.g., Services, Teams, Products. Types define categories of things you want to track.
+</Accordion>
 
-**Cover request** - Ask for someone on the schedule to take all or part of your shifts
+<Accordion title="Components">
+  Parts of your system displayed on status pages or used in incident attributes. Components represent the user-facing elements of your infrastructure.
+</Accordion>
 
-**Custom field** - Additional metadata field on incidents (can be single/multi-select, number, URL, or text)
+<Accordion title="Condition">
+  Function that determines when an automation runs (if X then Y). Conditions use expressions to evaluate incident data and trigger workflows.
+</Accordion>
 
-**Debrief** - Meeting held after an incident is resolved to discuss learnings
+<Accordion title="Contact methods">
+  How someone wants to be contacted when paged (e.g., phone, SMS, push). Users can configure multiple contact methods with different priorities.
+</Accordion>
 
-**Decision flow** - Decision tree that can be triggered by a workflow
+<Accordion title="Cover request">
+  Ask for someone on the schedule to take all or part of your shifts. Cover requests help teams manage on-call swaps and time off.
+</Accordion>
 
-**Deduplication key** - Unique identifier that prevents duplicate alerts from firing multiple times
+<Accordion title="Custom field">
+  Additional metadata field on incidents (can be single/multi-select, number, URL, or text). Custom fields capture incident-specific information beyond the standard fields.
+</Accordion>
 
-**Derived attribute** - Automatically filled attribute based on relationships to other types
+## D
 
-**Duration metric** - Time between two timestamps (e.g., time to resolution)
+<Accordion title="Debrief">
+  Meeting held after an incident is resolved to discuss learnings. Also known as post-mortem meetings or retrospectives.
+</Accordion>
 
-**Escalation path** - Series of steps defining how to page people; connected to teams or catalog objects
+<Accordion title="Decision flow">
+  Decision tree that can be triggered by a workflow. Decision flows guide responders through structured troubleshooting steps.
+</Accordion>
 
-**Escalation** - Mechanism to page someone; automated or manual request to get a hold of one or more people
+<Accordion title="Deduplication key">
+  Unique identifier that prevents duplicate alerts from firing multiple times. Essential for reducing alert noise and grouping related events.
+</Accordion>
 
-**Expression** - Conditions and catalog-based logic that power workflows and dynamic fields
+<Accordion title="Derived attribute">
+  Automatically filled attribute based on relationships to other types. Derived attributes pull data from related catalog entries.
+</Accordion>
 
-**Follow-up** - Post-incident action item to improve detection, remediation, or prevention for future incidents (cf. Action)
+<Accordion title="Duration metric">
+  Time between two timestamps (e.g., time to resolution). Duration metrics power insights and SLA tracking.
+</Accordion>
 
-**Form** - Interface for declaring, updating, resolving, or escalating incidents
+## E
 
-**Grouping** - Sending related subsequent alerts into an incident based on time and/or attributes
+<Accordion title="Escalation">
+  Mechanism to page someone; automated or manual request to get a hold of one or more people. Escalations ensure critical issues get attention.
+</Accordion>
 
-**Handover** - Passing of a role from one person to another
+<Accordion title="Escalation path">
+  Series of steps defining how to page people; connected to teams or catalog objects. Paths define who gets paged and when if alerts aren't acknowledged.
+</Accordion>
 
-**Incident** - A place for humans and machines to coordinate a response when things break
+<Accordion title="Expression">
+  Conditions and catalog-based logic that power workflows and dynamic fields. Expressions enable sophisticated automation logic.
+</Accordion>
 
-**Incident Lifecycle** - Set of statuses and timestamps that define incident progression
+## F
 
-**Incident Mode** - Classification of an incident: Standard, Test, Tutorial, or Retrospective
+<Accordion title="Follow-up">
+  Post-incident action item to improve detection, remediation, or prevention for future incidents (cf. Action). Follow-ups drive continuous improvement.
+</Accordion>
 
-**Incident Status** - Current state of an incident within the lifecycle (e.g., Triage, Active, Resolved, Closed)
+<Accordion title="Form">
+  Interface for declaring, updating, resolving, or escalating incidents. Forms can be customized per incident type to collect relevant information.
+</Accordion>
 
-**Incident Summary** - Detailed description of what the incident is about
+## G
 
-**Incident ticket** - Auto-created Jira/Linear/ServiceNow (and many others) ticket associated with an incident that stays in sync
+<Accordion title="Grouping">
+  Sending related subsequent alerts into an incident based on time and/or attributes. Grouping reduces noise by consolidating related alerts.
+</Accordion>
 
-**Incident Timeline** - Events that happened during the incident, including interactions with the app and pinned posts
+## H
 
-**Incident Timestamp** - Date/time marking moments in the lifecycle (core or custom)
+<Accordion title="Handover">
+  Passing of a role from one person to another. Handovers maintain continuity during shift changes or when responders need to step away.
+</Accordion>
 
-**Incident Type** - Wrapper of configuration that segments incident use cases and processes
+## I
 
-**Incident Update** - Communication on what is happening now in an incident
+<Accordion title="Incident">
+  A place for humans and machines to coordinate a response when things break. Incidents are the core unit of work in incident.io.
+</Accordion>
 
-**Incident Visibility** - Whether an incident is Public or Private
+<Accordion title="Incident Lifecycle">
+  Set of statuses and timestamps that define incident progression. The lifecycle tracks incidents from declaration through closure.
+</Accordion>
 
-**Insights** - Reporting and analytics dashboards
+<Accordion title="Incident Mode">
+  Classification of an incident: Standard, Test, Tutorial, or Retrospective. Modes enable safe testing and learning without affecting production data.
+</Accordion>
 
-**Layer** - Concurrent users scheduled at the same time in a single rota
+<Accordion title="Incident Status">
+  Current state of an incident within the lifecycle (e.g., Triage, Active, Resolved, Closed). Status determines what actions are available.
+</Accordion>
 
-**Observers** - Incident participants not active in the Slack channel
+<Accordion title="Incident Summary">
+  Detailed description of what the incident is about. Summaries provide context for stakeholders and future reference.
+</Accordion>
 
-**Override** - Substitute a person on a shift or part of a shift
+<Accordion title="Incident ticket">
+  Auto-created Jira/Linear/ServiceNow (and many others) ticket associated with an incident that stays in sync. Tickets bridge incident.io with your existing tools.
+</Accordion>
 
-**Participants** - People involved in an incident; includes roles and active/observer participants
+<Accordion title="Incident Timeline">
+  Events that happened during the incident, including interactions with the app and pinned posts. Timelines provide a comprehensive audit trail.
+</Accordion>
 
-**Policy task** - Task assigned when someone is out of compliance with a policy
+<Accordion title="Incident Timestamp">
+  Date/time marking moments in the lifecycle (core or custom). Timestamps enable duration metrics and SLA tracking.
+</Accordion>
 
-**Post-incident task** - Task to complete after Resolution before Closing (e.g., review timeline, create post-mortem)
+<Accordion title="Incident Type">
+  Wrapper of configuration that segments incident use cases and processes. Different types can have different forms, workflows, and lifecycles.
+</Accordion>
 
-**Post-mortem** - Document for learnings after an incident (also called Post-Incident Review, RCA)
+<Accordion title="Incident Update">
+  Communication on what is happening now in an incident. Updates keep stakeholders informed throughout the incident lifecycle.
+</Accordion>
 
-**Priority** - How important an alert or escalation is; determines if it should be handled during working hours or urgently out of hours
+<Accordion title="Incident Visibility">
+  Whether an incident is Public or Private. Visibility controls who can see and participate in incidents.
+</Accordion>
 
-**Query** - Dynamic values powered by catalog; route through attributes to return values
+<Accordion title="Insights">
+  Reporting and analytics dashboards. Insights help teams understand trends, identify improvements, and measure performance.
+</Accordion>
 
-**Role** - Directly responsible person during an incident (e.g., Lead)
+## L
 
-**Rota** - A rotation of one person or group; a schedule can have many rotas
+<Accordion title="Layer">
+  Concurrent users scheduled at the same time in a single rota. Layers enable follow-the-sun coverage and backup on-call engineers.
+</Accordion>
 
-**Schedule** - A person or group made available at certain times to be paged or added to a Slack user group
+## O
 
-**SCIM** - Use Okta to control provisioning of on-call seats or user roles
+<Accordion title="Observers">
+  Incident participants not active in the Slack channel. Observers receive updates but don't clutter the active incident channel.
+</Accordion>
 
-**Scribe** - AI note taker that joins incident calls, transcribes, and provides summaries and key moments
+<Accordion title="Override">
+  Substitute a person on a shift or part of a shift. Overrides handle one-off schedule changes without modifying the base schedule.
+</Accordion>
 
-**Seat** - License type: Responder or On-call. Refer to Billing.
+## P
 
-**Severity** - How bad an incident is; impact and urgency level (e.g., Critical, Major, Minor)
+<Accordion title="Participants">
+  People involved in an incident; includes roles and active/observer participants. Participants track who's contributing to resolution.
+</Accordion>
 
-**Shift** - Single duration that a person is on-call before it changes to the next person
+<Accordion title="Policy task">
+  Task assigned when someone is out of compliance with a policy. Policy tasks ensure teams follow required processes.
+</Accordion>
 
-**Shoutout** - Kudos or gratitude sent to someone in a Slack channel
+<Accordion title="Post-incident task">
+  Task to complete after Resolution before Closing (e.g., review timeline, create post-mortem). These tasks ensure proper incident closure.
+</Accordion>
 
-**Slack user group** - Group synced with a schedule; adds whoever is currently on-call
+<Accordion title="Post-mortem">
+  Document for learnings after an incident (also called Post-Incident Review, RCA). Post-mortems capture what happened, why, and how to prevent recurrence.
+</Accordion>
 
-**Stream** - Child channel that creates a workstream for large incidents or to segment working groups
+<Accordion title="Priority">
+  How important an alert or escalation is; determines if it should be handled during working hours or urgently out of hours. Priority affects notification methods and timing.
+</Accordion>
 
-**Suggestions** - Context-based AI recommendations in channels and calls (e.g., summaries, follow-ups)
+## Q
 
-**Template** - Reusable format for incident tickets, follow-ups, or post-mortems
+<Accordion title="Query">
+  Dynamic values powered by catalog; route through attributes to return values. Queries enable data-driven automation and dynamic field population.
+</Accordion>
 
-**User role** - Set of permissions in the app (not to be confused with incident roles)
+## R
 
-**Variable** - Objects from incidents, alerts, follow-ups, users, and escalations used to dynamically insert text or set conditions
+<Accordion title="Role">
+  Directly responsible person during an incident (e.g., Lead). Roles clarify responsibilities and can trigger specific workflows.
+</Accordion>
 
-**Webhook** - Fires information when specific events happen
+<Accordion title="Rota">
+  A rotation of one person or group; a schedule can have many rotas. Rotas define the pattern of who's on-call and when.
+</Accordion>
 
-**Workflow** - Automation created to run communications, set roles, escalate, and more
+## S
 
-**Working hours** - Days and times for shifts when people should be on-call
+<Accordion title="Schedule">
+  A person or group made available at certain times to be paged or added to a Slack user group. Schedules power on-call rotations and automatic escalations.
+</Accordion>
 
-**Workload** - Time spent on incidents by responders, calculated from Slack activity and call time
+<Accordion title="SCIM">
+  Use Okta to control provisioning of on-call seats or user roles. SCIM enables automated user management from your identity provider.
+</Accordion>
+
+<Accordion title="Scribe">
+  AI note taker that joins incident calls, transcribes, and provides summaries and key moments. Scribe helps teams focus on resolution while capturing important details.
+</Accordion>
+
+<Accordion title="Seat">
+  License type: Responder or On-call. Refer to [Billing](/product-documentation/billing/seats) for details on seat types and pricing.
+</Accordion>
+
+<Accordion title="Severity">
+  How bad an incident is; impact and urgency level (e.g., Critical, Major, Minor). Severity determines escalation paths and stakeholder notifications.
+</Accordion>
+
+<Accordion title="Shift">
+  Single duration that a person is on-call before it changes to the next person. Shifts are the building blocks of schedules.
+</Accordion>
+
+<Accordion title="Shoutout">
+  Kudos or gratitude sent to someone in a Slack channel. Shoutouts help teams recognize great work during and after incidents.
+</Accordion>
+
+<Accordion title="Slack user group">
+  Group synced with a schedule; adds whoever is currently on-call. User groups enable @mentions that automatically reach the right people.
+</Accordion>
+
+<Accordion title="Stream">
+  Child channel that creates a workstream for large incidents or to segment working groups. Streams help organize complex incident responses.
+</Accordion>
+
+<Accordion title="Suggestions">
+  Context-based AI recommendations in channels and calls (e.g., summaries, follow-ups). Suggestions help teams work more efficiently during incidents.
+</Accordion>
+
+## T
+
+<Accordion title="Template">
+  Reusable format for incident tickets, follow-ups, or post-mortems. Templates ensure consistency and save time.
+</Accordion>
+
+## U
+
+<Accordion title="User role">
+  Set of permissions in the app (not to be confused with incident roles). User roles control who can access and modify different features.
+</Accordion>
+
+## V
+
+<Accordion title="Variable">
+  Objects from incidents, alerts, follow-ups, users, and escalations used to dynamically insert text or set conditions. Variables power dynamic content in workflows.
+</Accordion>
+
+## W
+
+<Accordion title="Webhook">
+  Fires information when specific events happen. Webhooks enable integration with external systems and custom automations.
+</Accordion>
+
+<Accordion title="Workflow">
+  Automation created to run communications, set roles, escalate, and more. Workflows reduce manual work and ensure consistency.
+</Accordion>
+
+<Accordion title="Working hours">
+  Days and times for shifts when people should be on-call. Working hours define when different priority levels should page people.
+</Accordion>
+
+<Accordion title="Workload">
+  Time spent on incidents by responders, calculated from Slack activity and call time. Workload metrics help teams understand and balance on-call burden.
+</Accordion>
+
+<Note>
+  Can't find what you're looking for? Check out our [comprehensive documentation](/product-documentation/getting-started/start-guide) or [contact support](mailto:support@incident.io).
+</Note>

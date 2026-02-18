@@ -8,7 +8,23 @@ icon: "/icons/delete.svg"
 
 To delete your organization, contact [help@incident.io](mailto:help@incident.io). You must be the organization owner or have appropriate admin permissions, and contact us from your registered account email address or Slack.
 
-Provide your organization URL (e.g., `https://app.incident.io/your-org-name`). The support team will handle organization deletion and plan cancellation.
+<Warning>
+Deleting your organization is permanent and cannot be undone. All data, incidents, and configurations will be permanently removed.
+</Warning>
+
+<Steps>
+  <Step title="Contact support">
+    Email [help@incident.io](mailto:help@incident.io) from your registered account email address or reach out via Slack.
+  </Step>
+  
+  <Step title="Provide organization details">
+    Include your organization URL (e.g., `https://app.incident.io/your-org-name`) in your request.
+  </Step>
+  
+  <Step title="Confirm deletion">
+    The support team will verify your identity and permissions, then process the deletion request.
+  </Step>
+</Steps>
 
 After deletion completes:
 - You'll receive confirmation from support
@@ -20,4 +36,22 @@ After deletion completes:
 
 Individual user accounts are synchronized with your Slack profile and cannot be deleted directly from incident.io. Organization owners or admins can downgrade your permissions to the Viewer role at **Settings → Users**, but complete account deletion requires deactivating a user's Slack profile.
 
+<Note>
 Enterprise customers using SCIM can deprovision users through their identity provider.
+</Note>
+
+### How to remove a user
+
+<Steps>
+  <Step title="Downgrade to Viewer">
+    Organization owners or admins can downgrade users to Viewer seats in **Settings → Users**, removing any paid seat assignments.
+  </Step>
+  
+  <Step title="Deactivate in Slack">
+    To completely remove a user from incident.io, deactivate their Slack account in your workspace.
+  </Step>
+  
+  <Step title="SCIM users (Enterprise)">
+    If using SCIM, unassign the user from the incident.io application in your identity provider to automatically deprovision them.
+  </Step>
+</Steps>

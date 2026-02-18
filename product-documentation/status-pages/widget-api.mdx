@@ -3,10 +3,6 @@ title: Widget API and embedding
 description: Embed real-time status information directly in your product or website
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Widget API and embedding
 
 The widget API lets you embed real-time status information directly into your product or website. Instead of directing users to a separate status page, show component health, active incidents, and uptime data wherever users need it—from your app header to your login page.
@@ -50,10 +46,12 @@ The widget updates in real-time as incidents are published or updated, ensuring 
 
 Use the pre-built embed widget for quick integration:
 
-```html
+<CodeGroup>
+```html HTML Embed
 <script src="https://widget.incident.io/status.js"></script>
 <div data-incident-status="your-status-page-id"></div>
 ```
+</CodeGroup>
 
 The embed widget provides:
 - Component status badges
@@ -65,7 +63,8 @@ The embed widget provides:
 
 Use the API directly for custom implementations:
 
-```javascript
+<CodeGroup>
+```javascript JavaScript/Fetch
 fetch('https://api.incident.io/v1/status_pages/your-page-id', {
   headers: {
     'Authorization': 'Bearer YOUR_API_KEY'
@@ -76,6 +75,19 @@ fetch('https://api.incident.io/v1/status_pages/your-page-id', {
   // Build custom UI with status data
 });
 ```
+
+```typescript TypeScript
+const fetchStatusData = async () => {
+  const response = await fetch('https://api.incident.io/v1/status_pages/your-page-id', {
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY'
+    }
+  });
+  const data = await response.json();
+  // Build custom UI with status data
+};
+```
+</CodeGroup>
 
 The API returns:
 - Current component statuses
@@ -109,7 +121,9 @@ The widget accepts configuration options for appearance and behavior:
 - Set custom CSS classes
 
 **Example configuration:**
-```javascript
+
+<CodeGroup>
+```javascript Configuration
 {
   components: ['api', 'dashboard'],
   theme: 'dark',
@@ -117,15 +131,20 @@ The widget accepts configuration options for appearance and behavior:
   showUptime: true
 }
 ```
+</CodeGroup>
 
 ## Security considerations
 
-**API key access:**
+### API key access
+
+<Info>
 - API keys are read-only and scoped to your status page
 - Keys can be rotated anytime from Settings → Widget API
 - Use separate keys for different environments (staging, production)
+</Info>
 
-**CORS restrictions:**
+### CORS restrictions
+
 - Configure allowed domains in Settings → Widget API
 - Widgets only load from approved domains
 - Prevents unauthorized embedding

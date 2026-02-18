@@ -1,13 +1,7 @@
 ---
 title: Status pages overview
 description: Keep your users and team informed with real-time status updates during incidents
-icon: "/icons/status-page.svg"
 ---
-
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 
 # Status pages overview
 
@@ -29,9 +23,11 @@ Public status pages are your front door during incidents. Anyone can view themâ€
 - Custom branding (logo, favicon, domain)
 - Subscriber notifications via email, RSS, and Atom feeds
 
+<Info>
 **Optional: Sub-pages for segmentation**
 
-Public pages can optionally include sub-pages if you need different views for different user groups. For example, create regional sub-pages (US, EU, APAC) or product-based pages (Platform, API, Mobile). Each sub-page shows only the components relevant to that group, powered by your [Catalog](/product-documentation/catalog/overview). Learn more about [sub-pages](#sub-pages-for-public-status-pages).
+Public pages can optionally include sub-pages if you need different views for different user groups. For example, create regional sub-pages (US, EU, APAC) or product-based pages (Platform, API, Mobile). Each sub-page shows only the components relevant to that group, powered by your [Catalog](/product-documentation/catalog/overview).
+</Info>
 
 ### Customer status pages
 
@@ -61,7 +57,9 @@ Internal pages share active incidents with your entire organization. Only access
 - Calendar view of past events
 - Integration with internal workflows
 
+<Note>
 **Where to find it:** Navigate to the internal status page from your dashboard's "View internal status" link.
+</Note>
 
 ## Sub-pages for public status pages
 
@@ -73,13 +71,28 @@ Sub-pages let you segment a single public status page into multiple connected vi
 - **Service tiers**: Different views for Free, Pro, and Enterprise services
 
 **How it works:**
-1. Create a public status page with sub-pages enabled
-2. Choose a Catalog type to power segmentation (regions, products, etc.)
-3. Each Catalog entry becomes a sub-page
-4. Map components to specific sub-pages
-5. Users see a unified parent page or navigate to their specific sub-page
 
-Users accessing the parent page see an aggregated view of all sub-pages. Navigating to a specific sub-page shows only that segment's components.
+<Steps>
+  <Step title="Create a public status page with sub-pages enabled">
+    Choose the sub-pages option when creating your public status page.
+  </Step>
+  
+  <Step title="Choose a Catalog type to power segmentation">
+    Select or create a Catalog type for regions, products, or other segmentation.
+  </Step>
+  
+  <Step title="Each Catalog entry becomes a sub-page">
+    Your Catalog entries automatically generate corresponding sub-pages.
+  </Step>
+  
+  <Step title="Map components to specific sub-pages">
+    Configure which components appear on which sub-pages.
+  </Step>
+  
+  <Step title="Users see a unified parent page or navigate to their specific sub-page">
+    The parent page shows an aggregated view while sub-pages show segment-specific information.
+  </Step>
+</Steps>
 
 Read more about setting up sub-pages in [External status pages](/product-documentation/status-pages/external-status-pages#sub-pages-for-segmentation).
 
@@ -92,19 +105,33 @@ Read more about setting up sub-pages in [External status pages](/product-documen
 | **Customer** | Specific customers | Email domain allowlist | Per-customer infrastructure or dedicated deployments |
 | **Internal** | Your organization | incident.io login required | Keeping internal teams informed during incidents |
 
+<Info>
 You can run multiple status pages simultaneously. For example, maintain a public page for all users, customer pages for enterprise accounts, and an internal page for your team.
+</Info>
 
 ## Getting started
 
-1. Navigate to **Status Pages** in your sidebar
-2. Choose your page type based on your audience:
-   - **Create public page** for all users
-   - **Create customer page** for authenticated customer access
-   - **Create internal page** for organization-wide visibility
-3. Configure components, branding, and notification settings
-4. Publish incidents to keep your audience updated
+<Steps>
+  <Step title="Navigate to Status Pages in your sidebar">
+    Access the Status Pages section from your incident.io dashboard.
+  </Step>
+  
+  <Step title="Choose your page type based on your audience">
+    - **Create public page** for all users
+    - **Create customer page** for authenticated customer access
+    - **Create internal page** for organization-wide visibility
+  </Step>
+  
+  <Step title="Configure components, branding, and notification settings">
+    Set up your status page with the appropriate configuration for your needs.
+  </Step>
+  
+  <Step title="Publish incidents to keep your audience updated">
+    Start publishing incidents to communicate status updates.
+  </Step>
+</Steps>
 
-For detailed setup instructions:
+**For detailed setup instructions:**
 - [External status pages](/product-documentation/status-pages/external-status-pages) (public and customer)
 - [Internal status pages](/product-documentation/status-pages/internal-status-pages)
 - [Subscriptions and communication](/product-documentation/status-pages/subscriptions-and-communication)

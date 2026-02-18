@@ -1,488 +1,348 @@
 ---
 title: "Catalog"
-description: "Organize services, teams, and resources in your catalog for intelligent incident routing and context"
+description: "Organize services, teams, and resources in your catalog to power intelligent incident routing and management"
 mode: "wide"
 ---
 
-<Info>
-The Catalog is your source of truth for organizational structure, services, and resources. It powers intelligent alert routing, team organization, and incident context in incident.io.
-</Info>
-
 ## Overview
 
-The Catalog in incident.io is a flexible system for organizing your organization's structure, services, and resources. It's the foundation that enables:
-
-- **Dynamic alert routing** to the right teams
-- **Automatic escalation** based on service ownership
-- **Team-based filtering** of incidents and alerts
-- **Service context** in incidents
-- **Organizational relationships** between teams, services, and infrastructure
-
-## Core Concepts
+The Catalog is your central source of truth for services, teams, and other resources in your organization. It powers intelligent routing, team-based filtering, ownership tracking, and integrations throughout incident.io.
 
 <CardGroup cols={2}>
   <Card title="Catalog best practices" icon="lightbulb" href="/help-centre/catalog/catalog-best-practices/index">
-    Learn how to structure and maintain your Catalog effectively
+    Learn how to structure and maintain an effective catalog
   </Card>
   <Card title="Catalog integrations" icon="plug" href="/help-centre/catalog/catalog-integrations/index">
-    Import and sync data from external systems
+    Sync data from external sources like Backstage, PagerDuty, and more
+  </Card>
+  <Card title="Getting started with teams" icon="users" href="/help-centre/catalog/getting-started-with-teams">
+    Set up teams to enable team-based filtering and routing
+  </Card>
+  <Card title="Catalog FAQs" icon="circle-question" href="/help-centre/catalog/catalog-faqs/index">
+    Common questions about the catalog
   </Card>
 </CardGroup>
 
-### Catalog Types
+## What is the Catalog?
 
-The Catalog organizes information into types:
+The Catalog helps you organize and track:
 
-**Built-in types:**
-- **Teams**: Groups of people who own services and respond to incidents
-- **Users**: Individuals in your organization
-- **Escalation Paths**: How to reach teams when issues occur
-- **Schedules**: Who's on-call and when
+- **Services** - Applications, APIs, databases, and infrastructure components
+- **Teams** - Engineering teams and their members
+- **Custom types** - Any other resources relevant to incidents (environments, regions, customers, etc.)
 
-**Custom types:**
-- **Services**: Applications, APIs, databases, infrastructure components
-- **Features**: Product capabilities that span multiple services
-- **Domains**: Business domains or product areas
-- **Environments**: Production, staging, development
-- **Regions**: Geographic locations
-- **Customers**: For tracking customer-specific infrastructure
-- **Anything else**: Model your organization your way
+This information enriches incidents and enables powerful automation:
 
-<Note>
-You have complete flexibility to create custom types that match your organization's structure. Don't feel constrained by common patterns - model what makes sense for you.
-</Note>
-
-### Relationships
-
-Connect catalog entries to enable intelligent routing:
-
-<Accordion title="Service → Team">
-**Relationship**: Services are owned by teams
-
-**Use case**: Route alerts about a service to the team that owns it
-
-**Example**: 
-- `payments-api` service owned by `Payments Team`
-- Alert tagged with `service=payments-api`
-- Automatically route to Payments Team's escalation path
-</Accordion>
-
-<Accordion title="Team → Escalation Path">
-**Relationship**: Teams have associated escalation paths
-
-**Use case**: Know how to page a team when needed
-
-**Example**:
-- `Payments Team` linked to `payments-escalation` path
-- Incident affects Payments Team
-- Automatically escalate using payments-escalation configuration
-</Accordion>
-
-<Accordion title="Service → Service">
-**Relationship**: Services depend on other services
-
-**Use case**: Understand cascading failures and dependencies
-
-**Example**:
-- `checkout-service` depends on `payments-api`
-- Alert for payments-api
-- Know that checkout might also be affected
-</Accordion>
-
-<Accordion title="Custom Relationships">
-Create any relationships that make sense:
-- Features → Services (which services power a feature)
-- Services → Environments (service instances per environment)
-- Teams → Domains (which domains teams own)
-- Customers → Services (customer-specific infrastructure)
-</Accordion>
+- Route alerts to the team that owns a service
+- Filter incidents by your team
+- Auto-populate incident fields based on affected services
+- Track service reliability and incident patterns
+- Link to service documentation and runbooks
 
 ## Getting Started with Teams
 
-Teams are the foundation of Catalog:
-
-<Steps>
-  <Step title="Decide on team source">
-    Choose how you'll manage team membership
-  </Step>
-  <Step title="Import or create teams">
-    Bring in existing teams or create new ones
-  </Step>
-  <Step title="Link to escalation paths">
-    Connect teams to how they should be paged
-  </Step>
-  <Step title="Add custom attributes">
-    Extend teams with additional information
-  </Step>
-  <Step title="Configure filtering">
-    Set up team-based incident and alert filtering
-  </Step>
-</Steps>
-
-### Team Management Options
-
-<Accordion title="Sync from Identity Provider (Recommended)">
-Use SCIM to sync teams from:
-- **Okta**: Groups sync automatically
-- **Google Workspace**: Google Groups as teams
-- **Microsoft Entra ID**: Azure AD groups
-- **Other SCIM providers**: Any SCIM-compatible system
-
-**Benefits:**
-- Single source of truth
-- Automatic updates when people join/leave
-- No manual maintenance
-- Consistent with rest of your identity management
-
-[SCIM setup guide →](/help-centre/catalog/catalog-best-practices/using-scim-to-create-a-team-catalog-type)
+<Accordion title="Why use teams in incident.io?">
+  Teams in incident.io help you:
+  
+  - **Filter by relevance** - Only see incidents and alerts for your team
+  - **Automatic routing** - Route alerts to the right team's escalation path
+  - **Ownership clarity** - Clear ownership of schedules, escalation paths, and services
+  - **Simplified configuration** - Use team attributes in workflows and alert routes instead of creating separate configs for each team
+  
+  When you tell incident.io about your teams, the platform automatically:
+  - Links escalation paths to teams in the catalog
+  - Shows team-owned schedules at the top of lists
+  - Filters incidents and alerts by your team membership
 </Accordion>
 
-<Accordion title="Import from Developer Portal">
-Sync from your existing service catalog:
-- **Backstage**: Import teams and services
-- **Cortex**: Sync organizational structure
-- **OpsLevel**: Bring in service ownership
-- **ServiceNow**: Import CMDB data
-
-**Benefits:**
-- Leverage existing service catalog
-- Maintain service ownership relationships
-- Keep technical documentation linked
-
-[Backstage integration →](/help-centre/catalog/catalog-integrations/backstage)
+<Accordion title="Creating and managing teams">
+  There are three ways to manage teams:
+  
+  **1. Manually in incident.io**
+  - Best for small teams or getting started
+  - Add/remove members from [Settings → Teams](https://app.incident.io/~/settings/teams)
+  - Quick setup, no external dependencies
+  
+  **2. With SCIM or integrations**
+  - Sync from identity providers (Okta, Google Workspace, Microsoft Entra ID)
+  - Import from Backstage, Cortex, Linear, Opslevel, or Slack
+  - Automatic sync when team membership changes
+  - Set up via the three-step team setup wizard
+  
+  **3. Using catalog-importer or Terraform**
+  - Manage teams as code
+  - Define in your infrastructure repository
+  - Version control and code review for changes
+  - Sync relationships between teams, services, and other components
+  
+  Learn more in [Getting started with teams](/help-centre/catalog/getting-started-with-teams).
 </Accordion>
 
-<Accordion title="Sync from Slack or Teams">
-Use communication tool groups:
-- **Slack**: Import Slack user groups
-- **Microsoft Teams**: Sync Teams channels and membership
+## Catalog Types
 
-**Benefits:**
-- Quick to set up
-- Teams already familiar with groups
-- Easy to update in tool people use daily
-</Accordion>
+### Services
 
-<Accordion title="Manage Manually">
-Create and maintain teams directly in incident.io:
+Services represent the systems and components you operate:
 
-**Best for:**
-- Small organizations
-- Getting started quickly
-- Testing before full integration
+- **Applications** - Web apps, mobile apps, background workers
+- **Infrastructure** - Databases, message queues, load balancers
+- **APIs** - Internal and external APIs
+- **Third-party services** - External dependencies
 
-**Process:**
-1. Go to [Settings → Teams](https://app.incident.io/~/settings/teams)
-2. Create new team
-3. Add members
-4. Link escalation paths and schedules
-</Accordion>
+**Key service attributes:**
+- Owner team
+- Service tier (critical, high, medium, low)
+- Links to documentation, runbooks, dashboards
+- On-call escalation path
+- Dependencies and relationships
 
-<Accordion title="Manage as Code">
-Use Terraform or catalog-importer:
+### Teams
 
-**Benefits:**
-- Teams defined in version control
-- Code review for organizational changes
-- Consistent with infrastructure-as-code practices
-- Programmatic updates
+Teams are groups of people who work together:
 
-**Tools:**
-- [Terraform provider](https://registry.terraform.io/providers/incident-io/incident/latest)
-- [catalog-importer](https://github.com/incident-io/catalog-importer)
+- Engineering teams (Backend, Frontend, Platform, etc.)
+- Product teams
+- Support teams
+- Any organizational grouping relevant to incidents
 
-[Getting data into Catalog →](/help-centre/catalog/catalog-best-practices/how-do-i-get-data-into-catalog)
-</Accordion>
+**Team capabilities:**
+- Member management
+- Linked escalation paths and schedules
+- Owned services and resources
+- Team-specific Slack channels
+- Custom attributes for routing
 
-[Complete team setup guide →](/help-centre/catalog/getting-started-with-teams)
+### Custom Types
 
-## Adding Services and Custom Types
+Create custom catalog types for anything else:
 
-### Creating Custom Types
+- **Environments** - Production, staging, development
+- **Regions** - Geographic locations
+- **Customers** - For B2B multi-tenant systems
+- **Features** - Product capabilities
+- **Infrastructure** - Cloud accounts, clusters, etc.
 
-Define types that match your organization:
+## Importing and Syncing Data
 
-<Steps>
-  <Step title="Navigate to Catalog settings">
-    Go to Settings → Catalog
-  </Step>
-  <Step title="Create new type">
-    Click "Create type" and name it (e.g., "Services")
-  </Step>
-  <Step title="Define attributes">
-    Add fields like name, description, owner, status, etc.
-  </Step>
-  <Step title="Configure relationships">
-    Define how this type relates to others
-  </Step>
-  <Step title="Import or create entries">
-    Add actual services or sync from external source
-  </Step>
-</Steps>
+<Note>
+  **Keep your catalog up-to-date automatically**
+  
+  Instead of manually maintaining your catalog, sync it from existing sources:
+  
+  - **Service catalogs** - Backstage, OpsLevel, Cortex
+  - **Identity providers** - SCIM (Okta, Google, Entra ID)
+  - **Project management** - Linear, Jira
+  - **Communication** - Slack user groups
+  - **Code** - Terraform, catalog-importer
+  
+  This ensures your catalog always reflects reality and reduces maintenance burden.
+</Note>
 
-### Catalog Attributes
-
-Attributes provide additional information about catalog entries:
-
-**Common attribute types:**
-- **Text**: Names, descriptions, URLs
-- **Select**: Status, tier, environment (single choice)
-- **Multi-select**: Tags, capabilities (multiple choices)
-- **Relationships**: Links to other catalog entries
-- **External links**: Documentation, dashboards, repos
-
-**Example service attributes:**
-- **Name**: "Payments API"
-- **Owner** (relationship): Payments Team
-- **Tier** (select): Critical
-- **Repository** (link): github.com/company/payments-api
-- **Dashboard** (link): grafana.company.com/payments
-- **Environments** (multi-select): Production, Staging
-
-### Importing Data
+### Integration Options
 
 <CardGroup cols={2}>
-  <Card title="Backstage" icon="book">
-    Sync services and ownership from Backstage catalog
+  <Card title="Backstage" icon="box-open">
+    Sync services, teams, and components from Backstage
   </Card>
-  <Card title="PagerDuty" icon="pager">
-    Import services from PagerDuty
+  <Card title="SCIM" icon="sync">
+    Automatically provision teams from your identity provider
   </Card>
-  <Card title="ServiceNow" icon="server">
-    Sync CMDB configuration items
+  <Card title="Terraform" icon="code">
+    Manage catalog as infrastructure-as-code
   </Card>
-  <Card title="Custom API" icon="code">
-    Use catalog-importer for custom sources
+  <Card title="catalog-importer" icon="file-import">
+    Import from custom data sources
   </Card>
 </CardGroup>
 
-[View all integrations →](/help-centre/catalog/catalog-integrations/index)
+Learn more about [Catalog integrations](/help-centre/catalog/catalog-integrations/index).
 
-## Using Catalog for Routing
+## Using the Catalog
 
-### Dynamic Alert Routing
+### In Incidents
 
-Use Catalog relationships to route alerts automatically:
+When declaring or updating an incident:
 
-**Traditional approach (doesn't scale):**
-- Create alert route for Team A
-- Create alert route for Team B  
-- Create alert route for Team C
-- Result: Dozens of alert routes to maintain
+1. **Select affected services** - Choose from your catalog
+2. **Auto-populate details** - Service attributes fill incident fields
+3. **Invite relevant teams** - Workflows can auto-invite service owners
+4. **Link to resources** - Quick access to runbooks and dashboards
 
-**Catalog-powered approach (scales):**
-1. Tag alerts with `service` attribute
-2. Catalog links service → team → escalation path
-3. Single alert route uses expression: `alert.attributes.service.owner.escalation_path`
-4. Result: One route that works for all teams
+### In Alert Routing
 
-<Note>
-**Key insight**: Don't create configurations per team. Instead, use Catalog relationships to dynamically route to the right team based on context.
-</Note>
+Use catalog data to route alerts intelligently:
 
-### Example Routing Scenarios
-
-<Accordion title="Route by Service Owner">
-**Setup:**
-- Services in Catalog with `owner` relationship to Teams
-- Teams linked to Escalation Paths
-- Alerts tagged with `service` attribute
-
-**Expression:**
 ```
-alert.attributes.service.owner.escalation_path
+IF alert.service.owner_team = "Payments"
+THEN escalate to Payments Team escalation path
 ```
 
-**Flow:**
-1. Alert tagged: `service=checkout-api`
-2. Catalog lookup: `checkout-api` owned by `Payments Team`
-3. Catalog lookup: `Payments Team` has `payments-escalation` path
-4. Route to: `payments-escalation`
+This works even if:
+- Your alerts only include a service name
+- The catalog links services to teams
+- Teams are linked to escalation paths
+
+No need to maintain routing rules for every service.
+
+### In Workflows
+
+Leverage catalog attributes in workflows:
+
+- Send notifications to team-specific channels
+- Invite the on-call person for the service's team
+- Post to different status pages based on service tier
+- Create Jira tickets in team-specific projects
+
+### Team-Based Filtering
+
+<Info>
+  **See only what matters to you**
+  
+  By default, incident.io filters pages by your team membership:
+  
+  - **Incidents page** - Shows incidents affecting your team
+  - **Alerts page** - Shows alerts for your team's services
+  - **Schedules** - Your team's schedules appear first
+  - **Escalation paths** - Your team's paths are prioritized
+  
+  Configure which field is used for filtering in [Settings → Teams → Configure](https://app.incident.io/~/settings/teams/configure).
+</Info>
+
+## Catalog Best Practices
+
+<Accordion title="Service Organization">
+  - **Right granularity** - Not too broad ("Backend") or too specific ("OrderService-Worker-3")
+  - **Consistent naming** - Follow a naming convention
+  - **Clear ownership** - Every service should have an owner team
+  - **Service tiers** - Define criticality (critical, high, medium, low)
+  - **Keep it current** - Archive deprecated services
 </Accordion>
 
-<Accordion title="Route by Feature">
-**Setup:**
-- Features in Catalog with `primary_team` relationship
-- Incident form asks "Which feature is affected?"
-
-**Workflow expression:**
-```
-incident.affected_feature.primary_team.escalation_path
-```
-
-**Flow:**
-1. Incident declares: feature=checkout
-2. Catalog: checkout feature owned by Payments Team
-3. Escalate to: Payments Team's escalation path
+<Accordion title="Team Structure">
+  - **Align with reality** - Mirror your actual team structure
+  - **Clear boundaries** - Teams should have distinct responsibilities
+  - **Manageable size** - Not too large or too small
+  - **Sync from source** - Use SCIM or integrations to avoid drift
+  - **Regular reviews** - Update as teams change
 </Accordion>
 
-<Accordion title="Route with Fallback">
-**Expression:**
-```
-alert.attributes.service.owner.escalation_path ?? escalation_paths.default
-```
-
-**Flow:**
-1. Try to find service owner's escalation path
-2. If not found, use default escalation path
-3. Ensures alerts always get routed somewhere
+<Accordion title="Attributes and Metadata">
+  - **Add useful context** - Links to docs, dashboards, repos
+  - **Use in automation** - Consider how attributes will be used in routing and workflows
+  - **Avoid duplication** - Don't recreate data that exists elsewhere
+  - **Keep it simple** - Start with basics, add complexity as needed
+  - **Document meanings** - Ensure attributes are clearly understood
 </Accordion>
 
-## Team-Based Filtering
+## Advanced Features
 
-### Automatic Filtering
+### Relationships
 
-By default, dashboards filter to show only relevant items:
+Define relationships between catalog entries:
 
-**For team members:**
-- **Incidents**: Only incidents affecting your team(s)
-- **Alerts**: Only alerts for services your team owns
-- **Escalation paths**: Your team's paths shown first
-- **Schedules**: Your team's schedules highlighted
+- **Service dependencies** - Which services depend on which
+- **Team ownership** - Which teams own which services
+- **Service hierarchies** - Parent-child service relationships
+- **Component groupings** - Logical groupings of related items
 
-**Configuration:**
-- Set which custom field determines "affected teams"
-- Set which alert attribute determines "owning team"
-- Users can override filters to see everything
+Relationships enable:
+- Impact analysis ("If this service fails, what else is affected?")
+- Automatic routing ("Alert the team that owns the dependent service")
+- Cascade notifications ("Notify teams of all affected services")
 
-[Configure team filtering →](/help-centre/catalog/getting-started-with-teams)
+### Custom Attributes
 
-### User Preferences
+Add custom attributes to any catalog type:
 
-Individual users can control their default view:
+- **Text fields** - Free-form text
+- **Links** - URLs to external resources
+- **Single select** - Choose one option
+- **Multi-select** - Choose multiple options
+- **Catalogs** - Link to other catalog entries
 
-- Filter by my teams (default)
-- Filter by specific teams
-- Show everything (no filtering)
-- Remember per-page preferences
+Use custom attributes in conditions throughout incident.io.
 
-Access via Preferences → My Dashboard
+### API and Automation
 
-## Catalog Maintenance
+Manage your catalog programmatically:
 
-### Keeping Catalog Updated
+- **REST API** - Create, update, delete catalog entries
+- **Terraform provider** - Manage catalog as code
+- **catalog-importer** - Sync from custom sources
+- **Webhooks** - React to catalog changes
 
-<Accordion title="Automated Sync (Recommended)">
-Use integrations to keep Catalog fresh:
-- SCIM for teams and users
-- catalog-importer for services
-- Terraform for infrastructure-as-code
-- API for custom automation
+See the [API documentation](/api-reference) for details.
 
-**Benefits:**
-- Always up to date
-- No manual work
-- Reduces errors
+## Data Sources and Integrations
+
+<Accordion title="Backstage Integration">
+  Backstage is a popular service catalog platform. incident.io can sync:
+  
+  - Components as services
+  - Groups as teams
+  - APIs and resources
+  - Ownership relationships
+  - Metadata and annotations
+  
+  Learn more in [Backstage integration](/help-centre/catalog/catalog-integrations/backstage).
 </Accordion>
 
-<Accordion title="Re-syncing Data">
-Manually trigger re-sync when needed:
-- After major organizational changes
-- When external system data changes
-- To refresh stale data
-
-[How to re-sync Catalog data →](/help-centre/catalog/how-to-re-sync-catalog-data)
+<Accordion title="SCIM for Teams">
+  Use SCIM to automatically sync teams from your identity provider:
+  
+  - Okta groups → incident.io teams
+  - Google Workspace groups → incident.io teams
+  - Microsoft Entra ID groups → incident.io teams
+  - Automatic member updates when people join/leave groups
+  
+  See [Using SCIM to create a team catalog type](/help-centre/catalog/catalog-best-practices/using-scim-to-create-a-team-catalog-type).
 </Accordion>
 
-<Accordion title="Audit and Cleanup">
-Regularly review Catalog:
-- Remove deprecated services
-- Update ownership changes
-- Verify relationships are correct
-- Archive old teams or services
-
-**Tip**: Use Catalog insights to find entries without owners or with broken relationships.
+<Accordion title="Salesforce Integration">
+  For customer-facing incidents, link Salesforce accounts:
+  
+  - Import accounts and opportunities
+  - Track incidents affecting specific customers
+  - Link incidents to deals in progress
+  - Automatic customer notifications
+  
+  Learn about [Linking Salesforce accounts and opportunities in catalog](/help-centre/linking-salesforce-accounts-and-opportunities-in-catalog).
 </Accordion>
+
+## Maintenance and Hygiene
+
+### Re-syncing Data
+
+If catalog data gets out of sync:
+
+1. Go to the integration settings
+2. Trigger a manual re-sync
+3. Review and resolve any conflicts
+4. Verify data is correct
+
+See [How to re-sync Catalog data](/help-centre/catalog/how-to-re-sync-catalog-data).
+
+### Regular Reviews
+
+Schedule periodic catalog reviews:
+
+- **Quarterly** - Review and update service ownership
+- **After re-orgs** - Update team structures and memberships
+- **When launching** - Add new services
+- **When deprecating** - Archive old services
 
 ### Data Quality
 
-<Warning>
-**Garbage in, garbage out**: Alert routing is only as good as your Catalog data. Invest time in keeping it accurate.
-</Warning>
+Maintain high-quality catalog data:
 
-Best practices:
-1. **Assign owners**: Every service should have an owning team
-2. **Link escalation paths**: Every team should have an escalation path
-3. **Regular reviews**: Monthly audit of Catalog accuracy
-4. **Onboarding process**: New services must be added to Catalog
-5. **Offboarding process**: Remove deprecated services
+- ✅ All services have owner teams
+- ✅ Team membership is current
+- ✅ Links and documentation are up-to-date
+- ✅ Service tiers are accurate
+- ✅ Deprecated services are archived
 
-## Advanced Catalog Usage
+## Additional Resources
 
-### Catalog in Workflows
-
-Use Catalog data in automated workflows:
-
-- **Notify service owner**: Send Slack message to service owner when incident affects their service
-- **Create tickets**: Auto-create Jira issue in team's project
-- **Update channels**: Post to team-specific Slack channel
-- **Assign roles**: Auto-assign Incident Lead from on-call for affected team
-
-### Catalog in Forms
-
-Incident forms can reference Catalog:
-
-- **Affected Services**: Dropdown of all services
-- **Affected Teams**: Multi-select of teams
-- **Feature Selection**: Choose from Catalog features
-- **Customer Impact**: Link to customer entries
-
-Catalog relationships then enable automatic actions based on selections.
-
-### Catalog in Insights
-
-Analyze incidents using Catalog dimensions:
-
-- Incidents per team
-- MTTR by service tier
-- Alert volume per service
-- Coverage gaps (services without owners)
-
-## Best Practices
-
-<Note>
-**Start simple**: Begin with just Teams and Services. Add more types as you identify needs. Don't over-engineer upfront.
-</Note>
-
-### Structuring Your Catalog
-
-1. **Start with ownership**: Focus on getting team ownership of services right first
-2. **Add incrementally**: Don't try to model everything at once
-3. **Follow your org**: Match your actual organizational structure
-4. **Keep it current**: Automate sync where possible
-5. **Document relationships**: Clear rules for what owns what
-
-### Naming Conventions
-
-- **Consistent casing**: Choose snake_case, kebab-case, or PascalCase
-- **Clear, descriptive names**: "Payments API" not "PAPI"
-- **Avoid abbreviations**: Unless universally known in your org
-- **User-facing perspective**: Name as users would understand
-
-### Organizational Buy-In
-
-- **Make teams owners**: Teams should maintain their own service entries
-- **Show value early**: Start with alert routing to demonstrate benefits
-- **Provide visibility**: Dashboards showing who owns what
-- **Integrate with existing**: Sync from existing service catalogs
-
-## FAQs and Resources
-
-<Card title="Catalog FAQs" icon="circle-question" href="/help-centre/catalog/catalog-faqs/index">
-  Common questions about Catalog structure and usage
-</Card>
-
-### Related Documentation
-
+- [How to re-sync Catalog data](/help-centre/catalog/how-to-re-sync-catalog-data)
 - [Getting started with teams](/help-centre/catalog/getting-started-with-teams)
-- [Using Catalog with On-call](/help-centre/on-call/get-started-with-on-call/using-catalog-with-on-call)
-- [Alert routing](/help-centre/alerts/alert-configuration/creating-escalations-and-incidents-from-alerts)
-- [Workflows](/help-centre/configure-your-account/workflows/index)
-- [catalog-importer](https://github.com/incident-io/catalog-importer)
-- [Terraform provider](https://registry.terraform.io/providers/incident-io/incident/latest)
-
----
-
-<Info>
-**Need help?** Contact us via your Slack Connect channel or email [help@incident.io](mailto:help@incident.io)
-</Info>
+- [Using the Catalog](/help-centre/configure-your-account/using-the-catalog)

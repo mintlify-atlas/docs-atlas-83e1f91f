@@ -12,10 +12,32 @@ For On-call seats, we'll ask you to confirm before upgrading a user when you:
 - Add them to a schedule
 - Add them to an escalation path
 
+<Info>
+Users are automatically upgraded to Response seats when they perform response actions, ensuring you only pay for seats that are actively being used.
+</Info>
+
 ## Removing seats
 
 Users are only removed from Response or On-call seats if:
-- You manually downgrade them in [Settings > Users ](https://app.incident.io/settings/users)
+- You manually downgrade them in [Settings > Users](https://app.incident.io/settings/users)
 - Their Slack account is deleted
 
-They won't lose their seat if they stop taking actions - you have to explicitly downgrade them.
+<Warning>
+Users won't lose their seat if they stop taking actions - you have to explicitly downgrade them to remove the seat.
+</Warning>
+
+## Best practices
+
+<Steps>
+  <Step title="Review seat usage regularly">
+    Check your seat usage in [Settings > Billing](https://app.incident.io/settings/billing) to ensure you're only paying for active users.
+  </Step>
+  
+  <Step title="Downgrade inactive users">
+    If someone no longer needs Response or On-call capabilities, manually downgrade them to a Viewer seat in [Settings > Users](https://app.incident.io/settings/users).
+  </Step>
+  
+  <Step title="Monitor automatic upgrades">
+    Keep track of users being automatically upgraded to Response seats to understand your team's incident response patterns.
+  </Step>
+</Steps>

@@ -3,20 +3,56 @@ title: OpsLevel
 description: Connect OpsLevel to import catalog data into incident.io
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # OpsLevel
 
-1. **Go to Settings >** [**Integrations**](https://app.incident.io/settings/integrations)
+Connect your OpsLevel service catalog to incident.io to automatically import your services, teams, and metadata into the incident.io Catalog.
 
-2. **Press "Install" next to Opslevel**
+## Setting Up
 
-3. **Fetch your API key from Opslevel**
+<Steps>
+  <Step title="Go to Settings > Integrations">
+    Navigate to [Settings > Integrations](https://app.incident.io/settings/integrations)
+  </Step>
 
-You'll need to create an API key by heading to the settings page of [your Opslevel account](https://app.opslevel.com/api_tokens).
+  <Step title="Press 'Install' next to OpsLevel">
+    Find OpsLevel in the list of available integrations and click the Install button.
+  </Step>
 
-4. **Press "Save"**
+  <Step title="Fetch your API key from OpsLevel">
+    You'll need to create an API key by heading to the settings page of [your OpsLevel account](https://app.opslevel.com/api_tokens).
 
-5. **Go to** [**Catalog**](https://app.incident.io/catalog) **to view connected Catalog entities**
+    <Note>
+    Make sure the API key has the necessary permissions to read catalog data from OpsLevel.
+    </Note>
+  </Step>
+
+  <Step title="Enter your API key and press 'Save'">
+    Paste the API key into the integration configuration form and save your settings.
+  </Step>
+
+  <Step title="View your connected Catalog entities">
+    Go to [Catalog](https://app.incident.io/catalog) to view and manage the entities imported from OpsLevel.
+  </Step>
+</Steps>
+
+## What Gets Synced
+
+Once connected, incident.io will automatically import and sync:
+
+- **Services**: All services defined in your OpsLevel catalog
+- **Teams**: Team ownership information
+- **Metadata**: Service metadata including descriptions, lifecycle, tier, and custom properties
+- **Dependencies**: Service relationships and dependencies
+- **Tags**: All tags and labels associated with your services
+
+<Info>
+The sync happens automatically on a regular basis to keep your incident.io Catalog up to date with changes in OpsLevel.
+</Info>
+
+## Benefits
+
+- **Automatic Service Discovery**: No need to manually maintain your service catalog in incident.io
+- **Accurate Ownership**: Always know who owns which service during an incident
+- **Rich Context**: Access all your service metadata when responding to incidents
+- **Single Source of Truth**: Keep OpsLevel as your primary service catalog while leveraging incident.io for incident management
+- **Maturity Tracking**: Leverage OpsLevel's service maturity data during incident response

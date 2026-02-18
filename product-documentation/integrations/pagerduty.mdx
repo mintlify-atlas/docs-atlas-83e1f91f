@@ -15,49 +15,57 @@ You can also use the PagerDuty integration to attach related PagerDuty incidents
 
 You can connect PagerDuty to incident.io in just a few clicks.
 
-1. Go to Settings > [Integrations](https://app.incident.io/settings/integrations)
+<Steps>
+  <Step title="Navigate to Integrations">
+    Go to Settings > [Integrations](https://app.incident.io/settings/integrations)
 
-![Screenshot of Settings > Integrations page](/images/integrations/pagerduty/pagerduty-integrations-page.png)
+    <img src="/images/integrations/pagerduty/pagerduty-integrations-page.png" alt="Settings > Integrations page" />
+  </Step>
 
-2. Press 'Connect' next to PagerDuty
+  <Step title="Connect PagerDuty">
+    Press 'Connect' next to PagerDuty
 
-![Screenshot of PagerDuty integration with Connect button](/images/integrations/pagerduty/pagerduty-connect.png)
+    <img src="/images/integrations/pagerduty/pagerduty-connect.png" alt="PagerDuty integration with Connect button" />
+  </Step>
 
-3. Fetch your API key from PagerDuty
+  <Step title="Fetch your API key from PagerDuty">
+    You'll need to create an API key by heading to your PagerDuty account, and navigating to **Integrations > API Keys**
 
-You'll need to create an API key by heading to your PagerDuty account, and navigating to **Integrations > API Keys**
+    <img src="/images/integrations/pagerduty/pagerduty-api-menu.png" alt="PagerDuty Integrations menu showing API Keys option" />
 
-![Screenshot of PagerDuty Integrations menu showing API Keys option](/images/integrations/pagerduty/pagerduty-api-menu.png)
+    <Info>
+    If you can't see the API Access Keys menu item, you probably don't have access to create API keys in PagerDuty.
+    </Info>
 
-<Info>
-If you can't see the API Access Keys menu item, you probably don't have access to create API keys in PagerDuty.
-</Info>
+    <img src="/images/integrations/pagerduty/pagerduty-api-keys.png" alt="API Access Keys page in PagerDuty" />
 
-![Screenshot of API Access Keys page in PagerDuty](/images/integrations/pagerduty/pagerduty-api-keys.png)
+    Click **Create an API Key**
 
-Click **Create an API Key**
+    <img src="/images/integrations/pagerduty/pagerduty-create-key.png" alt="Create API Key button" />
 
-![Screenshot highlighting Create API Key button](/images/integrations/pagerduty/pagerduty-create-key.png)
+    Call it "incident.io"
 
-Call it "incident.io"
+    We do need write access, so leave the 'read-only key' box unchecked.
 
-We do need write access, so leave the 'read-only key' box unchecked.
+    <img src="/images/integrations/pagerduty/pagerduty-key-form.png" alt="API Key form showing name field and read-only checkbox" />
 
-![Screenshot of API Key form showing name field and read-only checkbox](/images/integrations/pagerduty/pagerduty-key-form.png)
+    Copy the key to your clipboard.
+  </Step>
 
-Copy the key to your clipboard.
+  <Step title="Paste the API key">
+    Paste the API key from your clipboard into the incident.io modal
+  </Step>
 
-4. Paste the API key from your clipboard into the incident.io modal
+  <Step title="Choose your bot account">
+    All escalations will originate from the email of the chosen account. This is unfortunately a **limitation of the PagerDuty API**. When you create an incident, it must always be associated with the email of a valid PagerDuty user, as bots (i.e., us) are not allowed to create incidents on their own.
 
-5. Choose your bot account
+    If you'd rather not have incidents attached to a user's email, you could create a dedicated account in PagerDuty and connect that to incident.io. However, be aware PagerDuty will charge you for the extra seat.
 
-All escalations will originate from the email of the chosen account. This is unfortunately a **limitation of the PagerDuty API**. When you create an incident, it must always be associated with the email of a valid PagerDuty user, as bots (i.e., us) are not allowed to create incidents on their own.
+    <img src="/images/integrations/pagerduty/pagerduty-bot-account.png" alt="Bot account selection dropdown" />
 
-If you'd rather not have incidents attached to a user's email, you could create a dedicated account in PagerDuty and connect that to incident.io. However, be aware PagerDuty will charge you for the extra seat.
-
-![Screenshot of bot account selection dropdown](/images/integrations/pagerduty/pagerduty-bot-account.png)
-
-Alright, you're all set up with PagerDuty!
+    Alright, you're all set up with PagerDuty!
+  </Step>
+</Steps>
 
 ## Escalating an incident
 

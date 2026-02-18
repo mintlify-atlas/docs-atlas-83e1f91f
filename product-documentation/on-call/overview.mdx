@@ -1,122 +1,142 @@
 ---
-title: Overview
-description: Overview of on-call management features
+title: On-call Overview
+description: Modern on-call management that integrates alerting, scheduling, and incident response
 icon: "/icons/clipboard.svg"
 ---
 
-# On-call Overview
-
-incident.io On-call provides a complete platform for managing alert response, ensuring critical issues reach the right people at the right time. From ingesting alerts to routing them through escalation paths, On-call eliminates manual coordination and reduces response times.
+incident.io's on-call capabilities eliminate manual coordination about who responds to alerts at any moment. The platform connects your monitoring tools to on-call teams through intelligent routing, ensuring critical issues reach the right responders automatically.
 
 ## Core capabilities
 
+On-call management in incident.io brings together multiple capabilities into a unified workflow:
+
 <CardGroup cols={2}>
-  <Card title="Alert sources" icon="bell" href="/product-documentation/on-call/alert-sources">
-    Ingest alerts from monitoring tools, cloud providers, and error tracking platforms
+  <Card title="Alert Sources" icon="bell" href="/product-documentation/on-call/alert-sources">
+    Connect monitoring tools and ingest alerts from any platform
   </Card>
-  <Card title="Alert routing" icon="route" href="/product-documentation/on-call/alert-routing">
+  <Card title="Alert Routing" icon="route" href="/product-documentation/on-call/alert-routing">
     Automatically route alerts to the right teams and create incidents
   </Card>
   <Card title="Schedules" icon="calendar" href="/product-documentation/on-call/schedules-overview">
-    Define who is on-call and when with flexible rotation patterns
+    Define who is on-call and when with flexible rotations
   </Card>
-  <Card title="Escalation paths" icon="arrow-up" href="/product-documentation/on-call/escalation-paths">
-    Configure multi-level escalations with priority-based routing
+  <Card title="Escalation Paths" icon="arrow-up" href="/product-documentation/on-call/escalation-paths">
+    Ensure thorough response when initial responders can't acknowledge
   </Card>
 </CardGroup>
 
-## How On-call works
+## How on-call works
+
+The on-call workflow follows a clear path from alert detection to resolution:
 
 <Steps>
-  <Step title="Connect alert sources">
-    Integrate monitoring tools like Datadog, Grafana, or custom webhooks to send alerts to incident.io
+  <Step title="Alerts arrive from sources">
+    Monitoring tools, error trackers, and other systems send alerts through [alert sources](/product-documentation/on-call/alert-sources). Native integrations, HTTP endpoints, and email addresses bring issues into incident.io.
   </Step>
-  <Step title="Configure alert routing">
-    Set up routes that filter and direct alerts based on attributes like team, service, or priority
+  <Step title="Attributes provide context">
+    [Alert attributes](/product-documentation/on-call/alert-attributes) extract structured data from alert payloads—like team, service, or priority—enabling intelligent routing and providing responders with critical context.
   </Step>
-  <Step title="Create schedules">
-    Define on-call rotations with flexible shift patterns and timezone support
+  <Step title="Routes determine actions">
+    [Alert routes](/product-documentation/on-call/alert-routing) filter alerts, trigger escalations, create incidents, and send notifications to Slack or Microsoft Teams based on alert context.
   </Step>
-  <Step title="Build escalation paths">
-    Configure multi-level escalations that notify responders via push, SMS, or voice
+  <Step title="Schedules resolve who responds">
+    [Schedules](/product-documentation/on-call/schedules-overview) determine who is on-call at any moment, with support for rotations, working hours, and follow-the-sun coverage.
   </Step>
-  <Step title="Respond to alerts">
-    Responders receive notifications and can acknowledge, resolve, or escalate from the mobile app or dashboard
+  <Step title="Escalations notify responders">
+    [Escalation paths](/product-documentation/on-call/escalation-paths) page on-call responders through multiple notification channels, with automatic escalation when responses aren't acknowledged.
+  </Step>
+  <Step title="Responders take action">
+    Responders receive notifications via [mobile app](/product-documentation/on-call/mobile-app-push-notifications), [SMS, or voice](/product-documentation/on-call/sms-and-voice), acknowledge alerts, and resolve issues.
   </Step>
 </Steps>
 
 ## Key features
 
-### Intelligent alert management
+### Dynamic routing with catalog
 
-- **Dynamic routing**: Route alerts automatically based on catalog relationships and attributes
-- **Deduplication**: Prevent duplicate alerts from creating noise
-- **Grouping**: Combine related alerts into single incidents for efficient triage
-- **Auto-resolution**: Resolve alerts automatically when monitoring tools send clear signals
+Use your [Catalog](/product-documentation/catalog) to power intelligent alert routing. Instead of maintaining separate configurations for each team or service, routes automatically follow relationships in your catalog. When a service's owning team changes, routing updates automatically.
 
-### Flexible notification options
+### Flexible notification channels
 
-Reach responders through multiple channels:
+Reach responders through multiple channels based on urgency and preferences:
+- **Mobile app push notifications** with critical alerts that bypass Do Not Disturb
+- **SMS and voice calls** for immediate escalation
+- **Email** for lower-priority notifications
+- **Slack and Microsoft Teams** for team visibility
 
-- **[Mobile app push notifications](/product-documentation/on-call/mobile-app-push-notifications)**: Critical alerts that bypass Do Not Disturb
-- **[SMS and voice calls](/product-documentation/on-call/sms-and-voice)**: Phone-based notifications for high-urgency situations
-- **[Live call routing](/product-documentation/on-call/live-call-routing)**: Route incoming phone calls directly to on-call teams
-- **Slack and email**: Additional notification channels for awareness
+### Live call routing
 
-### Team-based organization
+[Live call routing](/product-documentation/on-call/live-call-routing) provides phone numbers that external stakeholders can call to reach on-call teams directly. Calls follow escalation logic and create alerts for tracking.
 
-Organize on-call coverage by [teams](/product-documentation/on-call/teams), linking schedules and escalation paths to your organizational structure. Use the [Catalog](/product-documentation/catalog) to maintain relationships between teams, services, and escalation paths.
+### Compensation tracking
 
-### Coverage management
-
-- **[Overrides](/product-documentation/on-call/overrides-and-cover-requests)**: Temporarily replace scheduled responders
-- **Cover requests**: Ask teammates to cover shifts with automatic notifications
-- **Calendar sync**: Export schedules to Google Calendar or Outlook
-- **Slack user group sync**: Keep Slack groups updated with current on-call responders
-
-### Insights and reporting
-
-- **[Compensation calculator](/product-documentation/on-call/compensation-calculator)**: Track on-call hours for payroll and reporting
-- **Alert analytics**: Understand alert patterns and quality metrics
-- **Response metrics**: Measure acknowledgment and resolution times
+The [compensation calculator](/product-documentation/on-call/compensation-calculator) tracks on-call hours across schedules and generates pay reports with configurable rates for different regions, roles, or tiers.
 
 ## Getting started
 
+<Steps>
+  <Step title="Connect alert sources">
+    Start by connecting your monitoring tools in **Settings → Alerts**. Set up native integrations, HTTP endpoints, or email addresses to receive alerts.
+  </Step>
+  <Step title="Define alert attributes">
+    Configure attributes in **Settings → Alerts → Attributes** to extract structured data like team, service, and priority from alert payloads.
+  </Step>
+  <Step title="Create schedules">
+    Build schedules in **On-call → Schedules** to define who is on-call and when, with support for rotations and working hours.
+  </Step>
+  <Step title="Configure escalation paths">
+    Set up escalation paths that reference schedules or specific users, with multiple levels to ensure responses.
+  </Step>
+  <Step title="Build alert routes">
+    Create alert routes in **Settings → Alerts → Routes** that filter alerts, trigger escalations, and create incidents based on alert context.
+  </Step>
+</Steps>
+
+## Teams and permissions
+
+[Teams](/product-documentation/on-call/teams) organize on-call configuration and provide automatic filtering. Team members see incidents, alerts, schedules, and escalation paths relevant to their teams, reducing noise and improving focus.
+
+Link teams to escalation paths and schedules to automatically route alerts based on team ownership. When team membership changes, routing stays in sync through catalog relationships.
+
+<Info>
+Sync team memberships from identity providers like Okta, Google Workspace, or Microsoft Entra ID using SCIM to keep teams automatically updated.
+</Info>
+
+## Best practices
+
+### Start simple, scale gradually
+
+Begin with basic schedules and escalation paths for your most critical services. Add complexity—like follow-the-sun coverage or dynamic routing—as your organization's needs grow.
+
+### Use catalog relationships
+
+Model relationships between teams, services, and escalation paths in your catalog. This approach reduces configuration overhead and ensures routing stays current as ownership changes.
+
+### Test before deploying
+
+Use test alerts during setup to verify routing logic without spamming teams. Create test alert routes that decline or silence alerts while validating configuration.
+
+### Monitor alert quality
+
+Track alert patterns using the alerts dashboard to identify noisy sources, tune routing rules, and improve signal-to-noise ratio over time.
+
+### Plan for coverage gaps
+
+Use [overrides and cover requests](/product-documentation/on-call/overrides-and-cover-requests) to handle planned absences. Encourage team members to request cover in advance for holidays or appointments.
+
+## Related resources
+
 <CardGroup cols={2}>
-  <Card title="Set up your first alert source" icon="1" href="/product-documentation/on-call/alert-sources">
-    Connect a monitoring tool to start receiving alerts
+  <Card title="Alert Actions" icon="bolt" href="/product-documentation/on-call/alert-actions">
+    Manage and resolve alerts throughout their lifecycle
   </Card>
-  <Card title="Create a schedule" icon="2" href="/product-documentation/on-call/schedules-overview">
-    Define your first on-call rotation
+  <Card title="Workflows" icon="workflow" href="/product-documentation/workflows/overview">
+    Automate incident response with workflows triggered by alerts
   </Card>
-  <Card title="Configure an escalation path" icon="3" href="/product-documentation/on-call/escalation-paths">
-    Set up multi-level notification rules
+  <Card title="Catalog" icon="book" href="/product-documentation/catalog">
+    Model organizational structure for dynamic routing
   </Card>
-  <Card title="Build an alert route" icon="4" href="/product-documentation/on-call/alert-routing">
-    Route alerts to your escalation path
+  <Card title="API Documentation" icon="code" href="https://api-docs.incident.io">
+    Programmatically manage on-call configuration
   </Card>
 </CardGroup>
-
-## FAQs
-
-<AccordionGroup>
-  <Accordion title="Do I need an incident.io On-call license to use these features?">
-    Yes. On-call features require On-call seats in addition to your incident.io subscription. Contact your customer success manager or visit the [pricing page](https://incident.io/pricing) for details.
-  </Accordion>
-
-  <Accordion title="Can I use incident.io with PagerDuty or Opsgenie?">
-    Yes. incident.io integrates with PagerDuty, Opsgenie, and Splunk On-Call as alert sources. You can also use incident.io On-call as a complete replacement for these tools.
-  </Accordion>
-
-  <Accordion title="How many alert sources can I connect?">
-    Unlimited. All plans support connecting multiple monitoring tools simultaneously.
-  </Accordion>
-
-  <Accordion title="What happens if someone doesn't acknowledge an escalation?">
-    The escalation automatically moves to the next level after the configured timeout period. Continue through all levels until someone acknowledges.
-  </Accordion>
-
-  <Accordion title="Can I test the system without paging my team?">
-    Yes. Use test notifications from your preferences page, send test alerts during source setup, and create test alert routes that decline or silence all alerts.
-  </Accordion>
-</AccordionGroup>

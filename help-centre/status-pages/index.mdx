@@ -1,449 +1,258 @@
 ---
 title: "Status Pages"
-description: "Keep your customers and internal teams informed with incident.io powered status pages"
+description: "Keep your customers and internal stakeholders informed with incident.io powered status pages"
 mode: "wide"
 ---
 
-<Info>
-Status pages provide real-time visibility into system health and ongoing incidents. incident.io offers public, internal, and customer status pages to keep all stakeholders informed.
-</Info>
-
 ## Overview
 
-incident.io's status pages help you communicate system status, ongoing incidents, and planned maintenance to your users. Whether you need a public-facing page for customers or an internal page for your team, incident.io provides flexible options with seamless incident integration.
-
-## Types of Status Pages
+Status pages are essential for transparent communication during incidents. incident.io offers multiple types of status pages to communicate with different audiences - from public-facing pages for all users to private pages for specific customers or internal teams.
 
 <CardGroup cols={2}>
   <Card title="Public status pages" icon="globe" href="/help-centre/status-pages/public-status-pages/index">
-    Communicate with all your users about system health and incidents
+    Share incident status and system uptime publicly with all your users
   </Card>
   <Card title="Internal status pages" icon="building" href="/help-centre/status-pages/internal-status-pages/index">
-    Keep internal stakeholders informed about incidents and system status
+    Keep internal stakeholders informed about ongoing incidents
+  </Card>
+  <Card title="Customer status pages" icon="users" href="/help-centre/status-pages/customer-status-pages/getting-started-with-customer-status-pages">
+    Provide dedicated, authenticated pages for specific customers
+  </Card>
+  <Card title="FAQs" icon="circle-question" href="/help-centre/status-pages/faqs/index">
+    Common questions about status pages
   </Card>
 </CardGroup>
 
-## Public Status Pages
+## Types of Status Pages
 
-### Standard Public Pages
+### Public Status Pages
 
-Your typical status page where you publicly display:
-
-- **Ongoing incidents** with real-time updates
-- **Scheduled maintenance** windows
-- **Component status** (operational, degraded, down)
-- **Uptime metrics** for each component
-- **Historical incidents** and their resolutions
-
-<Accordion title="Key Features">
-- **Custom branding**: Your logo, colors, and domain
-- **Component organization**: Group services logically
-- **Subscriber notifications**: Email and SMS updates
-- **Multiple languages**: Localized status pages
-- **Uptime calculations**: Automatic uptime percentage tracking
-- **Embeddable widgets**: Show status on your own website
-- **RSS/Atom feeds**: For monitoring tools and aggregators
+<Accordion title="Standard Public Pages">
+  Your typical public-facing status page where you can display:
+  
+  - **Ongoing incidents** - Real-time updates on active issues
+  - **Scheduled maintenance** - Planned maintenance windows
+  - **Component status** - Health status of individual services and systems
+  - **Uptime metrics** - Historical uptime data for components
+  - **Incident history** - Past incidents and their timelines
+  
+  Public pages are perfect for transparent communication with your entire user base. They're hosted on your custom domain (e.g., status.yourcompany.com) and can be customized to match your brand.
 </Accordion>
 
-<Accordion title="Publishing to Status Page">
-Publish incidents to your status page:
-- **Automatically**: Configure workflows to auto-publish based on severity
-- **Manually**: Choose which incidents to publish
-- **With approval**: Require approval before publishing
-- **Template messages**: Use templates for consistent communication
-
-[Learn how to publish incidents →](/help-centre/status-pages/public-status-pages/how-to-publish-an-incident-to-your-status-page)
+<Accordion title="Public Pages with Sub-Pages">
+  Sub-pages provide more granular status views for different audiences:
+  
+  **Use cases for sub-pages:**
+  - **Multiple products** - Separate pages for independent product offerings
+  - **Regional separation** - Different pages for different geographic regions
+  - **Customer segments** - Tailored views for different customer types
+  - **Service tiers** - Different status for premium vs. standard services
+  
+  Each sub-page can show status for specific components relevant to that audience, reducing noise and improving relevance.
+  
+  Learn more in [Status pages sub-pages](/help-centre/status-pages/public-status-pages/status-pages-sub-pages).
 </Accordion>
-
-### Sub-Pages
-
-Sub-pages provide focused views for different user segments:
-
-**Use cases:**
-- **Multi-product companies**: Separate page per product
-- **Regional separation**: Status page per geographic region
-- **Different user segments**: Enterprise vs. free tier users
-- **Partner integrations**: Dedicated pages for integration partners
-
-**Features:**
-- Inherit branding from main page
-- Independent component lists
-- Selective incident publishing
-- Separate subscriber lists
-- Custom URLs per sub-page
-
-[Setting up sub-pages →](/help-centre/status-pages/public-status-pages/status-pages-sub-pages)
 
 ### Customer Status Pages
 
-Provide dedicated, authenticated status pages for individual customers:
+<Note>
+  **Dedicated pages for specific customers**
+  
+  Customer pages add authentication to status pages, providing:
+  
+  - **Private access** - Only specific customers can view their page
+  - **Customer-specific incidents** - Show only issues affecting that customer
+  - **Dedicated infrastructure** - If you run separate infra per customer
+  - **High-value customer support** - Premium status page experience
+  - **Centralized management** - Manage all customer pages from one place
+  
+  Perfect for B2B SaaS with dedicated customer infrastructure or multi-tenant systems where issues may only affect specific customers.
+</Note>
 
-**When to use:**
-- Dedicated infrastructure per customer
-- Multi-tenant SaaS with customer-specific components
-- Enterprise customers requiring private status visibility
-- Custom SLAs and customer-specific maintenance windows
+Get started with [Customer status pages](/help-centre/status-pages/customer-status-pages/getting-started-with-customer-status-pages).
 
-**Key capabilities:**
-- Authentication required to view
-- Customer-specific component visibility
-- Separate subscriber management per customer
-- Tailored incident communication per customer
+### Internal Status Pages
 
-[Getting started with customer pages →](/help-centre/status-pages/customer-status-pages/getting-started-with-customer-status-pages)
+<Info>
+  **Keep your team informed**
+  
+  Internal status pages are designed for your organization's stakeholders:
+  
+  - **All internal incidents** - Not just customer-facing issues
+  - **Detailed technical info** - More detail than public pages
+  - **Team-specific views** - Filter by team or service
+  - **Internal-only incidents** - Show incidents that shouldn't be public
+  - **Integration with Slack** - Link to incident channels
+  
+  Accessible only by authenticated users from your organization via Slack or SAML SSO.
+</Info>
 
-## Internal Status Pages
+See [Getting started with internal status pages](/help-centre/status-pages/internal-status-pages/getting-started-with-internal-status-pages).
 
-Designed for internal stakeholders who need visibility into:
-
-- All incidents (including those not public-facing)
-- Internal service status
-- Infrastructure component health
-- Development and staging environment status
-
-**Benefits:**
-- Keep support teams informed to handle customer inquiries
-- Help product teams track reliability
-- Provide executives with high-level system health view
-- Coordinate across engineering teams during incidents
-
-**Configuration:**
-- Control who can publish to internal pages
-- Define which components appear
-- Set up automated publishing rules
-- Configure notification preferences
-
-[Getting started with internal status pages →](/help-centre/status-pages/internal-status-pages/getting-started-with-internal-status-pages)
-
-## Setting Up Your Status Page
+## Setting Up Status Pages
 
 <Steps>
-  <Step title="Create your status page">
-    Choose public, internal, or customer page type and configure basic settings
+  <Step title="Configure Components">
+    Define the services, systems, or regions you want to show status for. Components can be:
+    - Technical services (API, Database, Web App)
+    - Product features (Search, Checkout, Notifications)
+    - Geographic regions (US East, EU West)
   </Step>
-  <Step title="Add components">
-    Define the services and systems you want to track on your status page
+  
+  <Step title="Customize Appearance">
+    Brand your status page with:
+    - Custom domain
+    - Company logo and colors
+    - Custom messaging
+    - Branding elements
   </Step>
-  <Step title="Customize branding">
-    Add your logo, choose colors, and set up a custom domain
+  
+  <Step title="Configure Subscribers">
+    Enable users to subscribe for updates via:
+    - Email notifications
+    - SMS alerts
+    - Webhook integrations
+    - RSS feeds
   </Step>
-  <Step title="Configure publishing rules">
-    Set up automatic or manual publishing workflows
-  </Step>
-  <Step title="Test and go live">
-    Create a test incident, verify publishing works, then make your page public
+  
+  <Step title="Test and Launch">
+    Create a test incident to verify:
+    - Updates appear correctly
+    - Notifications are sent
+    - Branding looks right
+    - All components display properly
   </Step>
 </Steps>
 
-### Components
+Learn more in [Getting your status page ready to go 'live'](/help-centre/status-pages/public-status-pages/getting-your-status-page-ready-to-go-'live').
 
-Components represent the services and systems shown on your status page:
+## Managing Incidents on Status Pages
 
-<Accordion title="Creating Components">
-**Component properties:**
-- **Name**: What users see (e.g., "API", "Web Dashboard", "Mobile App")
-- **Description**: Optional details about the component
-- **Status**: Operational, Under Maintenance, Degraded Performance, Partial Outage, Major Outage
-- **Group**: Organize components into logical groups
-- **Display order**: Control how components appear on the page
+### Updating Status During Incidents
 
-**Best practices:**
-- Use customer-facing names, not internal service names
-- Group related components (e.g., "Core Services", "Integrations")
-- Don't create too many components - focus on what matters to users
-- Keep component statuses up to date
+When an incident occurs:
+
+1. **Affected components** - Select which components are impacted
+2. **Status level** - Set the impact level (investigating, identified, monitoring, resolved)
+3. **Incident updates** - Post updates as the incident progresses
+4. **Subscriber notifications** - Subscribers receive updates based on their preferences
+5. **Resolution** - Mark incident as resolved when service is restored
+
+### Scheduled Maintenance
+
+Communicate planned maintenance:
+
+- **Schedule in advance** - Give users advance notice
+- **Maintenance windows** - Define start and end times
+- **Impact description** - Explain what will be affected
+- **Automatic updates** - Status automatically updates at scheduled times
+- **Subscriber notifications** - Users receive reminders before and during maintenance
+
+## Subscribers and Notifications
+
+<Accordion title="Email Subscriptions">
+  Users can subscribe to receive incident updates via email:
+  
+  - Subscribe to all components or select specific ones
+  - Receive notifications for new incidents, updates, and resolutions
+  - Unsubscribe at any time via link in emails
+  - Customizable email templates with your branding
 </Accordion>
 
-<Accordion title="Component Organization">
-Organize components for clarity:
-- **Groups**: Organize into categories (Core, Integrations, etc.)
-- **Ordering**: Prioritize most important components at top
-- **Visibility**: Show/hide components on different sub-pages
-
-[Ordering components →](/help-centre/status-pages/public-status-pages/ordering-status-page-components)
+<Accordion title="SMS Subscriptions">
+  For critical updates, users can opt in to SMS notifications:
+  
+  - Receive text messages for incidents
+  - Useful for users who need immediate awareness
+  - Subscribe via status page
+  - Manage preferences online
 </Accordion>
 
-### Uptime Tracking
-
-Automatic uptime calculation for each component:
-
-- **90-day rolling uptime**: Percentage of time operational
-- **Incident impact**: Automatically reflected in uptime
-- **Calculation method**: Based on incident duration and severity
-- **Historical view**: See uptime trends over time
-
-[How we calculate uptime →](/help-centre/status-pages/public-status-pages/status-pages:-how-we-calculate-uptime)
-
-## Publishing Incidents
-
-### Manual Publishing
-
-Publish incidents directly from incident.io:
-
-1. From the incident channel, use `/inc statuspage`
-2. Select which status page(s) to publish to
-3. Choose affected components
-4. Write update message
-5. Set component status (operational, degraded, down)
-6. Publish update
-
-### Automatic Publishing
-
-Set up workflows to automatically publish:
-
-**Trigger conditions:**
-- Incident severity (e.g., auto-publish all Critical incidents)
-- Incident type (e.g., customer-facing incidents)
-- Custom field values (e.g., `customer_impact = true`)
-- Affected services or teams
-
-**Configuration:**
-- Map incident severities to component statuses
-- Use templates for consistent messaging
-- Configure which components are affected
-- Set up automatic resolution posts
-
-[Automatic publishing guide →](/help-centre/status-pages/public-status-pages/automatically-publishing-to-your-status-page)
-
-### Publishing Controls
-
-Control who can publish to status pages:
-
-- **Role-based access**: Limit to specific roles (e.g., Incident Lead)
-- **Approval workflows**: Require approval before publishing
-- **Team restrictions**: Only certain teams can publish
-- **Audit trail**: Track all publications and who made them
-
-[Configure publishing permissions →](/help-centre/status-pages/public-status-pages/control-who-can-publish-to-your-status-page)
-
-## Subscriber Notifications
-
-Keep users informed with subscriber notifications:
-
-<Accordion title="Notification Methods">
-**Email notifications:**
-- Incident updates
-- Maintenance notifications
-- Component status changes
-- Subscriber confirms subscription via email
-
-**SMS notifications:**
-- Critical incident updates
-- Higher priority notifications
-- Optional premium feature
-
-**Webhook notifications:**
-- Push updates to your own systems
-- Integrate with internal tools
-- Real-time status change notifications
+<Accordion title="Webhook and RSS">
+  For programmatic access:
+  
+  - **Webhooks** - Receive HTTP callbacks on status changes
+  - **RSS feeds** - Subscribe via feed reader
+  - **API access** - Query status programmatically
+  - **Integrations** - Connect to other tools
 </Accordion>
 
-<Accordion title="Managing Subscribers">
-**Subscription options:**
-- All incidents and maintenance
-- Specific components only
-- Specific sub-pages only
-- Incident severity thresholds
+Learn more about [Status page subscriptions](/help-centre/status-page-subscriptions).
 
-**Management features:**
-- Import subscribers from CSV
-- Migrate from other status page providers
-- Bulk subscription management
-- Unsubscribe handling
-
-[Subscriber management →](/help-centre/status-page-subscriptions)
-</Accordion>
-
-## Maintenance Windows
-
-Schedule and communicate planned maintenance:
-
-<Accordion title="Creating Maintenance Windows">
-1. Schedule maintenance in advance
-2. Specify affected components
-3. Set start and end times
-4. Write maintenance description
-5. Notify subscribers
-6. Automatically update status during window
-</Accordion>
-
-<Accordion title="Maintenance Automation">
-Automate maintenance windows:
-- Create via API for regular maintenance
-- Link to deployment schedules
-- Automatic status updates when maintenance starts/ends
-- Template messages for recurring maintenance
-
-[Maintenance automation →](/help-centre/status-pages/public-status-pages/status-pages-maintenance-automation)
-</Accordion>
-
-## Customization
+## Customization Options
 
 ### Branding and Appearance
 
-<CardGroup cols={2}>
-  <Card title="Custom Domain" icon="link">
-    Use your own domain (status.yourcompany.com)
-  </Card>
-  <Card title="Logo and Colors" icon="palette">
-    Match your brand identity
-  </Card>
-  <Card title="Custom CSS" icon="code">
-    Advanced styling options
-  </Card>
-  <Card title="Favicon" icon="icons">
-    Branded browser tab icon
-  </Card>
-</CardGroup>
+- **Custom domain** - Use your own domain (status.yourcompany.com)
+- **Logo and colors** - Match your brand identity
+- **Custom CSS** - Advanced styling options
+- **Header and footer** - Add custom content
+- **Favicon** - Custom browser icon
 
-[Customize appearance →](/help-centre/status-pages/faqs/can-i-customize-the-appearance-of-my-status-page)
+### Content Customization
 
-### Multi-Language Support
-
-Provide status pages in multiple languages:
-
-- Translate component names and descriptions
-- Localized incident updates
-- Language selector on page
-- Regional sub-pages with local language
-
-[Create multi-language pages →](/help-centre/status-pages/faqs/can-i-create-status-pages-in-multiple-languages)
-
-## Integration and APIs
-
-### Embeddable Widgets
-
-Show status on your own website:
-
-```html
-<script src="https://status.incident.io/widget.js"></script>
-<div data-incident-io="widget"></div>
-```
-
-- Real-time status updates
-- Matches your branding
-- Minimal performance impact
-- Responsive design
-
-[Embed documentation →](/help-centre/status-pages/public-status-pages/embed-your-status-page's-data-into-your-own-product)
-
-### API Access
-
-Programmatically manage your status page:
-
-- Create and update incidents
-- Manage components
-- Schedule maintenance
-- Retrieve current status
-- Historical data access
-
-### Analytics
-
-Track status page usage:
-
-- Visitor analytics via Google Analytics
-- Subscriber engagement metrics
-- Incident view counts
-- Popular components
-
-[Add Google Analytics →](/help-centre/status-pages/faqs/how-do-i-add-google-analytics-to-my-status-page)
-
-## Migrating to incident.io
-
-### From Atlassian Statuspage
-
-Migrate your existing status page:
-
-- Import components and structure
-- Migrate subscribers automatically
-- Transfer historical incident data
-- Preserve custom domain
-- Redirect from old status page
-
-[Migration guide →](/help-centre/status-pages/public-status-pages/migrating-from-atlassian-statuspage)
-
-### From Other Providers
-
-- Export subscriber lists from old provider
-- Import to incident.io
-- Configure components to match
-- Set up redirects
-- Announce migration to subscribers
-
-[Import subscribers →](/help-centre/status-pages/faqs/how-do-i-import-subscribers-from-another-status-page-provider)
+- **Welcome message** - Custom text on the main page
+- **Component descriptions** - Explain what each component is
+- **Incident templates** - Pre-written update templates
+- **Historical data** - Choose how much history to show
+- **Uptime calculations** - Configure uptime display
 
 ## Best Practices
 
-<Note>
-**Update early and often**: As soon as you know there's an issue, post an initial update. Regular updates (every 30 minutes for major incidents) keep users informed and reduce support volume.
-</Note>
+<Accordion title="Communication Strategy">
+  - **Update frequently** - Even if just to say you're still investigating
+  - **Be transparent** - Honest communication builds trust
+  - **Set expectations** - Provide ETAs when possible, caveat when uncertain
+  - **Post-resolution updates** - Explain what happened and what you're doing to prevent recurrence
+  - **Use plain language** - Avoid jargon, make updates accessible to all users
+</Accordion>
 
-<Warning>
-**Don't over-publish**: Not every incident needs to be on the status page. Focus on customer-impacting issues. Internal incidents should use internal status pages instead.
-</Warning>
+<Accordion title="Component Organization">
+  - **User-focused naming** - Name components as users think of them, not internal names
+  - **Right level of detail** - Not too granular, not too broad
+  - **Logical grouping** - Group related components
+  - **Parent-child relationships** - Use component hierarchies for complex systems
+  - **Regular review** - Update component structure as your product evolves
+</Accordion>
 
-### Communication Tips
+<Accordion title="Incident Updates">
+  - **First update quickly** - Acknowledge the issue as soon as you're aware
+  - **Regular cadence** - Update at predictable intervals
+  - **What, why, next** - Explain what's happening, why, and what you're doing
+  - **Avoid over-committing** - Better to under-promise and over-deliver
+  - **Post-incident summary** - Close with a clear explanation of resolution
+</Accordion>
 
-1. **Be transparent**: Explain what's happening in clear language
-2. **Set expectations**: Provide estimated resolution times when possible
-3. **Use templates**: Maintain consistent tone and format
-4. **Update regularly**: Even if there's no new information
-5. **Resolve clearly**: Explain what was fixed and what users should expect
-
-### Component Strategy
-
-1. **Customer perspective**: Name components as users know them
-2. **Appropriate granularity**: Not too many, not too few
-3. **Logical grouping**: Organize related components together
-4. **Keep it simple**: Average status page has 10-15 components
-
-### Go Live Checklist
-
-<Steps>
-  <Step title="Components configured">
-    All services properly represented
-  </Step>
-  <Step title="Branding complete">
-    Logo, colors, and custom domain set up
-  </Step>
-  <Step title="Publishing workflows tested">
-    Verify automatic and manual publishing works
-  </Step>
-  <Step title="Team trained">
-    Ensure responders know how to publish updates
-  </Step>
-  <Step title="Subscribers migrated">
-    Import existing subscribers if migrating
-  </Step>
-  <Step title="Documentation updated">
-    Link to status page from your website and docs
-  </Step>
-</Steps>
-
-[Complete go-live checklist →](/help-centre/status-pages/public-status-pages/go-live-checklist-for-your-new-status-page)
-
-## FAQs and Resources
-
-<Card title="Status Page FAQs" icon="circle-question" href="/help-centre/status-pages/faqs/index">
-  Common questions about status pages, subscribers, and configuration
-</Card>
-
-### Common Questions
-
-- [Who can create and manage status pages?](/help-centre/status-pages/faqs/who-on-our-team-can-create-manage-or-post-to-status-pages)
-- [Is there a subscriber limit?](/help-centre/status-pages/faqs/is-there-a-limit-on-status-page-subscribers)
-- [Can I customize email sender address?](/help-centre/status-pages/faqs/can-i-customize-the-email-sender-address-for-status-page-notifications)
-- [Can I display system metrics?](/help-centre/status-pages/faqs/can-i-display-system-metrics-on-my-status-page)
-- [Can I manage via Terraform?](/help-centre/status-pages/faqs/can-i-manage-status-pages-using-terraform-or-automation)
-
-### Related Documentation
-
-- [Introduction to status pages](/help-centre/status-pages/introduction-to-status-pages)
-- [Creating and running incidents](/help-centre/creating-and-running-incidents/index)
-- [Workflows for automation](/help-centre/configure-your-account/workflows/index)
-
----
+## Integration with Incidents
 
 <Info>
-**Questions?** Contact us via your Slack Connect channel or email [help@incident.io](mailto:help@incident.io)
+  **Automated status page updates**
+  
+  Connect your incidents to status pages automatically:
+  
+  - Create status page incidents when declaring incidents in incident.io
+  - Map incident severities to status page impact levels
+  - Use workflows to automatically update status pages
+  - Link affected services to status page components
+  - Post incident updates directly to status pages
+  
+  This ensures your status page stays up-to-date without manual work during an incident.
 </Info>
+
+## Analytics and Insights
+
+Track how users interact with your status page:
+
+- **Page views** - See traffic patterns during incidents
+- **Subscriber growth** - Monitor subscription trends
+- **Component popularity** - Understand which components users care about most
+- **Incident history** - Analyze incident frequency and duration
+- **Uptime metrics** - Track availability over time
+
+See [High page view alerts](/help-centre/high-page-view-alerts) for monitoring status page traffic.
+
+## Additional Resources
+
+- [Introduction to status pages](/help-centre/status-pages/introduction-to-status-pages)
+- [Getting started with customer status pages](/help-centre/status-pages/customer-status-pages/getting-started-with-customer-status-pages)
+- [Status page subscriptions](/help-centre/status-page-subscriptions)

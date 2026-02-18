@@ -4,270 +4,156 @@ description: "Learn how to declare, manage, and resolve incidents effectively wi
 mode: "wide"
 ---
 
-<Info>
-Effective incident management starts with quickly declaring incidents and coordinating your response team. This guide covers everything from creating your first incident to resolving it successfully.
-</Info>
-
 ## Overview
 
-When something goes wrong, incident.io helps you respond quickly by providing structured workflows, automated coordination, and clear communication channels. Whether you're responding to a production outage or a security incident, the platform guides you through each stage.
-
-## Quick Start
-
-<CardGroup cols={3}>
-  <Card title="Creating a new incident" icon="plus" href="/help-centre/creating-and-running-incidents/creating-a-new-incident/index">
-    Declare incidents from Slack, Teams, web, or via alerts
-  </Card>
-  <Card title="Managing ongoing incidents" icon="tasks" href="/help-centre/creating-and-running-incidents/managing-ongoing-incidents/index">
-    Update status, assign roles, and coordinate response
-  </Card>
-  <Card title="Incident streams" icon="stream" href="/help-centre/creating-and-running-incidents/incident-streams/index">
-    Organize and track incidents at scale
-  </Card>
-</CardGroup>
-
-## Declaring Incidents
-
-### Multiple Ways to Start
-
-Incident.io offers flexibility in how you declare incidents:
-
-<Accordion title="1. From Slack with /incident (or /inc)">
-The fastest way to declare an incident. From any Slack channel:
-- Type `/inc` or `/incident` and hit Enter
-- Fill out the incident form (or skip and fill it later)
-- incident.io creates a dedicated channel and notifies your team
-
-**Pro tip**: Type `/inc Website is down` to pre-fill the incident summary.
-</Accordion>
-
-<Accordion title="2. Turn a Slack message into an incident">
-Saw something concerning in a channel? 
-- Click the three dots on any Slack message
-- Select "Create an incident"
-- The message content becomes part of your incident context
-
-This ensures important context isn't lost when escalating to an incident.
-</Accordion>
-
-<Accordion title="3. From Microsoft Teams">
-For Teams users:
-- Navigate to the General channel in the Incidents Team
-- Click the incident.io tab
-- Fill out the declare form
-</Accordion>
-
-<Accordion title="4. Use inc.new in your browser">
-Declare incidents from anywhere:
-- Visit [inc.new](https://inc.new)
-- Create a live or retrospective incident
-- Fill out incident details
-
-Great for creating retrospective incidents or when you're not in Slack/Teams.
-</Accordion>
-
-<Accordion title="5. Automatically from alerts">
-Alerts from your monitoring tools can automatically create incidents:
-- Configure alert sources (Datadog, PagerDuty, Prometheus, etc.)
-- Set up alert routes to determine which alerts create incidents
-- Incidents are created with relevant context from the alert
-
-[Learn more about alert configuration →](/help-centre/alerts/index)
-</Accordion>
-
-<Note>
-**Tip**: In the heat of the moment, you don't need to fill out the entire form. By default, we'll create a low-severity incident with a randomly generated name. You can easily update these details later with `/inc rename` and `/inc update`.
-</Note>
-
-## Incident Lifecycle
-
-### Understanding Incident Stages
-
-<Steps>
-  <Step title="Triage">
-    Initial assessment phase. Determine if this is truly an incident and what severity it should be.
-    - Quick decision-making
-    - Can be declined if not a real incident
-    - Minimal required fields
-  </Step>
-  <Step title="Active Response">
-    The incident is confirmed and being actively worked on.
-    - Dedicated Slack channel created
-    - Roles assigned (Incident Lead, Comms Lead, etc.)
-    - Regular status updates
-    - Responders collaborate on resolution
-  </Step>
-  <Step title="Resolution">
-    The immediate issue is resolved and services are restored.
-    - Mark incident as resolved
-    - Document resolution steps
-    - Schedule debrief if needed
-  </Step>
-  <Step title="Post-Incident">
-    Learning and improvement phase.
-    - Review timeline
-    - Create follow-up actions
-    - Write post-mortem
-    - Share learnings
-  </Step>
-</Steps>
-
-## Managing Active Incidents
-
-### Key Actions During an Incident
+Effective incident management starts with knowing how to create, manage, and resolve incidents efficiently. This guide covers the complete incident lifecycle, from declaration through resolution.
 
 <CardGroup cols={2}>
-  <Card title="Update Status" icon="bullhorn">
-    Keep stakeholders informed with regular updates. Use `/inc update` to share progress.
+  <Card title="Creating a new incident" icon="plus" href="/help-centre/creating-and-running-incidents/creating-a-new-incident/index">
+    Learn the different ways to declare an incident and get your response started
   </Card>
-  <Card title="Assign Roles" icon="user-tag">
-    Designate Incident Lead, Comms Lead, and other roles to clarify responsibilities.
+  <Card title="Managing ongoing incidents" icon="tasks" href="/help-centre/creating-and-running-incidents/managing-ongoing-incidents/index">
+    Keep your incident organized with roles, actions, and real-time updates
   </Card>
-  <Card title="Invite Responders" icon="user-plus">
-    Bring in the right people with `/inc invite` or through automated workflows.
+  <Card title="Incident streams" icon="stream" href="/help-centre/creating-and-running-incidents/incident-streams/index">
+    Use streams to organize complex incidents with multiple workstreams
   </Card>
-  <Card title="Create Actions" icon="list-check">
-    Track immediate action items that need attention during the incident.
+  <Card title="FAQs" icon="circle-question" href="/help-centre/creating-and-running-incidents/faqs/index">
+    Common questions about creating and managing incidents
   </Card>
 </CardGroup>
 
-### Quick Actions
-
-Speed up your incident response with [Quick Actions](/help-centre/creating-and-running-incidents/quick-actions):
-
-- Pre-configured actions for common scenarios
-- One-click incident updates
-- Automated status page updates
-- Custom quick actions for your workflows
+## Key Features for Incident Response
 
 ### Decision Flows
 
-[Decision Flows](/help-centre/creating-and-running-incidents/decision-flows) help guide responders through complex decisions:
-
-- Present multiple choice questions during incidents
-- Trigger different workflows based on answers
-- Ensure consistent decision-making
-- Document decisions in incident timeline
-
-## Advanced Features
-
-### Incident Types
-
-Customize forms and workflows for different types of incidents:
-
-- Security incidents with specific fields and processes
-- Infrastructure incidents with automated runbooks
-- Customer-impacting incidents with status page updates
-
-Each type can have its own configuration, severity scales, and workflows.
-
-### Incident Modes
-
-<Accordion title="Live Incidents">
-Real-time incidents happening right now. Full incident response activated with channels, notifications, and coordination.
+<Accordion title="What are Decision Flows?">
+  Decision Flows help you make important decisions during an incident by guiding responders through a set of steps. They're particularly useful for situations like:
+  
+  - Determining whether to update your public status page
+  - Deciding if something needs regulatory reporting
+  - Assessing customer impact and communication needs
+  
+  You can create Decision Flows from [Settings → Decision Flows](https://app.incident.io/settings/decision-flows), either from scratch or using pre-built templates like the Data Breach (GDPR) template.
 </Accordion>
 
-<Accordion title="Triage Mode">
-Potential incidents being assessed. Lightweight process to determine if full incident response is needed.
+<Accordion title="How do Decision Flows work?">
+  Each Decision Flow consists of branches with:
+  
+  - **Node** - Displayed in the UI to help navigate the process
+  - **Prompt** - Shown to the user with context (supports Slack mrkdwn)
+  - **Options** - Choices the decision maker can select from
+  
+  Trigger Decision Flows automatically using Workflows based on conditions like incident severity or type.
 </Accordion>
 
-<Accordion title="Test Incidents">
-Practice incidents for training and testing. Won't affect production metrics or alerts.
-</Accordion>
+### Quick Actions
 
-<Accordion title="Retrospective Incidents">
-Document past incidents that weren't tracked in incident.io at the time. Useful for historical analysis and learning.
-</Accordion>
+<Note>
+  **Jump-start your incident response**
+  
+  Quick Actions help you get your incident response off the ground quickly by providing one-click access to common first steps:
+  
+  - Assigning key roles (e.g., "Make me Comms Lead")
+  - Escalating to an expert
+  - Joining an incident call
+  - Linking to important documentation
+  
+  Configure Quick Actions in [Settings → Slack Channel](https://app.incident.io/settings/slack-channel) and use conditions to show them only when relevant.
+</Note>
+
+**Types of Quick Actions:**
+
+- **Pre-Defined Actions** - Built-in actions from incident.io's library
+- **Custom Link Actions** - Create links to internal documents or tools
+
+You can add conditions to control when Quick Actions appear. For example, show a "Make me Comms Lead" action only for Critical incidents.
 
 ### Merging Incidents
 
-Sometimes multiple incidents turn out to be related to the same root cause:
+When multiple incidents are declared for the same underlying issue, you can merge them together to:
 
-- [Merge incidents](/help-centre/creating-and-running-incidents/merging-incidents) to combine their channels and context
-- Preserve all timeline events and actions
-- Maintain historical record of both incidents
+- Consolidate communication in a single channel
+- Maintain a unified timeline
+- Avoid duplicated effort
+- Keep all relevant information in one place
 
-## Communication
+Learn more about [Merging incidents](/help-centre/creating-and-running-incidents/merging-incidents).
 
-### Announcements
+## Incident Lifecycle
 
-When an incident is declared, incident.io announces it to your team:
+<Steps>
+  <Step title="Declaration">
+    Start an incident through Slack, the dashboard, API, or automatically via alerts. Fill out the declare form with initial information like severity and summary.
+  </Step>
+  
+  <Step title="Response">
+    Assign roles, invite responders, create actions, and coordinate the response. Use Quick Actions to streamline common tasks.
+  </Step>
+  
+  <Step title="Communication">
+    Share updates with stakeholders, update status pages, and keep everyone informed. Use Decision Flows to guide important communication decisions.
+  </Step>
+  
+  <Step title="Resolution">
+    Mark the incident as resolved when the immediate issue is fixed. Complete the resolve form with final details.
+  </Step>
+  
+  <Step title="Post-incident">
+    Create follow-ups, generate timelines, write post-mortems, and conduct debriefs to learn from the incident.
+  </Step>
+</Steps>
 
-- Default announcements channel (`#incidents`)
-- Severity-specific channels for critical incidents
-- Custom announcement rules based on incident attributes
-- Microsoft Teams or Slack notifications
+## Working with Incidents
 
-### Status Updates
+### Incident Channels
 
-Keep everyone informed throughout the incident:
+Each incident gets a dedicated Slack channel where:
 
-- Regular updates via `/inc update`
-- Automated updates to status pages
-- Stakeholder subscriptions
-- Timeline of all updates
+- All incident-related communication happens
+- Responders can be easily @mentioned
+- Timeline events are automatically captured
+- Quick Actions and commands are available
 
-### Roles and Responsibilities
+### Incident Roles
 
-Clearly define who's doing what:
+Assign roles to clarify responsibilities during an incident:
 
-- **Incident Lead**: Overall coordination and decision-making
-- **Comms Lead**: Internal and external communications
-- **Technical Lead**: Technical investigation and fixes
+- **Incident Lead** - Coordinates the overall response
+- **Comms Lead** - Handles internal and external communications
 - Custom roles specific to your organization
 
-## Integration with Other Tools
+### Actions and Tasks
 
-### During Incidents
+During an incident, create two types of actions:
 
-- **Video calls**: Automatic Zoom/Google Meet/Teams links
-- **Status pages**: Update public and internal status pages
-- **Ticketing**: Create Jira issues for tracking
-- **Monitoring**: Pull in alerts and metrics
-
-### Context Gathering
-
-Incident.io automatically collects context:
-
-- Pinned Slack messages
-- Related alerts and metrics
-- GitHub commits and PRs
-- Sentry errors
-- Image attachments
+<CardGroup cols={2}>
+  <Card title="Actions (Do Now)" icon="bolt">
+    Tasks that need immediate attention during the incident, like rebooting a server or contacting a customer
+  </Card>
+  <Card title="Follow-ups (Do Later)" icon="fast-forward">
+    Items to address after the incident, like improving test coverage or updating documentation
+  </Card>
+</CardGroup>
 
 ## Best Practices
 
-<Warning>
-**Don't wait to declare**. If you're not sure if something is an incident, declare it in triage mode. You can always decline it if it turns out not to be an incident. It's better to have the coordination space ready than to delay response.
-</Warning>
-
-<Note>
-**Update early and often**. Regular status updates (every 15-30 minutes for major incidents) keep stakeholders informed and reduce interruptions to responders.
-</Note>
-
-### Incident Response Tips
-
-1. **Declare early**: Don't wait for confirmation - start in triage mode
-2. **Assign roles quickly**: Clear ownership accelerates response
-3. **Update regularly**: Keep stakeholders informed to reduce noise
-4. **Document as you go**: Pin important messages and decisions
-5. **Focus on resolution first**: Post-mortem can wait until after resolution
-
-## FAQs and Additional Resources
-
-<Card title="Frequently Asked Questions" icon="circle-question" href="/help-centre/creating-and-running-incidents/faqs/index">
-  Common questions about creating and managing incidents
-</Card>
-
-### Related Documentation
-
-- [Configuring incident forms](/help-centre/configure-your-account/configuring-incident-forms)
-- [Setting up workflows](/help-centre/configure-your-account/workflows/index)
-- [Learning from incidents](/help-centre/learning-from-incidents/index)
-- [On-call and alerts](/help-centre/on-call/index)
-
----
-
 <Info>
-**Need help?** Reach out via your Slack Connect channel or email [help@incident.io](mailto:help@incident.io)
+  **Pro Tips for Effective Incident Management**
+  
+  1. **Start fast, refine later** - Don't spend too much time on forms when declaring. Get the response started and add details as you learn more.
+  
+  2. **Use roles effectively** - Assign an Incident Lead early to coordinate, and a Comms Lead for any incident requiring stakeholder updates.
+  
+  3. **Leverage automation** - Set up workflows to automatically invite the right people, send notifications, and trigger Decision Flows.
+  
+  4. **Pin important messages** - Use the pin emoji to add key messages to your incident timeline for easy reference later.
+  
+  5. **Keep your team in the loop** - Post regular updates, even if just to say "still investigating" - silence creates uncertainty.
 </Info>
+
+## Additional Resources
+
+- [Decision Flows](/help-centre/creating-and-running-incidents/decision-flows)
+- [Quick Actions](/help-centre/creating-and-running-incidents/quick-actions)
+- [Merging incidents](/help-centre/creating-and-running-incidents/merging-incidents)

@@ -1,391 +1,259 @@
 ---
 title: "Alerts"
-description: "Configure alert sources, intelligent routing, and automatic incident creation from your monitoring tools"
+description: "Configure alert sources, routing rules, and automatic incident creation to ensure critical issues get the right response"
 mode: "wide"
 ---
 
-<Info>
-Connect your observability and monitoring tools to incident.io to automatically route alerts to the right teams and create incidents when needed.
-</Info>
-
 ## Overview
 
-incident.io's alert system bridges your monitoring tools with your incident response process. It provides intelligent routing, deduplication, and automatic incident creation so your teams can respond to issues quickly and effectively.
+Alerts are the first line of defense in incident management. incident.io's alert system connects to your monitoring tools, intelligently routes alerts to the right people, and can automatically create incidents when needed.
 
-## Key Features
-
-<CardGroup cols={3}>
+<CardGroup cols={2}>
   <Card title="Alert Configuration" icon="sliders" href="/help-centre/alerts/alert-configuration/index">
-    Set up alert sources and configure routing rules
+    Set up routing rules, escalations, and automatic incident creation
   </Card>
   <Card title="Alert source integrations" icon="plug" href="/help-centre/alerts/alert-source-integrations/index">
-    Connect Datadog, PagerDuty, Prometheus, and more
+    Connect your monitoring tools like Datadog, PagerDuty, Grafana, and more
   </Card>
   <Card title="Alert Deduplication" icon="layer-group" href="/help-centre/alerts/alert-deduplication/index">
-    Reduce noise by grouping similar alerts
+    Prevent alert fatigue by intelligently grouping duplicate alerts
+  </Card>
+  <Card title="FAQs" icon="circle-question" href="/help-centre/alerts/faqs/index">
+    Common questions about alerts and alert routing
   </Card>
 </CardGroup>
 
-## How Alerts Work
+## Key Concepts
+
+### Alert Sources
+
+Connect incident.io to your monitoring and alerting tools:
+
+<CardGroup cols={3}>
+  <Card title="Datadog" icon="dog">
+    Monitor infrastructure and applications
+  </Card>
+  <Card title="PagerDuty" icon="pager">
+    Import alerts from PagerDuty
+  </Card>
+  <Card title="Grafana" icon="chart-line">
+    Alert on metrics and dashboards
+  </Card>
+  <Card title="Sentry" icon="bug">
+    Error tracking and monitoring
+  </Card>
+  <Card title="CloudWatch" icon="cloud">
+    AWS infrastructure monitoring
+  </Card>
+  <Card title="Custom HTTP" icon="code">
+    Build custom integrations
+  </Card>
+</CardGroup>
+
+See all available integrations in [Alert source integrations](/help-centre/alerts/alert-source-integrations/index).
+
+### Alert Routing
+
+<Accordion title="Creating Escalations and Incidents from Alerts">
+  Configure rules to determine what happens when alerts come in:
+  
+  **Route to escalation path:**
+  - Send alerts to on-call responders
+  - Follow escalation levels if no one acknowledges
+  - Page people via Slack, SMS, and phone
+  
+  **Create incidents automatically:**
+  - Declare incidents for critical alerts
+  - Set incident severity and type based on alert attributes
+  - Pre-populate incident details from alert data
+  - Invite relevant responders automatically
+  
+  **Send to Slack channels:**
+  - Post alerts to monitoring channels for visibility
+  - Different channels for different alert priorities
+  - Keep teams informed without paging
+  
+  Learn more in [Creating escalations and incidents from alerts](/help-centre/alerts/alert-configuration/creating-escalations-and-incidents-from-alerts).
+</Accordion>
+
+<Accordion title="Dynamic Escalation Paths">
+  Route alerts to different teams based on alert attributes:
+  
+  - Use alert labels to identify which team owns a service
+  - Automatically escalate to the on-call person for that team
+  - No need to create separate alert routes for each team
+  
+  Example: If your alert includes a `team=payments` label, route it to the Payments team's escalation path.
+  
+  See [Dynamically setting an escalation path](/help-centre/alerts/alert-configuration/dynamically-setting-an-escalation-path) and [Escalating to the right team from an alert](/help-centre/alerts/alert-configuration/escalating-to-the-right-team-from-an-alert).
+</Accordion>
+
+### Alert Attributes and Priorities
+
+<Note>
+  **Enrich your alerts with context**
+  
+  Alert attributes provide the context needed for effective routing and response:
+  
+  - **Priority** - High, medium, low urgency levels
+  - **Service** - Which service or system is affected
+  - **Environment** - Production, staging, development
+  - **Team** - Which team should handle this
+  - **Region** - Geographic location of the issue
+  - Custom attributes specific to your needs
+  
+  These attributes can be used in routing rules, incident creation, and escalation decisions.
+</Note>
+
+Learn about [Attributes and Priorities](/help-centre/alerts/alert-configuration/attributes-and-priorities).
+
+## Alert Lifecycle
 
 <Steps>
-  <Step title="Alert Received">
-    Your monitoring tool sends an alert to incident.io via webhook or API integration
+  <Step title="Alert Created">
+    An alert is sent from your monitoring tool to incident.io
   </Step>
-  <Step title="Attributes Extracted">
-    incident.io extracts attributes from the alert payload (service, priority, environment, etc.)
+  
+  <Step title="Deduplication">
+    If a similar alert already exists, the new alert is grouped with it instead of creating a duplicate
   </Step>
-  <Step title="Alert Route Matched">
-    Alert routes determine which escalation path to use and whether to create an incident
+  
+  <Step title="Routing">
+    Alert routes are evaluated to determine where the alert should go - escalation path, Slack channel, or incident creation
   </Step>
-  <Step title="Escalation Started">
-    On-call responders are paged according to the escalation path configuration
+  
+  <Step title="Notification">
+    Responders are notified via their configured channels (Slack, SMS, phone)
   </Step>
-  <Step title="Incident Created (Optional)">
-    If configured, an incident is automatically created with context from the alert
+  
+  <Step title="Acknowledgment">
+    A responder acknowledges the alert, stopping further escalation
+  </Step>
+  
+  <Step title="Resolution">
+    The alert is resolved either automatically when the issue clears or manually by a responder
   </Step>
 </Steps>
 
-## Setting Up Alerts
+## Alert Configuration
 
-### 1. Connect Alert Sources
+### Setting Up Alert Routes
 
-Start by connecting your monitoring and observability tools:
+1. **Connect your alert sources** - Integrate your monitoring tools
+2. **Configure attributes** - Define which alert fields map to incident.io attributes
+3. **Create routing rules** - Set up conditions and actions for different alert types
+4. **Test your setup** - Send test alerts to verify routing works correctly
 
-**Popular Integrations:**
+### Alert Timeline
 
-<CardGroup cols={3}>
-  <Card title="Datadog" icon="chart-line">
-    Send alerts and monitors from Datadog
-  </Card>
-  <Card title="PagerDuty" icon="pager">
-    Forward PagerDuty incidents as alerts
-  </Card>
-  <Card title="Prometheus" icon="fire">
-    Alertmanager webhook integration
-  </Card>
-  <Card title="Grafana" icon="chart-area">
-    Grafana alert notifications
-  </Card>
-  <Card title="CloudWatch" icon="aws">
-    AWS CloudWatch alarms
-  </Card>
-  <Card title="Sentry" icon="bug">
-    Error and performance monitoring
-  </Card>
-  <Card title="New Relic" icon="chart-mixed">
-    APM and infrastructure alerts
-  </Card>
-  <Card title="Azure Monitor" icon="microsoft">
-    Azure monitoring and alerts
-  </Card>
-  <Card title="Custom HTTP" icon="webhook">
-    Generic webhook for any tool
-  </Card>
-</CardGroup>
+Every alert maintains a timeline showing:
 
-[View all alert source integrations →](/help-centre/alerts/alert-source-integrations/index)
+- When the alert was created
+- Who was notified at each escalation level
+- Acknowledgments and responses
+- Resolution and any related incidents
 
-### 2. Configure Alert Attributes
+This provides full visibility into how an alert was handled. Learn more about [Alert timeline](/help-centre/alerts/alert-configuration/alert-timeline).
 
-Attributes provide context about alerts and enable intelligent routing:
+## Deduplication
 
-<Accordion title="What are attributes?">
-Attributes are fields extracted from your alert payload that provide context:
-- **Team**: Which team owns the affected service
-- **Service**: What service is having issues
-- **Environment**: Production, staging, development
-- **Priority**: How urgent is this alert
-- **Region**: Geographic location affected
-- **Custom attributes**: Any field from your alert payload
-
-Use attributes to route alerts dynamically and filter noise.
+<Accordion title="How Deduplication Works">
+  Alert deduplication prevents alert fatigue by:
+  
+  - **Grouping similar alerts** - Multiple alerts about the same issue are grouped together
+  - **Smart matching** - Uses alert attributes to determine similarity
+  - **Configurable rules** - Define your own deduplication logic
+  - **Update existing alerts** - New occurrences update the existing alert instead of creating duplicates
+  
+  For example, if your monitoring system sends an alert every minute about high CPU usage, deduplication ensures you only get notified once until it's resolved.
 </Accordion>
 
-<Accordion title="Mapping alert fields">
-When setting up an alert source:
-1. Send a test alert
-2. incident.io analyzes the payload
-3. AI suggests attribute mappings
-4. Customize mappings as needed
-5. Validate with another test alert
+See [Alert Deduplication](/help-centre/alerts/alert-deduplication/index) for configuration details.
 
-Example: Map `alert.labels.team` from Prometheus to the Team attribute in incident.io.
-</Accordion>
+## Private Alerts and Incidents
 
-<Accordion title="Priority mapping">
-Map alert severity to incident.io priorities:
-- **Critical** alerts → P1 (immediate phone call)
-- **High** alerts → P2 (push notification)
-- **Warning** alerts → P3 (Slack message)
-- **Info** alerts → P4 (email only)
+<Info>
+  **Handle sensitive incidents with privacy**
+  
+  Some incidents need to be kept private, such as:
+  - Security incidents
+  - HR or personnel issues  
+  - Sensitive customer situations
+  - Regulatory or legal matters
+  
+  Configure alert routes to create private incidents that limit visibility to only those who need to know.
+  
+  Learn more in [Routing private alerts to escalate and create incidents](/help-centre/alerts/alert-configuration/creating-private-incidents-from-alerts).
+</Info>
 
-[Learn about priorities →](/help-centre/priorities-in-alerts-and-on-call)
-</Accordion>
+## Integration Examples
 
-### 3. Create Alert Routes
+### Datadog Monitors
 
-Alert routes determine what happens with incoming alerts:
+Route Datadog monitor alerts to incident.io:
 
-**Route Configuration:**
+- Map monitor tags to incident.io attributes
+- Use priority levels from Datadog
+- Auto-create incidents for critical monitors
+- Include monitor graphs in alert details
 
-<Accordion title="Source Selection">
-Choose which alert sources feed into this route:
-- Select one or multiple sources
-- Combine alerts from different tools
-- Create separate routes for different alert types
-</Accordion>
+See [Migrating Datadog monitors to incident.io](/help-centre/migrating-datadog-monitors-to-incident-io).
 
-<Accordion title="Filtering">
-Filter out irrelevant alerts before they trigger escalations:
+### Custom HTTP Alert Sources
 
-**Common filters:**
-- Environment: Ignore staging/development alerts
-- Priority: Only route P1 and P2 alerts
-- Service: Route specific services to specific teams
-- Time of day: Different routing during business hours vs. nights
+Build custom integrations for any tool:
 
-**Example**: Filter out all alerts where `environment = staging` to avoid paging for non-production issues.
-</Accordion>
+- Send alerts via webhook
+- Include custom attributes and metadata
+- Full control over alert formatting
+- Support for any JSON payload
 
-<Accordion title="Escalation Configuration">
-Determine who gets notified:
+Learn about [Custom HTTP alert sources](/help-centre/custom-http-alert-sources).
 
-**Dynamic escalation (Recommended):**
-- Route based on alert attributes (team, service)
-- Use Catalog relationships to find escalation paths
-- Automatically adapts as teams change
+### Grafana Integration
 
-**Static escalation:**
-- Always route to the same escalation path
-- Simpler but less flexible
-- Good for centralized teams
+Connect Grafana alerts:
 
-**Example dynamic expression:**
-```
-alert.attributes.service.owner.escalation_path
-```
+- Route based on Grafana labels
+- Include dashboard links in alerts
+- Map alert states to priorities
+- Test alerts with proper configuration
 
-This routes the alert to the escalation path of the team that owns the affected service.
-</Accordion>
-
-<Accordion title="Incident Creation">
-Configure when and how alerts create incidents:
-
-**Options:**
-- **Always create**: Every alert creates an incident
-- **Filtered creation**: Only certain alerts (e.g., P1/P2) create incidents
-- **No incidents**: Escalate without creating incidents
-- **Test mode**: Create test incidents for validation
-
-**Incident configuration:**
-- Set incident severity based on alert priority
-- Pre-fill incident fields from alert attributes
-- Use AI to generate incident summary from alert details
-- Auto-decline triage incidents when alert resolves
-</Accordion>
-
-[Complete alert routing guide →](/help-centre/alerts/alert-configuration/creating-escalations-and-incidents-from-alerts)
-
-## Alert Deduplication and Grouping
-
-### Reducing Alert Noise
-
-Prevent alert fatigue by intelligently grouping related alerts:
-
-<Accordion title="Time-based grouping">
-Group alerts that fire within a time window:
-- Set window duration (e.g., 5 minutes)
-- All similar alerts in window get grouped
-- Reduces duplicate pages for the same issue
-- Responder sees all grouped alerts together
-</Accordion>
-
-<Accordion title="Context-based grouping">
-Group alerts by shared attributes:
-- Same service + same alert type
-- Same team + same environment
-- Custom grouping logic using attributes
-
-**Example**: Group all Prometheus alerts for `api-service` in `production` together.
-</Accordion>
-
-<Accordion title="Suggested vs. Automatic grouping">
-**Suggested grouping (Recommended):**
-- New alerts are proposed to be grouped
-- Responder confirms or rejects grouping
-- Grace period before escalating again if not confirmed
-- Keeps human in the loop for accuracy
-
-**Automatic grouping:**
-- Alerts automatically grouped without confirmation
-- Faster but less control
-- Responder can manually ungroup if needed
-</Accordion>
-
-[Deduplication documentation →](/help-centre/alerts/alert-deduplication/index)
-
-## Alert Timeline and Management
-
-### Tracking Alert Lifecycle
-
-Every alert has a timeline showing:
-
-- When alert fired and resolved
-- Who was notified and when
-- Acknowledgment and escalation events
-- Related incidents created
-- Resolution notes and actions taken
-
-### Alert Actions
-
-Responders can take several actions on alerts:
-
-- **Acknowledge**: Stop escalation, take ownership
-- **Snooze**: Temporarily suppress notifications
-- **Resolve**: Mark the underlying issue as fixed
-- **Create incident**: Manually create an incident from alert
-- **Add notes**: Document investigation findings
-
-### Alert Inbox
-
-View and manage all alerts in one place:
-
-- Filter by status, priority, team, or service
-- Bulk actions on multiple alerts
-- Track unacknowledged alerts
-- Monitor alert patterns and trends
-
-## Advanced Configuration
-
-### Dynamic Escalation Paths
-
-Use expressions to route alerts dynamically:
-
-<CodeGroup>
-```expression Route by team
-alert.attributes.team.escalation_path
-```
-
-```expression Route by service owner
-alert.attributes.service.owner.escalation_path
-```
-
-```expression Fallback escalation
-alert.attributes.service.owner.escalation_path ?? escalation_paths.default
-```
-</CodeGroup>
-
-[Learn about dynamic routing →](/help-centre/alerts/alert-configuration/dynamically-setting-an-escalation-path)
-
-### Slack Channel Routing
-
-Send alerts to Slack channels for visibility:
-
-- Post alerts to team-specific channels
-- Different channels for different priorities
-- Thread updates as alert status changes
-- Include runbook links and context
-
-[Configure Slack routing →](/help-centre/alerts/alert-configuration/sending-alerts-to-slack-channels)
-
-### Private Incidents from Alerts
-
-Create private incidents for sensitive alerts:
-
-- Security incidents with limited access
-- Customer-specific incidents with PII
-- Internal-only service disruptions
-
-[Private incident configuration →](/help-centre/alerts/alert-configuration/creating-private-incidents-from-alerts)
-
-### Heartbeat Monitoring
-
-Monitor critical jobs and processes:
-
-- Expect regular "heartbeat" alerts
-- Alert if heartbeat stops (job failed or stuck)
-- Configure grace periods for expected delays
-
-[Heartbeat monitoring →](/help-centre/alerts/does-incident-io-support-heartbeat-monitoring)
+See [Why isn't my Grafana test alert triggering multiple times?](/help-centre/why-isn-t-my-grafana-test-alert-triggering-multiple-times) for troubleshooting.
 
 ## Best Practices
 
-<Warning>
-**Don't create one route per team**. Instead, use dynamic routing with a single route that uses Catalog relationships to route to the correct team automatically.
-</Warning>
+<Accordion title="Routing Strategy">
+  - **Use priorities wisely** - Not everything needs to page someone immediately
+  - **Route to teams, not individuals** - Use team escalation paths for better coverage
+  - **Include context** - Ensure alerts have enough information to triage effectively
+  - **Test your routes** - Regularly verify alerts reach the right people
+</Accordion>
 
-<Note>
-**Start with triage incidents**. Configure alerts to create triage incidents that can be declined if not needed. This provides a collaboration space without committing to a full incident response.
-</Note>
+<Accordion title="Preventing Alert Fatigue">
+  - **Set up deduplication** - Avoid multiple alerts for the same issue
+  - **Use appropriate thresholds** - Fine-tune your monitoring to reduce noise
+  - **Aggregate low-priority alerts** - Send summaries instead of individual alerts
+  - **Regular reviews** - Periodically assess and improve your alerting rules
+</Accordion>
 
-### Alert Routing Strategy
-
-1. **Use Catalog for routing**: Tag alerts with service or team, use Catalog to find escalation path
-2. **Filter aggressively**: Only page for actionable alerts
-3. **Group similar alerts**: Reduce notification fatigue
-4. **Set appropriate priorities**: Not everything needs immediate response
-5. **Test thoroughly**: Send test alerts to verify routing
-
-### Alert Source Setup
-
-1. **Start with one source**: Get it working well before adding more
-2. **Use AI suggestions**: Let incident.io suggest attribute mappings
-3. **Validate mappings**: Send test alerts with different scenarios
-4. **Document custom fields**: Note what custom attributes mean
-5. **Review and refine**: Adjust based on initial alert volume
-
-### Reducing Alert Fatigue
-
-- **Fix noisy alerts**: Work with teams to improve alert quality at source
-- **Use grouping**: Combine related alerts
-- **Adjust thresholds**: Work with SREs to tune alert sensitivity
-- **Filter non-actionable**: Don't page for alerts that don't require action
-- **Review regularly**: Monthly review of alert patterns
+<Accordion title="Incident Creation">
+  - **Automate critical alerts** - Create incidents automatically for high-priority issues
+  - **Pre-populate details** - Use alert data to fill incident forms
+  - **Consistent severities** - Map alert priorities to incident severities logically
+  - **Invite the right people** - Use workflows to automatically bring in relevant responders
+</Accordion>
 
 ## Troubleshooting
 
-### Missing Attributes
+### Common Issues
 
-[Why is an alert missing an attribute?](/help-centre/alerts/why-is-an-alert-missing-an-attribute)
+- **[Why is an alert missing an attribute?](/help-centre/alerts/why-is-an-alert-missing-an-attribute)** - Debug missing or incorrect alert attributes
+- **[Does incident.io support Heartbeat monitoring?](/help-centre/alerts/does-incident-io-support-heartbeat-monitoring)** - Information about heartbeat checks
+- **[HTTP alert sources JSON array limitation](/help-centre/http-alert-sources-json-array-limitation-and-troubleshooting)** - Troubleshooting custom integrations
 
-Common causes:
-- Field not present in alert payload
-- Incorrect JSONPath or field mapping
-- Alert source doesn't include expected data
-- Attribute extraction expression has error
+## Additional Resources
 
-### Alert Not Creating Incident
-
-Check:
-1. Alert route filters - is alert being filtered out?
-2. Incident creation enabled in route?
-3. Grouping settings - is it grouped with existing incident?
-4. Test mode enabled - test incidents vs. real incidents
-
-### Escalation Not Working
-
-Verify:
-1. Escalation path correctly configured
-2. Schedule has coverage at current time
-3. Responders have notification methods configured
-4. Dynamic routing expression evaluates correctly
-
-## FAQs and Resources
-
-<Card title="Alert FAQs" icon="circle-question" href="/help-centre/alerts/faqs/index">
-  Common questions about alert configuration and troubleshooting
-</Card>
-
-### Related Documentation
-
-- [On-call setup](/help-centre/on-call/index)
-- [Escalation paths](/help-centre/on-call/escalation-paths/index)
-- [Catalog configuration](/help-centre/catalog/index)
-- [Alert source integrations](/help-centre/alerts/alert-source-integrations/index)
-
----
-
-<Info>
-**Need help?** Contact us via your Slack Connect channel or email [help@incident.io](mailto:help@incident.io)
-</Info>
+- [Creating incidents automatically via alerts](/help-centre/alerts/get-started-with-alerts/creating-incidents-automatically-via-alerts)
+- [Sending alerts to Slack channels](/help-centre/alerts/alert-configuration/sending-alerts-to-slack-channels)
+- [Priorities in alerts and on-call](/help-centre/priorities-in-alerts-and-on-call)

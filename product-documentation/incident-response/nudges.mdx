@@ -4,10 +4,6 @@ description: Keep incident response on track with automated reminders that adapt
 icon: "/icons/redo.svg"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Nudges
 
 Nudges send automated reminders to incident channels, prompting responders to take important actions like providing updates, assigning roles, or resolving inactive incidents. They help maintain momentum during incidents by ensuring critical tasks don't get forgotten when teams are focused on resolution.
@@ -18,14 +14,32 @@ incident.io includes 8 default nudges that cover common incident response action
 
 incident.io comes with 8 pre-configured nudges that prompt responders to complete essential incident tasks:
 
-- **Prompt to resolve inactive incidents** - Reminds teams to close incidents when the channel has been inactive
-- **Prompt to assign the Incident Lead role** - Ensures incidents have a designated lead
-- **Prompt to send an internal incident update** - Encourages regular status updates for stakeholders
-- **Prompt to update public status page** - Reminds teams to keep external communications current (if you have a status page)
-- **Prompt to set a summary** - Prompts for a summary of what happened and current status
-- **Prompt to accept or decline a triage incident** - Ensures triaged incidents are reviewed and classified
-- **Prompt to ask for help** - Suggests escalating or requesting assistance in Slack
-- **Prompt to create a stream** - Reminds teams to organize related activities into streams
+<CardGroup cols={2}>
+  <Card title="Resolve inactive incidents" icon="circle-check">
+    Reminds teams to close incidents when the channel has been inactive
+  </Card>
+  <Card title="Assign Incident Lead" icon="user">
+    Ensures incidents have a designated lead
+  </Card>
+  <Card title="Send internal update" icon="message">
+    Encourages regular status updates for stakeholders
+  </Card>
+  <Card title="Update status page" icon="browser">
+    Reminds teams to keep external communications current (if you have a status page)
+  </Card>
+  <Card title="Set a summary" icon="pen">
+    Prompts for a summary of what happened and current status
+  </Card>
+  <Card title="Accept or decline triage" icon="scale-balanced">
+    Ensures triaged incidents are reviewed and classified
+  </Card>
+  <Card title="Ask for help" icon="hand">
+    Suggests escalating or requesting assistance in Slack
+  </Card>
+  <Card title="Create a stream" icon="diagram-project">
+    Reminds teams to organize related activities into streams
+  </Card>
+</CardGroup>
 
 These nudges run automatically during incidents without requiring configuration.
 
@@ -35,20 +49,27 @@ Nudges use smart scheduling to minimize noise in incident channels. Rather than 
 
 For example, if another nudge was just sent, the system delays the next nudge by a few minutes to avoid overwhelming the channel. This context-aware timing helps nudges feel helpful rather than intrusive, especially during high-activity incidents when responders are actively coordinating.
 
+<Info>
 Smart scheduling is enabled by default and runs automatically across all nudges.
+</Info>
 
 ## Customizing nudges
 
 On Pro or Enterprise plans, you can edit existing nudges, create new ones, or disable default nudges entirely.
 
-**To customize nudges:**
-
-1. Navigate to **Settings → Nudges**
-2. Select the nudge you want to edit or click **Add nudge** to create a new one
-3. Configure the nudge settings:
-   - **Message**: Customize the text sent to incident channels
-   - **Frequency**: Adjust how often the nudge repeats
-   - **Conditions**: Define when the nudge should trigger based on incident attributes or state
+<Steps>
+  <Step title="Navigate to Settings">
+    Go to **Settings → Nudges**
+  </Step>
+  <Step title="Select or create a nudge">
+    Select the nudge you want to edit or click **Add nudge** to create a new one
+  </Step>
+  <Step title="Configure nudge settings">
+    - **Message**: Customize the text sent to incident channels
+    - **Frequency**: Adjust how often the nudge repeats
+    - **Conditions**: Define when the nudge should trigger based on incident attributes or state
+  </Step>
+</Steps>
 
 Custom nudges let you tailor reminders to your team's specific workflows and incident response practices.
 
@@ -58,12 +79,16 @@ You can use incident attributes and custom fields in nudge messages to make them
 
 ## Related features
 
-- [Incident actions](/product-documentation/incident-response/incident-actions) - Manual actions responders can take during incidents
-- [Workflows](/product-documentation/workflows/overview) - Build automated workflows that trigger based on incident events
+<CardGroup cols={2}>
+  <Card title="Incident actions" icon="list-check" href="/product-documentation/incident-response/incident-actions">
+    Manual actions responders can take during incidents
+  </Card>
+  <Card title="Workflows" icon="diagram-project" href="/product-documentation/workflows/overview">
+    Build automated workflows that trigger based on incident events
+  </Card>
+</CardGroup>
 
----
-
-## FAQs
+## Frequently asked questions
 
 <AccordionGroup>
   <Accordion title="How do I mention the Incident Lead in a nudge message?">

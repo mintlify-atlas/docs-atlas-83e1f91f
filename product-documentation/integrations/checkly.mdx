@@ -11,30 +11,35 @@ Checkly integrates with incident.io to monitor your application and automaticall
 
 ### 1. Connect Checkly as an alert source
 
-1. Create an alert source to receive alerts from Checkly
-   - Navigate to [Alerts > Create alert source](https://app.incident.io/~/alerts/sources/create)
-   - Select Checkly from the list of available sources
+<Steps>
+  <Step title="Create an alert source to receive alerts from Checkly">
+    - Navigate to [Alerts > Create alert source](https://app.incident.io/~/alerts/sources/create)
+    - Select Checkly from the list of available sources
+  </Step>
 
-2. Copy the credentials provided by incident.io
-   - Take note of the URL and API key that incident.io provides
-   - Keep these handy for the next step
+  <Step title="Copy the credentials provided by incident.io">
+    - Take note of the URL and API key that incident.io provides
+    - Keep these handy for the next step
 
-<img src="/images/integrations/checkly/alert-source-setup-1.png" alt="Alert source setup screen showing available alert sources" />
+    <img src="/images/integrations/checkly/alert-source-setup-1.png" alt="Alert source setup screen showing available alert sources" />
+  </Step>
 
-3. Configure the integration in Checkly
-   - Log in to your Checkly account
-   - Navigate to Alerts and click "Add more channels"
-   - Select incident.io from the available channels
-   - Paste in the URL and API key from step 2
-   - Click "Test incident.io alert" to verify the connection
+  <Step title="Configure the integration in Checkly">
+    - Log in to your Checkly account
+    - Navigate to Alerts and click "Add more channels"
+    - Select incident.io from the available channels
+    - Paste in the URL and API key from step 2
+    - Click "Test incident.io alert" to verify the connection
+  </Step>
 
-4. Configure your alerts (optional)
+  <Step title="Configure your alerts (optional)">
+    When connecting Checkly to incident.io, you can add custom attributes to provide more context to your alerts. Create a custom attribute in incident.io to grab the Checkly result link from the JSON payload. This will help reference which check result triggered an alert.
 
-When connecting Checkly to incident.io, you can add custom attributes to provide more context to your alerts. Create a custom attribute in incident.io to grab the Checkly result link from the JSON payload. This will help reference which check result triggered an alert.
+    Examples of useful custom attributes include: team, affected customer, affected feature, or environment. This allows you to pull values from your alert payload into rich data on your incidents.
 
-Examples of useful custom attributes include: team, affected customer, affected feature, or environment. This allows you to pull values from your alert payload into rich data on your incidents.
-
-These can provide helpful clues for responders when digging into the alert issue. Plus, it will be a helpful way of grouping and filtering your alerts into incidents via alert routes.
+    These can provide helpful clues for responders when digging into the alert issue. Plus, it will be a helpful way of grouping and filtering your alerts into incidents via alert routes.
+  </Step>
+</Steps>
 
 <Note>
 **Every alert source is rate limited.** We apply a rate limit of 120 events/minute for each alert source. This means that if you have two alert sources, we will process up to 240 events every minute.
@@ -44,26 +49,27 @@ When the rate limit is exceeded, we will respond with an HTTP 429 `Too Many Requ
 Organization-level limits are also applied to ensure reasonable use.
 </Note>
 
----
-
 ### 2. Create an alert route
 
 Now that you have an alert source that's receiving alerts from Checkly, you need to connect it to an alert route to start creating incidents from your alerts.
 
-1. Select alert sources
-   - Select your Checkly alert source to trigger incidents
-   - You can filter which specific alerts should create incidents later
+<Steps>
+  <Step title="Select alert sources">
+    - Select your Checkly alert source to trigger incidents
+    - You can filter which specific alerts should create incidents later
+  </Step>
 
-2. Filter and group
-   - Filter out alerts which should not auto-create incidents (i.e. low priority alerts)
-   - Group alerts, so when an alert fires, we find active incidents with similar alerts and give responders the ability to attach the alert to an incident or create a new incident from that alert (i.e. grouping alerts by the team or service that owns the alert). [More on that later.](#grouping)
+  <Step title="Filter and group">
+    - Filter out alerts which should not auto-create incidents (i.e. low priority alerts)
+    - Group alerts, so when an alert fires, we find active incidents with similar alerts and give responders the ability to attach the alert to an incident or create a new incident from that alert (i.e. grouping alerts by the team or service that owns the alert). [More on that later.](#grouping)
+  </Step>
 
-3. Configure incidents
-   - Choose how you want the incidents created from your alerts to look
-   - You can select title and summary from the alert details you have available to you
-   - Add any custom fields which should be set based on details on your alert
-
----
+  <Step title="Configure incidents">
+    - Choose how you want the incidents created from your alerts to look
+    - You can select title and summary from the alert details you have available to you
+    - Add any custom fields which should be set based on details on your alert
+  </Step>
+</Steps>
 
 ## How does it work?
 
@@ -84,8 +90,6 @@ When joining a triage incident, you'll be met with this:
 **Merge it into another**: Was this alert caused by an incident with an existing channel that you already know about? If so, you can **merge** the other incident to any open incident channel. The incident that was created in triage will be **declined**, and the channel will be archived after a short delay.
 
 **Decline it**: Selecting this will **decline** the incident, and archive the channel. Declined incidents are excluded from any metrics or workflows that you have set up. It's like they never existed at all.
-
----
 
 ## Grouping
 
@@ -115,8 +119,6 @@ Automatic grouping automatically attaches related grouped alerts into the same a
 The alert can be unlinked from incident via the dashboard.
 
 <img src="/images/integrations/checkly/alert-route-triage.png" alt="Alert route triage configuration" />
-
----
 
 ## FAQ
 

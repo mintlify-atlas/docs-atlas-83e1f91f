@@ -17,72 +17,96 @@ You will need a ServiceNow Admin to complete these steps.
 
 ### 1. Create an OAuth App
 
-Log in to ServiceNow and search for "**OAuth**" in the filter navigation:
+<Steps>
+  <Step title="Search for OAuth in ServiceNow">
+    Log in to ServiceNow and search for "**OAuth**" in the filter navigation:
 
-<img src="/images/integrations/servicenow/servicenow-oauth-search.png" alt="Search for OAuth in ServiceNow" />
+    <img src="/images/integrations/servicenow/servicenow-oauth-search.png" alt="Search for OAuth in ServiceNow" />
+  </Step>
 
-Select **Application Registry**, and click **New**.
+  <Step title="Create new Application Registry">
+    Select **Application Registry**, and click **New**.
 
-<img src="/images/integrations/servicenow/servicenow-new-app.png" alt="Create new application registry" />
+    <img src="/images/integrations/servicenow/servicenow-new-app.png" alt="Create new application registry" />
 
-Select **Create an OAuth API endpoint for external clients**.
+    Select **Create an OAuth API endpoint for external clients**.
+  </Step>
 
-Enter 'incident.io' for the name, and add 'useraccount' to the Auth Scopes section. Leave other options as the defaults:
+  <Step title="Configure the OAuth app">
+    Enter 'incident.io' for the name, and add 'useraccount' to the Auth Scopes section. Leave other options as the defaults:
 
-<img src="/images/integrations/servicenow/servicenow-oauth-config.png" alt="Configure OAuth app" />
+    <img src="/images/integrations/servicenow/servicenow-oauth-config.png" alt="Configure OAuth app" />
 
-Find the app you've just created in the list. Copy the **Client ID** and **Client Secret** values: we'll need them later!
+    Find the app you've just created in the list. Copy the **Client ID** and **Client Secret** values: we'll need them later!
+  </Step>
+</Steps>
 
 ### 2. Create a Web Service Account
 
-<Note>
+<Warning>
 Any ServiceNow user account can be used so long as it has the relevant roles assigned. However, any actions taken by incident.io in ServiceNow will appear as being taken by this user account, so we strongly recommend creating a user for this purpose only.
-</Note>
+</Warning>
 
-In ServiceNow, search for '**User Administration**' in the filter navigation:
+<Steps>
+  <Step title="Navigate to User Administration">
+    In ServiceNow, search for '**User Administration**' in the filter navigation:
 
-<img src="/images/integrations/servicenow/servicenow-user-admin.png" alt="User Administration" />
+    <img src="/images/integrations/servicenow/servicenow-user-admin.png" alt="User Administration" />
 
-Select **Users**, then click **New** in the top-right.
+    Select **Users**, then click **New** in the top-right.
+  </Step>
 
-Select a **username** and **email**, for example 'incident.io' and 'incidentio-service@my-domain.com':
+  <Step title="Create the service account">
+    Select a **username** and **email**, for example 'incident.io' and 'incidentio-service@my-domain.com':
 
-<img src="/images/integrations/servicenow/servicenow-new-user.png" alt="Create new user" />
+    <img src="/images/integrations/servicenow/servicenow-new-user.png" alt="Create new user" />
 
-Make sure **Password needs reset** and **Locked out** are not selected, and **Active** and **Web service access only** are selected.
+    Make sure **Password needs reset** and **Locked out** are not selected, and **Active** and **Web service access only** are selected.
 
-Click **Submit**, then navigate to the newly-created user.
+    Click **Submit**, then navigate to the newly-created user.
+  </Step>
 
-At the bottom, select the **Roles** tab, then **Edit...**. Add the following roles:
+  <Step title="Assign roles">
+    At the bottom, select the **Roles** tab, then **Edit...**. Add the following roles:
 
-- `cmdb_read`: allows us to read data from your Configuration Management Database
-- `sn_cmdb_user`: allows us to read information about users and groups in your ServiceNow account
-- `incident_manager`: allows us to sync incident data in to ServiceNow incident records
+    - `cmdb_read`: allows us to read data from your Configuration Management Database
+    - `sn_cmdb_user`: allows us to read information about users and groups in your ServiceNow account
+    - `incident_manager`: allows us to sync incident data in to ServiceNow incident records
 
-<img src="/images/integrations/servicenow/servicenow-user-roles.png" alt="Add user roles" />
+    <img src="/images/integrations/servicenow/servicenow-user-roles.png" alt="Add user roles" />
 
-Click **Save** to apply these changes and return to the user page.
+    Click **Save** to apply these changes and return to the user page.
+  </Step>
 
-Click **Set Password**, then **Generate**, then **Save Password**.
+  <Step title="Set password">
+    Click **Set Password**, then **Generate**, then **Save Password**.
 
-<img src="/images/integrations/servicenow/servicenow-set-password.png" alt="Set password for service account" />
+    <img src="/images/integrations/servicenow/servicenow-set-password.png" alt="Set password for service account" />
 
-Copy the newly-generated password, we'll need it shortly!
+    Copy the newly-generated password, we'll need it shortly!
+  </Step>
+</Steps>
 
 ### 3. Installing the integration
 
 We're now ready to install the ServiceNow integration in incident.io.
 
-Go to [Settings → Integrations](https://app.incident.io/~/settings/integrations/servicenow), and click on **ServiceNow**, then **Connect**.
+<Steps>
+  <Step title="Navigate to Integrations">
+    Go to [Settings → Integrations](https://app.incident.io/~/settings/integrations/servicenow), and click on **ServiceNow**, then **Connect**.
 
-<img src="/images/integrations/servicenow/servicenow-connect.png" alt="Connect ServiceNow integration" />
+    <img src="/images/integrations/servicenow/servicenow-connect.png" alt="Connect ServiceNow integration" />
+  </Step>
 
-Use the following details:
+  <Step title="Enter connection details">
+    Use the following details:
 
-- Your **subdomain** is the part of the URL where you log in to ServiceNow. For example, if your ServiceNow instance is accessed at `hyper-payments.service-now.com`, your subdomain is `hyper-payments`.
-- Your **OAuth Client ID** and **OAuth Client Secret** are the credentials you created in [part 1](#1-create-an-oauth-app) above.
-- Your **Username** and **Password** are the credentials for the service account you created in [part 2](#2-create-a-web-service-account).
-- Click **Connect** to verify your credentials and complete the connection
+    - Your **subdomain** is the part of the URL where you log in to ServiceNow. For example, if your ServiceNow instance is accessed at `hyper-payments.service-now.com`, your subdomain is `hyper-payments`.
+    - Your **OAuth Client ID** and **OAuth Client Secret** are the credentials you created in [part 1](#1-create-an-oauth-app) above.
+    - Your **Username** and **Password** are the credentials for the service account you created in [part 2](#2-create-a-web-service-account).
+    - Click **Connect** to verify your credentials and complete the connection
+  </Step>
+</Steps>
 
 If you have any issues, please get in touch.
 

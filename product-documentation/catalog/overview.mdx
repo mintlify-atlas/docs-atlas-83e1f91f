@@ -1,276 +1,171 @@
 ---
 title: Catalog Overview
-description: Your connected map of everything in your organization - services, teams, products, and how they all relate.
+description: A connected map of everything in your organization - services, teams, and resources that power intelligent incident response
 icon: "/icons/book.svg"
 ---
 
-The Catalog is your organization's connected map - how incident.io understands your services, teams, products, customers, and their relationships. It powers routing, automation, and reporting throughout the platform.
+## What is Catalog?
 
-Think of the Catalog as interconnected spreadsheets or database tables. Each spreadsheet is a **Catalog Type** (like Services, Teams, or Products). Each row is an **Entry** (like your "payments-api" service or "platform" team). The columns are **Attributes** that describe entries and create connections between types.
+The Catalog is a connected map of everything that exists in your organization. It's a central repository that you can easily navigate and is available across features like Workflows, Insights, and Triggers to level up your incident response.
 
-## Why Catalog matters
+By bringing structured data about your services, teams, customers, and other resources into incident.io, you can automate incident response workflows, reduce manual overhead, and ensure the right people are involved at the right time.
 
-The Catalog enables dynamic, context-aware automation that scales with your organization:
+<Info>
+**Why use Catalog?**
 
-**Dynamic routing**
-- Route alerts to the right team based on which service is affected
-- Automatically page the current on-call engineer for a service without hardcoded names
-- Escalate incidents to appropriate stakeholders based on customer or product context
+With great catalog data, you can automatically bring in the teams and individuals responsible for resolving incidents and communicating with stakeholders - reducing the cognitive load on responders during high-stress situations.
+</Info>
 
-**Incident enrichment**
-- Automatically populate incident fields with relevant context from Catalog
-- Surface team ownership, dependencies, and runbooks when incidents are created
-- Link incidents to affected services and customers for better reporting
+## Key capabilities
 
-**Workflow automation**
-- Use Catalog relationships in workflows to vary behavior by context
-- Send notifications to different channels based on team or service ownership
-- Create follow-up actions automatically for specific teams or incident types
+Catalog enables you to:
 
-**Reporting and insights**
-- Aggregate incident metrics by service, team, or custom dimensions
-- Track MTTR and incident volume across your service architecture
-- Identify patterns and trends in your incident data
+<CardGroup cols={2}>
+  <Card title="Populate custom fields" icon="list">
+    Automatically keep custom field options in sync with your catalog data, eliminating manual maintenance
+  </Card>
+  
+  <Card title="Automate field values" icon="sparkles">
+    Derive custom field values from other fields using catalog relationships - like automatically setting the affected team based on the affected service
+  </Card>
+  
+  <Card title="Power workflows" icon="workflow">
+    Use catalog data in workflows to escalate to the right on-call engineers, notify stakeholders, and route incidents intelligently
+  </Card>
+  
+  <Card title="Enable insights" icon="chart-line">
+    Slice and dice incident data by catalog attributes for better reporting and analysis
+  </Card>
+</CardGroup>
 
-## Core concepts
+## Common catalog types
 
-### Catalog Types
+Most organizations will want to model these core catalog types:
 
-A Catalog Type represents a category of things in your organization. Think of it as a spreadsheet or database table.
+### Services or Features
 
-**Built-in types:**
-- **Teams** - Groups of people who own services or respond to incidents
-- **Services** - Applications, APIs, or infrastructure components
-- **Users** - People in your organization
+In large organizations, it's unreasonable to expect someone declaring an incident to know exactly who to escalate to. By adding a catalog type for services or features, responders can simply select what's impacted and escalation happens automatically based on the owning team.
 
-**Custom types:**
-Create types for anything relevant to your organization:
-- Products or features
-- Customers or accounts
-- Environments (production, staging)
-- Regions or data centers
-- Third-party dependencies
+**Common attributes:**
+- Name and description
+- Owning team(s)
+- On-call escalation policy
+- Repository links
+- Monitoring dashboards
 
-### Catalog Entries
+### Teams
 
-An entry is a single item within a Catalog Type - like a row in a spreadsheet.
+Teams are the backbone of incident response. Model your teams in catalog to enable automatic routing and filtering.
 
-Examples:
-- The "payments-api" service in your Services type
-- The "Platform Engineering" team in your Teams type
-- The "Enterprise Customer X" entry in your Customers type
+**Common attributes:**
+- Team name and description
+- Team members
+- Team lead or manager
+- Slack channel
+- Escalation policy
+- Services owned
 
-Each entry has:
-- A **name** that's human-readable and searchable
-- A unique **ID** for referencing in automations
-- **External IDs** for mapping to entries in other systems
-- **Aliases** for alternate names or identifiers
+<Note>
+Learn more about setting up teams in our [Getting started with teams](/help-centre/catalog/getting-started-with-teams) guide.
+</Note>
 
-### Catalog Attributes
+### Customers
 
-Attributes are the columns in your Catalog Type - the properties that describe each entry and create relationships.
+Knowing which customers are affected helps you prioritize incidents and notify the right stakeholders.
 
-**Attribute types:**
+**Common attributes:**
+- Customer name
+- Pricing tier or package
+- Customer Success Manager
+- Account value
+- Support priority level
 
-| Type | Description | Example |
-|------|-------------|----------|
-| **Text** | Freeform strings | Service description, repository URL |
-| **Number** | Numeric values | Priority score, SLA hours |
-| **Boolean** | Yes/no values | Is production?, Requires compliance review? |
-| **Single select** | One option from a list | Environment (Production, Staging, Dev) |
-| **Multi select** | Multiple options from a list | Capabilities, supported regions |
-| **Link to Catalog** | Reference to another entry | Owner team, depends on services |
+### Custom types for your business
 
-**Relationship attributes** connect types together. For example:
-- A Service has an "Owner" attribute linking to a Team
-- A Team has an "Escalation Path" attribute for routing alerts
-- A Customer has an "Account Manager" attribute linking to a User
+The real power of Catalog comes from modeling domain-specific resources that matter to your organization:
 
-These relationships power expressions and dynamic routing throughout incident.io.
+- **E-commerce**: Products, warehouses, fulfillment centers
+- **Financial services**: Trading systems, clearing houses, compliance systems
+- **Infrastructure**: Data centers, regions, availability zones
+- **Healthcare**: Facilities, departments, medical systems
 
 ## Getting data into Catalog
 
-You can populate your Catalog through multiple channels:
+There are four main ways to populate your catalog:
 
-### Import from integrations
+<Steps>
+  <Step title="Native integrations">
+    Connect incident.io to tools you already use. We'll automatically sync data once per day from integrations like:
+    - GitHub (repositories)
+    - PagerDuty (services, teams, escalation policies)
+    - Backstage
+    - Cortex
+    - Datadog
+    - OpsLevel
+    - And more at [incident.io/integrations](https://incident.io/integrations)
+    
+    **Effort required:** Minimal - most integrations are one-click setups
+  </Step>
+  
+  <Step title="Catalog Importer">
+    For maximum control and flexibility, use our [catalog importer](https://github.com/incident-io/catalog-importer) to sync data from any source on your own schedule.
+    
+    Perfect for:
+    - Large datasets
+    - Tools without native integrations
+    - Complex relationship mapping
+    - Custom sync frequencies
+    
+    **Effort required:** Moderate technical lift, but highly worthwhile for the impact on MTTX (mean time to X) metrics
+  </Step>
+  
+  <Step title="Manual entry">
+    For small datasets or testing, add catalog types and entries directly in the [dashboard](https://app.incident.io/~/catalog).
+    
+    **Effort required:** Minimal, no technical expertise required
+  </Step>
+  
+  <Step title="API integration">
+    Build custom integrations using our [Catalog API](https://api-docs.incident.io/tag/Catalog-V2) for specific scenarios where you need direct API access.
+    
+    **Effort required:** Similar to catalog importer, requires technical resources
+  </Step>
+</Steps>
 
-Connect incident.io to your existing tools to automatically sync data:
+## Real-world example
 
-- **Service catalogs** - Backstage, Cortex, OpsLevel
-- **Alerting tools** - PagerDuty, Opsgenie (schedules, services, teams)
-- **CRM systems** - Salesforce (accounts, customers)
-- **ITSM tools** - ServiceNow (CMDB services, user groups)
-- **Identity providers** - Okta, Google Workspace (users, teams)
+Imagine you're managing incidents for a rail network. Your most common incident is signal failures that require dispatching engineers and notifying customers.
 
-Navigate to **Settings → Integrations** to connect these systems. Once configured, data syncs automatically and stays up to date.
+By modeling these catalog types:
+- **Signal Failure Points** (with lookups to rail line, stations, component type)
+- **Lines** (with lookups to status page, teams, stations)
+- **Stations** (can be associated with multiple lines)
+- **Teams** (with team leads, Slack channels, escalation policies)
 
-### Manual entry through dashboard
+You enable powerful automation: when someone selects the failing component during incident declaration, you can automatically:
+- Dispatch the right engineering team
+- Notify the line's customer service team
+- Post status updates between the affected stations
+- Bring in the appropriate communications lead
 
-Create and edit entries directly in the incident.io dashboard:
+All from selecting a single field.
 
-1. Go to **Catalog** in your dashboard
-2. Select the type you want to add to
-3. Click **Create entry**
-4. Fill in attributes and relationships
-5. Save the entry
-
-This works well for:
-- Initial setup when building your Catalog structure
-- Small, infrequently-changing types
-- One-off entries that don't exist in external systems
-
-### API and Terraform
-
-Use the incident.io API or Terraform provider for programmatic management:
-
-**API** - Create, update, and delete entries via REST API. Useful for:
-- Custom integrations with internal tools
-- Automated sync from your own data sources
-- Bulk imports from CSV or other formats
-
-**Terraform** - Manage Catalog as infrastructure-as-code:
-```hcl
-resource "incidentio_catalog_entry" "payments_service" {
-  catalog_type_id = data.incidentio_catalog_type.services.id
-  name            = "payments-api"
-  attribute_values = {
-    owner       = incidentio_catalog_entry.platform_team.id
-    description = "Handles payment processing"
-    repo_url    = "https://github.com/myorg/payments-api"
-  }
-}
-```
-
-This approach enables:
-- Version control for your Catalog structure
-- Code review processes for changes
-- Consistent, repeatable configuration
-
-### Catalog importer tool
-
-Use the open-source [catalog-importer](https://github.com/incident-io/catalog-importer) for advanced scenarios:
-
-- Import from custom YAML or JSON files
-- Pull data from Backstage catalog-info.yaml files
-- Transform and map data from legacy systems
-- Run scheduled syncs on your own infrastructure
-
-## Keeping Catalog up to date
-
-Your Catalog is most valuable when it reflects reality. Strategies for keeping it current:
-
-**Prefer automated syncs**
-Connect integrations to external systems and let them update automatically. When service ownership changes in GitHub, it updates in incident.io.
-
-**Use external IDs**
-Set external IDs for entries to map them to your systems of record. This ensures entries stay connected even if names change.
-
-**Add aliases**
-Create aliases for common variations in naming. If alerts refer to "payments", "payments-api", and "payment-service", add all as aliases to one entry.
-
-**Audit regularly**
-Set reminders to review Catalog data quarterly. Look for:
-- Services without owners
-- Deactivated users still assigned to roles
-- Outdated descriptions or documentation links
-- Missing relationships between entries
-
-**Surface gaps through workflows**
-Create workflows that flag missing Catalog data during incidents. For example, prompt users to set service owner if it's empty when an incident is created.
-
-## Using Catalog in workflows and routing
-
-The real power of Catalog emerges when you use it for automation:
-
-### Dynamic alert routing
-
-Instead of hardcoding alert routes for each service:
-
-```
-Alert → Service (from payload) → Owner Team (from Catalog) → Escalation Path
-```
-
-One alert route configuration works across all services. When team ownership changes in Catalog, routing updates automatically.
-
-See [Alert routing](/product-documentation/on-call/alert-routing) for details.
-
-### Workflow expressions
-
-Use Catalog relationships in workflows to vary behavior:
-
-- If **Affected Service** owner is **Platform Team** → page Platform on-call
-- Else if **Affected Service** owner is **Product Team** → page Product on-call
-
-Traverse relationships in expressions:
-- `incident.service.owner.escalation_path` - Get the escalation path for the service's owner
-- `alert.team.slack_channel` - Get the Slack channel for the alert's team
-
-See [Workflow expressions](/product-documentation/workflows/workflow-expressions) for examples.
-
-### Custom fields on incidents
-
-Create custom fields that reference Catalog types:
-- **Affected Service** - Link to Services type
-- **Affected Customer** - Link to Customers type
-- **Owning Team** - Link to Teams type
-
-When these fields are set, you can use their attributes and relationships in automations. See [Custom fields](/product-documentation/catalog/custom-fields) for configuration.
-
-## Frequently asked questions
-
-<AccordionGroup>
-  <Accordion title="How is Catalog different from custom fields?">
-    Custom fields are properties of incidents. Catalog is your organization's structure and relationships.
-
-    Custom fields can *reference* Catalog (like "Affected Service"), but Catalog exists independently of incidents. It's the source of truth for your services, teams, and how they relate.
-
-    Think of it this way: custom fields are "which service is affected by this incident?" Catalog is "what services exist, who owns them, and how do they connect?"
-  </Accordion>
-
-  <Accordion title="Can I delete Catalog entries that are no longer relevant?">
-    Yes, but check dependencies first. If workflows, alert routes, or incidents reference an entry, deleting it may break automations.
-
-    incident.io will warn you if an entry is in use. Consider archiving instead - mark entries as inactive using a custom attribute rather than deleting.
-  </Accordion>
-
-  <Accordion title="What happens if I change a Catalog entry that's referenced in historical incidents?">
-    Historical incidents retain their references to Catalog entries, but display current entry data. If you rename a service from "payments-api" to "payments-service", old incidents will show the new name.
-
-    Entry relationships and attributes are point-in-time snapshots. Changing a service's owner today doesn't change who owned it during past incidents.
-  </Accordion>
-
-  <Accordion title="How do I model dependencies between services?">
-    Create a "Depends on" attribute on your Services type that links to other Services (multi-select). Each service can then list its dependencies.
-
-    Use this in workflows to:
-    - Automatically notify dependent service owners when an incident affects an upstream service
-    - Surface dependency context in incident channels
-    - Report on blast radius of outages
-  </Accordion>
-
-  <Accordion title="Can I restrict who can edit Catalog entries?">
-    Yes. Configure permissions at **Settings → Roles**. You can control:
-    - Who can create/edit/delete entries in specific types
-    - Who can modify type definitions and attributes
-    - Whether external syncs can overwrite manual edits
-
-    This is useful for ensuring your service catalog stays accurate - only service owners can edit their services, for example.
-  </Accordion>
-</AccordionGroup>
-
-## What's next?
+## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Custom fields" icon="pencil" href="/product-documentation/catalog/custom-fields">
-    Add Catalog-backed fields to incidents
+  <Card title="Custom Fields" icon="list-check" href="/product-documentation/catalog/custom-fields">
+    Learn how to create custom fields backed by catalog data
   </Card>
-  <Card title="Relationship mapping" icon="sitemap" href="/product-documentation/catalog/relationship-mapping">
-    Connect Catalog types with relationships
+  
+  <Card title="Relationship Mapping" icon="diagram-project" href="/product-documentation/catalog/relationship-mapping">
+    Connect catalog types to model your organization's structure
   </Card>
-  <Card title="Enrich incidents" icon="sparkles" href="/product-documentation/catalog/enrich-incidents">
-    Automatically add context from Catalog
+  
+  <Card title="Enrich Incidents" icon="sparkles" href="/product-documentation/catalog/enrich-incidents">
+    Use catalog data to automatically enrich incidents with context
   </Card>
-  <Card title="Alert routing" icon="route" href="/product-documentation/on-call/alert-routing">
-    Use Catalog for dynamic alert routing
+  
+  <Card title="Catalog Best Practices" icon="lightbulb" href="/help-centre/catalog/catalog-best-practices/index">
+    Explore guides and tips for getting the most from Catalog
   </Card>
 </CardGroup>

@@ -3,10 +3,6 @@ title: "Sign in with SAML"
 description: "Enable SSO using SAML to manage access to the incident.io dashboard via an Identity Provider like Okta"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Sign in with SAML
 
 Organisations on our Enterprise plans and newer Pro plans can enable SSO using SAML to manage access to the incident.io dashboard via an Identity Provider (IdP) like Okta.
@@ -17,7 +13,7 @@ All plans have access to SSO via sign-in with Slack. If you have your Slack sign
 
 ## How to enable SAML
 
-#### Prerequisites
+### Prerequisites
 
 To setup SAML, you'll need to be an Admin or Owner inside incident.io to initiate the integration, and you'll need to have someone with Admin access to your IdP to complete the setup in your provider.
 
@@ -29,15 +25,31 @@ If you're just setting up incident.io for the first time, you need to first sign
 Admins *can* do it, if they have the **Manage security settings** permission for the Admin role.
 </Info>
 
-#### Setup
+### Setup
 
-1. Open the incident.io dashboard and go to [Settings > Security](https://app.incident.io/settings/security).
-2. Click `Connect` to begin the setup flow.
-3. Choose your identity provider from the list of options and then follow its associated set up instructions.
-4. Test your connection using the button provided.
-5. You should now be connected
+<Steps>
+  <Step title="Open security settings">
+    Open the incident.io dashboard and go to [Settings > Security](https://app.incident.io/settings/security).
+  </Step>
 
-<img src="/images/integrations/okta/saml-setup-flow.png" alt="SAML setup flow showing the connection interface" />
+  <Step title="Begin setup">
+    Click `Connect` to begin the setup flow.
+  </Step>
+
+  <Step title="Choose your identity provider">
+    Choose your identity provider from the list of options and then follow its associated set up instructions.
+
+    <img src="/images/integrations/okta/saml-setup-flow.png" alt="SAML setup flow showing the connection interface" />
+  </Step>
+
+  <Step title="Test connection">
+    Test your connection using the button provided.
+  </Step>
+
+  <Step title="Complete setup">
+    You should now be connected
+  </Step>
+</Steps>
 
 ### Configuring domains
 

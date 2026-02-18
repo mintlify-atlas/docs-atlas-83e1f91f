@@ -1,750 +1,670 @@
 ---
-title: How to use workflow expressions
-description: Vary workflow behavior based on conditional logic and Catalog relationships.
+title: Workflow Expressions
+description: Use conditional logic and catalog navigation to create dynamic, intelligent workflow behaviors
 ---
 
-Workflow expressions let you vary parts of a workflow based on conditions and Catalog data. Instead of creating separate workflows for each scenario, use expressions to make one workflow handle multiple situations dynamically.
+## Overview
 
-Expressions are "if-then" logic that returns values based on incident properties, Catalog relationships, and other context.
+Workflow expressions allow you to vary parts of a workflow based on conditions - making workflows adapt to different scenarios instead of requiring separate workflows for each case.
 
-## Why use expressions?
+With expressions, you can:
+- Navigate catalog relationships (Service → Team → Slack Channel)
+- Apply conditional logic (If severity is Critical, then...)
+- Return different values based on incident attributes
+- Consolidate many similar workflows into one adaptive workflow
 
-**Consolidate workflows**
-Replace 10 service-specific workflows with 1 workflow that uses an expression to determine the right team.
+<Info>
+**Before expressions:** Need 5 separate workflows - one for each team's on-call escalation
 
-**Dynamic routing**
-Automatically page the correct escalation path based on which service is affected, without hardcoding service names.
+**With expressions:** One workflow that routes to the correct team based on affected service
+</Info>
 
-**Context-aware behavior**
-Vary notifications, messages, and actions based on severity, customer tier, time of day, or any other property.
+## Example use case
 
-**Scale with your organization**
-As you add services and teams, workflows using expressions automatically handle them without reconfiguration.
-
-## Expression example
-
-Here's a common scenario: escalate incidents to the right team based on which service is affected.
-
-**Without expressions:** Create separate workflows for each service-team mapping. When a new service launches, create another workflow.
-
-**With expressions:** One workflow with an expression:
+Escalate incidents to the specific on-call engineer for the affected product:
 
 ```
-Expression name: Escalation Team
-Return type: Team
-
-If: Affected Service is "Payments API"
-  Return: Payments Team
-
-Else if: Affected Service is "Auth Service"
-  Return: Platform Team
-
-Else if: Affected Service is "Billing API"
-  Return: Payments Team
-
-Else:
-  Return: (nothing - or a default team)
+IF Affected Service is "Payments":
+  Escalation Team = Payments Team
+  
+ELSE IF Affected Service is "Onboarding":
+  Escalation Team = Onboarding Team
+  
+ELSE:
+  Escalation Team is not set
 ```
 
-Later in the workflow:
+Later in your workflow, use `Escalation Team` in an "Escalate to PagerDuty" step. The expression determines which team's on-call policy to page based on the affected service.
 
-```
-Step: Create escalation
-  Escalation path: expression.escalation_team.escalation_path
-```
-
-One workflow configuration handles all services.
-
-## Expression types
-
-Expressions come in different forms based on what logic you need:
-
-### If-else expressions
-
-Evaluate conditions in order and return the first match.
-
-**Use when:** You have multiple specific conditions to check
-
-**Example:**
-```
-Expression: Priority Escalation Path
-
-If: incident.severity == "Critical"
-  Return: executive-oncall
-
-Else if: incident.severity == "High"
-  Return: team-lead-oncall
-
-Else:
-  Return: standard-oncall
-```
-
-### Switch expressions
-
-Match a value against multiple options (like a case statement).
-
-**Use when:** Checking one field against many possible values
-
-**Example:**
-```
-Expression: Service Owner
-
-Switch on: incident.custom_fields.affected_service.name
-
-Case "payments-api":
-  Return: Payments Team
-
-Case "auth-service":
-  Return: Platform Team
-
-Case "analytics-pipeline":
-  Return: Data Team
-
-Default:
-  Return: General Engineering Team
-```
-
-### Lookup expressions
-
-Query Catalog to find entries based on attributes.
-
-**Use when:** You need to find something in Catalog dynamically
-
-**Example:**
-```
-Expression: Regional Oncall
-
-Lookup: Team
-Where: team.region == incident.custom_fields.affected_region
-Return: First match
-```
-
-### Transformation expressions
-
-Modify or format data.
-
-**Use when:** You need to transform text, combine fields, or extract data
-
-**Example:**
-```
-Expression: Incident Channel Name
-
-Return: "inc-" + incident.reference + "-" + incident.custom_fields.affected_service.name
-
-Result: "inc-123-payments-api"
-```
-
-## Creating expressions
+## Creating an expression
 
 <Steps>
   <Step title="Open workflow editor">
-    Navigate to **Workflows** and create or edit a workflow
+    Navigate to [Workflows](https://app.incident.io/workflows) and create or edit a workflow
   </Step>
   
-  <Step title="Navigate to where you need dynamic behavior">
-    Go to the workflow step or condition where you want to use an expression
-    
-    Click **Use a variable** in any value field
-  </Step>
-  
-  <Step title="Click 'Add new expression'">
-    <img src="/images/workflows/expression-add-new.png" alt="Add new expression button" style={{maxWidth: "400px"}} />
-    
-    This opens the expression builder
+  <Step title="Start expression creation">
+    In any workflow step or condition:
+    1. Click "Use a variable"
+    2. Select "Add new expression"
   </Step>
   
   <Step title="Choose expression type">
-    <img src="/images/workflows/expression-type-selection.png" alt="Choose expression type" style={{maxWidth: "400px"}} />
+    Select the type of expression you need:
     
-    Select the pattern that matches your logic:
-    - **If... else...** for conditional logic
-    - **Switch** for matching against many values
-    - **Lookup** for querying Catalog
-    - **Transform** for formatting data
+    <Tabs>
+      <Tab title="If...else">
+        Return different values based on conditions
+        
+        **Use for:**
+        - Routing to different teams based on service
+        - Choosing severity-specific escalation policies
+        - Selecting channels based on impact
+      </Tab>
+      
+      <Tab title="Catalog navigation">
+        Follow relationships through catalog types
+        
+        **Use for:**
+        - Service → Owning Team → Team Lead
+        - Customer → Account Manager
+        - Service → Monitoring Dashboard URL
+      </Tab>
+      
+      <Tab title="Lookup">
+        Find values in lists or collections
+        
+        **Use for:**
+        - Finding specific team member by role
+        - Selecting first available on-call
+        - Filtering based on attributes
+      </Tab>
+    </Tabs>
   </Step>
   
-  <Step title="Name your expression">
-    <img src="/images/workflows/expression-name-and-type.png" alt="Expression name and return type" style={{maxWidth: "480px"}} />
+  <Step title="Name the expression">
+    Give it a short, descriptive name suggesting what it returns:
     
-    Give it a short, descriptive name that suggests what it returns:
-    - ✅ "Escalation Team", "Notification Channel", "Customer Tier"
-    - ❌ "Expression1", "temp", "test"
+    ✅ Good names:
+    - "Escalation Team"
+    - "Notification Channel"
+    - "Primary Stakeholder"
     
-    The name becomes a variable you reference later: `expression.escalation_team`
+    ❌ Bad names:
+    - "Expression 1"
+    - "Team"
+    - "Test"
   </Step>
   
   <Step title="Choose return type">
-    Select what *kind* of thing your expression will return:
+    Select what kind of value the expression returns:
     
-    - **Text** - String values
-    - **Number** - Numeric values
-    - **User** - A user from your organization
-    - **Team** - A Catalog team
-    - **Service** - A Catalog service
-    - **Slack channel** - A channel reference
-    - **Escalation path** - For paging
-    - **Custom Catalog types** - Any type in your Catalog
-    
-    The return type determines where you can use the expression. For example, "Send message to Slack Channel" only accepts expressions that return Slack channels.
+    - **Slack Channel** - For posting messages
+    - **User** - For invites or assignments
+    - **Text** - For messages or notes
+    - **PagerDuty Service** - For escalations
+    - **Catalog entries** - Any catalog type
+    - **Custom field values** - Specific field types
   </Step>
   
-  <Step title="Choose single or multiple values">
-    <img src="/images/workflows/expression-multiple-values.png" alt="Multiple values option" style={{maxWidth: "400px"}} />
+  <Step title="Configure multiple values">
+    Choose whether the expression returns single or multiple values:
     
-    **Single value** - Expression returns one thing (one team, one channel, one user)
+    - **Single value:** For steps expecting one item ("Send to Slack channel")
+    - **Multiple values:** For loops or multi-select contexts
     
-    **Multiple values** - Expression returns a list (multiple teams, multiple channels)
-    
-    Not all steps accept multiple values. For example, "Send message to Slack Channel" expects one channel, so an expression returning multiple channels won't be available.
-    
-    Use multiple values when you need to loop over results or pass lists to steps that accept them.
+    <Note>
+    Not all steps accept multiple values. If you return multiple values, the expression won't be available in steps that expect single values.
+    </Note>
   </Step>
   
-  <Step title="Define conditions and return values">
-    <img src="/images/workflows/expression-define-conditions.png" alt="Define conditions" style={{maxWidth: "500px"}} />
+  <Step title="Define conditions and returns">
+    Build your logic:
     
-    For each branch:
-    - Set the condition to check
-    - Choose what to return when that condition is true
-    - Click **Add condition** to add more branches
-    
-    Conditions are evaluated top to bottom. The first match wins.
+    1. Add a condition (e.g., "Affected Service is Payments")
+    2. Specify what to return when the condition is true
+    3. Add more conditions as needed
+    4. Define default behavior (return nothing or a default value)
   </Step>
   
   <Step title="Set default behavior">
-    <img src="/images/workflows/expression-default-behavior.png" alt="Define default behavior" style={{maxWidth: "400px"}} />
+    Choose what happens when no conditions match:
     
-    Define what happens when no conditions match:
+    - **Return nothing:** Workflow skips steps that need this value
+    - **Return default value:** Workflow continues with the fallback
     
-    **Return nothing** - Expression returns empty
-    - Steps using this expression will skip or use their default
-    - Useful when some incidents don't need the action
-    
-    **Return a default value** - Fallback value when no conditions match
-    - Ensures the expression always returns something
-    - Use for critical automation that must always run
+    <Warning>
+    If you return nothing and use the expression in a required field, the workflow will stop executing from that step onward.
+    </Warning>
   </Step>
   
-  <Step title="Save the expression">
-    Click **Add** to create the expression
-    
-    It's now available in the workflow step where you created it
-  </Step>
-  
-  <Step title="Use the expression in workflow steps">
-    <img src="/images/workflows/expression-in-workflow.png" alt="Use expression in workflow" style={{maxWidth: "480px"}} />
-    
-    When you configure steps or conditions that expect the same type your expression returns, you'll see it in the dropdown.
-    
-    Select `expression.your_expression_name` to use the expression's output
+  <Step title="Save and use">
+    Click "Add" to create the expression. It now appears in variable dropdowns throughout the workflow.
   </Step>
 </Steps>
 
-## Using Catalog data in expressions
+## Expression patterns
 
-Expressions become powerful when you traverse Catalog relationships:
+### Conditional routing
 
-### Access Catalog attributes
+Route to different destinations based on incident attributes:
 
-Reference attributes on Catalog entries:
-
-```
-incident.custom_fields.affected_service.owner
-```
-
-This walks:
-1. Get the incident
-2. Get "affected_service" custom field value
-3. Get the "owner" attribute from that service
-4. Return the Team
-
-### Traverse multiple relationships
-
-Chain relationships together:
-
-```
-incident.custom_fields.affected_service.owner.escalation_path
-```
-
-This traverses:
-1. Incident → Affected Service
-2. Service → Owner (Team)
-3. Team → Escalation Path
-4. Return the Escalation Path
-
-### Use in conditions
-
-Check Catalog attributes in expression conditions:
-
-```
-Expression: Requires Executive Notification
-
-If: incident.custom_fields.affected_customer.tier == "Enterprise"
-  AND incident.severity == "Critical"
-  Return: true
-
-Else:
-  Return: false
-```
-
-### Handle missing data
-
-Not all Catalog entries have all attributes. Provide defaults:
-
-```
-incident.service.owner.escalation_path | default: "general-oncall"
-```
-
-If the service has no owner, or the owner has no escalation path, use "general-oncall" instead.
-
-This prevents workflows from failing when Catalog data is incomplete.
-
-## Expression patterns and examples
-
-### Pattern: Service-based routing
-
-**Scenario:** Page the team that owns the affected service
-
-```
-Expression: Service Owner Escalation
-Return type: Escalation Path
-
-Condition: incident.custom_fields.affected_service is set
-
-Return: incident.custom_fields.affected_service.owner.escalation_path
-Default: "general-oncall" escalation path
-```
-
-Use in workflow step:
-```
-Step: Create escalation
-  Escalation path: expression.service_owner_escalation
-  Message: "Incident affecting {{incident.custom_fields.affected_service.name}}"
-```
-
-### Pattern: Severity-based notifications
-
-**Scenario:** Different Slack channels for different severities
-
-```
-Expression: Notification Channel
-Return type: Slack Channel
-
-If: incident.severity == "Critical"
-  Return: #incidents-critical
-
-Else if: incident.severity == "High"
-  Return: #incidents-high
-
-Else:
-  Return: #incidents
-```
-
-Use in workflow:
-```
-Step: Send message
-  Channel: expression.notification_channel
-  Message: "New {{incident.severity}} incident: {{incident.name}}"
-```
-
-### Pattern: Customer tier handling
-
-**Scenario:** Different SLA based on customer tier
-
-```
-Expression: SLA Hours
-Return type: Number
-
-Switch on: incident.custom_fields.affected_customer.tier
-
-Case "Enterprise":
-  Return: 1
-
-Case "Business":
-  Return: 4
-
-Case "Standard":
-  Return: 24
-
-Default:
-  Return: 48
-```
-
-Use in workflow:
-```
-Step: Create action
-  Description: "Provide customer update"
-  Due: {{expression.sla_hours}} hours from now
-```
-
-### Pattern: Regional routing
-
-**Scenario:** Route to on-call team for the affected region
-
-```
-Expression: Regional Oncall Team
-Return type: Team
-
-Switch on: incident.custom_fields.affected_service.region.name
-
-Case "US-East":
-  Return: US Oncall Team
-
-Case "EU-West":
-  Return: EU Oncall Team
-
-Case "AP-South":
-  Return: APAC Oncall Team
-
-Default:
-  Return: Global Oncall Team
-```
-
-Use in workflow:
-```
-Step: Create escalation
-  Escalation path: expression.regional_oncall_team.escalation_path
-```
-
-### Pattern: Multi-service notifications
-
-**Scenario:** Notify all teams whose services are affected
-
-```
-Expression: Affected Service Owners
-Return type: Team (multiple values)
-
-Return: incident.custom_fields.affected_services.owner
-```
-
-Use in workflow with loop:
-```
-Step: Create loop
-  Loop over: expression.affected_service_owners
+<CodeGroup>
+```text Team-based channel selection
+IF Affected Team is "Engineering":
+  RETURN #engineering-incidents
   
-  For each team:
-    Step: Send message
-      Channel: team.slack_channel
-      Message: "Your service is affected by incident {{incident.reference}}"
-```
-
-### Pattern: Time-based routing
-
-**Scenario:** Different escalation based on time of day
-
-```
-Expression: Time-Based Escalation
-Return type: Escalation Path
-
-If: current_time.hour >= 9 AND current_time.hour < 17
-  Return: "business-hours-oncall" escalation path
-
-Else:
-  Return: "after-hours-oncall" escalation path
-```
-
-### Pattern: Dependency notifications
-
-**Scenario:** Notify teams whose services depend on the affected service
-
-```
-Expression: Dependent Service Owners
-Return type: Team (multiple values)
-
-Return: incident.custom_fields.affected_service.used_by.owner
-```
-
-Use with loop:
-```
-Step: Create loop
-  Loop over: expression.dependent_service_owners
+ELSE IF Affected Team is "Product":
+  RETURN #product-incidents
   
-  For each team:
-    Step: Send message
-      Channel: team.slack_channel
-      Message: "Upstream service {{incident.service.name}} is experiencing issues"
+ELSE:
+  RETURN #general-incidents
 ```
 
-## Advanced expression techniques
-
-### Nested conditions
-
-Expressions can have conditions within conditions:
-
-```
-Expression: Escalation Strategy
-
-If: incident.severity == "Critical"
-  If: incident.custom_fields.affected_customer.tier == "Enterprise"
-    Return: "executive-escalation" path
-  Else:
-    Return: "standard-critical" path
-
-Else if: incident.severity == "High"
-  Return: "team-lead" path
-
-Else:
-  Return: "standard-oncall" path
+```text Severity-based escalation
+IF Severity is "Critical":
+  RETURN Director On-call Policy
+  
+ELSE IF Severity is "High":
+  RETURN Manager On-call Policy
+  
+ELSE:
+  RETURN Team On-call Policy
 ```
 
-### Combining multiple attributes
-
-Check multiple properties together:
-
+```text Customer tier notifications
+IF Customer Tier is "Enterprise":
+  RETURN #enterprise-support
+  
+ELSE IF Customer Tier is "Professional":
+  RETURN #pro-support
+  
+ELSE:
+  RETURN #standard-support
 ```
-Expression: Requires PR Team
+</CodeGroup>
 
-If: incident.severity == "Critical"
-  AND incident.custom_fields.affected_customer is set
-  AND incident.custom_fields.customer_facing == true
-  Return: true
+### Catalog navigation
 
-Else:
-  Return: false
-```
+Traverse relationships to find values:
 
-Use in condition:
-```
-Condition: expression.requires_pr_team == true
+<CodeGroup>
+```text Find team from service
+Affected Service → Owning Team
 
-Step: Send message
-  User: PR team lead
-  Message: "Critical customer-facing incident needs PR support"
+Returns: The team that owns the service
 ```
 
-### String manipulation
+```text Find on-call policy through hierarchy
+Affected Service → Owning Team → Escalation Policy
 
-Format and combine text:
-
-```
-Expression: Incident Summary
-Return type: Text
-
-Return: 
-  "[" + incident.severity + "] " +
-  incident.name + 
-  " - " + 
-  incident.custom_fields.affected_service.name +
-  " (" + incident.reference + ")"
-
-Result: "[Critical] Database connection failures - payments-api (INC-123)"
+Returns: The escalation policy for the team that owns the service
 ```
 
-### List operations
+```text Find stakeholder contact
+Affected Customer → Account Manager → Slack Handle
 
-Work with lists of values:
-
-```
-Expression: All Affected Service Names
-Return type: Text
-
-Return: incident.custom_fields.affected_services.name | join: ", "
-
-Result: "payments-api, auth-service, billing-api"
+Returns: The Slack handle of the customer's account manager
 ```
 
-Use in messages:
+```text Get monitoring resources
+Affected Service → Monitoring Dashboard URL
+
+Returns: Direct link to the service's dashboard
 ```
-Step: Send message
-  Message: "Incident affecting: {{expression.all_affected_service_names}}"
+</CodeGroup>
+
+### Combined logic
+
+Mix catalog navigation with conditional logic:
+
+<CodeGroup>
+```text Escalate based on service tier
+IF Affected Service → Service Tier is "Critical":
+  RETURN Affected Service → Owning Team → Director
+  
+ELSE:
+  RETURN Affected Service → Owning Team → Team Lead
 ```
+
+```text Notify based on customer value
+IF Affected Customer → Annual Value > $100,000:
+  RETURN Affected Customer → Executive Sponsor
+  
+ELSE:
+  RETURN Affected Customer → Account Manager
+```
+
+```text Route by business hours
+IF Current Time is between 9am-5pm:
+  RETURN Affected Service → Owning Team → Slack Channel
+  
+ELSE:
+  RETURN Affected Service → Owning Team → On-call Engineer
+```
+</CodeGroup>
+
+## Real-world examples
+
+### Multi-team escalation
+
+**Goal:** Route incidents to the correct team's on-call based on affected service
+
+<Steps>
+  <Step title="Create expression">
+    - Name: "On-call Policy"
+    - Type: If...else
+    - Return type: PagerDuty Service
+  </Step>
+  
+  <Step title="Define conditions">
+    ```
+    IF Affected Service is "API Gateway":
+      RETURN Platform Team On-call
+      
+    ELSE IF Affected Service is "Payment Processor":
+      RETURN Payments Team On-call
+      
+    ELSE IF Affected Service is "User Dashboard":
+      RETURN Frontend Team On-call
+      
+    ELSE:
+      RETURN Engineering Leadership On-call
+    ```
+  </Step>
+  
+  <Step title="Use in workflow">
+    Add step: "Escalate to PagerDuty"
+    - PagerDuty Service: Use expression "On-call Policy"
+  </Step>
+</Steps>
+
+**Result:** One workflow handles escalation for all services, routing to the appropriate team automatically.
+
+### Graduated stakeholder notification
+
+**Goal:** Notify different people based on incident severity
+
+<Steps>
+  <Step title="Create expression">
+    - Name: "Executive Stakeholder"
+    - Type: If...else
+    - Return type: User
+  </Step>
+  
+  <Step title="Define severity-based logic">
+    ```
+    IF Severity is "Critical":
+      RETURN CEO
+      
+    ELSE IF Severity is "High":
+      RETURN VP Engineering
+      
+    ELSE:
+      RETURN Engineering Manager
+    ```
+  </Step>
+  
+  <Step title="Use in workflow">
+    Add step: "Send direct message"
+    - To: Use expression "Executive Stakeholder"
+    - Message: "FYI: {Severity} incident affecting {Affected Service}"
+  </Step>
+</Steps>
+
+**Result:** Right level of leadership is notified based on severity without over-alerting.
+
+### Customer communication routing
+
+**Goal:** Route customer communications based on customer tier and impact
+
+<Steps>
+  <Step title="Create channel expression">
+    - Name: "Customer Comms Channel"
+    - Type: If...else
+    - Return type: Slack Channel
+  </Step>
+  
+  <Step title="Define routing logic">
+    ```
+    IF Affected Customers contains any with Tier = "Enterprise":
+      RETURN #enterprise-customer-comms
+      
+    ELSE IF Severity is "Critical":
+      RETURN #critical-customer-comms
+      
+    ELSE:
+      RETURN #customer-comms
+    ```
+  </Step>
+  
+  <Step title="Create notification expression">
+    - Name: "Account Managers to Notify"
+    - Type: Catalog navigation
+    - Return type: User (multiple)
+  </Step>
+  
+  <Step title="Navigate catalog">
+    ```
+    Affected Customers → Account Manager
+    
+    Returns: All account managers for affected customers
+    ```
+  </Step>
+  
+  <Step title="Use in workflow">
+    Step 1: Post to channel
+    - Channel: Use expression "Customer Comms Channel"
+    
+    Step 2: Create loop
+    - Loop over: Expression "Account Managers to Notify"
+    - Send DM to each with customer impact details
+  </Step>
+</Steps>
+
+**Result:** Customer communications automatically route to appropriate channels and notify relevant account managers.
+
+### Dynamic resource links
+
+**Goal:** Provide relevant dashboards and runbooks based on affected service
+
+<Steps>
+  <Step title="Create dashboard expression">
+    - Name: "Monitoring Dashboard"
+    - Type: Catalog navigation
+    - Return type: Text
+  </Step>
+  
+  <Step title="Navigate to dashboard">
+    ```
+    Affected Service → Monitoring Dashboard URL
+    ```
+  </Step>
+  
+  <Step title="Create runbook expression">
+    - Name: "Incident Runbook"
+    - Type: Catalog navigation
+    - Return type: Text
+  </Step>
+  
+  <Step title="Navigate to runbook">
+    ```
+    Affected Service → Runbook URL
+    ```
+  </Step>
+  
+  <Step title="Use in workflow">
+    Add step: "Post message to incident channel"
+    - Message:
+    ```
+    📊 Dashboard: {Expression: Monitoring Dashboard}
+    📖 Runbook: {Expression: Incident Runbook}
+    💬 Team: {Affected Service → Owning Team → Slack Channel}
+    ```
+  </Step>
+</Steps>
+
+**Result:** Every incident automatically has relevant monitoring and documentation links posted.
+
+## Advanced techniques
 
 ### Fallback chains
 
-Try multiple sources before falling back:
+Provide multiple fallback options:
 
 ```
-Expression: Incident Owner
-Return type: User
-
-Return:
-  incident.incident_lead
-  OR incident.custom_fields.affected_service.owner.lead
-  OR lookup_user("default-incident-owner")
+IF Affected Service → Primary On-call is set:
+  RETURN Affected Service → Primary On-call
+  
+ELSE IF Affected Service → Owning Team → Team Lead is set:
+  RETURN Affected Service → Owning Team → Team Lead
+  
+ELSE:
+  RETURN Engineering Manager (default)
 ```
 
-This tries:
-1. Assigned incident lead
-2. Team lead of service owner
-3. Default fallback user
+**Use case:** Ensure someone is always contacted even if data is incomplete.
 
-Returns the first non-empty value.
+### Multiple condition logic
 
-## Debugging expressions
-
-### Test expressions in workflows
-
-Use workflow test mode to see expression outputs:
-
-1. Click **Test** in workflow editor
-2. Select a test incident with relevant data
-3. View expression results in test output
-
-This shows what the expression returns for real data.
-
-### Add logging steps
-
-Post expression values to incident channel while debugging:
+Combine multiple conditions with AND/OR:
 
 ```
-Step: Send message to incident channel
-  Message: "Debug: Escalation Team = {{expression.escalation_team.name}}"
+IF (Severity is "Critical" OR Severity is "High")
+   AND Affected Service → Service Tier is "Customer-facing":
+  RETURN #exec-team
+  
+ELSE IF Severity is "Critical":
+  RETURN #engineering-leadership
+  
+ELSE:
+  RETURN #general-incidents
 ```
 
-Remove after confirming the expression works correctly.
+**Use case:** Complex routing based on multiple factors.
 
-### Check workflow activity logs
+### Time-based routing
 
-View workflow runs:
-1. Go to **Workflows** → select workflow → **Activity** tab
-2. Find a workflow run
-3. Expand steps to see expression values
+```
+IF Current time is between 6pm and 9am:
+  RETURN Affected Service → After-hours On-call
+  
+ELSE:
+  RETURN Affected Service → Business-hours Team
+```
 
-Logs show what each expression evaluated to during execution.
+**Use case:** Different escalation paths for business hours vs. off-hours.
 
-### Handle empty expression results
+### Aggregate calculations
 
-If an expression returns nothing:
-- Check that Catalog data exists (services have owners, etc.)
-- Verify conditions are correct (case-sensitive, exact matches)
-- Ensure return type matches what the step expects
-- Add default values to prevent empty results
+```
+IF SUM(Affected Customers → Annual Value) > $1,000,000:
+  RETURN VP Customer Success
+  
+ELSE:
+  RETURN Customer Success Manager
+```
+
+**Use case:** Escalate based on total customer value affected.
 
 ## Best practices
 
-### Keep expressions focused
-
-Each expression should have one clear purpose:
-- ✅ "Escalation Team" - returns the team to page
-- ❌ "Escalation" - returns team, escalation path, and message text
-
-Create multiple expressions rather than one that does everything.
-
-### Use meaningful names
-
-Expression names become variables in your workflow:
-- ✅ `expression.notification_channel`
-- ❌ `expression.channel`
-- ❌ `expression.expr1`
-
-Good names make workflows self-documenting.
-
-### Provide defaults for critical paths
-
-If a workflow must always run, give expressions default values:
-
-```
-Else:
-  Return: "general-oncall" escalation path
-```
-
-This prevents workflows from skipping when Catalog data is missing.
-
-### Document complex logic
-
-Add comments in condition descriptions:
-
-```
-Condition: "Enterprise customers get 1-hour SLA"
-If: customer.tier == "Enterprise"
-  Return: 1
-```
-
-Helps future maintainers understand intent.
-
-### Test with edge cases
-
-When testing expressions, use:
-- Incidents with missing custom fields
-- Services without owners
-- New services not yet in expressions
-- Unusual severity or status combinations
-
-Ensure expressions handle unexpected data gracefully.
-
-### Prefer Catalog relationships over hardcoded logic
-
-Instead of:
-```
-If: service.name == "payments-api"
-  Return: "payments-team"
-Else if: service.name == "auth-service"
-  Return: "platform-team"
-```
-
-Use:
-```
-Return: service.owner
-```
-
-Catalog relationships automatically handle new services without workflow changes.
-
-## Frequently asked questions
-
 <AccordionGroup>
-  <Accordion title="Can expressions call external APIs?">
-    No. Expressions can only access incident data, Catalog data, and workflow variables.
-
-    To use external data, add an HTTP request step *before* the expression, then reference the HTTP response in the expression.
+  <Accordion title="Name expressions clearly" icon="tag">
+    Expression names should indicate what they return:
+    
+    ✅ Good:
+    - "Escalation Policy"
+    - "Notification Channel"
+    - "Primary Responder"
+    
+    ❌ Bad:
+    - "Expression 1"
+    - "Value"
+    - "Check"
   </Accordion>
-
-  <Accordion title="How many conditions can an expression have?">
-    There's no hard limit, but expressions with more than 10-15 branches become hard to maintain.
-
-    If your expression is very long, consider:
-    - Using Catalog relationships instead of hardcoded logic
-    - Breaking into multiple smaller expressions
-    - Using a Catalog attribute to drive the logic
-  </Accordion>
-
-  <Accordion title="Can I reuse expressions across workflows?">
-    Not directly. Expressions are defined within a specific workflow.
-
-    To reuse logic:
-    - Define the expression in a sub-workflow and call it from multiple parent workflows
-    - Store the logic in Catalog (e.g., a "Routing Rules" attribute) and reference it
-    - Copy the expression definition to each workflow that needs it
-  </Accordion>
-
-  <Accordion title="What happens if an expression returns nothing?">
-    Depends on how the step uses it:
-
-    - Steps that require a value will skip (not run)
-    - Steps that allow empty values will run with the field empty
-    - Conditions checking the expression will evaluate as false
-
-    Use defaults to prevent expressions from returning nothing:
+  
+  <Accordion title="Always provide defaults" icon="shield-check">
+    Avoid workflow failures by setting sensible defaults:
+    
     ```
-    Else: Return: "default-value"
+    IF Affected Service → Owning Team is set:
+      RETURN Affected Service → Owning Team
+    ELSE:
+      RETURN Engineering (default team)
     ```
+    
+    This prevents workflows from stopping when data is incomplete.
   </Accordion>
-
-  <Accordion title="Can expressions modify data or trigger actions?">
-    No. Expressions only *return values* based on logic.
-
-    They don't:
-    - Send messages
-    - Create incidents
-    - Update Catalog
-    - Call APIs
-
-    Use workflow steps for actions. Use expressions to decide *which* action to take.
+  
+  <Accordion title="Test with edge cases" icon="vial">
+    Test expressions with:
+    - Empty or unset fields
+    - Multiple values
+    - Unexpected combinations
+    - Missing catalog relationships
+    
+    Ensure graceful handling of all scenarios.
+  </Accordion>
+  
+  <Accordion title="Keep logic simple" icon="sitemap">
+    If an expression has more than 5-7 conditions, consider:
+    - Breaking into multiple expressions
+    - Restructuring catalog data
+    - Using nested expressions
+    
+    Complex expressions are hard to maintain and debug.
+  </Accordion>
+  
+  <Accordion title="Document complex expressions" icon="book">
+    For intricate logic, add comments explaining:
+    - Why each condition exists
+    - What business rule it represents
+    - Example scenarios
+    - Edge case handling
+  </Accordion>
+  
+  <Accordion title="Reuse expressions" icon="recycle">
+    Once created, expressions are available across:
+    - Multiple steps in the same workflow
+    - Other workflows
+    - Custom field automation
+    
+    Create reusable expressions for common patterns.
+  </Accordion>
+  
+  <Accordion title="Match return types" icon="check-circle">
+    Ensure expression return type matches where you'll use it:
+    - Slack Channel expressions for message steps
+    - User expressions for invite/assign steps
+    - PagerDuty Service for escalation steps
+    
+    Mismatched types won't appear in dropdowns.
   </Accordion>
 </AccordionGroup>
 
-## Related documentation
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Expression not available in dropdown" icon="list-slash">
+    **Causes:**
+    - Return type doesn't match what the step expects
+    - Expression returns multiple values but step needs single value
+    - Expression is defined in a different workflow
+    
+    **Solution:**
+    - Check return type matches step requirement
+    - Adjust multiple values setting
+    - Recreate expression in this workflow (or make it reusable)
+  </Accordion>
+  
+  <Accordion title="Expression returning nothing" icon="empty-set">
+    **Causes:**
+    - No conditions matched
+    - Default is set to "return nothing"
+    - Catalog relationship doesn't exist
+    - Source field is unset
+    
+    **Solution:**
+    - Check condition logic
+    - Set a default value
+    - Verify catalog data
+    - Test with incidents where fields are populated
+  </Accordion>
+  
+  <Accordion title="Workflow skipping steps" icon="forward-step">
+    **Cause:** Expression returns nothing and step requires a value
+    
+    **Solution:**
+    - Add default value to expression
+    - Make step conditional (only run if expression returns value)
+    - Check catalog data completeness
+  </Accordion>
+  
+  <Accordion title="Wrong value returned" icon="circle-xmark">
+    **Causes:**
+    - Condition logic error
+    - Catalog data incorrect
+    - Wrong relationship path
+    
+    **Solution:**
+    - Review condition order (first match wins)
+    - Manually trace catalog path
+    - Check catalog entries have correct relationships
+    - Test expression with known-good incidents
+  </Accordion>
+  
+  <Accordion title="Expression timing out" icon="clock">
+    **Cause:** Very complex catalog navigation with many relationships
+    
+    **Solution:**
+    - Simplify relationship path
+    - Cache values in custom fields
+    - Contact support if persistent
+  </Accordion>
+</AccordionGroup>
+
+## Expression vs. automated custom field
+
+When should you use a workflow expression vs. an automated custom field?
+
+<Tabs>
+  <Tab title="Use workflow expression">
+    **When:**
+    - Value is only needed for workflow logic
+    - Value changes based on workflow context
+    - Logic is workflow-specific
+    - Value doesn't need to be visible on incident
+    
+    **Example:**
+    - Which escalation policy to page
+    - Where to post notifications
+    - Who to send DMs to
+  </Tab>
+  
+  <Tab title="Use automated custom field">
+    **When:**
+    - Value should be visible on incident
+    - Multiple workflows need the same value
+    - Value should appear in reporting
+    - Logic is universal across all incidents
+    
+    **Example:**
+    - Affected Team (derived from service)
+    - Affected Division (derived from team)
+    - Primary Stakeholder (derived from customer)
+  </Tab>
+  
+  <Tab title="Use both">
+    **Pattern:** Automated custom field + workflow expression
+    
+    1. Automated field derives base value (e.g., Affected Team)
+    2. Workflow expression adds context (e.g., Team → Slack Channel)
+    3. Workflow uses expression result
+    
+    **Benefit:**
+    - Field visible for reporting
+    - Expression provides additional derived values
+    - Best of both approaches
+  </Tab>
+</Tabs>
+
+## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Workflows overview" icon="wand-magic-sparkles" href="/product-documentation/workflows/overview">
-    Understand workflow fundamentals
+  <Card title="Workflows Overview" icon="workflow" href="/product-documentation/workflows/overview">
+    Learn the fundamentals of workflow automation
   </Card>
-  <Card title="Catalog overview" icon="book" href="/product-documentation/catalog/overview">
-    Learn about Catalog data structure
+  
+  <Card title="Using Loops" icon="repeat" href="/help-centre/configure-your-account/workflows/using-loops-in-workflows">
+    Repeat workflow steps for multiple values
   </Card>
-  <Card title="Relationship mapping" icon="sitemap" href="/product-documentation/catalog/relationship-mapping">
-    Traverse Catalog relationships
+  
+  <Card title="Catalog Overview" icon="book" href="/product-documentation/catalog/overview">
+    Understand catalog data that powers expressions
   </Card>
-  <Card title="Automated workflows" icon="robot" href="/product-documentation/incident-response/automated-workflows">
-    Incident-specific workflow patterns
+  
+  <Card title="Custom Fields" icon="list-check" href="/product-documentation/catalog/custom-fields">
+    Create automated custom fields as an alternative to expressions
   </Card>
 </CardGroup>

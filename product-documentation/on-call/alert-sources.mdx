@@ -1,22 +1,37 @@
 ---
 title: Alert sources
-description: Ingest alerts from external tools, regardless of format or platform.
+description: Ingest alerts from external tools, regardless of format or platform
 ---
 
 Alert sources connect external monitoring tools to incident.io, bringing issues detected across your systems into your on-call workflow. Once configured, alert sources form the entry point for routing to on-call teams, triggering escalations, and creating incidents.
 
-**To add and configure an alert source:**
+## Setting up alert sources
 
-1. Using the sidebar, navigate to **Settings → Alerts**
-2. Click the **+** button to add alert sources
-3. Select your alert source, choosing from [native integrations](#native-integrations), [HTTP sources](#default-http-sources), or [email sources](#email-sources) and click **Continue**
-4. Follow the in-dashboard instructions to connect, send test alerts, and complete setup
+To add and configure an alert source:
 
+<Steps>
+  <Step title="Navigate to alert settings">
+    Using the sidebar, navigate to **Settings → Alerts**
+  </Step>
+  <Step title="Add alert source">
+    Click the **+** button to add alert sources
+  </Step>
+  <Step title="Select source type">
+    Choose from [native integrations](#native-integrations), [HTTP sources](#default-http-sources), or [email sources](#email-sources) and click **Continue**
+  </Step>
+  <Step title="Complete setup">
+    Follow the in-dashboard instructions to connect, send test alerts, and complete setup
+  </Step>
+</Steps>
+
+<Info>
 incident.io also supports [live phone call routing](/product-documentation/on-call/live-call-routing) for voice-based alerts.
+</Info>
 
 ## Native integrations
 
 Connect observability platforms, cloud providers, error tracking tools, uptime monitors, ticketing platforms and more, with pre-configured integrations. Receive alerts when metrics breach thresholds, applications throw errors, services go down, or security threats are detected.
+
 <CardGroup cols={2}>
   <Card title="AWS CloudWatch" icon="/icons/integrations/aws.svg" horizontal />
   <Card title="AWS SNS" icon="/icons/integrations/aws.svg" horizontal />

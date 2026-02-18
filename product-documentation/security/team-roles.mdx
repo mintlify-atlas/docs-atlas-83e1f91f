@@ -1,5 +1,5 @@
 ---
-title: 'Team roles'
+title: Team roles
 description: 'Give teams control over their own schedules and escalation paths'
 icon: "shield"
 ---
@@ -22,6 +22,10 @@ Create multiple team roles (for example, Members and Admins) to give certain tea
 
 If teams are managed externally (Linear, GitHub, catalog importer, Terraform), anyone with permission to update teams in the external system controls team role assignments within incident.io.
 
+<Info>
+Team roles provide granular access control, allowing you to delegate on-call management to individual teams while maintaining centralized oversight.
+</Info>
+
 ## Creating team roles
 
 Create team roles at **Settings → Permissions → Team** by clicking **Create**. Define:
@@ -30,23 +34,99 @@ Create team roles at **Settings → Permissions → Team** by clicking **Create*
 
 Each team role becomes an attribute on your Team catalog type. Assign users to roles through the catalog or on the team's Members tab.
 
+<Steps>
+  <Step title="Navigate to Team permissions">
+    Go to **Settings → Permissions → Team** to view and manage team roles.
+  </Step>
+  
+  <Step title="Create a new role">
+    Click **Create** to define a new team role.
+  </Step>
+  
+  <Step title="Configure role details">
+    Enter a role name and description, then select which permissions to grant.
+  </Step>
+  
+  <Step title="Save and assign">
+    Save the role. It will appear as an attribute on your Team catalog type for assignment.
+  </Step>
+</Steps>
+
+### Available permissions
+
+Team roles can grant these permissions:
+- **View schedules**: See team schedules and who's on-call
+- **Edit schedules**: Modify schedule structure, rotations, and working hours
+- **Create schedule overrides**: Temporarily adjust who's on-call
+- **Manage escalation paths**: Create and modify escalation policies
+- **View escalation paths**: See how alerts escalate for the team
+
 ## Managing team role assignments
 
 View and edit team role assignments on each team's Members tab. Add or remove users from roles, or change which roles a user has. Users appear with all their assigned roles on the team.
+
+<Steps>
+  <Step title="Navigate to team page">
+    Find the team in your catalog and open its details page.
+  </Step>
+  
+  <Step title="Open Members tab">
+    Click the Members tab to see all team members and their role assignments.
+  </Step>
+  
+  <Step title="Edit role assignments">
+    Add or remove users from team roles using the interface provided.
+  </Step>
+</Steps>
+
+<Note>
+Users must be members of a team before you can assign them team roles. Add them to the team first in the catalog or Members tab.
+</Note>
 
 ## Example: Team-managed schedules
 
 To let all team members create schedule overrides while restricting schedule editing to team managers:
 
-**1. Configure schedule ownership**
-Set each schedule's owning team in the schedule configuration.
-
-**2. Create team roles**
-Navigate to **Settings → Permissions → Team → Create** and set up:
-- **Members** role with "Create schedule overrides" permission
-- **Admins** role with "Edit schedules" permission
-
-**3. Assign roles**
-On each team's Members tab, assign the Members role to all team members and the Admins role to team managers.
+<Steps>
+  <Step title="Configure schedule ownership">
+    Set each schedule's owning team in the schedule configuration. This establishes which team roles apply to the schedule.
+  </Step>
+  
+  <Step title="Create team roles">
+    Navigate to **Settings → Permissions → Team → Create** and set up:
+    - **Members** role with "Create schedule overrides" permission
+    - **Admins** role with "Edit schedules" permission
+  </Step>
+  
+  <Step title="Assign roles">
+    On each team's Members tab, assign the Members role to all team members and the Admins role to team managers.
+  </Step>
+</Steps>
 
 Team members can now create overrides for their schedules, but only team admins can modify schedule structure (working hours, shift handovers, rotation patterns).
+
+## Permission hierarchy
+
+Permissions work in a hierarchy:
+
+1. **Account-level permissions** (Owner, Admin, custom roles with global permissions) override team roles
+2. **Team roles** grant permissions scoped to that specific team
+3. **Base permissions** (Standard role) provide view-only access
+
+<Info>
+If a user has both account-level permissions and team roles, they receive the union of both. Account-level permissions always take precedence.
+</Info>
+
+### Example scenarios
+
+**Scenario 1**: User has Standard base role + Team Admin role on Engineering team
+- Can manage Engineering's schedules and escalation paths
+- Cannot access other teams' schedules or escalation paths
+
+**Scenario 2**: User has Admin base role + no team roles
+- Can manage all teams' schedules and escalation paths (account-level permission)
+- Team roles don't apply because account-level permissions override
+
+**Scenario 3**: User has Standard base role + Team Member role on two different teams
+- Can create overrides for both teams' schedules
+- Cannot edit schedule structure for either team

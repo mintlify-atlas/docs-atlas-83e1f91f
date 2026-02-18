@@ -3,10 +3,6 @@ title: "Outlook Calendar"
 description: "Schedule meetings and debriefs directly from incidents using Outlook Calendar integration"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Outlook Calendar
 
 Sometimes, you need to schedule meetings related to your incident. Perhaps a war room for everyone to sync their findings whilst an incident is ongoing, or a debrief about what happened once the incident is resolved.
@@ -15,17 +11,27 @@ Our Outlook integration lets you attach events to an incident, and pulls through
 
 ## Installation
 
+<Info>
 It's important to know that when the integration is installed, the connection to incident.io will belong to **the user that installed it**. Outlook connections like this, which use OAuth, belong to a specific user — for this reason, you must set up a dedicated service or "bot" account.
+</Info>
 
-Go to [Settings → Integrations](https://app.incident.io/settings/integrations), find "Outlook Calendar" and click "Install".
+<Steps>
+  <Step title="Navigate to integrations">
+    Go to [Settings → Integrations](https://app.incident.io/settings/integrations), find "Outlook Calendar" and click "Install".
+  </Step>
 
-Click "Install" and you'll be redirected to the Microsoft installation flow. Review the permissions we're requesting and click "Accept":
+  <Step title="Review permissions">
+    Click "Install" and you'll be redirected to the Microsoft installation flow. Review the permissions we're requesting and click "Accept":
 
-<img src="/images/integrations/outlook-calendar/permissions.png" alt="Microsoft permissions screen showing requested permissions for Outlook Calendar integration" />
+    <img src="/images/integrations/outlook-calendar/permissions.png" alt="Microsoft permissions screen showing requested permissions for Outlook Calendar integration" />
+  </Step>
 
-Once you've completed the Microsoft authentication flow, you'll be redirected back to incident.io:
+  <Step title="Installation complete">
+    Once you've completed the Microsoft authentication flow, you'll be redirected back to incident.io:
 
-<img src="/images/integrations/outlook-calendar/installed.png" alt="Outlook Calendar integration successfully installed in incident.io settings" />
+    <img src="/images/integrations/outlook-calendar/installed.png" alt="Outlook Calendar integration successfully installed in incident.io settings" />
+  </Step>
+</Steps>
 
 ## Scheduling a debrief
 
@@ -54,7 +60,9 @@ If you identify the incident as a [debrief meeting](https://help.incident.io/en/
 
 <img src="/images/integrations/outlook-calendar/debrief-notification.png" alt="Debrief notification with attendees and time details" />
 
-Note that if you include the word "debrief" in the event (or whatever you're preferred name for this term is, according to your [debrief settings](https://app.incident.io/settings/debriefs)), we'll automatically attach the event as a debrief without prompting you first.
+<Tip>
+If you include the word "debrief" in the event (or whatever you're preferred name for this term is, according to your [debrief settings](https://app.incident.io/settings/debriefs)), we'll automatically attach the event as a debrief without prompting you first.
+</Tip>
 
 ## Removing a linked event
 

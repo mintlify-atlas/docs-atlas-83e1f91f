@@ -3,11 +3,6 @@ title: Internal status pages
 description: Keep your entire organization informed with real-time incident updates for internal teams
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
-
 # Internal status pages
 
 Internal status pages give your entire organization visibility into active incidents. From engineering to customer success, everyone sees the same real-time view of what's happening with your systems. Internal pages are your live incident dashboard—accessible only to your team, automatically updated as incidents progress.
@@ -23,7 +18,9 @@ An internal status page is a live dashboard showing current incidents and system
 - **Calendar view** - Browse historical incidents and maintenance windows
 - **No external visibility** - Never visible to customers or external users
 
+<Info>
 **Where to find it:** Access your internal status page from the dashboard's "View internal status" button, or navigate directly to your internal status page URL (e.g., `app.incident.io/yourorg/status`).
+</Info>
 
 ## When to use internal status pages
 
@@ -39,13 +36,31 @@ An internal status page is a live dashboard showing current incidents and system
 
 Navigate to **Status Pages** → **Create internal page** and configure:
 
-1. **Page title** - Name your internal status page (e.g., "Engineering Status" or "Internal Incidents")
-2. **URL** - Choose your status page URL path (uses format: `app.incident.io/yourorg/status/[path]`)
-3. **Incident summary** - Enable to show high-level incident summary on the page
-4. **Components** - Add systems or services to track (optional—you can publish incidents without components)
-5. **Branding** - Upload logo and favicon for consistency
+<Steps>
+  <Step title="Page title">
+    Name your internal status page (e.g., "Engineering Status" or "Internal Incidents").
+  </Step>
+  
+  <Step title="URL">
+    Choose your status page URL path (uses format: `app.incident.io/yourorg/status/[path]`).
+  </Step>
+  
+  <Step title="Incident summary">
+    Enable to show high-level incident summary on the page.
+  </Step>
+  
+  <Step title="Components">
+    Add systems or services to track (optional—you can publish incidents without components).
+  </Step>
+  
+  <Step title="Branding">
+    Upload logo and favicon for consistency.
+  </Step>
+</Steps>
 
+<Note>
 Unlike external status pages, internal pages don't need custom domains or complex access control—they're automatically restricted to your incident.io users.
+</Note>
 
 ## Publishing incidents
 
@@ -53,10 +68,23 @@ Unlike external status pages, internal pages don't need custom domains or comple
 
 Publish an incident to your internal status page from the incident details page or using the `/inc sp` Slack command:
 
-1. Navigate to the incident or use `/inc sp` in the incident Slack channel
-2. Choose "Internal page" when prompted
-3. Select your internal status page
-4. Click **Publish**
+<Steps>
+  <Step title="Navigate to the incident or use /inc sp">
+    Access the incident through the dashboard or use the Slack command in the incident channel.
+  </Step>
+  
+  <Step title="Choose Internal page when prompted">
+    Select the internal page option from the available choices.
+  </Step>
+  
+  <Step title="Select your internal status page">
+    Choose which internal page to publish to (if you have multiple).
+  </Step>
+  
+  <Step title="Click Publish">
+    Confirm the publication to make it live on your internal status page.
+  </Step>
+</Steps>
 
 The incident appears immediately on your internal status page. All subsequent incident updates (via `/inc update` or the dashboard) automatically appear on the status page.
 
@@ -94,7 +122,9 @@ Set up automation rules to publish incidents automatically based on criteria lik
   </Step>
 </Steps>
 
+<Warning>
 **Manual overrides:** If you manually unpublish an incident that matches automation rules, it won't be automatically re-published. You'll need to publish it manually again if needed.
+</Warning>
 
 ## Access control
 
@@ -109,23 +139,31 @@ Internal status pages are restricted to incident.io users in your organization. 
 - Users from other incident.io organizations
 - Unauthenticated visitors
 
+<Info>
 **Publishing permissions:** By default, anyone who can update incidents can publish to internal status pages. Restrict publishing permissions in Settings → Status Pages → Permissions if you want tighter control.
+</Info>
 
 ## Subscription differences
 
 Internal status page subscriptions work differently from public status pages:
 
-**For internal users:**
-- Subscriptions are managed through **User Preferences** → **Incident Subscriptions**
-- Users can set up auto-subscribe rules based on severity, components, or other criteria
-- Notifications sent via Slack DM, email, SMS, or mobile app (based on user preferences)
-- Subscribing to the status page itself subscribes to all incidents published there
-
-**vs. Public status pages:**
-- Public pages use email-only subscriptions (no Slack integration)
-- External users must manually subscribe via the status page
-- No auto-subscribe rules for external users
-- RSS and Atom feeds available (internal pages don't support RSS/Atom)
+<Tabs>
+  <Tab title="Internal Users">
+    **For internal users:**
+    - Subscriptions are managed through **User Preferences** → **Incident Subscriptions**
+    - Users can set up auto-subscribe rules based on severity, components, or other criteria
+    - Notifications sent via Slack DM, email, SMS, or mobile app (based on user preferences)
+    - Subscribing to the status page itself subscribes to all incidents published there
+  </Tab>
+  
+  <Tab title="Public Pages">
+    **vs. Public status pages:**
+    - Public pages use email-only subscriptions (no Slack integration)
+    - External users must manually subscribe via the status page
+    - No auto-subscribe rules for external users
+    - RSS and Atom feeds available (internal pages don't support RSS/Atom)
+  </Tab>
+</Tabs>
 
 See [Subscriptions and communication](/product-documentation/status-pages/subscriptions-and-communication) for detailed subscription management.
 

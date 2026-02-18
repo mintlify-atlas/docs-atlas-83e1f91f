@@ -1,321 +1,318 @@
 ---
 title: Post-mortem documents
-description: Create comprehensive post-mortem documentation with collaborative editing, AI assistance, and seamless integration with your existing tools
+description: Create comprehensive post-mortem documents automatically with incident.io's powerful editor and integrations
 ---
 
-## Overview
+# Post-mortem documents
 
-Post-mortem documents help you understand what happened during an incident, identify systemic issues, and prevent future occurrences. incident.io provides multiple ways to create post-mortems, from fully integrated in-house documents to exports to external providers.
+Writing post-mortems is an incredibly valuable process. It forces writers to understand what actually happened during an incident, and a good post-mortem document can reveal the systemic issues hidden behind surface-level problems.
 
-<Info>
-Good post-mortems require gathering context from multiple sources: Slack threads, logs, monitoring, and more. incident.io brings all this information together at your fingertips.
-</Info>
+Rather than spending hours gathering context from various sources, incident.io automatically assembles incident information into a structured post-mortem document that you can edit, collaborate on, and export.
 
-## Where to write post-mortems
+## Creating a post-mortem
 
-You have two options:
-
-<Tabs>
-  <Tab title="Within incident.io (Recommended)">
-    ### Benefits
-
-    <CardGroup cols={2}>
-      <Card title="Data in one place" icon="database">
-        Updates to incident data automatically reflect in your post-mortem
-      </Card>
-      <Card title="Smarter AI" icon="brain">
-        Post-mortem data improves AI suggestions for future incidents
-      </Card>
-      <Card title="Richer experience" icon="sparkles">
-        Better rendering of timelines, follow-ups, and incident metadata
-      </Card>
-      <Card title="Real-time collaboration" icon="users">
-        Multiple people can edit simultaneously with live cursors
-      </Card>
-    </CardGroup>
-
-    ### Creating an in-house post-mortem
-
-    1. Navigate to the **Post-incident** tab on the incident homepage
-    2. Click **Create post-mortem**
-    3. Select a template configured for incident.io
-    4. Start editing in the collaborative editor
-
-    The post-mortem status will be set to "In progress" automatically.
-  </Tab>
-
-  <Tab title="External providers">
-    ### Supported providers
-
-    - Google Docs
-    - Confluence
-    - Notion
-    - Other document providers via export
-
-    ### Creating an external post-mortem
-
-    1. Navigate to the **Post-incident** tab
-    2. Click **Create post-mortem**
-    3. Select a template configured for your external provider
-    4. The template exports with pre-filled incident data
-    5. Complete the document in your external tool
-
-    <Note>
-    Even when writing externally, incident.io still shows follow-ups and timeline on the post-incident tab.
-    </Note>
-  </Tab>
-</Tabs>
-
-## Collaborative post-mortem editor
-
-The in-house editor provides a rich, collaborative experience:
-
-### Real-time collaboration
-
-- Multiple people can edit simultaneously
-- See who's present in the document
-- View other people's cursors and selections
-- Changes appear in real-time for all editors
-
-### Commenting and discussion
-
-- Highlight text to add comments
-- Mention users in comments to notify them
-- Reply to comments to create threaded discussions
-- Resolve comments when issues are addressed
-
-### AI integration
-
-- Ask questions about the incident
-- Extract information from Slack threads and logs
-- Get suggestions for root cause analysis
-- Access incident context without leaving the editor
-
-### Rich formatting and data
-
-Type `/` to access:
-
-<CardGroup cols={2}>
-  <Card title="Rich text blocks" icon="paragraph">
-    Callouts, code blocks, images, tables, and more
-  </Card>
-  <Card title="Incident data" icon="at">
-    Users, channels, timestamps, custom fields, catalog entries
-  </Card>
-</CardGroup>
-
-Type `@` to mention:
-
-- Users (with hover cards showing incident roles)
-- Slack channels
-- GitHub PR attachments
-- Catalog entries
-- Custom fields and values
-
-## Post-mortem templates
-
-### Template structure
-
-Templates typically include:
-
-<AccordionGroup>
-  <Accordion title="Incident summary" icon="file-lines">
-    Auto-populated with:
-    - Incident ID and name
-    - Severity and status
-    - Start and end times
-    - Responders and roles
-  </Accordion>
-
-  <Accordion title="Timeline" icon="timeline">
-    Automatically includes the curated incident timeline with all key events, decisions, and context.
-  </Accordion>
-
-  <Accordion title="Follow-ups" icon="list-check">
-    Live list of follow-up actions created during and after the incident.
-  </Accordion>
-
-  <Accordion title="Custom sections" icon="pen-to-square">
-    Configurable sections that can include:
-    - Custom fields to be filled out
-    - Help text for guidance
-    - Template text with variables
-    
-    Common sections:
-    - Impact
-    - Root cause
-    - What went well
-    - What went wrong
-    - Action items
-  </Accordion>
-</AccordionGroup>
-
-### Configuring templates
-
-1. Go to [Settings → Post-mortems](https://app.incident.io/settings/post-mortem)
-2. Click **Add template** to create a new template
-3. Choose **Duplicate existing template with collaborative editor** for in-house, or configure for external provider
-4. Customize sections, help text, and template text
-5. Set the template as default if desired
-
-<Tip>
-Start with a suggested template and customize it over time based on what works for your team.
-</Tip>
-
-## Post-mortem lifecycle
-
-```mermaid
-graph LR
-    A[Not started] --> B[In progress]
-    B --> C[In review]
-    C --> D[Completed]
-    D --> E[Shared]
-```
-
-### Status transitions
+You can create a post-mortem for any resolved incident.
 
 <Steps>
-  <Step title="Not started">
-    No post-mortem has been created yet
+  <Step title="Navigate to the incident">
+    Open the incident homepage for the resolved incident.
   </Step>
-  <Step title="In progress">
-    Post-mortem is being written. Auto-completed when you start editing.
+  
+  <Step title="Click 'Create post-mortem'">
+    In the Post-mortem section on the right side of the page, click **Create post-mortem**.
   </Step>
-  <Step title="In review">
-    Draft is complete and ready for team review. Use comments to gather feedback.
-  </Step>
-  <Step title="Completed">
-    Post-mortem is finalized and approved. Some post-incident flow tasks auto-complete at this stage.
-  </Step>
-  <Step title="Shared">
-    Post-mortem has been shared to configured Slack channels.
+  
+  <Step title="Choose your editing method">
+    Select one of three options:
+    - **Use the collaborative editor** - Edit directly in incident.io with real-time collaboration
+    - **Export to external provider** - Send to Google Docs, Notion, or Confluence
+    - **Copy to clipboard** - Paste into any editor of your choice
   </Step>
 </Steps>
 
-## Exporting post-mortems
+<Info>
+Right now, you can only generate a post-mortem for resolved incidents. This ensures the timeline and incident details are complete.
+</Info>
 
-Even when writing in incident.io, you can export a copy for archival:
+## The collaborative post-mortem editor
 
-1. Click **Export** at the top of the post-mortem
-2. Choose your destination (Confluence, Notion, Google Docs)
-3. All sections are moved to the external document
-4. Follow-ups and timeline remain visible in incident.io
+incident.io's collaborative editor provides an integrated post-mortem experience with all your incident information at your fingertips.
 
-<video controls>
-  <source src="/videos/exporting-post-mortem.mp4" type="video/mp4" />
-</video>
+### Key features
 
-<Warning>
-**Pro tip:** Export *after* your debrief meeting to ensure you're exporting the most up-to-date version with all feedback incorporated.
-</Warning>
+**Real-time collaboration**
+- Multiple people can edit simultaneously
+- See who's present in the document
+- View other people's cursors and highlights
+- Edits appear in real-time for all users
 
-## Sharing post-mortems
+**Commenting and discussion**
+- Highlight text and add comments
+- Reply to comments with threaded discussions
+- Mention users in comments to notify them
+- Resolve comments when addressed
 
-Once your post-mortem is complete, share it widely:
+**AI companion**
+- Ask questions about the incident
+- Extract information from incident data
+- Get writing suggestions and summaries
 
-### Quick sharing
+**Deep integration**
+- Access incident metadata (timestamps, people, fields)
+- Reference catalog entries directly
+- Insert timeline events
+- Link to attached resources
 
-1. Click **Share** on a closed incident
-2. Fill out the templated message (variables auto-populate)
-3. Select Slack channels to share to
-4. Click **Share**
+### Using the collaborative editor
 
-A formatted message is posted to each channel with:
-- Incident summary
-- Key findings
-- Link to the full post-mortem
-- Follow-up actions
+<Steps>
+  <Step title="Create a collaborative template">
+    Go to **Settings → Post-mortem** and scroll to the template section. Click **Add Template** and choose **Duplicate existing template with collaborative editor**.
+  </Step>
+  
+  <Step title="Create a post-mortem">
+    From an incident, click **Create post-mortem** and select your collaborative template. This takes you to the editor.
+  </Step>
+  
+  <Step title="Edit with rich blocks">
+    Type `/` to open the block menu and select rich elements:
+    - Callouts
+    - Code blocks
+    - Images
+    - Tables
+    - And more
+  </Step>
+  
+  <Step title="Reference incident data">
+    Type `@` to reference:
+    - Users
+    - Slack channels
+    - GitHub PR attachments
+    - Catalog entries
+    - Timeline events
+    
+    These elements are interactive - hover for additional context.
+  </Step>
+  
+  <Step title="Format and collaborate">
+    Highlight text to:
+    - Apply formatting (bold, italic, etc.)
+    - Add comments
+    - Ask AI questions about the text
+  </Step>
+</Steps>
 
-### Customizing sharing templates
+### Document management
 
-1. Go to [Settings → Post-mortems → Post-mortem sharing templates](https://app.incident.io/settings/post-mortem)
-2. Create new templates for different audiences
-3. Configure:
-   - Destination channels
-   - Message context and structure
-   - Variables to include
-4. Set a default template
+Access document features through the triple-dot menu:
 
-<Tip>
-Create different sharing templates for technical teams vs. executive audiences to tailor the level of detail and focus.
-</Tip>
-
-## Version history and analytics
-
-Access from the three-dot menu:
-
-### Version history
-- Automatically created snapshots of your document
+**Version History**
+- Automatic snapshots of your document
 - View any previous version
-- Revert to an earlier version if needed
+- Revert to earlier versions if needed
 
-### Analytics
+**Analytics**
 - See who has viewed the document and when
-- Track who has edited the document
-- Understand engagement with shared post-mortems
+- Track who has edited it
+- Understand engagement with your post-mortem
 
-### Resolved comments
-- Access previously resolved comment threads
-- Review decisions made during the review process
+**Resolved Comments**
+- Access all resolved comment threads
+- Review past discussions
+- Reopen comments if needed
 
-## Deleting post-mortems
+<Note>
+Collaborative post-mortems can be deleted from the menu, allowing you to iterate on templates. Deletion removes all versions permanently and cannot be undone.
+</Note>
 
-You can delete post-mortems created with the collaborative editor:
+## Exporting to external providers
 
-1. Open the post-mortem
-2. Click the three-dot menu
-3. Select **Delete**
-4. Confirm deletion
+Export post-mortems to your existing documentation tools to collaborate where your team already works.
 
-<Warning>
-Deleting a post-mortem removes all versions permanently. This cannot be undone. However, you can create a new post-mortem afterward.
-</Warning>
+### Supported integrations
+
+#### Google Docs
+
+1. Install the Google Docs integration
+2. Configure a destination folder in **Settings → Post-mortem**
+3. Navigate to your Google Drive folder and copy its URL
+4. Paste the URL in the destination configuration
+
+When creating a post-mortem, select Google Docs as the destination. incident.io creates the document in your configured folder and links it to the incident.
+
+#### Confluence
+
+1. Install the Confluence integration
+2. In **Settings → Post-mortem**, add Confluence as a destination
+3. Select a parent page where post-mortems will be created as child pages
+4. Create multiple destinations for different teams or services
+
+When exporting, choose the appropriate destination based on the incident's team or service.
+
+#### Notion
+
+1. Install the Notion integration
+2. Configure your workspace connection
+3. Create a post-mortem from the incident timeline
+4. The post-mortem document is created in Notion and linked to the incident page
+
+### Copy to clipboard
+
+For tools without native integrations:
+
+1. Click **Create post-mortem**
+2. Select **Copy to Clipboard**
+3. Paste into your editor of choice
+
+This works in most modern editors including:
+- Google Docs
+- Notion
+- Confluence
+- Jira
+- Slab
+- Microsoft Word
+
+Formatting is preserved during paste, including headings, lists, and basic styling.
+
+## Customizing post-mortem templates
+
+Every team has different post-mortem practices. Customize templates to match your workflow.
+
+<Steps>
+  <Step title="Access template settings">
+    Navigate to **Settings → Post-mortem**.
+  </Step>
+  
+  <Step title="Create or edit a template">
+    Create a new template or edit an existing one.
+  </Step>
+  
+  <Step title="Customize sections">
+    Configure:
+    - Template name
+    - Section names and order
+    - Section content and prompts
+    - Variables for document naming
+  </Step>
+  
+  <Step title="Set default behavior">
+    Choose whether to:
+    - Export immediately to an external provider
+    - Use the collaborative editor
+    - Prompt the user to choose
+  </Step>
+</Steps>
+
+### Template variables
+
+Use variables in templates to automatically populate information:
+
+- `{{incident.name}}` - Incident name
+- `{{incident.severity}}` - Severity level
+- `{{incident.started_at}}` - Start timestamp
+- `{{incident.resolved_at}}` - Resolution timestamp
+- Custom field values
+
+### Multiple templates
+
+Create different templates for:
+- Different severity levels (major vs. minor incidents)
+- Different teams (engineering, customer support, etc.)
+- Different incident types (security, performance, outage)
+- Different documentation standards (internal vs. external)
+
+## Attaching and sharing post-mortems
+
+### Attaching external documents
+
+If you created a post-mortem outside incident.io:
+
+1. Click **Attach** in the Post-mortem export form
+2. Paste the URL to your external document
+3. The document is now linked to the incident
+
+Attached documents:
+- Appear in the incident's post-mortem section
+- Are accessible from the incident homepage
+- Can be marked as complete for post-incident tasks
+
+### Marking as complete
+
+Once your post-mortem is finished:
+
+1. Click **Mark as complete** on the incident homepage
+2. This completes the "Mark post-mortem as complete" task in the post-incident flow
+3. The incident can progress to the next post-incident phase
+
+### Sharing post-mortems
+
+Share completed post-mortems with your team:
+
+1. From the incident homepage, click **Share to Slack**
+2. Select which channels should receive the post-mortem
+3. Add a message providing context
+4. The post-mortem is posted with a link to the full document
+
+Sharing automatically completes the "Share the debrief document" task in your post-incident flow.
 
 ## Post-mortem best practices
 
-<CardGroup cols={2}>
-  <Card title="Blameless culture" icon="handshake">
-    Focus on systems and processes, not individuals. The goal is learning, not blame.
-  </Card>
-  <Card title="Write promptly" icon="clock">
-    Complete post-mortems while the incident is fresh in memory. Set due dates in your post-incident flow.
-  </Card>
-  <Card title="Be specific" icon="crosshairs">
-    Vague action items lead to nothing. Make follow-ups concrete and assignable.
-  </Card>
-  <Card title="Share widely" icon="megaphone">
-    Lessons learned benefit the entire organization. Don't keep insights siloed.
-  </Card>
-  <Card title="Track follow-ups" icon="list-check">
-    Create actionable follow-ups with owners and due dates. Use policies to enforce completion.
-  </Card>
-  <Card title="Review regularly" icon="arrows-rotate">
-    Periodically review old post-mortems to identify recurring patterns.
-  </Card>
-</CardGroup>
+<AccordionGroup>
+  <Accordion title="Focus on systems, not people">
+    Good post-mortems examine systemic issues, not individual actions. Frame discussions around "what can we improve" rather than "who made a mistake."
+  </Accordion>
+  
+  <Accordion title="Be specific about improvements">
+    Instead of vague statements like "improve monitoring," write specific follow-ups like "add alerting for queue depth > 1000 on the processing service."
+  </Accordion>
+  
+  <Accordion title="Include the good and the bad">
+    Document what went well in addition to what went wrong. Understanding why response was effective helps replicate success.
+  </Accordion>
+  
+  <Accordion title="Write while it's fresh">
+    Create the post-mortem within days of the incident, not weeks. Details fade quickly from memory.
+  </Accordion>
+  
+  <Accordion title="Make it skimmable">
+    Use clear headings, bullet points, and summaries. Many readers will skim for key learnings and follow-ups.
+  </Accordion>
+</AccordionGroup>
 
 ## Integration with post-incident flow
 
-Configure your [post-incident flow](/product-documentation/post-incident/structured-post-incident-process) to include post-mortem tasks:
+Post-mortem creation integrates seamlessly with your post-incident workflow:
 
-- **Draft the post-mortem** - Auto-completed when status is "In review" or "Completed"
-- **Export the post-mortem** - For external documentation
-- **Mark post-mortem as complete** - Auto-completed when marked complete
-- **Share the post-mortem** - Remind team to share learnings
+- **"Create the post-mortem document" task** - Automatically completed when you create or attach a post-mortem
+- **"Mark the post-mortem document as complete" task** - Completed when you mark the post-mortem as done
+- **"Export the post-mortem" task** - Ensures external export happens before closure
+- **"Share the debrief document" task** - Completed when you share to Slack
+
+Configure which tasks are required for your post-incident flow in **Settings → Improve → Post-incident flow**.
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="Can I edit a post-mortem after exporting?">
+    Yes. Changes made in external tools (Google Docs, Notion, Confluence) don't sync back to incident.io, but you can freely edit the external document. The link to the document remains attached to the incident.
+  </Accordion>
+  
+  <Accordion title="What happens to the timeline in the post-mortem?">
+    The incident timeline is rendered in your post-mortem document automatically. It includes timestamps, events, and descriptions. Any edits to the timeline in incident.io won't update already-exported documents.
+  </Accordion>
+  
+  <Accordion title="Can I have different templates for different teams?">
+    Yes. Create multiple templates and multiple export destinations. When creating a post-mortem, you can choose which template and destination to use.
+  </Accordion>
+  
+  <Accordion title="How do I set a default template?">
+    In **Settings → Post-mortem**, mark one template as the default. This template will be pre-selected when creating post-mortems, though users can still choose a different template.
+  </Accordion>
+</AccordionGroup>
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Timeline" href="/product-documentation/post-incident/timeline" icon="timeline">
-    Build the foundation for your post-mortem
-  </Card>
-  <Card title="Post-mortem meetings" href="/product-documentation/post-incident/post-mortem-meetings" icon="users">
-    Conduct effective debrief meetings
-  </Card>
-  <Card title="Follow-up actions" href="/product-documentation/post-incident/follow-up-actions" icon="list-check">
-    Track and complete action items
-  </Card>
-  <Card title="AI-powered post-mortem writing" href="/product-documentation/ai-sre/post-mortem-writing" icon="wand-magic-sparkles">
-    Use AI to assist with post-mortem creation
-  </Card>
-</CardGroup>
+- [Timeline](/product-documentation/post-incident/timeline) - Build the factual backbone of your post-mortem
+- [Post-mortem meetings](/product-documentation/post-incident/post-mortem-meetings) - Schedule debriefs to discuss your post-mortem
+- [Follow-up actions](/product-documentation/post-incident/follow-up-actions) - Convert insights into concrete improvements
+- [Structured post-incident process](/product-documentation/post-incident/structured-post-incident-process) - Automate post-mortem creation in your workflow

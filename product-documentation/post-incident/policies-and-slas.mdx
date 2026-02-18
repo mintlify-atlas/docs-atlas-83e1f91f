@@ -1,445 +1,324 @@
 ---
 title: Policies and SLAs
-description: Define and enforce organizational standards for post-incident activities including debriefs, follow-ups, post-mortems, and on-call practices
+description: Define and enforce completion requirements for post-incident work with configurable policies and SLAs
 ---
+
+# Policies and SLAs
+
+Policies help your organization define rules about how post-incident work should be completed. By setting clear expectations and SLAs, you ensure that insights from incidents translate into timely improvements rather than getting lost in the backlog.
 
 ## Overview
 
-Policies allow you to define rules about how your organization's incident management program should operate. By setting clear expectations and automating reminders, policies ensure consistent follow-through on post-incident activities.
+Policies in incident.io let you:
+- Define SLAs for follow-up completion
+- Set requirements based on incident attributes
+- Use different SLAs for different priorities or severities
+- Track policy violations and adherence
+- Send notifications when policies are at risk
 
-<Info>
-Policies help answer questions like: "Are we completing follow-ups on time?" "Are post-mortems being written for major incidents?" "Are debriefs being scheduled?"
-</Info>
+Policies create accountability for post-incident work without requiring manual tracking.
 
-## What you can enforce with policies
+## Understanding policies
 
-<CardGroup cols={2}>
-  <Card title="Debriefs" icon="users">
-    Ensure debriefs are scheduled and/or completed within specified timeframes
-  </Card>
-  <Card title="Follow-ups" icon="list-check">
-    Require follow-ups to be assigned and completed based on priority or severity
-  </Card>
-  <Card title="Post-mortems" icon="file-lines">
-    Mandate post-mortem creation, completion, and export for qualifying incidents
-  </Card>
-  <Card title="On-call notifications" icon="bell">
-    Verify on-call users have specific notification methods configured
-  </Card>
-</CardGroup>
+### Policy types
 
-## Policy components
+incident.io supports policies for:
+- **Follow-ups** - Require follow-ups to be completed within a timeframe
+- **Post-mortem creation** - Ensure post-mortems are written for qualifying incidents
+- **Debrief scheduling** - Require debriefs to be scheduled within a timeframe
+- **Custom requirements** - Define organization-specific requirements
 
-Every policy has several key components:
+### Policy components
 
-### Policy type
+Each policy consists of:
 
-Choose what you want to enforce:
-- **Follow-ups** - Completion requirements for follow-up actions
-- **Debriefs** - Requirements for scheduling and completing debrief meetings
-- **Post-mortems** - Requirements for post-mortem documents
-- **On-call** - Requirements for on-call user configurations
+1. **Scope** - Which incidents or follow-ups does this apply to?
+2. **Requirements** - What needs to be done?
+3. **SLA** - How quickly must it be done?
+4. **Actions** - What happens when the policy is violated or at risk?
 
-### Scope and conditions
+## Creating follow-up policies
 
-Define when the policy applies:
-
-<Tabs>
-  <Tab title="All incidents">
-    Apply the policy to every incident in your organization.
-  </Tab>
-  <Tab title="By severity">
-    ```
-    Condition: Severity is one of [Critical, Major]
-    ```
-    Only enforce for high-severity incidents.
-  </Tab>
-  <Tab title="By custom fields">
-    ```
-    Condition: Customer Impact = "High"
-    AND Affected Team contains "Platform"
-    ```
-    Use custom fields for fine-grained control.
-  </Tab>
-  <Tab title="By catalog attributes">
-    ```
-    Condition: Affected Services → Team = "Core API"
-    ```
-    Leverage catalog data for dynamic scoping.
-  </Tab>
-</Tabs>
-
-### SLA (Service Level Agreement)
-
-Define the timeframe for completion:
-
-<AccordionGroup>
-  <Accordion title="Fixed SLA" icon="clock">
-    Set a single number of days for all incidents:
-    
-    ```
-    SLA: 7 days after incident resolved
-    ```
-  </Accordion>
-
-  <Accordion title="Expression-based SLA" icon="code">
-    Use expressions to set dynamic SLAs based on incident attributes:
-    
-    ```javascript
-    if (incident.severity === "Critical") {
-      return 1; // 1 day for critical
-    } else if (incident.severity === "Major") {
-      return 3; // 3 days for major
-    } else {
-      return 7; // 7 days for others
-    }
-    ```
-  </Accordion>
-
-  <Accordion title="Priority-based SLA (Follow-ups)" icon="sort">
-    For follow-up policies, base SLA on follow-up priority:
-    
-    ```javascript
-    if (followUp.priority === "Urgent") {
-      return 3;
-    } else if (followUp.priority === "High") {
-      return 7;
-    } else {
-      return 14;
-    }
-    ```
-  </Accordion>
-</AccordionGroup>
-
-### Requirements
-
-Define what must be true for the policy to be fulfilled:
-
-**Example follow-up policy requirements:**
-- Follow-up → Status is not "Outstanding"
-- Follow-up → Assignee is not empty
-
-**Example post-mortem policy requirements:**
-- Post-mortem → Status is "Completed"
-- Post-mortem → Exported to Confluence
-
-**Example debrief policy requirements:**
-- Debrief → Is scheduled
-- Debrief → Has occurred (past the scheduled time)
-
-### Assignees and notifications
-
-Specify who is responsible and when they should be notified:
-
-<Tabs>
-  <Tab title="Assignee selection">
-    Choose who should be reminded:
-    - **Follow-ups:** Follow-up owner
-    - **Post-mortems:** Incident lead or post-mortem author
-    - **Debriefs:** Debrief scheduler role
-    - **On-call:** On-call user themselves
-  </Tab>
-
-  <Tab title="Notification timing">
-    Configure when reminders are sent:
-    - **Before due date:** 2 days before, 1 day before
-    - **On due date:** Day it's due
-    - **After due date:** 1 day overdue, 3 days overdue, weekly thereafter
-    
-    <Note>
-    "Before due date" notifications don't apply to on-call policies since compliance is binary - you're either in compliance or not.
-    </Note>
-  </Tab>
-
-  <Tab title="Notification channels">
-    Assignees are notified via:
-    - Slack direct message
-    - Email
-    - Home page sidebar (right panel on dashboard)
-  </Tab>
-</Tabs>
-
-## Creating policies
-
-### Using templates
-
-1. Go to [Settings → Policies](https://app.incident.io/settings/policies)
-2. Browse recommended policy templates:
-   - "Major incidents require post-mortem within 7 days"
-   - "Urgent follow-ups must be completed within 3 days"
-   - "Critical incidents require debrief within 2 days"
-3. Click a template to customize and create
-
-### Creating custom policies
+Follow-up policies ensure that action items from incidents are completed in a timely manner.
 
 <Steps>
+  <Step title="Navigate to policy settings">
+    Go to [Settings → Policies](https://app.incident.io/~/settings/policies) and click **New Policy**.
+  </Step>
+  
   <Step title="Select policy type">
-    Choose what you want to enforce (follow-ups, debriefs, post-mortems, on-call)
+    Choose **Follow-ups** as the policy type.
   </Step>
-  <Step title="Name and describe">
-    Give your policy a clear name and description for easy identification
+  
+  <Step title="Name and describe the policy">
+    Give the policy a clear name like "Urgent follow-up completion" and describe what it enforces.
   </Step>
-  <Step title="Set scope">
-    Add conditions to define when the policy applies
+  
+  <Step title="Define the scope">
+    Add conditions to determine which follow-ups this policy applies to. For example:
+    - All follow-ups from major incidents
+    - Follow-ups with Urgent priority
+    - Follow-ups assigned to specific teams
   </Step>
-  <Step title="Configure SLA">
-    Set the timeframe using a fixed value or expression
+  
+  <Step title="Set the SLA">
+    Define how many days after incident resolution follow-ups must be completed. You can use a fixed number or an expression for dynamic SLAs.
   </Step>
+  
   <Step title="Define requirements">
-    Specify what must be true for compliance
+    Specify what "completed" means. For example:
+    - Follow-up status is not Outstanding
+    - Follow-up is marked as Done or Cancelled
   </Step>
-  <Step title="Set assignees">
-    Choose who should be reminded about the policy
-  </Step>
+  
   <Step title="Configure notifications">
-    Set when reminders should be sent
-  </Step>
-  <Step title="Create">
-    Save your policy - it applies immediately to future incidents
+    Set up notifications for when the policy is at risk or violated.
   </Step>
 </Steps>
 
-## Example policies
+### Example: Priority-based follow-up SLAs
 
-### Priority-based follow-up completion
+Create a policy where SLA varies by follow-up priority:
 
-<CodeGroup>
-```yaml Policy details
-Name: Priority-based follow-up SLA
-Type: Follow-ups
-Scope: All incidents
-Requirement: Follow-up status is not "Outstanding"
+**Configuration:**
+- **Name:** "Priority-based follow-up completion"
+- **SLA days:** Use an expression:
+  - If Follow-up → Priority is Urgent, return `3`
+  - If Follow-up → Priority is High, return `7`
+  - If Follow-up → Priority is Medium, return `14`
+  - Otherwise, return `30`
+- **Requirements:** Follow-up → Status is not Outstanding
+
+This policy gives you 3 days for urgent follow-ups, 7 for high priority, 14 for medium, and 30 for low priority.
+
+<Info>
+Using expressions for SLAs allows sophisticated logic based on incident severity, follow-up priority, affected services, or any custom field.
+</Info>
+
+## Using expressions in policies
+
+Expressions make policies flexible and context-aware.
+
+### Common expression patterns
+
+**Severity-based SLAs:**
+```
+If Incident → Severity is Critical, return 1
+If Incident → Severity is Major, return 3
+Otherwise, return 7
 ```
 
-```javascript SLA expression
-if (followUp.priority === "Urgent") {
-  return 3; // 3 days
-} else if (followUp.priority === "High") {
-  return 7; // 7 days
-} else {
-  return 14; // 14 days for medium/low
-}
+**Team-based SLAs:**
+```
+If Incident → Affected Team is Security, return 2
+If Incident → Affected Team is Platform, return 5
+Otherwise, return 10
 ```
 
-```yaml Notifications
-Assignee: Follow-up owner
-Notify:
-  - 1 day before due
-  - On due date
-  - 1 day after due
-  - Every 3 days thereafter
+**Custom field-based SLAs:**
 ```
-</CodeGroup>
-
-### Severity-based post-mortem requirement
-
-<CodeGroup>
-```yaml Policy details
-Name: Major incident post-mortem requirement
-Type: Post-mortems
-Scope: Severity is one of [Critical, Major]
-Requirement: Post-mortem status is "Completed"
+If Incident → Customer Impacting is Yes, return 3
+Otherwise, return 14
 ```
 
-```javascript SLA expression
-if (incident.severity === "Critical") {
-  return 2; // 2 days for critical
-} else {
-  return 5; // 5 days for major
-}
+**Combined conditions:**
+```
+If Incident → Severity is Critical AND Follow-up → Priority is Urgent, return 1
+If Incident → Severity is Critical, return 3
+If Follow-up → Priority is Urgent, return 5
+Otherwise, return 14
 ```
 
-```yaml Notifications
-Assignee: Incident lead
-Notify:
-  - 1 day before due
-  - On due date
-  - Daily after due date
-```
-</CodeGroup>
+### SLA calculation start point
 
-### Debrief scheduling for customer-impacting incidents
+For follow-up policies, the SLA typically starts from:
+- Incident resolution time
+- Follow-up creation time
+- Custom expression-based start time
 
-<CodeGroup>
-```yaml Policy details
-Name: Customer impact debrief requirement
-Type: Debriefs
-Scope: Custom field "Customer Impact" = "High"
-Requirement: Debrief is scheduled
-```
+Configure which event triggers the SLA countdown in your policy settings.
 
-```javascript SLA expression
-return 3; // Schedule within 3 days of resolution
-```
+## Policy enforcement
 
-```yaml Notifications
-Assignee: Debrief scheduler role
-Notify:
-  - On due date
-  - 1 day after due
-```
-</CodeGroup>
+### Policy states
 
-## Viewing policy compliance
+Policies can be in several states:
 
-### In policy settings
+**Adhering**
+The policy is being met. Requirements are fulfilled within the SLA.
 
-Within each policy's configuration page:
+**At risk**
+The policy hasn't been violated yet, but the deadline is approaching. This state helps teams take action before violation.
 
-- **Outstanding tasks** - Items currently in violation
-- **Dismissed tasks** - Items that were manually dismissed
-- **Compliance rate** - Percentage of items meeting the policy
+**Violated**
+The SLA deadline has passed and requirements aren't met.
 
-### Throughout the product
+**N/A**
+The policy doesn't apply to this incident or follow-up based on scope conditions.
 
-Policy status appears in multiple locations:
+### Notifications
 
-<CardGroup cols={2}>
-  <Card title="Individual incidents" icon="file">
-    See policy violations on the incident page with direct links to take action
-  </Card>
-  <Card title="Team pages" icon="users">
-    View outstanding policy tasks for your team
-  </Card>
-  <Card title="Post-incident dashboard" icon="clipboard">
-    Filter incidents by policy compliance status
-  </Card>
-  <Card title="Follow-ups page" icon="list-check">
-    See which follow-ups are violating policies
-  </Card>
-</CardGroup>
+Configure notifications for policy state changes:
 
-### Policy reports
+**At-risk notifications:**
+- Send when X% of SLA time has elapsed
+- Notify the assignee, incident lead, or custom users
+- Include a link to the incident or follow-up
 
-Schedule automated reports to stay informed:
+**Violation notifications:**
+- Send when SLA is exceeded
+- Escalate to managers or team leads
+- Post to Slack channels for visibility
 
-1. Go to [Settings → Policies](https://app.incident.io/settings/policies)
-2. Click **Schedule report**
-3. Configure:
-   - **Frequency:** Daily, weekly, or monthly
-   - **Policies to include:** Select which policies to report on
-   - **Destination:** Slack channel and/or email addresses
-4. Save the report
+**Pro and Enterprise plans** support automatic reminders, ensuring teams stay on top of post-incident work.
 
-Reports include:
-- Summary of outstanding tasks per policy
-- Compliance trends over time
-- Direct links to take action
+## Tracking policy adherence
 
-<Tip>
-Schedule weekly reports to be sent to team leads or on a rolling basis to keep post-incident activities visible.
-</Tip>
+### Policy dashboard
 
-## Managing policy violations
+View policy adherence across your organization:
 
-### Completing tasks
+1. Navigate to **Settings → Policies**
+2. See summary metrics for each policy:
+   - Total applicable incidents/follow-ups
+   - Adherence rate
+   - Current violations
+   - At-risk items
 
-From any view showing policy violations:
+### Insights and reporting
 
-1. Click on the outstanding task
-2. Take the required action (complete follow-up, schedule debrief, etc.)
-3. The violation is automatically cleared
+Use Insights to analyze policy adherence:
 
-### Dismissing violations
+**Filter by policy state:**
+- Show only incidents with policy violations
+- See follow-ups at risk of violation
+- Identify trends in adherence
 
-If a policy violation isn't applicable:
+**Split by dimensions:**
+- Policy adherence by team
+- Policy adherence by severity
+- Policy adherence over time
 
-1. Find the violation in the policy settings or incident page
-2. Click **Dismiss**
-3. Provide a reason for dismissal
-4. The violation is removed from outstanding tasks
+**Saved views:**
+- "Current policy violations"
+- "Follow-ups at risk this week"
+- "Policy adherence by team"
 
-<Warning>
-Dismissals should be used sparingly. If you find yourself dismissing many violations, consider adjusting your policy conditions.
-</Warning>
+These views help leadership understand whether post-incident work is being completed consistently.
 
-## Policy best practices
+## Best practices
 
-<CardGroup cols={2}>
-  <Card title="Start with templates" icon="clipboard-list">
-    Use recommended templates and customize rather than starting from scratch
-  </Card>
-  <Card title="Set realistic SLAs" icon="calendar-check">
-    Consider team capacity and incident complexity when setting timeframes
-  </Card>
-  <Card title="Use expressions for flexibility" icon="code">
-    Dynamic SLAs based on severity or priority prevent one-size-fits-all problems
-  </Card>
-  <Card title="Don't over-notify" icon="bell-slash">
-    Too many reminders lead to notification fatigue. Balance persistence with respect.
-  </Card>
-  <Card title="Review compliance regularly" icon="chart-line">
-    Use policy reports to identify systemic issues, not just individual violations
-  </Card>
-  <Card title="Iterate based on data" icon="arrows-rotate">
-    Adjust policies based on actual compliance rates and team feedback
-  </Card>
-</CardGroup>
+<AccordionGroup>
+  <Accordion title="Start with realistic SLAs">
+    Set SLAs that are achievable given your team's capacity. Overly aggressive SLAs lead to constant violations and policy fatigue. You can tighten SLAs over time as the practice matures.
+  </Accordion>
+  
+  <Accordion title="Differentiate by priority and severity">
+    Not all post-incident work is equally urgent. Use expressions to set shorter SLAs for critical incidents or urgent follow-ups, and longer SLAs for less urgent work.
+  </Accordion>
+  
+  <Accordion title="Send at-risk notifications early">
+    Configure at-risk notifications when 50% or 75% of the SLA has elapsed. This gives teams time to act before violation.
+  </Accordion>
+  
+  <Accordion title="Make violations visible">
+    Share policy violations in team channels or standups. Visibility creates accountability without blame.
+  </Accordion>
+  
+  <Accordion title="Review policies regularly">
+    As your incident practice matures, revisit policies to ensure they still make sense. Adjust SLAs, conditions, and requirements based on actual performance and team feedback.
+  </Accordion>
+  
+  <Accordion title="Focus on outcomes, not compliance">
+    Policies should drive better learning and improvement, not just checkbox compliance. If teams are meeting SLAs but not producing valuable post-mortems or follow-ups, adjust your approach.
+  </Accordion>
+</AccordionGroup>
 
 ## Common policy patterns
 
-### Graduated enforcement
+### Major incident post-mortems
 
-```javascript
-// More lenient for lower severity
-if (incident.severity === "Critical") {
-  return 1; // Very urgent
-} else if (incident.severity === "Major") {
-  return 3; // Still important
-} else if (incident.severity === "Minor") {
-  return 7; // More time
-} else {
-  return null; // No policy for trivial incidents
-}
-```
+**Requirement:** All major incidents must have a completed post-mortem within 5 business days.
 
-### Team-specific policies
+**Configuration:**
+- Scope: Incident → Severity is Major or Critical
+- SLA: 5 days from resolution
+- Requirements: Post-mortem is attached AND marked as complete
+- Notifications: At-risk at 3 days, violated at 5 days
 
-```javascript
-// Different SLAs for different teams
-if (incident.affectedTeam === "Core Platform") {
-  return 2; // Core team has tighter SLAs
-} else {
-  return 5; // Other teams have more time
-}
-```
+### Security incident follow-ups
 
-### Multi-requirement policies
+**Requirement:** All follow-ups from security incidents must be completed within 2 days.
 
-```yaml
-Requirements:
-  - Post-mortem status is "Completed"
-  - Post-mortem has been exported
-  - Post-mortem has been shared to at least one channel
-```
+**Configuration:**
+- Scope: Incident → Type is Security
+- SLA: 2 days from incident resolution
+- Requirements: Follow-up → Status is Completed or Cancelled
+- Notifications: At-risk at 1 day, escalate to security team on violation
 
-All requirements must be met for policy compliance.
+### Customer-impacting incident debriefs
 
-## Policies and post-incident flow
+**Requirement:** Customer-impacting incidents must have a debrief scheduled within 48 hours.
 
-Policies work seamlessly with the [structured post-incident process](/product-documentation/post-incident/structured-post-incident-process):
+**Configuration:**
+- Scope: Incident → Customer Impacting is Yes
+- SLA: 2 days from resolution
+- Requirements: Debrief is scheduled
+- Notifications: Remind incident lead at 1 day
 
-- **Post-incident flow** defines *what* tasks to complete
-- **Policies** define *when* they must be completed and enforce it
+### Priority-tiered follow-ups
 
-Using both together provides:
-- Clear workflow for responders
-- Automated enforcement of SLAs
-- Visibility into compliance across the organization
+**Requirement:** Follow-ups must be completed based on their priority.
+
+**Configuration:**
+- Scope: All follow-ups
+- SLA: Expression based on priority (3/7/14/30 days)
+- Requirements: Follow-up → Status is not Outstanding
+- Notifications: At-risk at 75% of SLA time
+
+## Integration with workflows
+
+Combine policies with workflows for powerful automation:
+
+**Auto-assign overdue follow-ups:**
+When a follow-up policy is violated, automatically reassign to the team lead.
+
+**Escalation on repeated violations:**
+When the same team violates a policy 3 times in a month, notify their manager.
+
+**Celebration on adherence:**
+When a team maintains 100% policy adherence for a month, post a celebration message in their Slack channel.
+
+**Reminder sequences:**
+Send progressively urgent reminders as follow-ups approach their SLA deadline.
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="Do policies apply to private incidents?">
+    You can configure whether each policy applies to private incidents. By default, most policies don't apply to private incidents, but you can change this if needed.
+  </Accordion>
+  
+  <Accordion title="What happens when a policy is violated?">
+    Policy violations are tracked and visible in reporting, but they don't prevent any actions. They serve as a signal that post-incident work isn't being completed as expected. You can configure notifications and workflows to take action on violations.
+  </Accordion>
+  
+  <Accordion title="Can I have multiple policies for the same thing?">
+    Yes. You can have multiple policies that apply to the same incidents or follow-ups. For example, one policy might require post-mortem completion within 7 days, while another requires follow-up completion within 14 days.
+  </Accordion>
+  
+  <Accordion title="How do business days work in SLAs?">
+    You can configure whether SLAs count calendar days or business days. Business days respect your organization's configured working hours and holidays.
+  </Accordion>
+  
+  <Accordion title="Can I see historical policy adherence?">
+    Yes. The Insights page shows policy adherence over time, allowing you to see trends and measure improvement in your post-incident practices.
+  </Accordion>
+</AccordionGroup>
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Structured post-incident process" href="/product-documentation/post-incident/structured-post-incident-process" icon="clipboard">
-    Define your post-incident workflow
-  </Card>
-  <Card title="Follow-up actions" href="/product-documentation/post-incident/follow-up-actions" icon="list-check">
-    Create and track follow-ups subject to policies
-  </Card>
-  <Card title="Post-mortem documents" href="/product-documentation/post-incident/post-mortem-documents" icon="file-lines">
-    Ensure post-mortems are completed on time
-  </Card>
-  <Card title="Workflows" href="/help-centre/configure-your-account/workflows/getting-started-with-workflows" icon="diagram-project">
-    Automate actions based on policy violations
-  </Card>
-</CardGroup>
+- [Follow-up actions](/product-documentation/post-incident/follow-up-actions) - Understand what policies can enforce
+- [Structured post-incident process](/product-documentation/post-incident/structured-post-incident-process) - Create workflows that support policy adherence
+- [Insights](/product-documentation/insights/metrics-and-insights) - Analyze policy adherence across your organization
+- [Workflows](/product-documentation/workflows) - Automate actions based on policy state

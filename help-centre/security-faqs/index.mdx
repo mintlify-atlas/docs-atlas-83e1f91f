@@ -1,174 +1,132 @@
 ---
 title: "Security FAQs"
-description: "Frequently asked questions about security and compliance"
+description: "Frequently asked questions about security, compliance, and data privacy at incident.io"
 mode: "wide"
 ---
 
-<Info>
-Find answers to common questions about incident.io's security, compliance, data storage, and authentication practices.
-</Info>
+Security and compliance are fundamental to incident.io. This section answers common questions about how we protect your data, maintain compliance, and ensure platform security.
 
-## Platform and infrastructure
-
-<AccordionGroup>
-  <Accordion title="What platform does incident.io run on?" icon="server">
-    Learn about the cloud infrastructure and platform that powers incident.io.
-    
-    [Read more →](/help-centre/security-faqs/what-platform-does-incident.io-run-on)
-  </Accordion>
-
-  <Accordion title="Where is our data stored?" icon="database">
-    Understand where your incident data is stored and how it's protected.
-    
-    **Key information:**
-    - Data center locations
-    - Regional storage options
-    - Data residency compliance
-    - Backup and redundancy
-    
-    [Read more →](/help-centre/security-faqs/where-is-our-data-stored)
-  </Accordion>
-</AccordionGroup>
-
-## Compliance and certifications
+## Compliance & Certifications
 
 <CardGroup cols={2}>
-  <Card
-    title="SOC 2 Compliance"
-    icon="certificate"
+  <Card 
+    title="SOC2 Compliance" 
+    icon="certificate" 
     href="/help-centre/security-faqs/are-you-soc2-compliant"
   >
-    Information about incident.io's SOC 2 compliance status and audit reports.
+    We maintain SOC2 Type II compliance with audit reports available on request
   </Card>
-  <Card
-    title="Slack Approval"
-    icon="slack"
+  <Card 
+    title="Slack Approval" 
+    icon="slack" 
     href="/help-centre/security-faqs/are-you-approved-by-slack"
   >
-    Details about incident.io's approval status with Slack.
+    Learn about our Slack security review and approval status
   </Card>
 </CardGroup>
 
-<Accordion title="Are you SOC 2 compliant?" icon="certificate">
-  Learn about incident.io's SOC 2 Type II compliance and how to access audit reports.
-  
-  [View compliance details →](/help-centre/security-faqs/are-you-soc2-compliant)
-</Accordion>
-
-## Authentication and access
-
-<Steps>
-  <Step title="User authentication">
-    incident.io authenticates users through your communication platform (Slack or Microsoft Teams) or via SAML SSO.
-  </Step>
-  <Step title="Permission management">
-    Role-based access controls ensure users only have access to appropriate features and data.
-  </Step>
-  <Step title="Session management">
-    Secure session handling with automatic timeouts and refresh mechanisms.
-  </Step>
-  <Step title="Multi-factor authentication">
-    Leverage your identity provider's MFA capabilities for enhanced security.
-  </Step>
-</Steps>
-
-<Accordion title="How do you authenticate users?" icon="user-shield">
-  Detailed explanation of authentication methods and security best practices.
-  
-  [Learn about authentication →](/help-centre/security-faqs/how-do-you-authenticate-users)
-</Accordion>
-
-## Permissions and scopes
-
-<Tabs>
-  <Tab title="Slack Permissions">
-    **Required Slack permissions:**
-    - Access to channels and messages
-    - User profile information
-    - Ability to post messages and updates
-    - File access for attachments
-    
-    [View detailed Slack permissions →](/help-centre/security-faqs/what-slack-permissions-and-access-scopes-do-you-require)
-  </Tab>
-  <Tab title="Google Permissions">
-    **Required Google permissions:**
-    - Calendar access for debrief scheduling
-    - Drive access for document storage
-    - User profile information
-    
-    Review our Google permissions documentation in the integrations section.
-  </Tab>
-  <Tab title="Microsoft Permissions">
-    **Required Microsoft permissions:**
-    - Teams channel access
-    - User profile information
-    - Calendar access
-    - Message posting capabilities
-    
-    See the Microsoft Teams section for detailed permission information.
-  </Tab>
-</Tabs>
-
-## Data management
-
-<Warning>
-Data deletion is permanent and cannot be undone. Make sure you have exported any data you need before requesting deletion.
-</Warning>
-
-<CardGroup cols={2}>
-  <Card
-    title="Data Deletion"
-    icon="trash"
-    href="/help-centre/security-faqs/can-you-delete-our-data"
-  >
-    Learn how to request deletion of your organization's data.
-  </Card>
-  <Card
-    title="Account Deletion"
-    icon="user-xmark"
-    href="/help-centre/security-faqs/how-do-i-delete-my-account-or-organization"
-  >
-    Steps to delete your individual account or entire organization.
-  </Card>
-</CardGroup>
-
-<AccordionGroup>
-  <Accordion title="Can you delete our data?" icon="trash">
-    **Data deletion options:**
-    - Individual incident deletion
-    - Bulk data export and deletion
-    - Full account deletion
-    - Data retention policies
-    
-    [Learn about data deletion →](/help-centre/security-faqs/can-you-delete-our-data)
-  </Accordion>
-
-  <Accordion title="How do I delete my account or organization?" icon="user-xmark">
-    **Deletion process:**
-    1. Export any data you need to retain
-    2. Contact support to initiate deletion
-    3. Confirm deletion request
-    4. Data is permanently removed within 30 days
-    
-    [View deletion steps →](/help-centre/security-faqs/how-do-i-delete-my-account-or-organization)
-  </Accordion>
-</AccordionGroup>
-
-## All security FAQs
-
-- [What platform does incident.io run on?](/help-centre/security-faqs/what-platform-does-incident.io-run-on)
-- [Are you SOC2 compliant?](/help-centre/security-faqs/are-you-soc2-compliant)
-- [Where is our data stored?](/help-centre/security-faqs/where-is-our-data-stored)
-- [Can you delete our data?](/help-centre/security-faqs/can-you-delete-our-data)
-- [How do you authenticate users?](/help-centre/security-faqs/how-do-you-authenticate-users)
-- [Are you approved by Slack?](/help-centre/security-faqs/are-you-approved-by-slack)
-- [What Slack permissions and access scopes do you require?](/help-centre/security-faqs/what-slack-permissions-and-access-scopes-do-you-require)
-- [How do I delete my account or organization?](/help-centre/security-faqs/how-do-i-delete-my-account-or-organization)
+### SOC2 Compliance
 
 <Note>
-For additional security information not covered here, please review our security documentation or contact our security team.
+**Yes, we are SOC2 Type II compliant.** We're happy to provide access to our SOC2 data room on request. Contact us at [help@incident.io](mailto:help@incident.io) to access our audit reports.
 </Note>
 
-<Tip>
-If your organization has specific security or compliance requirements, reach out to our team to discuss custom solutions.
-</Tip>
+## Infrastructure & Platform
+
+### [What platform does incident.io run on?](/help-centre/security-faqs/what-platform-does-incident.io-run-on)
+
+Our infrastructure is built on **Google Cloud Platform (GCP)**, providing enterprise-grade security and reliability:
+
+**Architecture:**
+- Primary web application and Slack integration deployed on GCP
+- PostgreSQL database (securely hosted and managed by GCP)
+- BigQuery platform for analytics
+- **All data encrypted at rest** in both Postgres and BigQuery
+
+**Security Controls:**
+- Two-factor authentication required for all access
+- IAM policies restricting resource access
+- Regular security audits and updates
+
+### [Where is our data stored?](/help-centre/security-faqs/where-is-our-data-stored)
+
+<Info>
+**All data is stored within Europe.** We currently don't send any data outside of Europe.
+</Info>
+
+**Data Locations:**
+
+**Transactional Processing** (Slackbot interactions, dashboard access):
+- Primary: GCP Belgium region ([europe-west1](https://cloud.google.com/about/locations#europe))
+- Hot standby: GCP Netherlands region ([europe-west4](https://cloud.google.com/about/locations#europe))
+
+**Analytical Processing** (internal analytics):
+- Stored [within Europe](https://cloud.google.com/bigquery/docs/locations) on BigQuery
+
+## Authentication & Access
+
+### [How do you authenticate users?](/help-centre/security-faqs/how-do-you-authenticate-users)
+
+We use **Slack as our authentication mechanism**, eliminating the need for separate credentials:
+
+**Authentication Flow:**
+- Your organization's Slack authentication method is used (direct or SSO)
+- No additional authentication provider required
+- Temporary web sessions granted via OAuth flow
+- Sessions periodically expire and are automatically refreshed
+- Tokens can be revoked at any time
+
+<Note>
+Whatever authentication method your organization uses for Slack (including SAML/SSO providers) is automatically used to access incident.io.
+</Note>
+
+### [Slack Permissions & Access Scopes](/help-centre/security-faqs/what-slack-permissions-and-access-scopes-do-you-require)
+
+We follow the principle of least privilege, requesting only the Slack permissions necessary for incident.io to function. Visit the detailed article to see the specific scopes we require and why.
+
+## Data Management
+
+### [Can you delete our data?](/help-centre/security-faqs/can-you-delete-our-data)
+
+<Warning>
+If you decide to stop using incident.io, we're happy to delete your application data upon request. Contact us at [help@incident.io](mailto:help@incident.io).
+</Warning>
+
+### [How do I delete my account or organization?](/help-centre/security-faqs/how-do-i-delete-my-account-or-organization)
+
+Learn about the process for account deletion and data removal. We provide clear procedures for both individual user accounts and entire organizations.
+
+## Security Best Practices
+
+<CardGroup cols={2}>
+  <Card icon="shield" title="Regular Security Updates">
+    We continuously monitor and update our security posture
+  </Card>
+  <Card icon="lock" title="Encryption Everywhere">
+    Data encrypted at rest and in transit
+  </Card>
+  <Card icon="eye" title="Audit Logging">
+    Comprehensive audit logs for Enterprise customers
+  </Card>
+  <Card icon="key" title="Access Controls">
+    Role-based permissions and IAM policies
+  </Card>
+</CardGroup>
+
+## Additional Resources
+
+- **[Account Admin](/help-centre/account-admin/index)** - User management and permissions
+- **[Audit Logs](/help-centre/account-admin/audit-logs)** - Track account changes (Enterprise plan)
+- **[SAML Sign-In](/help-centre/account-admin/security-data-privacy/sign-in-with-saml)** - Configure single sign-on
+
+## Questions?
+
+If you have security questions not covered here:
+
+- **Email**: [help@incident.io](mailto:help@incident.io)
+- **SOC2 Reports**: Request access to our data room
+- **Security Team**: Contact us for security-specific inquiries
+
+<Info>
+We prioritize transparency and are always happy to discuss our security practices with customers and prospects.
+</Info>

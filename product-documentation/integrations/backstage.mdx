@@ -3,12 +3,39 @@ title: Backstage
 description: Import Backstage catalog data into the incident.io Catalog
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Backstage
 
 We offer the ability to import Backstage catalog data into the incident.io Catalog, either by pulling entries directly from the Backstage API or by loading catalog-info.yaml files.
 
-To learn more, **go to our** [**GitHub repository**](https://github.com/incident-io/catalog-importer/tree/master/docs/backstage) **and follow the steps outlined in the README.**
+## Getting Started
+
+To learn more about importing Backstage catalog data, **go to our** [**GitHub repository**](https://github.com/incident-io/catalog-importer/tree/master/docs/backstage) **and follow the steps outlined in the README.**
+
+<Info>
+The catalog importer supports two methods:
+1. **API Integration**: Pull data directly from your Backstage API
+2. **File-based Import**: Load catalog-info.yaml files directly
+</Info>
+
+## What Gets Imported
+
+When you import from Backstage, the following catalog entities are synchronized:
+
+- **Services**: Your application services and microservices
+- **Components**: Individual software components
+- **Systems**: Groups of related components and services
+- **Resources**: Infrastructure resources
+- **APIs**: API definitions and specifications
+
+## Benefits
+
+Integrating Backstage with incident.io gives you:
+
+- **Single Source of Truth**: Keep your service catalog consistent across tools
+- **Automatic Updates**: Changes in Backstage automatically sync to incident.io
+- **Rich Metadata**: Import ownership, dependencies, and other metadata
+- **Better Incident Context**: Quickly identify affected services and their owners during incidents
+
+<Note>
+For detailed setup instructions and configuration options, visit our [catalog-importer GitHub repository](https://github.com/incident-io/catalog-importer/tree/master/docs/backstage).
+</Note>

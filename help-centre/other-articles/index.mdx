@@ -1,214 +1,204 @@
 ---
-title: "Other articles"
-description: "Additional help articles and guides"
+title: "Additional Resources"
+description: "Helpful articles, guides, and troubleshooting resources for incident.io"
 mode: "wide"
 ---
 
-<Info>
-Explore additional help articles covering various topics, features, and troubleshooting guides for incident.io.
-</Info>
+Explore additional resources to help you get the most out of incident.io. This collection covers edge cases, migration tools, integrations, and various troubleshooting scenarios.
 
-## Featured topics
+## Getting Started
 
 <CardGroup cols={2}>
-  <Card title="Alerts and On-Call" icon="bell" href="#alerts-and-on-call">
-    Articles about alert sources, on-call management, and escalations.
+  <Card 
+    title="Sign-In Issues" 
+    icon="right-to-bracket" 
+    href="/help-centre/why-can't-i-sign-in-to-incident.io"
+  >
+    Troubleshoot authentication and access problems
   </Card>
-  <Card title="Integrations" icon="plug" href="#integrations">
-    Guides for specific integrations and connection issues.
-  </Card>
-  <Card title="Status Pages" icon="signal" href="#status-pages">
-    Status page configuration and subscription management.
-  </Card>
-  <Card title="Troubleshooting" icon="wrench" href="#troubleshooting">
-    Common issues and how to resolve them.
+  <Card 
+    title="Using Incident" 
+    icon="book" 
+    href="/help-centre/using-incident"
+  >
+    Learn the fundamentals of incident management
   </Card>
 </CardGroup>
 
-## Alerts and On-Call
+## Call & Communication Tools
 
-<AccordionGroup>
-  <Accordion title="Priorities in alerts and on-call" icon="bell">
-    Understand how priority levels work in alert routing and on-call schedules.
-    
-    [Learn about priorities →](/help-centre/priorities-in-alerts-and-on-call)
-  </Accordion>
+### Incident Calls
 
-  <Accordion title="Escalations with on-call" icon="arrow-up">
-    Configure automatic escalations when alerts aren't acknowledged.
-    
-    [Set up escalations →](/help-centre/escalations-with-on-call)
-  </Accordion>
+- **[How Does Call Transcription Work?](/help-centre/how-does-call-transcription-work)** - Understanding Scribe's transcription capabilities
+- **[Manually Adding/Removing Scribe](/help-centre/manually-adding-and-removing-scribe-from-your-incident-calls)** - Control Scribe presence in calls
 
-  <Accordion title="How do I escalate manually?" icon="hand-pointer">
-    Learn how to manually escalate an incident to get additional help.
-    
-    [Manual escalation guide →](/help-centre/how-do-i-escalate-manually)
-  </Accordion>
+### Slack Integration
 
-  <Accordion title="Create an on-call pay report" icon="file-invoice-dollar">
-    Generate reports for on-call compensation and time tracking.
-    
-    [Create pay reports →](/help-centre/create-an-on-call-pay-report)
-  </Accordion>
+- **[What's Happened to My Slack Bookmarks?](/help-centre/what's-happened-to-my-slack-bookmarks)** - Understanding bookmark management
+- **[Convert Public Channels to Private](/help-centre/using-incident.io-and-slack-to-convert-public-channels-to-private-ones)** - Channel privacy controls
+- **[Slack Enterprise Grid Migrations](/help-centre/slack-enterprise-grid-migrations)** - Handle workspace migrations
 
-  <Accordion title="Migrate from auto-create to alerts" icon="arrows-rotate">
-    Transition from legacy auto-create workflows to the modern alerts system.
-    
-    [Migration guide →](/help-centre/migrate-from-auto-create-to-alerts)
-  </Accordion>
-</AccordionGroup>
+### Microsoft Teams
 
-## Integrations and connections
+- **[Why Are Direct Messages Not Working?](/help-centre/why-are-microsoft-teams-direct-messages-not-working-for-a-user)** - Troubleshoot Teams DM issues
 
-<Tabs>
-  <Tab title="PagerDuty">
-    **PagerDuty migration tools:**
-    - Schedule import
-    - User mapping
-    - Escalation policy conversion
-    - Historical data migration
-    
-    [PagerDuty migration tools →](/help-centre/tools-to-make-migrating-from-pagerduty-easier)
-    
-    [Mirroring schedules to PagerDuty →](/help-centre/mirroring-schedules-to-pagerduty)
-  </Tab>
-  <Tab title="Opsgenie">
-    **Opsgenie migration tools:**
-    - Schedule migration
-    - Team structure import
-    - Integration mapping
-    
-    [Opsgenie migration tools →](/help-centre/tools-to-make-migrating-from-opsgenie-easier)
-  </Tab>
-  <Tab title="Datadog">
-    **Datadog integration:**
-    - Monitor migration
-    - Alert routing
-    - Metric integration
-    
-    [Migrating Datadog monitors →](/help-centre/migrating-datadog-monitors-to-incident-io)
-  </Tab>
-  <Tab title="Other">
-    **Additional integrations:**
-    - [Uptime.com alert source →](/help-centre/adding-uptime.com-as-an-alert-source)
-    - [Salesforce catalog linking →](/help-centre/linking-salesforce-accounts-and-opportunities-in-catalog)
-    - [Jira server webhooks →](/help-centre/setting-up-a-webhook-in-jira-server)
-  </Tab>
-</Tabs>
-
-## Status pages
+## Alerts & On-Call
 
 <CardGroup cols={2}>
-  <Card title="Status Page Subscriptions" icon="envelope" href="/help-centre/status-page-subscriptions">
-    Manage how users subscribe to status page updates.
+  <Card 
+    title="Priorities in Alerts and On-Call" 
+    icon="triangle-exclamation" 
+    href="/help-centre/priorities-in-alerts-and-on-call"
+  >
+    Understand priority levels and their impact
   </Card>
-  <Card title="High Page View Alerts" icon="chart-line" href="/help-centre/high-page-view-alerts">
-    Get notified when your status page receives unusual traffic.
+  <Card 
+    title="Escalations with On-Call" 
+    icon="arrow-up" 
+    href="/help-centre/escalations-with-on-call"
+  >
+    Configure escalation paths for alerts
+  </Card>
+  <Card 
+    title="Manual Escalation" 
+    icon="hand" 
+    href="/help-centre/how-do-i-escalate-manually"
+  >
+    Escalate incidents manually when needed
+  </Card>
+  <Card 
+    title="High Page View Alerts" 
+    icon="chart-line" 
+    href="/help-centre/high-page-view-alerts"
+  >
+    Manage high-volume alert scenarios
   </Card>
 </CardGroup>
 
-## Incident management features
+### Alert Sources
 
-<Steps>
-  <Step title="Using incident.io">
-    Get started with the basics of incident management in incident.io.
-    
-    [Read the guide →](/help-centre/using-incident)
-  </Step>
-  <Step title="Incidents without channels">
-    Learn about managing incidents without creating dedicated communication channels.
-    
-    [Learn more →](/help-centre/incidents-without-channels)
-  </Step>
-  <Step title="Closing incidents via API">
-    Automate incident closure using the incident.io API.
-    
-    [API documentation →](/help-centre/closing-incidents-via-the-api)
-  </Step>
-  <Step title="Team roles">
-    Understand and configure team roles for better organization.
-    
-    [Configure roles →](/help-centre/team-roles)
-  </Step>
-</Steps>
+- **[Custom HTTP Alert Sources](/help-centre/custom-http-alert-sources)** - Create custom alert integrations
+- **[HTTP Alert Sources JSON Array Limitation](/help-centre/http-alert-sources-json-array-limitation-and-troubleshooting)** - Troubleshoot JSON parsing issues
+- **[Adding Uptime.com as an Alert Source](/help-centre/adding-uptime.com-as-an-alert-source)** - Integrate Uptime.com monitoring
 
-## Slack and Microsoft Teams
+### Migration & Integration
 
-<AccordionGroup>
-  <Accordion title="Slack bookmarks" icon="bookmark">
-    Understanding what happened to your Slack bookmarks after integration.
-    
-    [Learn about bookmarks →](/help-centre/what's-happened-to-my-slack-bookmarks)
-  </Accordion>
+- **[Migrate from Auto-Create to Alerts](/help-centre/migrate-from-auto-create-to-alerts)** - Upgrade your alert workflow
+- **[Migrating Datadog Monitors](/help-centre/migrating-datadog-monitors-to-incident-io)** - Transfer Datadog monitoring
+- **[Mirroring Schedules to PagerDuty](/help-centre/mirroring-schedules-to-pagerduty)** - Sync on-call schedules
 
-  <Accordion title="Converting public to private channels" icon="lock">
-    Use incident.io and Slack to convert public channels to private ones.
-    
-    [Channel conversion guide →](/help-centre/using-incident.io-and-slack-to-convert-public-channels-to-private-ones)
-  </Accordion>
-
-  <Accordion title="Slack Enterprise Grid migrations" icon="building">
-    Special considerations for Slack Enterprise Grid environments.
-    
-    [Grid migration guide →](/help-centre/slack-enterprise-grid-migrations)
-  </Accordion>
-
-  <Accordion title="Teams DM issues" icon="message">
-    Troubleshoot direct message problems in Microsoft Teams.
-    
-    [Fix Teams DMs →](/help-centre/why-are-microsoft-teams-direct-messages-not-working-for-a-user)
-  </Accordion>
-</AccordionGroup>
-
-## Call transcription and Scribe
-
-<CardGroup cols={2}>
-  <Card title="How Transcription Works" icon="closed-captioning" href="/help-centre/how-does-call-transcription-work">
-    Technical details about call transcription capabilities.
-  </Card>
-  <Card title="Managing Scribe" icon="robot" href="/help-centre/manually-adding-and-removing-scribe-from-your-incident-calls">
-    Manually control when Scribe joins or leaves incident calls.
-  </Card>
-</CardGroup>
-
-## Custom alert sources
-
-<Accordion title="Custom HTTP alert sources" icon="code">
-  Create custom HTTP endpoints to receive alerts from any source.
-  
-  **Topics covered:**
-  - Endpoint configuration
-  - Payload format
-  - Authentication
-  - Testing and debugging
-  
-  [Set up custom alerts →](/help-centre/custom-http-alert-sources)
-</Accordion>
-
-<Accordion title="JSON array limitations" icon="brackets-curly">
-  Understanding limitations and troubleshooting JSON array handling in HTTP alert sources.
-  
-  [Troubleshoot JSON arrays →](/help-centre/http-alert-sources-json-array-limitation-and-troubleshooting)
-</Accordion>
-
-## Additional resources
-
-### Authentication and access
-- [Why can't I sign in to incident.io?](/help-centre/why-can't-i-sign-in-to-incident.io)
-
-### Documentation and reporting
-- [Why can't I use images in my incident summaries?](/help-centre/why-can-t-i-use-images-in-my-incident-summaries)
-- [Debriefs: Google Calendar permissions](/help-centre/debriefs:-google-calendar-permissions)
-
-### Infrastructure and technical
-- [List of IP addresses our webhooks originate from](/help-centre/list-of-ip-addresses-our-webhooks-originate-from)
-- [Why is Terraform apply reporting an unexpected new value in my workflow?](/help-centre/why-is-terraform-apply-reporting-an-unexpected-new-value-in-my-workflow)
-- [Why isn't my Grafana test alert triggering multiple times?](/help-centre/why-isn-t-my-grafana-test-alert-triggering-multiple-times)
-
-### Policies and governance
-- [Policies](/help-centre/policies)
+## Migration Tools
 
 <Note>
-Can't find what you're looking for? Use the search function or contact our support team for assistance.
+Migrating from another incident management or on-call platform? We've built tools to make the transition easier.
 </Note>
+
+- **[Migrating from PagerDuty](/help-centre/tools-to-make-migrating-from-pagerduty-easier)** - Comprehensive PagerDuty migration guide
+- **[Migrating from OpsGenie](/help-centre/tools-to-make-migrating-from-opsgenie-easier)** - OpsGenie to incident.io transition tools
+
+## Catalog & External Integrations
+
+### Catalog
+
+- **[Linking Salesforce Accounts and Opportunities](/help-centre/linking-salesforce-accounts-and-opportunities-in-catalog)** - Connect your CRM data
+
+### Jira Integration
+
+- **[Setting Up a Webhook in Jira Server](/help-centre/setting-up-a-webhook-in-jira-server)** - Configure Jira Server integration
+
+## Debriefs & Learning
+
+- **[Debriefs: Google Calendar Permissions](/help-centre/debriefs:-google-calendar-permissions)** - Set up calendar integration for debriefs
+
+## Workflows & Automation
+
+### API Integration
+
+- **[Closing Incidents via the API](/help-centre/closing-incidents-via-the-api)** - Automate incident closure
+- **[List of IP Addresses for Webhooks](/help-centre/list-of-ip-addresses-our-webhooks-originate-from)** - Allowlist our webhook sources
+
+### Advanced Configuration
+
+- **[Policies](/help-centre/policies)** - Configure incident policies
+- **[Team Roles](/help-centre/team-roles)** - Understand and assign team roles
+- **[Incidents Without Channels](/help-centre/incidents-without-channels)** - Handle channel-less incidents
+
+### Troubleshooting
+
+- **[Terraform Apply Unexpected New Value](/help-centre/why-is-terraform-apply-reporting-an-unexpected-new-value-in-my-workflow)** - Debug Terraform integration issues
+- **[Grafana Test Alert Issues](/help-centre/why-isn-t-my-grafana-test-alert-triggering-multiple-times)** - Fix Grafana alert testing problems
+
+## Status Pages
+
+- **[Status Page Subscriptions](/help-centre/status-page-subscriptions)** - Manage subscriber notifications
+
+## On-Call & Reporting
+
+- **[Create an On-Call Pay Report](/help-centre/create-an-on-call-pay-report)** - Generate compensation reports for on-call time
+
+## Content & Media
+
+- **[Why Can't I Use Images in My Incident Summaries?](/help-centre/why-can-t-i-use-images-in-my-incident-summaries)** - Understanding image upload limitations
+
+## Browse by Category
+
+<CardGroup cols={3}>
+  <Card 
+    title="Alerts" 
+    icon="bell" 
+    href="/help-centre/alerts"
+  >
+    Alert configuration and troubleshooting
+  </Card>
+  <Card 
+    title="On-Call" 
+    icon="phone" 
+    href="/help-centre/on-call"
+  >
+    On-call schedules and escalations
+  </Card>
+  <Card 
+    title="Integrations" 
+    icon="plug" 
+    href="/help-centre/api-and-integrations"
+  >
+    API and third-party integrations
+  </Card>
+  <Card 
+    title="Catalog" 
+    icon="folder-tree" 
+    href="/help-centre/catalog"
+  >
+    Service catalog management
+  </Card>
+  <Card 
+    title="Workflows" 
+    icon="diagram-project" 
+    href="/help-centre/creating-and-running-incidents"
+  >
+    Incident workflows and automation
+  </Card>
+  <Card 
+    title="Status Pages" 
+    icon="window-maximize" 
+    href="/help-centre/status-pages"
+  >
+    Public status page setup
+  </Card>
+</CardGroup>
+
+## Can't Find What You Need?
+
+<Info>
+If you can't find the answer you're looking for in our documentation:
+
+- **Search**: Use the search bar at the top of the page
+- **Contact Support**: Reach out via in-app chat or [help@incident.io](mailto:help@incident.io)
+- **Browse All Topics**: Check the main [Help Centre](/help-centre) index
+</Info>
+
+## Related Resources
+
+- **[Account Admin](/help-centre/account-admin/index)** - User management and billing
+- **[Security FAQs](/help-centre/security-faqs/index)** - Security and compliance questions
+- **[Scribe and Incident Calls](/help-centre/scribe-and-incident-calls/index)** - Call integration and transcription

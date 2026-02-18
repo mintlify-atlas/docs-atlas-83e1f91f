@@ -1,362 +1,267 @@
 ---
-title: Custom fields
-description: Create incident fields backed by Catalog to capture context and enable dynamic automation.
+title: Custom Fields with Catalog
+description: Create dynamic custom fields that stay synchronized with your catalog data and automate field values using catalog relationships
 ---
 
-Custom fields let you capture information specific to your organization's incident response process. When you back custom fields with Catalog types, they become powerful tools for routing, automation, and reporting.
+## Overview
 
-## Custom fields vs. built-in fields
+Custom fields powered by Catalog eliminate manual maintenance and enable intelligent automation. Instead of manually updating dropdown options or asking responders to fill in multiple fields, you can connect custom fields to catalog types and derive values automatically.
 
-incident.io provides standard fields on every incident:
-- Name, summary, and severity
-- Status and timestamps
-- Incident lead and other roles
-- Slack/Teams channel
+There are two powerful ways to use Catalog with custom fields:
 
-Custom fields extend this with your organization's specific needs:
-- **Affected Service** - Which service is experiencing issues
-- **Affected Customer** - Which customers are impacted
-- **Root Cause Category** - Classification for post-incident analysis
-- **Estimated Revenue Impact** - Financial impact of the outage
-- **Compliance Notification Required** - Whether regulatory reporting is needed
+1. **Populate field options from catalog** - Keep custom field options automatically synchronized with catalog data
+2. **Automate field values** - Derive custom field values from other fields using catalog relationships
 
-## Field types
+## Populating custom fields with catalog data
 
-Custom fields come in several types, each with different behaviors:
+Fed up with manually maintaining options for custom fields? When you connect a custom field to a catalog type, any updates to that catalog type automatically reflect in the field options.
 
-### Text fields
-
-**Single line text** - Short text responses
-- Use for: ticket IDs, short descriptions, URLs
-- Example: "Support ticket number", "Monitoring dashboard link"
-
-**Multi-line text** - Longer text responses  
-- Use for: detailed explanations, runbook content
-- Example: "Mitigation steps taken", "Customer communication plan"
-
-### Numeric fields
-
-**Number** - Numeric values with optional units
-- Use for: counts, durations, impact metrics
-- Example: "Users affected", "Estimated downtime (minutes)"
-
-### Selection fields
-
-**Single select** - Choose one option from a predefined list
-- Use for: categories, classifications, yes/no decisions
-- Example: "Root cause category" (Infrastructure, Code, Third-party, Human error)
-
-**Multi select** - Choose multiple options from a list
-- Use for: tags, capabilities, affected areas
-- Example: "Affected products" (Web app, Mobile app, API, Admin portal)
-
-### Link to Catalog
-
-**Catalog-backed fields** reference entries in your Catalog types.
-
-**Single Catalog entry** - Link to one entry
-- Use for: affected service, owning team, incident commander
-- Example: "Affected Service" linking to your Services catalog type
-
-**Multiple Catalog entries** - Link to multiple entries
-- Use for: affected services, impacted customers, notified teams
-- Example: "Affected Customers" linking to your Customers catalog type
-
-Catalog-backed fields unlock powerful automation:
-- Access attributes and relationships in workflow expressions
-- Route based on ownership or other Catalog properties
-- Report and filter incidents by Catalog dimensions
-
-## Creating custom fields
+### Creating a catalog-backed custom field
 
 <Steps>
-  <Step title="Navigate to custom fields settings">
-    Go to **Settings → Incidents → Custom fields**
+  <Step title="Navigate to custom fields">
+    Go to Settings → Custom Fields in your dashboard
   </Step>
   
-  <Step title="Create a new field">
-    Click **Create custom field** and choose a field type
+  <Step title="Create or edit a field">
+    Click "New custom field" or edit an existing one
   </Step>
   
-  <Step title="Configure the field">
-    **Name** - Short, descriptive name (e.g., "Affected Service")
-    
-    **Description** - Help text that appears when users fill out the field
-    
-    **Field type** - Select the appropriate type for your data
-    
-    For Catalog-backed fields:
-    - Choose **Link to Catalog**
-    - Select which Catalog type this field references
-    - Choose single or multiple entries
+  <Step title="Select catalog as the source">
+    When configuring the field, select **"From a catalog type"** as the option for how the field should be managed
   </Step>
   
-  <Step title="Set field requirements">
-    **Optional** - Can be left empty
-    
-    **Required** - Must be filled before incident can be created
-    
-    **Required before closing** - Must be filled before incident can be marked as closed
-    
-    Choose based on when you need the information. For example, "Affected Service" might be required at creation, while "Root Cause" is required before closing.
+  <Step title="Choose your catalog type">
+    Select which catalog type should populate this field (e.g., Services, Teams, Customers)
   </Step>
   
-  <Step title="Choose where field appears">
-    **Incident creation form** - Shown when creating new incidents
-    
-    **Incident details** - Editable in the incident sidebar throughout the incident lifecycle
-    
-    **Hidden** - Only accessible via API or workflows (useful for automation-only fields)
-  </Step>
-  
-  <Step title="Save the field">
-    Click **Create** to add the field. It will immediately be available for new incidents.
+  <Step title="Save your field">
+    The field will now stay synchronized with your catalog data automatically
   </Step>
 </Steps>
 
-## Using Catalog-backed fields in automation
+<Info>
+**Example use case**
 
-Catalog-backed fields enable dynamic behavior in workflows and routing:
+Create an "Affected Service" custom field backed by your Services catalog type. As your team adds or removes services in the catalog, the dropdown options in the incident form update automatically - no manual maintenance required.
+</Info>
 
-### Access Catalog attributes
+### Migrating existing custom fields
 
-When a custom field references a Catalog entry, you can access that entry's attributes:
+Already have custom fields with manually maintained options? You can migrate them to be managed from a catalog type.
 
+<Steps>
+  <Step title="Open the existing custom field">
+    Navigate to the custom field you want to migrate
+  </Step>
+  
+  <Step title="Follow the migration wizard">
+    incident.io will guide you through mapping existing options to catalog entries
+  </Step>
+  
+  <Step title="Complete the migration">
+    Once migrated, the field will be kept in sync with the catalog going forward
+  </Step>
+</Steps>
+
+<Note>
+The migration wizard helps you preserve historical data by mapping old options to new catalog entries.
+</Note>
+
+## Automatic custom fields
+
+Automatic custom fields use catalog relationships to derive values from other custom fields - reducing mental overhead for responders and ensuring data consistency.
+
+### Common use cases
+
+<Tabs>
+  <Tab title="Speed up responders">
+    When a responder selects an affected service, automatically populate the affected team without requiring another selection.
+    
+    **Example:** If the affected service is "Data Pipeline", the affected team is automatically set to "Data Engineering"
+    
+    This reduces the number of decisions responders need to make during high-stress incidents.
+  </Tab>
+  
+  <Tab title="Improve reporting">
+    Automatically derive higher-level categorizations for better insights and reporting.
+    
+    **Example:** If your organization has hundreds of teams, automatically set "Affected Division" or "Affected Function" based on the selected team.
+    
+    You can even hide this field from responders - it's purely for slicing and dicing data in reports.
+  </Tab>
+  
+  <Tab title="Enable smart workflows">
+    Use derived fields in workflows to route incidents intelligently.
+    
+    **Example:** Automatically derive the "On-call Engineer" from the affected service's owning team, then use that in a PagerDuty escalation step.
+  </Tab>
+</Tabs>
+
+### Creating an automated custom field
+
+<Steps>
+  <Step title="Start creating a custom field">
+    Go to Settings → Custom Fields and click "New custom field"
+  </Step>
+  
+  <Step title="Select 'Automated'">
+    Choose **Automated** as the field type
+  </Step>
+  
+  <Step title="Add an expression">
+    Click "Add an expression" to open the Expression Builder
+  </Step>
+  
+  <Step title="Navigate through catalog relationships">
+    Use the Expression Builder to navigate through your catalog structure:
+    
+    - Start with a field (e.g., "Affected Service")
+    - Follow relationships to other catalog types (e.g., Service → Owning Team)
+    - Select the final attribute you want to derive (e.g., Team → Team Lead)
+  </Step>
+  
+  <Step title="Configure override settings">
+    Decide whether users should be able to manually override the automated value:
+    
+    - **Allow overrides:** Good for "smart defaults" where users might need to adjust
+    - **No overrides:** Perfect for reporting fields with consistent business logic
+  </Step>
+  
+  <Step title="Save the field">
+    The field will now automatically populate based on your expression
+  </Step>
+</Steps>
+
+<Note>
+**When to allow overrides**
+
+- **Allow:** For fields like "Affected Team" where the derived value is usually correct but responders might need to adjust
+- **Don't allow:** For fields like "Affected Division" that are purely for reporting and should follow consistent business rules
+</Note>
+
+## Expression examples
+
+Here are common patterns for automatic custom fields:
+
+<CodeGroup>
+```text Team from Service
+Affected Service → Owning Team
 ```
-incident.custom_fields.affected_service.owner
+
+```text Manager from Team
+Affected Team → Team Lead
 ```
 
-This returns the Team that owns the affected service, letting you:
-- Page the owning team's escalation path
-- Send notifications to the team's Slack channel  
-- Assign the incident lead from the team's members
-
-### Traverse relationships
-
-Catalog entries can reference other entries. Chain these relationships in expressions:
-
-```
-incident.custom_fields.affected_service.owner.escalation_path
+```text Escalation Policy from Service
+Affected Service → Owning Team → Escalation Policy
 ```
 
-This walks through:
-1. Get the affected service from the incident
-2. Find the team that owns that service
-3. Get that team's escalation path
-4. Use the escalation path to page the right people
+```text Division from Team
+Affected Team → Division
+```
 
-### Example: Dynamic escalation workflow
+```text Customer Success Manager from Customer
+Affected Customer → CSM
+```
 
-Create a workflow that pages the correct team based on which service is affected:
+```text Slack Channel from Team
+Affected Team → Slack Channel
+```
+</CodeGroup>
 
-**Trigger:** When incident is created
+## Multi-valued catalog fields
 
-**Condition:** Affected Service is set
+Some custom fields need to support multiple selections (e.g., multiple affected services). Catalog-backed fields fully support multi-select:
 
-**Step:** Create escalation
-- Escalation path: `incident.custom_fields.affected_service.owner.escalation_path`
-- Message: `"Incident affecting {{incident.custom_fields.affected_service.name}}: {{incident.name}}"`
+- **For catalog-backed fields:** Simply enable multi-select when creating the field
+- **For automated fields:** The expression can return multiple values if the source field is multi-select
 
-This single workflow handles all services. As ownership changes in your Catalog, escalations automatically route to the new owners.
-
-### Example: Service-specific incident channels
-
-Automate incident channel naming based on service:
-
-**Trigger:** When incident is created
-
-**Condition:** Affected Service is set
-
-**Step:** Update incident
-- Channel name: `"inc-{{incident.reference}}-{{incident.custom_fields.affected_service.name}}"`
-
-Channels will be named like `inc-123-payments-api` or `inc-124-auth-service`.
-
-### Example: Customer impact notifications
-
-Send notifications to account managers when their customers are affected:
-
-**Trigger:** When incident is created or changed
-
-**Condition:** Affected Customers is set
-
-**Step:** Create loop over Affected Customers
-- For each customer:
-  - Send direct message to `customer.account_manager`
-  - Message: `"Incident {{incident.reference}} may be affecting {{customer.name}}"`
-
-This requires your Customers catalog type to have an "Account Manager" attribute linking to users.
+<Info>
+**Example:** If "Affected Services" is multi-select and returns `[API, Dashboard]`, an automated "Affected Teams" field could return `[Backend Team, Frontend Team]` - one team per service.
+</Info>
 
 ## Best practices
 
-### Start with essential fields
-
-Don't create fields "just in case." Each field adds cognitive load when creating incidents. Focus on fields that:
-- Enable automation (like Affected Service for routing)
-- Are required for compliance or reporting
-- Significantly improve incident response or learning
-
-You can always add more fields later.
-
-### Use Catalog-backed fields for structured data
-
-When information maps to a Catalog type, use a Catalog-backed field instead of text:
-
-- ✅ "Affected Service" as Catalog field → enables automation
-- ❌ "Affected Service" as text field → just documentation
-
-- ✅ "Owning Team" as Catalog field → can route to team
-- ❌ "Owning Team" as text field → can't automate with it
-
-Text fields are fine for truly unstructured data like "Mitigation notes" or "Customer communication message."
-
-### Make fields required thoughtfully
-
-Required fields slow down incident creation. Only require fields when:
-- You'll definitely need the information immediately
-- Missing information would break critical automation
-- Compliance or policy mandates capturing it
-
-Use "Required before closing" for information gathered during incident response, like "Root Cause" or "Follow-up Actions Owner."
-
-### Provide clear descriptions
-
-Field descriptions appear as help text. Make them actionable:
-
-- ✅ "Which service is experiencing degraded performance or errors?"
-- ❌ "Service field"
-
-- ✅ "Select all products where users are reporting issues"
-- ❌ "Affected products"
-
-Good descriptions reduce confusion during high-pressure incident response.
-
-### Use multi-select sparingly
-
-Multi-select fields are powerful but can complicate workflows:
-- Looping over multiple values adds complexity
-- Users may inconsistently select "all" vs. specific options
-- Harder to filter and report on
-
-Single-select fields are usually sufficient. Use multi-select when incidents genuinely affect multiple things simultaneously.
-
-### Design for reporting
-
-Think about how you'll use field data after incidents close:
-- Use consistent categories in single-select fields
-- Keep option lists manageable (5-10 options, not 50)
-- Create fields for dimensions you want to filter by in dashboards
-
-For example, a "Root Cause Category" field with 5-7 consistent options is more valuable for learning than a freeform "Root Cause" text field.
-
-## Managing custom fields over time
-
-### Editing existing fields
-
-You can modify field definitions, but be aware of impacts:
-
-**Safe changes:**
-- Updating the description
-- Changing visibility (hidden ↔ shown)
-- Adding new options to select fields
-- Adjusting requirement level (optional ↔ required)
-
-**Changes requiring caution:**
-- Removing options from select fields (incidents using those options will show an error)
-- Changing field type (historical data may not convert cleanly)
-- Renaming the field (workflows referencing it will break)
-
-Test field changes on a test incident before rolling out widely.
-
-### Deprecating fields
-
-If a field is no longer needed:
-1. Mark it as optional (if it was required)
-2. Hide it from incident forms
-3. Wait 30-90 days to ensure no workflows depend on it
-4. Delete the field
-
-incident.io will warn you if workflows or alert routes reference the field before deletion.
-
-### Field visibility and permissions
-
-Control who can edit custom fields:
-- Configure at **Settings → Roles**
-- Set permissions per field or for all fields
-- Restrict sensitive fields (like "Estimated Revenue Impact") to specific roles
-
-This is useful for ensuring data quality - only incident leads can set "Root Cause", for example.
-
-## Frequently asked questions
-
 <AccordionGroup>
-  <Accordion title="Can I have different custom fields for different incident types?">
-    Not directly. Custom fields apply to all incidents.
-
-    However, you can:
-    - Use conditional visibility in workflows to only prompt for certain fields based on incident properties
-    - Create a "Incident Type" field and document which fields apply to which types
-    - Hide less-common fields from the creation form and add them later as needed
+  <Accordion title="Start with core fields" icon="flag">
+    Begin with the most common fields:
+    - Affected Service → Affected Team
+    - Affected Service → Escalation Policy
+    - Affected Customer → Customer Success Manager
+    
+    These provide immediate value and help you learn the system.
   </Accordion>
-
-  <Accordion title="What happens to historical incidents when I change a custom field?">
-    Historical incidents retain their data, but changes to field definitions apply going forward:
-
-    - If you remove an option from a select field, old incidents keep that value but it's marked as "deprecated"
-    - If you rename a field, old incidents show the new name
-    - If you delete a field, its data is archived but no longer visible in the UI
-
-    Export incident data before making breaking changes if you need to preserve historical values.
+  
+  <Accordion title="Layer reporting fields" icon="chart-line">
+    Once core fields are working, add hidden automated fields for reporting:
+    - Team → Division
+    - Team → Function
+    - Service → Product Area
+    
+    These fields don't need to be shown to responders but enable powerful insights.
   </Accordion>
-
-  <Accordion title="Can custom fields have default values?">
-    Yes, for most field types:
-
-    - Text fields can have default text
-    - Numeric fields can default to a number
-    - Select fields can default to a specific option
-    - Catalog fields can default to a specific entry
-
-    Configure defaults when creating or editing the field. Users can override defaults when creating incidents.
+  
+  <Accordion title="Test with realistic data" icon="vial">
+    Create a test incident with various field combinations to ensure your automated fields work as expected before going live.
   </Accordion>
-
-  <Accordion title="How do I use custom fields in API calls?">
-    Custom fields are available via the incidents API:
-
-    ```json
-    {
-      "custom_field_entries": [
-        {
-          "custom_field_id": "01H...",
-          "values": [{"value_catalog_entry_id": "01H..."}]
-        }
-      ]
-    }
-    ```
-
-    Get custom field IDs from the Custom Fields API endpoint. See the [API reference](/api-reference) for details.
+  
+  <Accordion title="Document relationships" icon="book">
+    Keep documentation of your catalog structure and automated field logic so team members understand what's being derived and why.
   </Accordion>
-
-  <Accordion title="Can I use custom fields in Slack commands?">
-    Yes. When creating incidents via `/inc create` in Slack, custom fields appear in the incident creation form.
-
-    For Catalog-backed fields, Slack provides autocomplete search as you type. For select fields, you'll see a dropdown of options.
+  
+  <Accordion title="Regular catalog maintenance" icon="wrench">
+    Ensure your catalog data stays up to date. Stale catalog data means incorrect automated field values.
   </Accordion>
 </AccordionGroup>
 
-## Related documentation
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="Automated field is not populating" icon="circle-question">
+    **Common causes:**
+    - The source field hasn't been set yet
+    - The catalog relationship doesn't exist for the selected value
+    - The target attribute is empty in the catalog
+    
+    **Solution:** Check that the catalog entry has the required relationship and attribute populated.
+  </Accordion>
+  
+  <Accordion title="Field options are outdated" icon="circle-question">
+    **Cause:** Catalog data may not have synced yet
+    
+    **Solution:** 
+    - Native integrations sync once per day
+    - For immediate updates, manually edit the catalog or use catalog importer
+    - Check [How to re-sync catalog data](/help-centre/catalog/how-to-re-sync-catalog-data)
+  </Accordion>
+  
+  <Accordion title="Can't find catalog type in field options" icon="circle-question">
+    **Cause:** The catalog type may not exist yet
+    
+    **Solution:** 
+    - Navigate to Catalog in your dashboard
+    - Create the catalog type first
+    - Then return to create your custom field
+  </Accordion>
+</AccordionGroup>
+
+## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Catalog overview" icon="book" href="/product-documentation/catalog/overview">
-    Understand Catalog types and entries
+  <Card title="Relationship Mapping" icon="diagram-project" href="/product-documentation/catalog/relationship-mapping">
+    Learn how to create relationships between catalog types
   </Card>
-  <Card title="Enrich incidents" icon="sparkles" href="/product-documentation/catalog/enrich-incidents">
-    Automatically populate fields from Catalog
+  
+  <Card title="Enrich Incidents" icon="sparkles" href="/product-documentation/catalog/enrich-incidents">
+    Use catalog data to automatically enrich incidents with context
   </Card>
-  <Card title="Workflow expressions" icon="code" href="/product-documentation/workflows/workflow-expressions">
-    Use custom fields in workflow logic
+  
+  <Card title="Using Catalog" icon="book-open" href="/help-centre/configure-your-account/using-the-catalog">
+    Complete guide to using catalog across incident.io
   </Card>
-  <Card title="Reporting" icon="chart-line" href="/product-documentation/insights/metrics-and-insights">
-    Filter and aggregate by custom fields
+  
+  <Card title="Workflows" icon="workflow" href="/product-documentation/workflows/overview">
+    Use catalog-backed fields in powerful automation workflows
   </Card>
 </CardGroup>

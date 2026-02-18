@@ -3,10 +3,6 @@ title: "AWS"
 description: "Stream audit logs to Amazon S3 for compliance and security monitoring"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # AWS
 
 To give you visibility over the changes that are made within your incident.io account, we use an audit log. Our audit log is powered by [WorkOS](https://workos.com/). The log is available for customers on our [Enterprise plan](https://incident.io/pricing).
@@ -15,11 +11,15 @@ The audit log contains information about any configuration changes, as well as c
 
 Each entry will have an actor (the person or system that made the change) and one or more targets (a thing that was modified by this change). The entry will also include the Location and User Agent of the actor, where applicable.
 
+<Info>
 Each entry will conform to a [schema](https://api-docs.incident.io/tag/Audit-logs), which is documented here. It also has a version, so that if our schema changes over time you'll still be able to parse old events.
+</Info>
 
 We'll retain these entries for one year.
 
+<Note>
 Audit log entries start from 18 April, 2023 (there are no entries available from before that date).
+</Note>
 
 <img src="/images/integrations/aws/audit-log-interface.png" alt="Audit log web interface showing filterable entries" />
 

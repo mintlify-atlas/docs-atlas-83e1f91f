@@ -1,12 +1,16 @@
 ---
-title: 'SAML/SSO'
-description: 'Configure single sign-on with your identity provider'
+title: SAML/SSO
+description: 'Configure single sign-on for secure dashboard access'
 icon: "shield"
 ---
 
 SAML single sign-on (SSO) lets organizations on Enterprise and Pro plans manage access to the incident.io dashboard through an identity provider (IdP) like Okta or Microsoft Entra. Users authenticate via your IdP instead of directly through incident.io.
 
 All plans include SSO via Slack sign-in. If your Slack workspace is configured with SAML, incident.io uses that configuration automatically. Configure SAML at **Settings → Security**. Once enabled, all users in your organization must authenticate through your IdP.
+
+<Info>
+SAML SSO is available on Pro and Enterprise plans. All plans can use Slack SSO if their Slack workspace is configured with SAML.
+</Info>
 
 ## Setting up SAML
 
@@ -16,7 +20,23 @@ To set up SAML, you need Admin or Owner permissions in incident.io, plus admin a
 If you're setting up incident.io for the first time, sign in using Slack first, then enable SAML.
 </Note>
 
-Navigate to **Settings → Security** and click **Connect** to begin. Choose your identity provider from the list and follow the setup instructions. Test your connection using the button provided.
+<Steps>
+  <Step title="Navigate to Security settings">
+    Go to **Settings → Security** and click **Connect** to begin SAML configuration.
+  </Step>
+  
+  <Step title="Choose your identity provider">
+    Select your identity provider from the list of supported IdPs (Okta, Microsoft Entra, Google Workspace, etc.).
+  </Step>
+  
+  <Step title="Follow setup instructions">
+    Complete the configuration steps specific to your IdP. You'll need to exchange metadata between incident.io and your IdP.
+  </Step>
+  
+  <Step title="Test your connection">
+    Use the test button to verify your SAML configuration is working correctly before rolling it out to all users.
+  </Step>
+</Steps>
 
 ## Domain configuration
 
@@ -26,17 +46,46 @@ Configure which user email domains authenticate through SAML. By default, only t
 If you have a sandbox environment, avoid using SAML with it. This allows users logging in with SAML to be automatically redirected to your production instance based on their domain.
 </Warning>
 
+### Adding multiple domains
+
+If your organization uses multiple email domains, add them all to ensure every user authenticates through SAML. This is common for companies with multiple subsidiaries or acquired organizations.
+
 ## Logging in with SAML
 
 Once SAML is enabled, all users in your organization must sign in using SAML. Users attempting to sign in with Slack will be redirected to your IdP to confirm their access.
 
-To sign in, click **Login with SAML SSO** and enter your email address. You'll be redirected to your IdP to authenticate before being directed back to incident.io.
+<Steps>
+  <Step title="Navigate to login page">
+    Go to the incident.io login page and click **Login with SAML SSO**.
+  </Step>
+  
+  <Step title="Enter your email">
+    Enter your work email address. incident.io will identify your organization by your email domain.
+  </Step>
+  
+  <Step title="Authenticate with IdP">
+    You'll be redirected to your IdP to authenticate before being directed back to incident.io.
+  </Step>
+</Steps>
 
 ## Dashboard-only users
 
 When users sign in via SAML, incident.io attempts to find their associated Slack account in your workspace. If a user doesn't have access to Slack, or their email addresses don't match, they're created as dashboard-only users.
 
+<Note>
 Dashboard-only users cannot be assigned roles, referenced in workflows, or receive subscriptions as Slack messages.
+</Note>
+
+Dashboard-only users can:
+- View incidents in the dashboard
+- Access reports and analytics
+- Configure settings (if they have appropriate permissions)
+
+Dashboard-only users cannot:
+- Participate in incident Slack channels
+- Be assigned incident roles
+- Receive Slack notifications
+- Be referenced in workflows
 
 ## Disabling SAML
 
@@ -47,6 +96,10 @@ If you remove the incident.io app in your IdP, also remove it in incident.io to 
 <Note>
 When you disable SAML, all users in your organization will need to sign back in using Slack.
 </Note>
+
+<Warning>
+Before disabling SAML, ensure that all users have valid Slack accounts they can use to sign in, or you may inadvertently lock users out of the system.
+</Warning>
 
 ## SCIM support
 

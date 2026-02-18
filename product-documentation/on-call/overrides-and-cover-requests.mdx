@@ -1,240 +1,243 @@
 ---
 title: Overrides and cover requests
-description: Manage schedule overrides and cover requests
+description: Handle temporary schedule changes and request cover for shifts
 ---
 
-Overrides and cover requests provide flexibility for temporary changes to on-call schedules without modifying the underlying rotation configuration. Use these features to handle planned absences, emergency coverage needs, and shift swaps.
+Overrides and cover requests provide flexible ways to handle temporary schedule changes without permanently modifying rotation configuration. Use these features to manage planned absences, handle unexpected conflicts, and ensure continuous coverage.
 
 ## Overrides
 
-Overrides temporarily replace a scheduled responder with another person for a specific time window. Create overrides for:
+Overrides temporarily replace scheduled responders for specific time windows. They expire automatically when the time window ends, leaving the underlying schedule unchanged.
 
-- Planned time off (vacation, appointments, holidays)
-- Emergency situations requiring immediate coverage changes
-- Temporary shift swaps between team members
+### When to use overrides
 
-Overrides apply immediately and expire automatically when the time window ends. The original schedule resumes without any permanent changes.
+- **Planned absences** - Holidays, vacation, or time off
+- **Appointments** - Medical appointments, meetings, or personal commitments during on-call shifts
+- **Team changes** - Temporarily adjusting coverage while onboarding new team members
+- **Load balancing** - Redistributing on-call burden when someone has been paged frequently
 
-### Create an override
+### Creating overrides
 
-#### From the dashboard
+Create overrides from the dashboard or mobile app:
 
-Create overrides from **On-call → Schedules**:
+#### Dashboard
 
-1. Navigate to the schedule you want to override
-2. Choose one of three methods:
-   - Click **Create an override** from the top right
-   - Click on a specific shift you want to override
-   - Drag and drop to select a portion of a shift
-3. Select the person to provide coverage
-4. Adjust the time window if needed
-5. Optionally add a note explaining the override
-6. Click **Create override**
+<Steps>
+  <Step title="Navigate to schedule">
+    Open the schedule in **On-call → Schedules**
+  </Step>
+  <Step title="Create override">
+    Click **Create an override** from the top right, or click on a specific shift, or drag and drop to select a portion of a shift
+  </Step>
+  <Step title="Configure details">
+    - Select the person to override (original scheduled responder)
+    - Select the replacement responder
+    - Set the start and end time for the override
+    - Add an optional note explaining the override
+  </Step>
+  <Step title="Save override">
+    Click **Save** to create the override
+  </Step>
+</Steps>
 
-<Tip>
-Drag and drop on the schedule timeline to quickly create overrides for specific time ranges.
-</Tip>
+#### Mobile app
 
-#### From the mobile app
+<Steps>
+  <Step title="Open schedules">
+    Navigate to the **Schedules** tab (calendar icon) in the mobile app
+  </Step>
+  <Step title="Select method">
+    Either:
+    - Tap the top right icon and select **Create override**
+    - Drag and drop on the schedule to select the time window
+  </Step>
+  <Step title="Configure and save">
+    Select responders, set time window, and save
+  </Step>
+</Steps>
 
-Create overrides directly from the incident.io mobile app:
+### Managing overrides
 
-1. Open the app and navigate to **Schedules** (calendar icon)
-2. Select the schedule
-3. Either:
-   - Tap the top right icon and select **Create override**
-   - Drag and drop on a shift to select the time range
-4. Choose the replacement responder
-5. Adjust the time window
-6. Add an optional note
-7. Tap **Create**
+**Edit overrides:**
+- Dashboard: Click on an overridden shift and modify details
+- Mobile app: Tap an overridden shift and select **Edit**
 
-### Edit or delete an override
-
-**Dashboard**: Click on the overridden shift and select **Edit** or **Delete** from the tooltip.
-
-**Mobile app**: Tap an overridden shift, then select **Edit** or **Delete**.
+**Delete overrides:**
+- Dashboard: Click on an overridden shift and select **Delete**, or use the delete option from the tooltip
+- Mobile app: Tap an overridden shift and select **Delete**
 
 <Info>
-Deleting an override immediately restores the original scheduled responder.
+Overrides appear visually distinct on schedules (typically with a different color or pattern) to differentiate them from regular shifts.
 </Info>
-
-### Override behavior
-
-When an override is active:
-
-- The replacement responder appears in the schedule
-- Escalations route to the override responder, not the original responder
-- The override responder receives shift change notifications
-- Overrides appear visually distinct in the schedule (shaded or marked)
-- [Compensation tracking](/product-documentation/on-call/compensation-calculator) attributes on-call hours to the override responder
 
 ## Cover requests
 
-Cover requests let you ask teammates to cover your shift. The system notifies everyone in the schedule, and the first person to accept automatically creates an override.
+Cover requests allow responders to ask others in their schedule to take over shifts. When someone accepts a cover request, an override is created automatically.
 
-Use cover requests when:
+### When to use cover requests
 
-- You need coverage but don't know who's available
-- You want to give multiple people the opportunity to volunteer
-- You prefer teammates to opt-in rather than being assigned
+- **Requesting time off** - Ask teammates to cover your shift
+- **Partial shift coverage** - Request cover for just a portion of your shift (e.g., during an appointment)
+- **Distributing coverage** - Let the team decide who's available to cover
 
-### Request cover
+### Creating cover requests
 
-#### From Slack
+Request cover via Slack, the mobile app, or the dashboard:
 
-Use the `/inc cover me` command in any channel where the incident.io bot is present:
+#### Slack
 
-1. Type `/inc cover me` and press Enter
-2. Select the schedule and time range you need covered
-3. Add a message explaining why you need cover (e.g., "Doctor appointment")
-4. Click **Send request**
+<Steps>
+  <Step title="Use command">
+    Type `/inc cover me` in any channel where the incident.io bot is present
+  </Step>
+  <Step title="Select shift">
+    Choose which shift you need covered
+  </Step>
+  <Step title="Add details">
+    Provide context about why you need cover (optional but helpful)
+  </Step>
+  <Step title="Submit request">
+    Send the request to your team
+  </Step>
+</Steps>
 
-All members of the schedule receive a notification with the details and an **Accept** button.
+#### Mobile app
 
-#### From the mobile app
+<Steps>
+  <Step title="Open schedules">
+    Navigate to the **Schedules** tab in the mobile app
+  </Step>
+  <Step title="Select method">
+    Either:
+    - Tap the top right icon and select **Request cover**
+    - Tap a shift and drag to select the portion you need covered
+  </Step>
+  <Step title="Add context">
+    Explain why you need cover (helps teammates decide whether to accept)
+  </Step>
+  <Step title="Submit request">
+    Send the request
+  </Step>
+</Steps>
 
-Request cover from the Schedules view:
+#### Dashboard
 
-1. Open the incident.io mobile app
-2. Navigate to **Schedules** (calendar icon)
-3. Either:
-   - Tap the top right icon and select **Request cover**
-   - Tap your shift and drag to select the time range
-4. Add a message explaining your request
-5. Tap **Send request**
+<Steps>
+  <Step title="Navigate to schedule">
+    Open the schedule in **On-call → Schedules**
+  </Step>
+  <Step title="Create request">
+    Click **Request cover** from the schedule view
+  </Step>
+  <Step title="Configure and submit">
+    Select the time window, add context, and submit
+  </Step>
+</Steps>
 
-#### From the dashboard
+<Warning>
+You can only request cover for shifts you're personally scheduled for. You cannot request cover on behalf of other users (regardless of your role). 
 
-Request cover from **On-call → Schedules**:
+**Workaround:** Add yourself as an override to the slot first, then create a cover request.
+</Warning>
 
-1. Navigate to your schedule
-2. Click **Request cover** from the top right
-3. Select your shift and time range
-4. Add a message
-5. Click **Send request**
+### Responding to cover requests
 
-### Respond to cover requests
+When someone requests cover, all people in the schedule receive notifications:
 
-When someone requests cover, all schedule members receive a notification:
+**In mobile app:**
+- You'll see the cover request notification
+- View request details including the time window and reason
+- **Offer to cover** - Accept the full requested time or offer to cover a portion
+- Add a message when offering to cover (optional)
 
-**In Slack**: Click **Accept** on the cover request message to volunteer.
+**In dashboard:**
+- View cover requests in the schedule view
+- Offer to cover some or all of the requested time
+- Add a message to coordinate with the requester
 
-**In the mobile app**: Navigate to **Schedules** → **Cover requests** and tap **Accept** on a request.
+**When someone accepts:**
+- The requester receives a confirmation notification
+- An override is created automatically
+- Other team members are notified that the request has been fulfilled
+- The cover request is marked as complete
 
-**In the dashboard**: Navigate to **On-call → Schedules** → **Cover requests** and click **Accept**.
+### Managing cover requests
 
-You can offer to cover some or all of the requested time. Add a message when accepting if you want to provide additional context.
+**Send reminders:**
+- Open cover requests show a **Send reminder** option
+- Sends push notifications to team members who haven't responded yet
+- Useful when your shift is approaching and you still need coverage
 
-<Info>
-Once someone accepts a cover request, the system creates an override automatically and notifies both parties. The request closes and other responders can no longer accept it.
-</Info>
+**Cancel cover requests:**
+- If your plans change and you no longer need cover
+- Navigate to the cover request and select **Cancel**
 
-### Manage cover requests
+## Syncing with calendars
 
-#### View open requests
+When you sync schedules to Google Calendar or Outlook, overrides appear automatically in your calendar:
 
-See all open cover requests from:
-
-- **Dashboard**: **On-call → Schedules** → **Cover requests** tab
-- **Mobile app**: **Schedules** → top right icon → **Cover requests**
-
-Filter requests by schedule, date range, or status (open, accepted, expired).
-
-#### Send reminders
-
-If no one has responded to your cover request, send a reminder:
-
-1. Navigate to your open cover request
-2. Click **Send reminder**
-3. A push notification goes to all schedule members who haven't responded
-
-#### Cancel a request
-
-Cancel your cover request if you no longer need coverage:
-
-1. Navigate to your open cover request
-2. Click **Cancel request**
-3. All notified responders receive a cancellation message
-
-### Partial coverage
-
-When accepting a cover request, you can offer to cover only part of the requested time:
-
-1. Click **Accept** on the cover request
-2. Adjust the start and end times
-3. Add a message like "I can cover until 3pm"
-4. Submit your acceptance
-
-The original requester receives a notification and can accept the partial coverage or continue seeking coverage for the remaining time.
-
-## Permissions
-
-**Who can create overrides:**
-- Schedule owners and editors
-- Organization admins
-- Anyone with schedule edit permissions
-
-**Who can request cover:**
-- Only the person scheduled for a shift can request cover for that shift
-- You cannot request cover on behalf of someone else
-- Workaround: Create an override to assign yourself to the shift, then request cover
-
-**Who can accept cover requests:**
-- Any member of the schedule
-- People explicitly invited to the cover request
+- **Original shifts** are removed or updated when overridden
+- **New shifts** appear when you accept cover for someone else
+- Calendar events stay in sync as overrides are created, edited, or deleted
 
 ## Best practices
 
-### Plan ahead
+### Request cover early
 
-Request cover as early as possible for planned time off. Last-minute requests are harder to fill.
+Request cover as soon as you know you'll need it. This gives teammates time to review and accept requests.
 
-### Be specific
+### Provide context
 
-Include context in cover requests: "Doctor appointment" or "Family emergency" helps teammates understand urgency.
+When requesting cover, explain why you need it and whether it's flexible. Context helps teammates decide whether they can help.
 
-### Override vs. cover request
+### Use partial overrides
 
-- Use **overrides** when you know who will cover (e.g., arranged with a specific colleague)
-- Use **cover requests** when you need someone to volunteer (e.g., unexpected absence)
+If you only need a few hours covered (e.g., during an appointment), create an override for just that portion rather than the entire shift.
 
-### Communicate coverage gaps
+### Review cover requests regularly
 
-If a cover request isn't accepted, notify your manager or escalation path owner to arrange mandatory coverage.
+Check for cover requests from teammates. Being responsive helps maintain team coverage and builds reciprocity.
 
-### Review overrides regularly
+### Plan for holidays
 
-Check scheduled overrides weekly to catch mistakes or outdated coverage arrangements.
+Create overrides well in advance for known holidays and vacation periods. Don't rely on last-minute cover requests for planned time off.
+
+### Monitor override frequency
+
+If you're creating many overrides, consider whether the schedule rotation needs adjustment. Frequent overrides may indicate scheduling issues.
 
 ## FAQs
 
 <AccordionGroup>
+  <Accordion title="Do overrides affect historical data?">
+    No. Overrides only change who is on-call for the specified time window. They don't modify the underlying schedule configuration or affect historical records.
+  </Accordion>
+
   <Accordion title="Can I create an override for someone else's shift?">
-    Yes, if you have edit permissions on the schedule. However, you cannot request cover on someone else's behalf - only for your own shifts.
+    Yes. Anyone with edit permissions for a schedule can create overrides for any shift, including replacing one responder with another.
   </Accordion>
 
-  <Accordion title="What happens if multiple people accept a cover request?">
-    The first person to accept creates the override. incident.io automatically closes the request and notifies other responders that coverage has been arranged.
+  <Accordion title="What happens if I create overlapping overrides?">
+    The most recently created override takes precedence for overlapping time windows. incident.io shows warnings when you create overlapping overrides.
   </Accordion>
 
-  <Accordion title="Do overrides affect compensation tracking?">
-    Yes. On-call hours during an override are attributed to the override responder, not the originally scheduled person. See [Compensation calculator](/product-documentation/on-call/compensation-calculator) for details.
+  <Accordion title="Can I request cover from people outside my schedule?">
+    No. Cover requests are sent to all people in the schedule. To involve someone outside the schedule, create an override directly.
   </Accordion>
 
-  <Accordion title="Can I see historical overrides?">
-    Yes. View past overrides by navigating to **On-call → Schedules**, selecting a schedule, and adjusting the timeline to past dates. Historical overrides appear in the schedule visualization.
+  <Accordion title="What if nobody accepts my cover request?">
+    If no one accepts your cover request, you remain scheduled for that shift. Consider:
+    - Sending a reminder to the team
+    - Reaching out directly to specific team members
+    - Creating an override directly if you've arranged coverage outside the system
+    - Escalating to your manager if this is for mandatory time off
   </Accordion>
 
-  <Accordion title="How far in advance can I create an override?">
-    Overrides can be created as far into the future as the schedule is configured. There's no limit on advance override creation.
+  <Accordion title="Can I partially accept a cover request?">
+    Yes. When responding to a cover request, you can offer to cover some or all of the requested time. This is useful when you're available for part of the shift but not all of it.
   </Accordion>
 
-  <Accordion title="What happens if I delete an override that's currently active?">
-    Deleting an active override immediately transfers responsibility back to the originally scheduled responder. They'll receive a notification and any subsequent escalations will route to them.
-  </Accordion>
-
-  <Accordion title="Can I create recurring overrides?">
-    Not currently. Each override must be created individually. For recurring changes, consider updating the schedule rotation instead.
+  <Accordion title="How far in advance can I create overrides?">
+    You can create overrides for any future date. There's no limit on how far in advance you can plan coverage changes.
   </Accordion>
 </AccordionGroup>

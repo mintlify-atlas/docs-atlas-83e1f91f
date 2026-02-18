@@ -3,17 +3,11 @@ title: GitHub
 description: Export and automatically sync your incident actions with tickets in GitHub
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # GitHub
 
 Are you using GitHub for version control, or to track your team's tasks?
 
 You should consider installing our integration.
-
----
 
 ## What our GitHub integration can do
 
@@ -27,7 +21,9 @@ You'll see the option to export your follow-ups from the incident homepage:
 
 <img src="/images/integrations/github/github-export-followups.png" alt="Export follow-ups from incident homepage" />
 
+<Info>
 You can also create export templates and [**automatically export follow-ups**](https://help.incident.io/en/articles/8447561-auto-exporting-follow-ups).
+</Info>
 
 ### 2. Attach GitHub pull requests to incidents
 
@@ -35,26 +31,26 @@ When you drop a link to a GitHub PR in your incident channel, we'll ask if you w
 
 <img src="/images/integrations/github/github-pr-merged.png" alt="An image showing incident.io notifying the incident channel when a PR is merged." />
 
----
-
 ## Setting Up
 
 Adding GitHub to incident.io is simple.
 
-1. **Go to Settings** → [**Integrations**](https://app.incident.io/~/settings/integrations)
+<Steps>
+  <Step title="Go to Settings > Integrations">
+    Navigate to [Settings > Integrations](https://app.incident.io/~/settings/integrations) and click `Connect` next to GitHub.
 
-Hit `Connect` next to GitHub.
+    <img src="/images/integrations/github/github-connect.png" alt="Connect GitHub integration" />
+  </Step>
 
-<img src="/images/integrations/github/github-connect.png" alt="Connect GitHub integration" />
+  <Step title="Install incident.io">
+    <Note>
+    We currently only support one single GitHub account, and it **must be an Organisation** (not a personal account).
+    </Note>
 
-2. **Install incident.io**
+    <img src="/images/integrations/github/github-install.png" alt="Install incident.io on GitHub" />
 
-<Note>
-We currently only support one single GitHub account, and it **must be an Organisation** (not a personal account).
-</Note>
-
-<img src="/images/integrations/github/github-install.png" alt="Install incident.io on GitHub" />
-
-That's it!
+    That's it!
+  </Step>
+</Steps>
 
 If you run into any issues, [get in touch](http://incident.io/community).

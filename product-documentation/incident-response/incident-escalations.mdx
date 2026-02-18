@@ -4,10 +4,6 @@ description: Get the right people involved during incident response
 icon: "/icons/escalate.svg"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Incident escalations
 
 Escalations bring additional people into active incidents when you need more expertise, resources, or decision-making authority. Use escalations to page on-call responders directly, notify stakeholders via other channels, or raise awareness by adjusting incident severity.
@@ -28,10 +24,20 @@ incident.io keeps you updated on escalation status, showing when notifications a
 
 Configure hard escalations using:
 
-- **incident.io On-call**: Native escalation paths and schedules managed directly in incident.io (see [On-call](/product-documentation/on-call/overview))
-- **PagerDuty**: Escalate using existing PagerDuty services and escalation policies
-- **OpsGenie**: Route escalations through OpsGenie teams and escalation rules
-- **Splunk On-Call**: Trigger escalations via Splunk On-Call policies
+<CardGroup cols={2}>
+  <Card title="incident.io On-call" icon="pager">
+    Native escalation paths and schedules managed directly in incident.io (see [On-call](/product-documentation/on-call/overview))
+  </Card>
+  <Card title="PagerDuty" icon="pager">
+    Escalate using existing PagerDuty services and escalation policies
+  </Card>
+  <Card title="OpsGenie" icon="pager">
+    Route escalations through OpsGenie teams and escalation rules
+  </Card>
+  <Card title="Splunk On-Call" icon="pager">
+    Trigger escalations via Splunk On-Call policies
+  </Card>
+</CardGroup>
 
 When multiple on-call integrations are configured, incident.io shows escalation options from all connected systems. Configure the default escalator at **Settings → Forms → Escalate**.
 
@@ -51,10 +57,20 @@ Soft escalations notify people without paging them through on-call systems. Use 
 
 Configure soft escalations using workflows with notification steps:
 
-- **Email**: Send incident summaries to distribution lists or specific addresses
-- **SMS**: Text message notifications to mobile numbers
-- **Slack Direct Message**: Private messages to specific users
-- **Slack ephemeral message**: Temporary messages visible only to specific users
+<CardGroup cols={2}>
+  <Card title="Email" icon="envelope">
+    Send incident summaries to distribution lists or specific addresses
+  </Card>
+  <Card title="SMS" icon="mobile">
+    Text message notifications to mobile numbers
+  </Card>
+  <Card title="Slack Direct Message" icon="message">
+    Private messages to specific users
+  </Card>
+  <Card title="Slack ephemeral message" icon="eye-slash">
+    Temporary messages visible only to specific users
+  </Card>
+</CardGroup>
 
 Trigger soft escalations based on incident attributes (severity, priority, impact) or manually from incident channels.
 
@@ -62,11 +78,23 @@ Trigger soft escalations based on incident attributes (severity, priority, impac
 
 Consider escalating when:
 
-- **Expertise needed**: The incident requires knowledge or access beyond the current responders
-- **Scope increases**: Impact grows beyond initial assessment, affecting more users or critical services
-- **Time pressure**: The incident isn't resolving within expected timeframes
-- **Decision authority required**: Resolution requires approval or decisions from senior leadership
-- **Resource constraints**: Current responders need additional hands to parallelize investigation or remediation
+<CardGroup cols={2}>
+  <Card title="Expertise needed" icon="brain">
+    The incident requires knowledge or access beyond the current responders
+  </Card>
+  <Card title="Scope increases" icon="arrow-up-right-dots">
+    Impact grows beyond initial assessment, affecting more users or critical services
+  </Card>
+  <Card title="Time pressure" icon="clock">
+    The incident isn't resolving within expected timeframes
+  </Card>
+  <Card title="Decision authority required" icon="gavel">
+    Resolution requires approval or decisions from senior leadership
+  </Card>
+  <Card title="Resource constraints" icon="users">
+    Current responders need additional hands to parallelize investigation or remediation
+  </Card>
+</CardGroup>
 
 <Warning>
 Escalate early rather than late. Bringing in help at the right time reduces overall incident duration and prevents responder burnout.
@@ -83,7 +111,7 @@ Access escalation options throughout the incident:
 
 Escalations create timeline entries showing who was paged, when they acknowledged, and when they joined the incident.
 
-## FAQs
+## Frequently asked questions
 
 <AccordionGroup>
   <Accordion title="How do I escalate manually without an incident?">

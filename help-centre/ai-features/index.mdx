@@ -1,116 +1,136 @@
 ---
-title: "AI features"
-description: "Learn more about our collection of AI features"
+title: "AI Features"
+description: "Harness the power of AI to streamline incident response, from automated summaries to intelligent transcription"
 mode: "wide"
 ---
 
+## Overview
+
+incident.io's AI-powered features help your team respond to incidents faster and more effectively. From generating summaries during high-pressure moments to transcribing and analyzing incident calls, our AI capabilities reduce manual work and ensure no important context is lost.
+
 <Info>
-incident.io's AI-powered features help you respond to incidents faster and more effectively by providing intelligent suggestions, automated summaries, and AI-powered transcription.
+AI features are available on Team, Pro, and Enterprise plans. Most features are enabled by default and can be configured in [Settings > AI](https://app.incident.io/~/settings/ai).
 </Info>
 
-## AI-powered capabilities
-
 <CardGroup cols={2}>
-  <Card
-    title="Suggested Summaries"
-    icon="sparkles"
-    href="/help-centre/ai-features/ai-feature:-suggested-summaries"
-  >
-    Let AI analyze your incident data and generate comprehensive summaries automatically.
+  <Card title="Suggested Summaries" icon="file-lines" href="/help-centre/ai-features/ai-feature:-suggested-summaries">
+    Auto-generate incident summaries from channel activity and incident details
   </Card>
-  <Card
-    title="Suggested Follow-ups"
-    icon="list-check"
-    href="/help-centre/ai-features/ai-feature:-suggested-follow-ups"
-  >
-    Get intelligent recommendations for next steps and follow-up actions during incidents.
+  <Card title="Suggested Follow-ups" icon="list-check" href="/help-centre/ai-features/ai-feature:-suggested-follow-ups">
+    Identify missing follow-up actions when incidents are resolved
   </Card>
-  <Card
-    title="Scribe AI Transcription"
-    icon="microphone"
-    href="/help-centre/ai-features/scribe-ai-powered-transcription-and-summarisation-for-incident-calls"
-  >
-    Automatically transcribe and summarize your incident calls with AI-powered Scribe.
+  <Card title="Scribe" icon="microphone" href="/help-centre/ai-features/scribe-ai-powered-transcription-and-summarisation-for-incident-calls">
+    AI-powered transcription and summarization for incident calls
   </Card>
-  <Card
-    title="AI Suggestions"
-    icon="wand-magic-sparkles"
-    href="/help-centre/ai-features/suggestions"
-  >
-    Receive contextual AI suggestions throughout the incident lifecycle.
+  <Card title="Suggestions" icon="wand-magic-sparkles" href="/help-centre/ai-features/suggestions">
+    Get intelligent recommendations throughout your incident response workflow
   </Card>
 </CardGroup>
 
-## Featured AI features
+## Core AI Capabilities
+
+### Suggested Summaries
+
+During the heat of an incident, responders don't always have time to write detailed summaries or update stakeholders. Suggested summaries analyze incident data and channel activity to automatically generate concise, accurate summaries that capture:
+
+- The nature of the problem
+- Impact to users or systems
+- Potential root causes
+- Next steps being taken
+
+<Tip>
+Suggested summaries maintain a consistent format, making it easy for newcomers to quickly understand incident status and jump in to help.
+</Tip>
+
+### Suggested Follow-ups
+
+When an incident is resolved, our AI reviews the incident channel conversation to identify follow-up actions that were discussed but not yet created. Suggestions are intelligently matched against existing actions and follow-ups to avoid duplicates.
+
+This ensures important post-incident work doesn't fall through the cracks during the transition from response to recovery.
+
+### Scribe: AI-Powered Call Transcription
+
+Scribe is your friendly AI note-taker that automatically joins incident calls to provide:
 
 <AccordionGroup>
-  <Accordion title="Suggested Summaries" icon="sparkles">
-    AI-generated summaries help you quickly communicate the status and impact of incidents without manually crafting updates.
-    
-    **Key benefits:**
-    - Save time on incident documentation
-    - Ensure consistent summary quality
-    - Focus on resolving incidents, not writing updates
-    
-    [Learn more →](/help-centre/ai-features/ai-feature:-suggested-summaries)
+  <Accordion title="Real-time Transcription">
+    Scribe transcribes who said what during your incident calls, using video, audio, and streaming captions to accurately attribute statements to participants. Transcripts are accessible in the incident details page.
   </Accordion>
-
-  <Accordion title="Suggested Follow-ups" icon="list-check">
-    Get intelligent recommendations for follow-up actions based on incident context and historical data.
-    
-    **Key benefits:**
-    - Never miss important follow-up tasks
-    - Learn from past incidents
-    - Improve post-incident processes
-    
-    [Learn more →](/help-centre/ai-features/ai-feature:-suggested-follow-ups)
+  
+  <Accordion title="Continuous Summaries">
+    As the call progresses, Scribe builds detailed summaries highlighting important information, decisions, and next steps. Summaries are posted to the incident channel and dashboard in real-time.
   </Accordion>
-
-  <Accordion title="Scribe: AI-powered Transcription" icon="microphone">
-    Scribe joins your incident calls to provide automatic transcription and AI-generated summaries.
-    
-    **Key benefits:**
-    - Automatic call transcription
-    - AI-generated call summaries
-    - Searchable call history
-    - Improved post-incident documentation
-    
-    [Learn more →](/help-centre/ai-features/scribe-ai-powered-transcription-and-summarisation-for-incident-calls)
+  
+  <Accordion title="Current Topic Tracking">
+    See at a glance what's being discussed on the call with current topic updates posted to both the incident channel and dashboard, helping teammates decide if they should join.
   </Accordion>
-
-  <Accordion title="AI Suggestions" icon="wand-magic-sparkles">
-    Receive contextual AI-powered suggestions throughout the incident lifecycle to guide your response.
-    
-    **Key benefits:**
-    - Contextual recommendations
-    - Faster decision-making
-    - Improved incident response
-    
-    [Learn more →](/help-centre/ai-features/suggestions)
+  
+  <Accordion title="Key Moments">
+    Scribe proactively identifies and posts critical moments from calls, including important decisions, agreements, and discoveries. Examples include status page updates, rollback triggers, or breakthrough findings.
   </Accordion>
 </AccordionGroup>
 
-## How AI enhances incident response
+<Note>
+Scribe is available for Pro and Enterprise customers and works with Zoom, Google Meet, and Microsoft Teams calls.
+</Note>
+
+## Enabling AI Features
 
 <Steps>
-  <Step title="During incidents">
-    AI suggests summaries and follow-ups in real-time, helping responders stay focused on resolution.
+  <Step title="Navigate to AI settings">
+    Go to [Settings > AI](https://app.incident.io/~/settings/ai) in your incident.io dashboard
   </Step>
-  <Step title="In incident calls">
-    Scribe automatically transcribes and summarizes calls, ensuring no important details are lost.
+  <Step title="Review available features">
+    Most AI features are enabled by default. Review which features are active for your organization
   </Step>
-  <Step title="After incidents">
-    AI-generated content helps with documentation, retrospectives, and learning from past incidents.
+  <Step title="Configure Scribe (optional)">
+    For Scribe, ensure you have a call provider configured (Zoom, Google Meet, or Microsoft Teams) and enable the feature in AI settings
   </Step>
-  <Step title="Continuous improvement">
-    AI learns from your incident patterns to provide increasingly relevant suggestions over time.
+  <Step title="Grant updated permissions">
+    Some features like Scribe may require re-authenticating your integrations to grant updated permissions
   </Step>
 </Steps>
 
-<Note>
-All AI features are designed to augment your incident response process, not replace human judgment. You always maintain full control over what content is used and when.
-</Note>
+## Privacy and Data Usage
+
+We take data privacy seriously. Here's what you should know:
+
+<CardGroup cols={2}>
+  <Card title="Third-party Processing" icon="shield-check">
+    Scribe uses Recall.ai for raw transcription. Temporary recordings are deleted when the last human leaves the call
+  </Card>
+  <Card title="Data Retention" icon="database">
+    We only store call transcripts to power Scribe features. No audio or video files are retained
+  </Card>
+</CardGroup>
+
+<Info>
+For comprehensive information about how incident.io uses AI, including data handling and privacy practices, visit our [How do we use AI?](/help-centre/configure-your-account/how-do-we-use-ai) documentation.
+</Info>
+
+## Language Support
+
+<Warning>
+Scribe is currently designed to operate primarily in English. While it will attempt to process calls in other languages (using Google Meet and Zoom's transcription), we do not officially support languages other than English at this time.
+</Warning>
+
+## Troubleshooting
+
+### Scribe Not Joining Calls
+
+If Scribe isn't joining your calls:
+
+1. Verify you've re-authenticated your call provider integration with the latest permissions
+2. For Zoom, check that recording is allowed in your Zoom app settings
+3. Ensure meeting captions are enabled (required for Zoom transcription)
+
+### Missing Transcripts
+
+For Zoom calls specifically, Scribe relies on meeting captions. If you're not seeing transcripts:
+
+- Enable "Allow Closed Captioning for this meeting" in Host Caption Control Settings
+- Verify that "Automated captions" is enabled in your [Zoom settings](https://zoom.us/profile/setting?tab=meeting)
 
 <Tip>
-AI features work best when you provide rich incident context through detailed updates, clear communication, and comprehensive incident data.
+If issues persist after trying these steps, reach out to incident.io support for assistance.
 </Tip>

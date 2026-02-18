@@ -3,10 +3,6 @@ title: Importing status pages
 description: Migrate from Atlassian Statuspage or other providers without losing history or subscribers
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Importing status pages
 
 Migrating status pages shouldn't mean starting from scratch. Whether you're moving from Atlassian Statuspage or another provider, incident.io helps you bring your configuration, historical incidents, and subscribers along—so your users see continuity during the transition.
@@ -32,9 +28,19 @@ incident.io offers direct import from Atlassian Statuspage to public status page
 
 Before starting the migration:
 
-1. **Enable Atlassian Statuspage integration** - Navigate to **Settings** → **Integrations** → **Atlassian Statuspage** and connect your account
-2. **Admin access to Atlassian** - You'll need API credentials from your Atlassian Statuspage account
-3. **Decide on timing** - Plan when to switch over (subscribers aren't imported until you go live)
+<Steps>
+  <Step title="Enable Atlassian Statuspage integration">
+    Navigate to **Settings** → **Integrations** → **Atlassian Statuspage** and connect your account.
+  </Step>
+  
+  <Step title="Admin access to Atlassian">
+    You'll need API credentials from your Atlassian Statuspage account.
+  </Step>
+  
+  <Step title="Decide on timing">
+    Plan when to switch over (subscribers aren't imported until you go live).
+  </Step>
+</Steps>
 
 ### Migration process
 
@@ -67,20 +73,38 @@ Navigate to **Status Pages** and click **Import from Atlassian Statuspage** to b
     - Subscribers receive their next notification from incident.io (no confirmation email)
     - Your incident.io status page becomes the active source of truth
     - Update DNS if using a custom domain to point to incident.io
-
-    **Important:** Subscriber import happens at go-live to avoid double notifications. If you delay going live, new subscribers added to Atlassian after the initial import won't transfer automatically—you'll need to export and import them manually.
   </Step>
 </Steps>
+
+<Warning>
+**Important:** Subscriber import happens at go-live to avoid double notifications. If you delay going live, new subscribers added to Atlassian after the initial import won't transfer automatically—you'll need to export and import them manually.
+</Warning>
 
 ### Post-migration steps
 
 After going live:
 
-1. **Update status page links** - Change links in your app, docs, and support portal to the new URL
-2. **Configure custom domain** - Set up `status.yourcompany.com` if not already configured (see [External status pages](/product-documentation/status-pages/external-status-pages))
-3. **Sunset Atlassian page** - Mark your old Atlassian page as deprecated or redirect to incident.io
-4. **Reconfigure webhooks** - If you had webhook subscribers, set up equivalent integrations in incident.io
-5. **Test incident publishing** - Publish a test incident to confirm subscribers receive notifications
+<Steps>
+  <Step title="Update status page links">
+    Change links in your app, docs, and support portal to the new URL.
+  </Step>
+  
+  <Step title="Configure custom domain">
+    Set up `status.yourcompany.com` if not already configured (see [External status pages](/product-documentation/status-pages/external-status-pages)).
+  </Step>
+  
+  <Step title="Sunset Atlassian page">
+    Mark your old Atlassian page as deprecated or redirect to incident.io.
+  </Step>
+  
+  <Step title="Reconfigure webhooks">
+    If you had webhook subscribers, set up equivalent integrations in incident.io.
+  </Step>
+  
+  <Step title="Test incident publishing">
+    Publish a test incident to confirm subscribers receive notifications.
+  </Step>
+</Steps>
 
 ## Importing from other providers
 
@@ -93,33 +117,70 @@ Most providers don't offer direct import. You'll need to manually:
 - Set up components matching your old page
 - Optionally import historical incident data via CSV (contact help@incident.io for assistance)
 
+<Info>
 Historical incidents aren't essential—most users care about current status and future updates, not old incident history.
+</Info>
 
 ### Subscriber migration
 
 Import subscribers from any provider via CSV upload:
 
-1. **Export subscribers** from your current provider as CSV
-2. **Navigate to your status page** in incident.io → **Settings** → **Subscribers**
-3. **Click Import subscribers** and upload the CSV
-4. **Map columns** - Match CSV fields to incident.io's required fields (email, component subscriptions)
-5. **Complete import** - Subscribers are added silently (no confirmation emails sent)
+<Steps>
+  <Step title="Export subscribers">
+    Export subscribers from your current provider as CSV.
+  </Step>
+  
+  <Step title="Navigate to your status page">
+    Go to incident.io → **Settings** → **Subscribers**.
+  </Step>
+  
+  <Step title="Click Import subscribers">
+    Upload the CSV file.
+  </Step>
+  
+  <Step title="Map columns">
+    Match CSV fields to incident.io's required fields (email, component subscriptions).
+  </Step>
+  
+  <Step title="Complete import">
+    Subscribers are added silently (no confirmation emails sent).
+  </Step>
+</Steps>
 
 **CSV format requirements:**
 - Email addresses (required)
 - Component subscriptions (optional—specify which components each subscriber follows)
 - One subscriber per row
 
+<Warning>
 **Important:** Only import subscribers who previously consented to status page notifications. Anti-spam regulations (CAN-SPAM, GDPR) require explicit opt-in. Don't add new addresses during migration.
+</Warning>
 
 ### Timing considerations
 
 Run both status pages in parallel during transition:
-1. Set up incident.io status page completely
-2. Publish test incidents to verify everything works
-3. Import subscribers as the last step before switching
-4. Update all links to point to incident.io
-5. Deprecate old status page
+
+<Steps>
+  <Step title="Set up incident.io status page completely">
+    Configure all settings, branding, and components.
+  </Step>
+  
+  <Step title="Publish test incidents to verify everything works">
+    Ensure the page functions correctly before switching.
+  </Step>
+  
+  <Step title="Import subscribers as the last step">
+    Add subscribers just before making the switch.
+  </Step>
+  
+  <Step title="Update all links to point to incident.io">
+    Change references across your platforms.
+  </Step>
+  
+  <Step title="Deprecate old status page">
+    Shut down or redirect your previous status page.
+  </Step>
+</Steps>
 
 This approach minimizes risk—if something goes wrong with incident.io, your old page still operates.
 

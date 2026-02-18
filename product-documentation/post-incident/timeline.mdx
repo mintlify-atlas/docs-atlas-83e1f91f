@@ -1,221 +1,199 @@
 ---
 title: Timeline
-description: Automatically capture and organize incident events into a clear, editable timeline that forms the foundation of your post-mortem
+description: Automatically capture and curate incident timelines to understand what happened and when
 ---
 
-## Overview
+# Timeline
 
-The incident timeline automatically captures key events during an incident, eliminating the need to retroactively parse through hundreds of Slack messages, screenshots, and system events. While you're focused on resolving the incident, incident.io acts as your scribe.
+Post-mortems are a best practice and incredibly useful. Good post-mortems rely on someone building a clear and cohesive timeline of the incident.
 
-<Info>
-**The problem we solve:** Manually reconstructing what happened during an incident by reviewing Slack messages, Sentry errors, GitHub commits, and other sources is time-consuming and error-prone.
-</Info>
+But it can become a real nightmare to retroactively parse through hundreds of Slack messages, screenshots, Sentry errors, GitHub PRs/commits etc. to get a clear picture of what happened.
 
-## Where to find the timeline
+**While your incident is playing out and you're focused on fixing, incident.io acts as your scribe, capturing and organizing key events for you.**
 
-The timeline is available on the **Timeline** tab of any incident in the dashboard.
+## Accessing the timeline
+
+You can find an incident's timeline on the **Timeline** tab of the incident homepage.
+
+The timeline provides a chronological view of all significant events during the incident, from declaration through resolution.
 
 ## What's automatically captured
 
 incident.io automatically creates timeline events from:
 
-<CardGroup cols={2}>
-  <Card title="Incident updates" icon="rotate">
-    Severity changes, status changes, and field updates
-  </Card>
-  <Card title="Pinned messages" icon="thumbtack">
-    Messages pinned in the incident Slack channel
-  </Card>
-  <Card title="Role changes" icon="user-tag">
-    Changes to who's filling incident roles
-  </Card>
-  <Card title="Summary updates" icon="file-pen">
-    Updates to the incident summary
-  </Card>
-  <Card title="Action tracking" icon="list-check">
-    Actions created, assigned, and completed
-  </Card>
-  <Card title="Code changes" icon="code-branch">
-    Pull requests and commits from GitHub
-  </Card>
-  <Card title="Error tracking" icon="circle-exclamation">
-    Errors detected in Sentry
-  </Card>
-  <Card title="Images" icon="image">
-    Screenshots and images posted in the channel
-  </Card>
-</CardGroup>
+- **Incident updates** - Severity changes, status changes, role assignments
+- **Pinned Slack messages** - Any message pinned in the incident channel
+- **Role changes** - When responders are assigned or unassigned from roles
+- **Summary updates** - Changes to the incident summary
+- **Actions** - Created, assigned, or updated actions
+- **Pull requests and commits** - GitHub activity related to the incident
+- **Errors** - Sentry errors and exceptions
+- **Images** - Screenshots and graphs shared in the channel
+- **Escalations** - Who was paged, when they acknowledged, and when they joined
+
+<Info>
+Items pinned to the channel are timestamped at their original posting time, not when they were pinned. Don't worry if you forgot to pin items in the heat of the moment - they'll be positioned correctly on the timeline.
+</Info>
 
 ## Editing the timeline
 
-### Modifying existing events
+While incident.io captures key moments automatically, you'll often want to add context or include additional events.
 
-1. Click the **Edit** button on the Timeline tab
-2. The editor opens with two panels:
-   - **Left panel:** All detected events from the activity log
-   - **Right panel:** Current timeline preview
-3. Click the pencil icon on any timeline event to edit its title or add a description
+<Steps>
+  <Step title="Open the timeline editor">
+    Navigate to the incident's Timeline tab and click the **Edit** button.
+  </Step>
+  
+  <Step title="Review captured events">
+    The right panel shows your current timeline. The left panel shows the complete activity log of all detected events during the incident.
+  </Step>
+  
+  <Step title="Edit existing events">
+    Click the pencil icon next to any timeline event to edit its title or add a description. Use descriptions to provide context about why something happened or what it meant for the incident.
+  </Step>
+  
+  <Step title="Add additional events">
+    Add events from the activity log, pin new Slack messages, or create custom events for things that happened outside the incident channel.
+  </Step>
+</Steps>
 
-<Tip>
-Add context and color to automatically captured events to help your future self and teammates understand what happened and why.
-</Tip>
+## Adding events to the timeline
 
-### Adding events to the timeline
+### From the activity log
 
-You can add events in three ways:
+The activity log in the timeline editor shows every event detected during the incident. If any events are important to the narrative, add them by clicking the plus icon.
 
-<Tabs>
-  <Tab title="From activity log">
-    The left panel in the editor shows every event detected during the incident. Click the **plus icon** next to any event to add it to your timeline.
+Available event types include:
+- Role changes
+- Updates to the incident summary
+- Actions (created, assigned, updated)
+- Pull requests and commits in GitHub
+- Errors in Sentry
+- Images posted in the channel
 
-    This includes:
-    - Role changes
-    - Summary updates
-    - Actions (created, assigned, updated)
-    - Pull requests and commits
-    - Sentry errors
-    - Images from the channel
-  </Tab>
+### Pinning messages from Slack
 
-  <Tab title="Pin Slack messages">
-    While in the incident's Slack channel:
+While in an incident's channel, use the pin emoji or Slack's built-in "Pin to channel" command on any message, screenshot, or graph to add it to the timeline.
 
-    1. React to a message with the 📌 pin emoji, or
-    2. Use Slack's built-in "Pin to channel" command
+Anything pinned automatically appears on the timeline with the correct timestamp.
 
-    <Info>
-    Items are timestamped at their original posting time, not when they were pinned. You can safely pin messages after the fact.
-    </Info>
-  </Tab>
+### Adding custom events
 
-  <Tab title="Custom events">
-    For events that happened outside the incident channel (e.g., customer messages, deployments):
+If an event happened outside the incident channel (like a code deployment or customer message), you can add it as a custom event:
 
-    1. Click **Add custom event** in the editor
-    2. Provide a timestamp
-    3. Add a title and optional description
-    4. Click **Add**
-  </Tab>
-</Tabs>
+1. Click **Add custom event** in the timeline editor
+2. Provide the timestamp when it occurred
+3. Add a title describing what happened
+4. Optionally add a description with more detail
+
+Custom events are useful for:
+- External system changes (deployments, configuration updates)
+- Customer communications
+- Events from monitoring systems not integrated with incident.io
+- Off-Slack conversations or decisions
+
+## Using the timeline
+
+### Creating post-mortems
+
+Once you've curated your timeline, create a post-mortem in your document provider (Notion, Google Docs, Confluence). incident.io renders a copy of the timeline in your document automatically.
+
+The timeline forms the factual backbone of your post-mortem, providing:
+- Accurate timestamps for all key events
+- Links to relevant Slack messages, PRs, and errors
+- Visual elements like graphs and screenshots
+- A clear sequence of what happened
+
+### Starting discussions
+
+You can start discussions about particular events on the timeline. This is useful when:
+- There's ambiguity about why something happened
+- You want to gather feedback before the debrief
+- You need to capture important context while it's fresh
+
+To add a comment, hover over an event and click the comment icon. Your comment notifies other responders who have been following the incident.
+
+### Reviewing for accuracy
+
+Before finalizing a post-mortem, review the timeline to ensure:
+- All critical events are included
+- Timestamps are accurate
+- Events are in the correct order
+- Descriptions provide helpful context
+- Sensitive information is appropriately handled
 
 ## Timeline best practices
 
 <AccordionGroup>
-  <Accordion title="Pin messages in real-time" icon="thumbtack">
-    Encourage responders to pin important messages as the incident unfolds. This reduces post-incident reconstruction work and ensures nothing is missed.
+  <Accordion title="Pin liberally during the incident">
+    Encourage responders to pin important messages as they happen. It's easier to remove unnecessary items later than to hunt for important messages in a busy channel.
   </Accordion>
-
-  <Accordion title="Add context, not just facts" icon="comment">
-    When editing timeline events, explain *why* decisions were made, not just what happened. This context is invaluable during debriefs.
+  
+  <Accordion title="Add context soon after resolution">
+    Edit the timeline shortly after resolving the incident while details are fresh. Add descriptions to events explaining their significance.
   </Accordion>
-
-  <Accordion title="Use comments for discussions" icon="messages">
-    Hover over timeline events to add comments. This is perfect for:
-    - Asking clarifying questions before a debrief
-    - Highlighting ambiguities that need discussion
-    - Noting areas that require follow-up actions
+  
+  <Accordion title="Include the 'why' not just the 'what'">
+    Timeline events should capture not just what happened but why decisions were made. This context is invaluable for learning and future incidents.
   </Accordion>
-
-  <Accordion title="Review before creating post-mortem" icon="magnifying-glass">
-    Clean up your timeline before exporting to a post-mortem document. Remove noise and ensure the narrative flows logically.
+  
+  <Accordion title="Capture external events">
+    Don't limit your timeline to what happened in Slack. Add custom events for deployments, customer reports, and off-Slack decisions.
+  </Accordion>
+  
+  <Accordion title="Use images effectively">
+    Screenshots of graphs, error messages, and system states provide valuable visual context. Make sure key images are included in the timeline.
   </Accordion>
 </AccordionGroup>
 
-## Starting discussions
+## Editing after closure
 
-You can start threaded discussions about specific timeline events:
+<Note>
+You can edit the timeline even after an incident is closed. Add your own narrative or events that happened in external systems at any time.
+</Note>
 
-1. Hover over any event in the timeline
-2. Click to add a comment
-3. Mention other responders to notify them
-4. Use this to prepare for debriefs by surfacing ambiguities or questions
+This flexibility allows you to:
+- Correct inaccuracies discovered during debrief preparation
+- Add events discovered later in log analysis
+- Incorporate feedback from team members
+- Refine the narrative for clarity
 
-<Info>
-Comments notify responders who have been following the incident, helping facilitate asynchronous discussion before synchronous debrief meetings.
-</Info>
+## FAQs
 
-## Using timelines in post-mortems
+<AccordionGroup>
+  <Accordion title="Can I delete events from the timeline?">
+    Yes. In the timeline editor, you can remove events that aren't relevant to the incident narrative. This helps focus the timeline on what truly mattered.
+  </Accordion>
+  
+  <Accordion title="What happens to pinned messages if I unpin them in Slack?">
+    Events added to the timeline from pinned messages remain on the timeline even if you later unpin the message in Slack. The timeline is independent of the current pin state.
+  </Accordion>
+  
+  <Accordion title="Can I reorder timeline events?">
+    Timeline events are ordered by their timestamp. To change the order, edit the timestamp of the event. This is useful if you discover the actual time of an event was different than initially recorded.
+  </Accordion>
+  
+  <Accordion title="How far back can I add custom events?">
+    You can add custom events with timestamps before the incident was declared. This is useful for capturing precursor events or root causes that occurred before anyone realized there was an incident.
+  </Accordion>
+</AccordionGroup>
 
-Once you've curated your timeline:
+## Integration highlights
 
-1. **Create a post-mortem** in your document provider (Notion, Google Docs, Confluence)
-2. The timeline is automatically rendered in your post-mortem document
-3. Continue editing in incident.io or in your external provider
+### GitHub
+Pull requests, commits, and deployments related to the incident are automatically tracked on the timeline, giving you a clear view of code changes during the incident.
 
-<Tip>
-The timeline provides a chronological foundation for your post-mortem. Use it as the "What happened" section, then add analysis in separate sections.
-</Tip>
+### Sentry
+Errors and exceptions are automatically added to the timeline, helping you correlate error spikes with other incident events.
 
-## Example timeline workflow
+### Datadog
+Datadog monitors that trigger can be pinned to the timeline. Paste links to Datadog snapshots in Slack and pin the message to include the graph directly in your timeline.
 
-Here's a typical workflow for using timelines effectively:
-
-```mermaid
-graph TD
-    A[Incident occurs] --> B[Responders pin key messages]
-    B --> C[System auto-captures events]
-    C --> D[Incident resolved]
-    D --> E[Lead reviews timeline]
-    E --> F[Edit titles, add descriptions]
-    F --> G[Add custom events if needed]
-    G --> H[Start discussions on unclear points]
-    H --> I[Export to post-mortem]
-    I --> J[Use in debrief meeting]
-```
-
-## Integration with activity log
-
-The timeline is a curated view of the activity log. The activity log captures *everything*, while the timeline shows only what's relevant to understanding the incident narrative.
-
-<CardGroup cols={2}>
-  <Card title="Activity log" icon="list">
-    **Complete record**
-    - Every action taken
-    - Every system event
-    - Full audit trail
-  </Card>
-  <Card title="Timeline" icon="timeline">
-    **Curated narrative**
-    - Key moments
-    - Important decisions
-    - Context and explanation
-  </Card>
-</CardGroup>
-
-## Timeline in debrief meetings
-
-During debrief meetings, use the timeline to:
-
-- Walk through events chronologically
-- Identify decision points and discuss alternatives
-- Surface patterns or gaps in your response
-- Create follow-up actions based on lessons learned
-
-<Warning>
-The timeline shows *what* happened. The debrief should focus on *why* it happened and *how* to prevent it in the future.
-</Warning>
-
-## Editing permissions
-
-Anyone with access to the incident can edit the timeline. This collaborative approach ensures:
-
-- Multiple perspectives are captured
-- Subject matter experts can add context
-- The timeline reflects the full team's understanding
+### PagerDuty
+PagerDuty incident information can be pulled onto your timeline, showing when alerts fired and who was paged.
 
 ## Related resources
 
-<CardGroup cols={2}>
-  <Card title="Structured post-incident process" href="/product-documentation/post-incident/structured-post-incident-process" icon="clipboard">
-    Configure your complete post-incident workflow
-  </Card>
-  <Card title="Post-mortem documents" href="/product-documentation/post-incident/post-mortem-documents" icon="file-lines">
-    Learn how timelines integrate with post-mortems
-  </Card>
-  <Card title="Follow-up actions" href="/product-documentation/post-incident/follow-up-actions" icon="list-check">
-    Create actions from timeline insights
-  </Card>
-  <Card title="Post-mortem meetings" href="/product-documentation/post-incident/post-mortem-meetings" icon="users">
-    Use timelines effectively in debrief meetings
-  </Card>
-</CardGroup>
+- [Post-mortem documents](/product-documentation/post-incident/post-mortem-documents) - Use your timeline to create comprehensive post-mortems
+- [Structured post-incident process](/product-documentation/post-incident/structured-post-incident-process) - Set up automated workflows for timeline review
+- [Integrations](/product-documentation/integrations) - Connect tools to enrich your timeline automatically

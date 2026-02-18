@@ -4,10 +4,6 @@ description: Connect teams instantly with automatic video calls for every incide
 icon: "/icons/presentation.svg"
 ---
 
-import { StatusBanner } from '/snippets/status-banner.mdx';
-
-<StatusBanner status="PLACEHOLDER" />
-
 # Video calls
 
 Video calls give incident responders a real-time space to collaborate, debug issues, and coordinate actions. incident.io makes it easy to create and manage video calls for incidents, whether through automatic generation, manual links, or integrations with Zoom, Google Meet, and Microsoft Teams.
@@ -20,12 +16,20 @@ incident.io can automatically generate a video call whenever an incident is decl
 
 Configure automatic call creation through your video conferencing integration:
 
-**To set up automatic call creation:**
-
-1. Navigate to **Settings → Integrations**
-2. Connect your video conferencing provider (Zoom, Google Meet, or Microsoft Teams)
-3. After connecting, open the integration settings
-4. Toggle on **Automatically create incident call**
+<Steps>
+  <Step title="Navigate to Settings">
+    Go to **Settings → Integrations**
+  </Step>
+  <Step title="Connect your provider">
+    Connect your video conferencing provider (Zoom, Google Meet, or Microsoft Teams)
+  </Step>
+  <Step title="Open integration settings">
+    After connecting, open the integration settings
+  </Step>
+  <Step title="Enable automatic creation">
+    Toggle on **Automatically create incident call**
+  </Step>
+</Steps>
 
 When enabled, incident.io creates a unique video call for each new incident and posts it to the incident channel with a **Join Call** button. The call link also appears in the dashboard and throughout the platform wherever the incident is referenced.
 
@@ -37,11 +41,17 @@ Zoom and Google Meet require a service account for installation. Microsoft Teams
 
 If you already have a video call running, paste the link into your incident channel. incident.io recognizes call links from supported providers and prompts you to pin it as the incident's official call.
 
-**To manually add a call link:**
-
-1. Copy your video call URL (from Zoom, Google Meet, Microsoft Teams, or any other provider)
-2. Paste it into the incident channel
-3. Click **Pin as incident call** when prompted
+<Steps>
+  <Step title="Copy your call URL">
+    Copy your video call URL (from Zoom, Google Meet, Microsoft Teams, or any other provider)
+  </Step>
+  <Step title="Paste into incident channel">
+    Paste it into the incident channel
+  </Step>
+  <Step title="Pin the call">
+    Click **Pin as incident call** when prompted
+  </Step>
+</Steps>
 
 You can also use `/incident call` in Slack or the **Start a call** button in the dashboard to create or attach a call link manually.
 
@@ -53,12 +63,20 @@ If you have multiple video providers configured, you'll be able to choose which 
 
 Some teams use a single dedicated video call link for all incidents (e.g., a permanent Zoom room). You can configure this default link to be automatically attached to every incident.
 
-**To set a fixed call link:**
-
-1. Navigate to **Settings → Automation**
-2. Find the **Default call URL** field
-3. Enter your permanent video call link
-4. Save your settings
+<Steps>
+  <Step title="Navigate to Settings">
+    Go to **Settings → Automation**
+  </Step>
+  <Step title="Set default call URL">
+    Find the **Default call URL** field
+  </Step>
+  <Step title="Enter your link">
+    Enter your permanent video call link
+  </Step>
+  <Step title="Save settings">
+    Save your settings
+  </Step>
+</Steps>
 
 The fixed link will now be attached to all new incidents automatically.
 
@@ -68,10 +86,22 @@ Video calls serve as your digital war room - a central place where responders ga
 
 Key benefits of video war rooms:
 
-- **Immediate collaboration**: Responders join the same space without coordination overhead
-- **Screen sharing**: Debug issues together by viewing logs, dashboards, and code
-- **Faster decisions**: Real-time discussion speeds up assessment and action
-- **Clear communication**: Voice reduces misunderstandings common in text-only channels
+<CardGroup cols={2}>
+  <Card title="Immediate collaboration" icon="users">
+    Responders join the same space without coordination overhead
+  </Card>
+  <Card title="Screen sharing" icon="screen-users">
+    Debug issues together by viewing logs, dashboards, and code
+  </Card>
+  <Card title="Faster decisions" icon="gauge-high">
+    Real-time discussion speeds up assessment and action
+  </Card>
+  <Card title="Clear communication" icon="comments">
+    Voice reduces misunderstandings common in text-only channels
+  </Card>
+</CardGroup>
+
+## Frequently asked questions
 
 <AccordionGroup>
   <Accordion title="Which video conferencing providers are supported?">

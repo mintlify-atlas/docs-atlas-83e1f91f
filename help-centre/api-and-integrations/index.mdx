@@ -1,131 +1,190 @@
 ---
-title: "API and integrations"
-description: "Connecting your existing tools to incident.io"
+title: "API and Integrations"
+description: "Connect your existing tools and workflows to incident.io for seamless incident management"
 mode: "wide"
 ---
 
-<Info>
-Connect incident.io with your existing tools and workflows through our comprehensive API and integrations ecosystem.
-</Info>
+## Overview
 
-## Integration categories
+incident.io integrates with your existing toolchain to provide a unified incident management experience. From communication platforms and task trackers to monitoring tools and version control systems, our integrations ensure incident context flows seamlessly across your stack.
+
+## Integration Categories
 
 <CardGroup cols={2}>
   <Card title="API" icon="code" href="/help-centre/api-and-integrations/api/index">
-    Use our powerful REST API to build custom integrations and automate workflows.
+    Programmatically interact with incident.io using our comprehensive REST API
   </Card>
   <Card title="Communication" icon="comments" href="/help-centre/api-and-integrations/communication/index">
-    Integrate with communication platforms like Slack, Microsoft Teams, and more.
+    Integrate with Slack, Microsoft Teams, and other communication platforms
   </Card>
-  <Card title="Task and issue tracking" icon="list-check" href="/help-centre/api-and-integrations/task-and-issue-tracking/index">
-    Connect with Jira, GitHub, Linear, and other task management tools.
+  <Card title="Task and Issue Tracking" icon="list-check" href="/help-centre/api-and-integrations/task-and-issue-tracking/index">
+    Connect with Jira, Linear, GitHub Issues, and other project management tools
   </Card>
-  <Card title="Alternative on-call management solutions" icon="bell" href="/help-centre/api-and-integrations/alternative-on-call-management-solutions/index">
-    Integrate with PagerDuty, Opsgenie, and other on-call platforms.
+  <Card title="On-Call Management" icon="bell" href="/help-centre/api-and-integrations/alternative-on-call-management-solutions/index">
+    Integrate with PagerDuty, Opsgenie, and other on-call scheduling platforms
   </Card>
   <Card title="Collaboration" icon="users" href="/help-centre/api-and-integrations/collaboration/index">
-    Connect collaboration tools like Google Workspace and Microsoft 365.
+    Connect documentation and collaboration tools to enrich incident context
   </Card>
   <Card title="FAQs" icon="circle-question" href="/help-centre/api-and-integrations/faqs/index">
-    Common questions about integrations and troubleshooting.
+    Common questions about integrations and troubleshooting tips
   </Card>
 </CardGroup>
 
-## Featured integration guides
+## Popular Integrations
 
-<AccordionGroup>
-  <Accordion title="Webhooks" icon="webhook">
-    Configure webhooks to send incident data to external systems in real-time.
-    
-    [Learn about webhooks →](/help-centre/api-and-integrations/webhooks)
-  </Accordion>
+### Communication Platforms
 
-  <Accordion title="Datadog Integration" icon="chart-mixed">
-    Connect Datadog to incident.io for seamless monitoring and alerting integration.
-    
-    [Learn about Datadog →](/help-centre/api-and-integrations/datadog)
-  </Accordion>
-
-  <Accordion title="Salesforce Integration" icon="cloud">
-    Link incidents with Salesforce accounts and opportunities for customer impact tracking.
-    
-    [Learn about Salesforce →](/help-centre/api-and-integrations/salesforce-integration)
-  </Accordion>
-
-  <Accordion title="GitHub Permissions" icon="github">
-    Request and manage additional GitHub permissions for enhanced integration capabilities.
-    
-    [Learn about GitHub permissions →](/help-centre/api-and-integrations/requesting-additional-github-permissions)
-  </Accordion>
-
-  <Accordion title="Google Service Accounts" icon="google">
-    Set up service accounts for Google Workspace integrations.
-    
-    [Learn about Google service accounts →](/help-centre/api-and-integrations/using-a-service-account-to-integrate-with-google)
-  </Accordion>
-
-  <Accordion title="Microsoft Service Accounts" icon="microsoft">
-    Configure service accounts for Microsoft 365, Teams, and Outlook integrations.
-    
-    [Learn about Microsoft service accounts →](/help-centre/api-and-integrations/using-a-service-account-to-integrate-with-microsoft-outlook-and-teams)
-  </Accordion>
-</AccordionGroup>
-
-## Additional resources
-
-### Security and networking
-
-<CardGroup cols={2}>
-  <Card title="IP Allowlisting" icon="shield-check" href="/help-centre/api-and-integrations/allowlisting-ip-addresses">
-    Configure IP allowlists for VCS and on-premise integrations.
-  </Card>
-  <Card title="Vanta Integration" icon="lock" href="/help-centre/api-and-integrations/security/vanta">
-    Connect Vanta for security and compliance monitoring.
-  </Card>
-</CardGroup>
-
-### Advanced configuration
+Communication is critical during incidents. incident.io integrates deeply with your chat platform:
 
 <Tabs>
-  <Tab title="URL Parameters">
-    Pre-fill incident declaration fields using URL parameters for faster incident creation.
+  <Tab title="Slack">
+    Our Slack integration creates dedicated incident channels, sends notifications, and enables workflow automation directly from Slack.
     
-    [Learn more →](/help-centre/api-and-integrations/pre-filling-declare-incident-fields-using-url-parameters)
+    **Key capabilities:**
+    - Automatic incident channel creation
+    - Role and action notifications
+    - Slash commands for quick actions
+    - Status updates in channels
   </Tab>
-  <Tab title="Bot Accounts">
-    Use bot accounts for integrations to maintain consistent service access.
+  
+  <Tab title="Microsoft Teams">
+    The Microsoft Teams integration provides similar functionality with Teams-native experiences.
     
-    [Learn more →](/help-centre/api-and-integrations/using-a-bot-account-for-integrations)
-  </Tab>
-  <Tab title="GitLab Hooks">
-    Set up group hooks for GitLab integration across multiple projects.
+    **Key capabilities:**
+    - Incident team and channel management
+    - Private incident support via chats
+    - In-app tabs for incident details
+    - Activity notifications
     
-    [Learn more →](/help-centre/api-and-integrations/setting-up-a-gitlab-group-hook)
-  </Tab>
-  <Tab title="Multiple Accounts">
-    Connect multiple accounts for the same integration type.
-    
-    [Learn more →](/help-centre/api-and-integrations/can-i-connect-multiple-accounts-for-the-same-integration-type)
+    [Learn more about Microsoft Teams](/help-centre/microsoft-teams/index)
   </Tab>
 </Tabs>
 
-## Platform-specific guides
+### Monitoring and Observability
 
-- [Requesting Additional GitHub Permissions](/help-centre/api-and-integrations/requesting-additional-github-permissions)
-- [Allowlisting IP addresses for VCS/on-premise integrations](/help-centre/api-and-integrations/allowlisting-ip-addresses)
-- [Datadog](/help-centre/api-and-integrations/datadog)
-- [Webhooks](/help-centre/api-and-integrations/webhooks)
-- [Using a service account to integrate with Google](/help-centre/api-and-integrations/using-a-service-account-to-integrate-with-google)
-- [Using a bot account for integrations](/help-centre/api-and-integrations/using-a-bot-account-for-integrations)
-- [Salesforce integration](/help-centre/api-and-integrations/salesforce-integration)
-- [Pre-filling 'declare incident' fields using URL parameters](/help-centre/api-and-integrations/pre-filling-declare-incident-fields-using-url-parameters)
-- [Setting up a GitLab Group Hook](/help-centre/api-and-integrations/setting-up-a-gitlab-group-hook)
-- [Using a service account to integrate with Microsoft Outlook, Teams and Sharepoint](/help-centre/api-and-integrations/using-a-service-account-to-integrate-with-microsoft-outlook-and-teams)
-- [Intercom app for status pages](/help-centre/api-and-integrations/intercom-app-for-status-pages)
-- [Can I connect multiple accounts for the same integration type?](/help-centre/api-and-integrations/can-i-connect-multiple-accounts-for-the-same-integration-type)
-- [Vanta](/help-centre/api-and-integrations/security/vanta)
-- [What Google permissions and scopes do you require?](/help-centre/api-and-integrations/google/what-google-permissions-and-scopes-do-you-require)
+<Card title="Datadog" icon="chart-mixed" href="/help-centre/api-and-integrations/datadog">
+  Connect Datadog to automatically create incidents from monitors and enrich context with metrics and logs
+</Card>
 
-<Note>
-Most integrations can be configured directly from the incident.io dashboard under Settings → Integrations.
-</Note>
+### Webhooks
+
+Build custom integrations using webhooks to receive real-time notifications about incident events:
+
+<Card title="Webhooks" icon="webhook" href="/help-centre/api-and-integrations/webhooks">
+  Configure webhooks to send incident updates to any external system or trigger custom workflows
+</Card>
+
+## Advanced Integration Topics
+
+### Service Accounts and Bot Accounts
+
+For production deployments, we recommend using service or bot accounts:
+
+<CardGroup cols={2}>
+  <Card title="Google Service Accounts" icon="google" href="/help-centre/api-and-integrations/using-a-service-account-to-integrate-with-google">
+    Set up a service account for Google Workspace integrations
+  </Card>
+  <Card title="Microsoft Service Accounts" icon="microsoft" href="/help-centre/api-and-integrations/using-a-service-account-to-integrate-with-microsoft-outlook-and-teams">
+    Configure service accounts for Microsoft 365 integrations
+  </Card>
+  <Card title="Bot Accounts" icon="robot" href="/help-centre/api-and-integrations/using-a-bot-account-for-integrations">
+    Use dedicated bot accounts for integration stability
+  </Card>
+</CardGroup>
+
+### Version Control and Security
+
+<AccordionGroup>
+  <Accordion title="GitHub Permissions">
+    Need additional GitHub permissions for your integration? Learn how to request expanded access.
+    
+    [Request Additional GitHub Permissions](/help-centre/api-and-integrations/requesting-additional-github-permissions)
+  </Accordion>
+  
+  <Accordion title="GitLab Configuration">
+    Set up GitLab Group Hooks to receive notifications across multiple projects.
+    
+    [Setting up a GitLab Group Hook](/help-centre/api-and-integrations/setting-up-a-gitlab-group-hook)
+  </Accordion>
+  
+  <Accordion title="IP Allowlisting">
+    For on-premise or VCS integrations behind firewalls, allowlist incident.io IP addresses.
+    
+    [Allowlisting IP addresses](/help-centre/api-and-integrations/allowlisting-ip-addresses)
+  </Accordion>
+</AccordionGroup>
+
+## Enterprise Integrations
+
+### Salesforce
+
+Connect incident.io with Salesforce to create cases, track customer impact, and maintain visibility across support and engineering teams.
+
+[Salesforce Integration Guide](/help-centre/api-and-integrations/salesforce-integration)
+
+### Vanta
+
+Maintain compliance and security posture with our Vanta integration:
+
+[Vanta Integration](/help-centre/api-and-integrations/security/vanta)
+
+### Intercom
+
+Keep customers informed with the Intercom app for status pages:
+
+[Intercom App for Status Pages](/help-centre/api-and-integrations/intercom-app-for-status-pages)
+
+## Integration Tips and Tricks
+
+<Tip>
+**Pre-fill incident declaration forms**
+
+You can pre-populate incident declaration fields using URL parameters, making it easy to create incidents from external tools or bookmarklets.
+
+[Learn about URL parameters](/help-centre/api-and-integrations/pre-filling-declare-incident-fields-using-url-parameters)
+</Tip>
+
+<Info>
+**Multiple accounts for the same integration**
+
+Wondering if you can connect multiple accounts for the same integration type? Check our FAQ.
+
+[Can I connect multiple accounts?](/help-centre/api-and-integrations/can-i-connect-multiple-accounts-for-the-same-integration-type)
+</Info>
+
+## Getting Started
+
+<Steps>
+  <Step title="Choose your integrations">
+    Identify which tools your team uses daily that should be connected to incident.io
+  </Step>
+  <Step title="Review permissions">
+    Understand what permissions each integration requires and coordinate with admins if needed
+  </Step>
+  <Step title="Configure integrations">
+    Navigate to Settings > Integrations in incident.io to connect your tools
+  </Step>
+  <Step title="Test the integration">
+    Verify the integration works by creating a test incident or triggering a test event
+  </Step>
+  <Step title="Document for your team">
+    Share integration capabilities with your team so everyone knows how to leverage them
+  </Step>
+</Steps>
+
+## Additional Resources
+
+### Google Integrations
+
+<Card title="Google Permissions and Scopes" icon="shield" href="/help-centre/api-and-integrations/google/what-google-permissions-and-scopes-do-you-require">
+  Understand what Google permissions and OAuth scopes incident.io requires
+</Card>
+
+### Need Help?
+
+If you're experiencing issues with an integration or have questions about capabilities:
+
+- Check the [Integration FAQs](/help-centre/api-and-integrations/faqs/index)
+- Review platform-specific documentation (e.g., [Microsoft Teams](/help-centre/microsoft-teams/index))
+- Contact incident.io support for personalized assistance

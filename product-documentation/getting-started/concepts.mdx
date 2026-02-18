@@ -6,785 +6,561 @@ icon: "/icons/incident-types.svg"
 
 # Core Concepts
 
-Understand the key concepts that power incident.io. These building blocks work together to help you respond to incidents, manage on-call rotations, and automate your incident response process.
+Understanding these fundamental concepts will help you get the most out of incident.io. This guide explains the key building blocks and how they connect to create a comprehensive incident management system.
 
-## Basic Concepts
+## Basic concepts
 
-These are the core entities you'll work with daily:
-
-<CardGroup cols={3}>
-  <Card title="Alerts" icon="bell" iconType="duotone">
-    Automated signals from monitoring systems
-  </Card>
-  <Card title="Escalations" icon="arrow-up-right-from-square" iconType="duotone">
-    Notifications to reach people who need to respond
-  </Card>
-  <Card title="Incidents" icon="fire" iconType="duotone">
-    Coordinated workspaces for response
-  </Card>
-</CardGroup>
+These are the core entities you'll interact with daily in incident.io.
 
 ### Alert
 
-An **alert** is an automated signal from your monitoring systems that something unusual or problematic has been detected. Alerts contain information about what's broken - the raw data that helps your team understand and respond to issues.
+An alert is an automated signal from your monitoring systems that something unusual or problematic has been detected. Alerts contain information about what's broken - the raw data that helps your team understand and respond to issues.
 
-<Tabs>
-  <Tab title="What Alerts Contain">
-    Alerts include key information:
+<Info>
+Think of alerts as notifications that "something might be wrong." They're automated signals, not incidents yet.
+</Info>
 
-    - **Title**: Brief description of the problem
-    - **Description**: Detailed context about what's happening
-    - **Priority**: Urgent (requires immediate response) vs. In-hours (can wait)
-    - **Metadata**: Tags, service identifiers, severity levels from your monitoring tool
-    - **Timestamp**: When the alert was triggered
+When an alert fires, it doesn't automatically mean you need a full incident response. Instead, alerts give you options based on your configuration:
 
-    <Note>
-      Alerts are the "what" - incidents are the "how we respond."
-    </Note>
-  </Tab>
+- **Send to a Slack channel** for awareness without paging anyone
+- **Page someone** to investigate through escalations
+- **Automatically create an incident** if the issue is serious enough
 
-  <Tab title="What Happens to Alerts">
-    When an alert fires, it doesn't automatically create an incident. Instead, alerts give you options based on your configuration:
+Alerts include key information:
 
-    <Steps>
-      <Step title="Route to awareness">
-        Send the alert to a Slack channel for team visibility without paging anyone.
-      </Step>
-      <Step title="Create escalation">
-        Page someone to investigate the issue.
-      </Step>
-      <Step title="Auto-create incident">
-        Automatically create an incident if the issue is serious enough.
-      </Step>
-    </Steps>
+- **Title and description**: What's wrong in human-readable form
+- **Metadata**: Technical details like error rates, thresholds, affected hosts
+- **Priority**: Urgent vs. in-hours (determines response speed)
+- **Source**: Which monitoring system sent the alert
 
-    You configure these actions using **Alert Routes**.
-  </Tab>
-
-  <Tab title="Alert Grouping">
-    incident.io can group related alerts together to prevent alert fatigue:
-
-    - Multiple alerts about the same service go into one incident
-    - Alerts with similar metadata are bundled
-    - Duplicates are suppressed automatically
-
-    This keeps your team focused on the problem, not managing dozens of individual alerts.
-  </Tab>
-</Tabs>
+**Example alert flow:**
+```
+Datadog alert fires → Alert route evaluates → Decision:
+  - Minor issue → Post to #alerts channel
+  - Major issue → Create escalation + page on-call
+  - Critical issue → Create incident + page multiple teams
+```
 
 ### Escalation
 
-An **escalation** is how you get hold of one or more people when you need human attention - think of it as "paging someone." It's the mechanism that notifies the right person at the right time through their preferred channels.
-
-<AccordionGroup>
-  <Accordion title="How Escalations Work" icon="circle-info">
-    When you create an escalation:
-
-    1. **Trigger**: Something initiates the escalation (alert, workflow, manual action)
-    2. **Path Selection**: incident.io follows your configured escalation path
-    3. **Notification**: The first person/group receives notifications via:
-       - Push notifications (mobile app)
-       - SMS text messages
-       - Phone calls
-    4. **Escalation Levels**: If no response, move to the next person/group
-    5. **Acknowledgment**: Someone acknowledges they're responding
-
-    <Tip>
-      Configure retry attempts and timing between levels to balance urgency with avoiding unnecessary pages.
-    </Tip>
-  </Accordion>
-
-  <Accordion title="Escalation Status" icon="list-check">
-    Each escalation has a status:
-
-    | Status | Description |
-    |--------|-------------|
-    | <Badge color="yellow">Triggered</Badge> | Notifications sent, waiting for response |
-    | <Badge color="green">Acknowledged</Badge> | Someone confirmed they're handling it |
-    | <Badge color="gray">Cancelled</Badge> | No longer needed, manually cancelled |
-    | <Badge color="red">Expired</Badge> | No response received within timeout period |
-
-    Track escalation effectiveness in **Insights → Escalations**.
-  </Accordion>
-
-  <Accordion title="Escalation Sources" icon="diagram-project">
-    Escalations can be triggered from:
-
-    - **Alerts**: Automatically when alert routes specify escalation
-    - **Manual**: Using `/inc escalate` command during an incident
-    - **Workflows**: As an automated step in your incident workflows
-    - **Call Routes**: When someone calls your incident.io phone number
-
-    All escalation sources follow the same escalation paths you configure.
-  </Accordion>
-</AccordionGroup>
-
-### Incident
-
-An **incident** is a coordinated workspace where humans and machines respond together when things break. It's where your team collaborates to understand, fix, and communicate about problems affecting your systems or services.
-
-<Tabs>
-  <Tab title="Incident Lifecycle">
-    Incidents move through a clear lifecycle:
-
-    <Steps>
-      <Step title="Triage">
-        **Investigating**: Is this a real incident?
-        
-        - Review initial reports or alerts
-        - Determine if full incident response is needed
-        - Accept (move to Active) or Decline (close without full response)
-      </Step>
-
-      <Step title="Active">
-        **Responding**: Coordinate to resolve the issue
-        
-        - Assign roles (Incident Lead, Communications Lead, etc.)
-        - Investigate and implement fixes
-        - Share status updates with stakeholders
-        - Track actions and decisions on timeline
-      </Step>
-
-      <Step title="Resolved">
-        **Complete**: Issue is fixed
-        
-        - Mark incident as resolved
-        - Final status update sent
-        - Post-incident workflows trigger
-        - Channel archived (optional)
-      </Step>
-
-      <Step title="Closed">
-        **Learning**: Post-incident activities complete
-        
-        - Follow-up actions completed
-        - Post-mortem written
-        - Incident fully closed
-      </Step>
-    </Steps>
-  </Tab>
-
-  <Tab title="What Incidents Include">
-    Each incident creates:
-
-    <CardGroup cols={2}>
-      <Card title="Dedicated Channel" icon="hashtag">
-        Slack or Teams channel for coordination
-        
-        Format: `#inc-website-is-down`
-      </Card>
-
-      <Card title="Timeline" icon="clock">
-        Chronological record of all events
-        
-        Captures messages, actions, status changes
-      </Card>
-
-      <Card title="Incident Details" icon="clipboard-list">
-        Structured information
-        
-        Severity, status, roles, affected services
-      </Card>
-
-      <Card title="Status Updates" icon="bullhorn">
-        Communication history
-        
-        Updates shared with team and customers
-      </Card>
-
-      <Card title="Follow-up Actions" icon="tasks">
-        Post-incident work
-        
-        Tickets, action items, improvements
-      </Card>
-
-      <Card title="Post-Mortem" icon="file-alt">
-        Learning document
-        
-        What happened, why, and how to improve
-      </Card>
-    </CardGroup>
-  </Tab>
-
-  <Tab title="Creating Incidents">
-    Incidents can be created:
-
-    **Manually:**
-    - `/incident` command in Slack
-    - incident.io tab in Microsoft Teams
-    - [app.incident.io/declare](https://app.incident.io/declare)
-
-    **Automatically:**
-    - Alert routes auto-create for critical alerts
-    - Workflows trigger incident creation
-    - API integrations from external systems
-
-    <Info>
-      Learn more in [Responding to Incidents](/product-documentation/incident-response/responding-to-incidents).
-    </Info>
-  </Tab>
-</Tabs>
-
----
-
-## Configuration Concepts
-
-These concepts define how incident.io routes alerts and pages people:
-
-### Alert Route
-
-An **alert route** determines what happens when an alert comes in. Think of it as a decision tree: if this type of alert fires, then take these actions.
-
-<Tabs>
-  <Tab title="Route Actions">
-    Alert routes can trigger multiple actions:
-
-    <CardGroup cols={3}>
-      <Card title="Send to Channel" icon="hashtag">
-        Post in Slack/Teams for awareness
-        
-        No pages, just visibility
-      </Card>
-
-      <Card title="Create Escalation" icon="bell-on">
-        Page the on-call engineer
-        
-        Triggers notifications
-      </Card>
-
-      <Card title="Create Incident" icon="fire">
-        Automatically start response
-        
-        Critical issues need coordination
-      </Card>
-    </CardGroup>
-
-    Routes can combine actions - for example, send to channel AND create escalation.
-  </Tab>
-
-  <Tab title="Route Conditions">
-    Routes use conditions to match specific alerts:
-
-    ```yaml
-    # Route by severity
-    alert.severity = "critical" → Create incident
-
-    # Route by service tag
-    alert.metadata["service"] = "payments" → Page payments team
-
-    # Route by priority
-    alert.priority = "urgent" AND 
-    alert.tags contains "production" → Escalate immediately
-
-    # Route by time
-    During business hours → Send to channel
-    After hours → Create escalation
-    ```
-
-    <Tip>
-      Start with simple routes and add complexity as you understand your alert patterns.
-    </Tip>
-  </Tab>
-
-  <Tab title="Grouping Rules">
-    Set up grouping to prevent alert fatigue:
-
-    **Group by service:**
-    ```yaml
-    alerts with same service tag → one incident
-    ```
-
-    **Group by time window:**
-    ```yaml
-    alerts within 5 minutes → merge into existing incident
-    ```
-
-    **Group by similarity:**
-    ```yaml
-    alerts with matching title pattern → bundle together
-    ```
-
-    This keeps related alerts organized without overwhelming your team.
-  </Tab>
-</Tabs>
-
-### Schedule
-
-A **schedule** defines who's available to respond at specific times. It manages your on-call rotations, ensuring someone is always ready to handle issues that need immediate attention.
-
-<AccordionGroup>
-  <Accordion title="Schedule Components" icon="calendar">
-    Schedules consist of:
-
-    - **Layers**: Different coverage patterns (weekday, weekend, night shift)
-    - **Rotations**: How frequently people swap (daily, weekly, monthly)
-    - **Participants**: Team members in the rotation
-    - **Handoff times**: When shifts change (e.g., 9 AM local time)
-    - **Timezone**: The schedule's reference timezone
-
-    <Note>
-      Layers stack on top of each other. Use them for complex coverage like "weekday primary + after-hours secondary."
-    </Note>
-  </Accordion>
-
-  <Accordion title="Advanced Features" icon="gears">
-    Schedules handle complexity:
-
-    **Time off integration:**
-    - Sync with Google Calendar or Outlook
-    - Automatically skip people on vacation
-    - Backfill with next person in rotation
-
-    **Holiday calendars:**
-    - Configure public holidays by country
-    - Adjust coverage for holiday periods
-    - Different rotation for holidays vs. regular days
-
-    **Override shifts:**
-    - Manually override who's on-call
-    - Create one-time coverage changes
-    - Swap shifts between team members
-  </Accordion>
-
-  <Accordion title="Multiple Participants" icon="users">
-    Layer multiple people in the same time slot:
-
-    - **Primary + Secondary**: Primary gets paged first, secondary escalates after timeout
-    - **Team coverage**: Page multiple people simultaneously
-    - **Follow-the-sun**: Different people for different timezones
-
-    This ensures someone always responds while providing backup coverage.
-  </Accordion>
-</AccordionGroup>
-
-### Escalation Path
-
-An **escalation path** defines the route an escalation takes to reach people. It answers: who should we try first? If they don't respond, who's next? Should we notify multiple people at once or one at a time?
-
-<Steps>
-  <Step title="Level 1: Primary Response">
-    First attempt to reach someone:
-
-    - **Target**: Reference a schedule (e.g., "Backend Primary")
-    - **Wait time**: How long to wait for acknowledgment (typically 5 minutes)
-    - **Notification methods**: Push, SMS, phone call
-
-    <Tip>
-      Start with push notifications only for less urgent issues to avoid unnecessary wake-ups.
-    </Tip>
-  </Step>
-
-  <Step title="Level 2: Secondary Response">
-    If Level 1 doesn't respond:
-
-    - **Target**: Different schedule or specific person
-    - **Wait time**: Typically shorter (3 minutes)
-    - **Notification methods**: Add phone calls for urgency
-
-    This might page a manager or a different team member.
-  </Step>
-
-  <Step title="Level 3: Final Escalation">
-    Last resort:
-
-    - **Target**: Senior leadership or entire team
-    - **Notification methods**: All channels (push, SMS, phone)
-    - **Broadcast**: Notify multiple people simultaneously
-
-    Use this level to ensure critical issues never go unnoticed.
-  </Step>
-</Steps>
-
-<Warning>
-  **Balance urgency with fatigue**: Don't escalate too aggressively for non-urgent issues. Configure different paths for urgent vs. in-hours alerts.
-</Warning>
-
-**Conditional escalation:**
-
-Paths can branch based on conditions:
-
-```yaml
-IF alert.priority = "urgent"
-  → Level 1: Immediate page with phone call
-  → Level 2: Page manager after 2 minutes
-
-IF alert.priority = "in-hours"  
-  → Level 1: Push notification only
-  → Level 2: Page after 10 minutes during business hours
-```
-
-### Call Route
-
-A **call route** gives you a dedicated phone number that automatically connects callers to whoever's currently on-call. It's designed for situations where someone needs to reach your team by phone - maybe a customer has your emergency number, or a vendor needs to alert you about a critical issue.
-
-<Tabs>
-  <Tab title="How Call Routes Work">
-    <Steps>
-      <Step title="Someone calls your number">
-        External party dials your incident.io phone number.
-      </Step>
-
-      <Step title="incident.io routes the call">
-        Follows your configured escalation path to find who's currently on-call.
-      </Step>
-
-      <Step title="First responder receives call">
-        Current on-call person's phone rings.
-      </Step>
-
-      <Step title="No answer? Escalate">
-        If they don't answer, move to next person in escalation path.
-      </Step>
-
-      <Step title="Call connects">
-        When someone answers, caller is connected to responder.
-      </Step>
-    </Steps>
-  </Tab>
-
-  <Tab title="Configuration">
-    Set up call routes:
-
-    1. **Request a phone number** from incident.io (or port your existing number)
-    2. **Choose escalation path** that determines routing
-    3. **Set greeting message** (optional audio played to callers)
-    4. **Configure business hours** (route differently outside hours)
-
-    <Note>
-      Share this single, stable phone number externally without worrying about updating it when rotations change.
-    </Note>
-  </Tab>
-
-  <Tab title="Use Cases">
-    Common call route scenarios:
-
-    - **Customer emergency hotline**: VIP customers call when they have critical issues
-    - **Vendor alerts**: Third-party providers notify you of problems
-    - **Physical security**: Building security calls for IT escalations
-    - **Legacy integrations**: Systems that can only trigger alerts via phone
-
-    All calls are logged and tracked in incident.io.
-  </Tab>
-</Tabs>
-
-### Policies
-
-**Policies** help you enforce incident response standards across your organization. They're automated rules that check whether your team is following best practices - and flag it when they're not.
+An escalation is how you get hold of one or more people when you need human attention - think of it as "paging someone." It's the mechanism that notifies the right person at the right time through their preferred channels.
 
 <CardGroup cols={2}>
-  <Card title="Deadline Policies" icon="clock">
-    Enforce time-based requirements
-    
-    - Post-mortems written within 48 hours
-    - Follow-up actions completed within 7 days
-    - Status updates shared every 30 minutes
+  <Card title="Notification channels" icon="bell">
+    - Push notifications (mobile app)
+    - SMS text messages
+    - Phone calls (voice)
+    - Slack/Teams direct messages
   </Card>
-
-  <Card title="Required Field Policies" icon="clipboard-check">
-    Ensure data quality
-    
-    - All critical incidents have affected services
-    - Incidents require assigned roles before resolution
-    - Resolution notes are mandatory
-  </Card>
-
-  <Card title="Process Policies" icon="list-check">
-    Validate workflows
-    
-    - Video calls required for major incidents
-    - Status page updates for customer-facing issues
-    - Stakeholder notifications sent
-  </Card>
-
-  <Card title="Compliance Policies" icon="shield-check">
-    Meet regulatory requirements
-    
-    - Security incidents notify security team
-    - Data breach incidents follow specific process
-    - Audit trails maintained
+  
+  <Card title="Escalation statuses" icon="list">
+    - **Triggered**: Notification sent
+    - **Acknowledged**: Someone's on it
+    - **Cancelled**: No longer needed
+    - **Expired**: No response in time
   </Card>
 </CardGroup>
 
-**Policy violations:**
+Escalations can be triggered in several ways:
 
-When a policy is violated:
-- incident.io surfaces the violation in dashboards
-- Notifications sent to relevant stakeholders
-- Metrics tracked for compliance reporting
+- **From alerts**: Automatically when alert routes decide to page someone
+- **Manually**: Using `/incident escalate` during an active incident
+- **From workflows**: Automated based on incident conditions
 
-<Info>
-  Policies are particularly useful for maintaining consistent incident response quality as your team grows.
-</Info>
+**Why escalations matter:** They ensure the right people are notified immediately when critical issues occur, and they track whether someone has acknowledged responsibility.
 
----
+### Incident
 
-## Catalog
+An incident is a coordinated workspace where humans and machines respond together when things break. It's where your team collaborates to understand, fix, and communicate about problems affecting your systems or services.
 
-The **Catalog** is your connected map of everything that exists in your organization. It's how incident.io understands your unique organizational context - your services, teams, products, customers, and how they all relate to each other.
+<Steps>
+  <Step title="Initial triage">
+    **What's happening?** Understand the scope, severity, and impact of the issue.
+  </Step>
+  
+  <Step title="Active response">
+    **Fix it.** Investigate root causes, implement fixes, coordinate across teams.
+  </Step>
+  
+  <Step title="Resolution">
+    **Verify the fix.** Confirm systems are healthy and impact is resolved.
+  </Step>
+  
+  <Step title="Closure & learning">
+    **Learn from it.** Complete post-mortems, action items, and prevent recurrence.
+  </Step>
+</Steps>
 
-### Structure
+Each incident automatically creates:
 
-Think of the Catalog as a set of interconnected spreadsheets, or database tables:
+- **Dedicated channel**: Slack or Teams channel for collaboration
+- **Timeline**: Chronological log of all events and actions
+- **Status tracking**: Current state, severity, assigned roles
+- **Action items**: Follow-up tasks that need completion
+
+To learn more about managing incidents end-to-end, see [Incident response](/product-documentation/incident-response/overview).
+
+## Configuration concepts
+
+These concepts help you customize how incident.io routes alerts, notifies people, and enforces standards.
+
+### Alert route
+
+An alert route determines what happens when an alert comes in. Think of it as a decision tree: if this type of alert fires, then take these actions.
 
 <Tabs>
-  <Tab title="Catalog Types">
-    Each "spreadsheet" is a **Catalog Type**:
-
-    - **Services**: Your applications and systems
-    - **Teams**: Your organizational teams
-    - **Products**: Business products or features
-    - **Customers**: Your customer base
-    - **Environments**: Production, staging, development
-
-    You can create custom types for anything relevant to your organization.
-
-    <Tip>
-      Start with Services and Teams - these power most routing and automation.
-    </Tip>
+  <Tab title="Route to channel">
+    **Use case:** Awareness without waking anyone up
+    
+    ```
+    IF alert.severity = "low"
+    THEN post to #alerts-feed
+    ```
+    
+    Great for:
+    - Low-priority warnings
+    - Informational alerts
+    - Non-urgent monitoring signals
   </Tab>
-
-  <Tab title="Entries">
-    Each row in that "spreadsheet" is an **Entry**:
-
-    - **services/payments-api**: Your payments service
-    - **teams/platform**: Your platform engineering team
-    - **products/checkout**: Your checkout product
-
-    Entries are the individual things you want to track.
+  
+  <Tab title="Create escalation">
+    **Use case:** Page the on-call engineer
+    
+    ```
+    IF alert.severity = "high"
+    THEN escalate via "Backend On-call" path
+    ```
+    
+    Great for:
+    - Issues needing immediate investigation
+    - Production alerts affecting users
+    - Service degradation
   </Tab>
-
-  <Tab title="Attributes">
-    The columns are **Attributes** that describe entries:
-
-    - **Name**: Human-readable name
-    - **Description**: What it does
-    - **Owner**: Reference to a team (connection)
-    - **On-call Schedule**: Which schedule covers this service
-    - **Repository**: Link to code
-    - **Status**: Active, deprecated, etc.
-
-    Attributes can reference other catalog entries, creating relationships.
+  
+  <Tab title="Create incident">
+    **Use case:** Automatically start coordinated response
+    
+    ```
+    IF alert.severity = "critical"
+    THEN create incident + escalate
+    ```
+    
+    Great for:
+    - Major outages
+    - Security incidents
+    - Data integrity issues
   </Tab>
 </Tabs>
 
-### Why the Catalog Matters
+**Grouping rules:** You can also configure alert routes to group related alerts into the same incident, preventing alert fatigue and keeping related issues together.
 
-The Catalog powers routing and automation:
+Example:
+```
+Group alerts by: service + environment
+Window: 30 minutes
+
+Result: All alerts for "api-gateway" in "production" within 30 minutes → Same incident
+```
+
+### Schedule
+
+A schedule defines who's available to respond at specific times. It manages your on-call rotations, ensuring someone is always ready to handle issues that need immediate attention.
+
+<CardGroup cols={2}>
+  <Card title="Rotation patterns" icon="rotate">
+    - **Daily**: Handoff every day
+    - **Weekly**: Handoff every week
+    - **Custom**: Every N days/weeks
+    - **Follow-the-sun**: Different people for different timezones
+  </Card>
+  
+  <Card title="Coverage options" icon="clock">
+    - **24/7**: Round-the-clock coverage
+    - **Business hours**: Weekdays 9-5 only
+    - **Weekdays vs. weekends**: Different people for different days
+    - **Layered**: Multiple people on-call simultaneously
+  </Card>
+</CardGroup>
+
+**Advanced scheduling features:**
+
+- **Calendar integration**: Sync with Google Calendar or Outlook to automatically handle time off
+- **Holiday support**: Configure public holidays when coverage needs change
+- **Overrides**: Temporarily swap shifts without disrupting the regular rotation
+- **Coverage requests**: Let team members request coverage from colleagues
+
+**Example schedule structure:**
+```
+Schedule: Platform On-call
+├─ Layer 1 (Primary): Weekly rotation, 24/7
+│  └─ Alice → Bob → Carol → David → repeat
+├─ Layer 2 (Backup): Weekly rotation, 24/7
+│  └─ Eve → Frank → repeat
+└─ Layer 3 (Manager): Business hours only
+   └─ Grace
+```
+
+### Escalation path
+
+An escalation path defines the route an escalation takes to reach people. It answers: who should we try first? If they don't respond, who's next? Should we notify multiple people at once or one at a time?
 
 <Steps>
-  <Step title="Smart routing">
-    **Example**: Alert tagged with `service:payments`
+  <Step title="Level 1: Primary on-call">
+    Try the person currently on-call for the service team.
     
-    incident.io looks up the payments service in the Catalog, finds the associated on-call schedule, and pages the right team automatically.
+    **Wait time:** 5 minutes for acknowledgment
   </Step>
-
-  <Step title="Context enrichment">
-    **Example**: Incident affecting payments service
+  
+  <Step title="Level 2: Backup on-call">
+    If no response, escalate to the backup engineer.
     
-    incident.io automatically:
-    - Invites the service owner
-    - Links to runbooks and documentation
-    - Shows recent deployments
-    - Displays dependent services
+    **Wait time:** 5 minutes for acknowledgment
   </Step>
-
-  <Step title="Relationship mapping">
-    **Example**: Customer X reports an issue
+  
+  <Step title="Level 3: Manager">
+    If still no response, notify the engineering manager.
     
-    Catalog shows which services Customer X uses, which teams own those services, and escalation paths for each.
+    **Wait time:** No timeout (final level)
   </Step>
 </Steps>
+
+**Path types:**
+
+- **Serial escalation**: Try person A, then B, then C (one at a time)
+- **Parallel escalation**: Notify A and B simultaneously
+- **Round-robin**: Distribute escalations evenly across a team
+
+**Conditional routing:** Paths can branch based on conditions:
+
+```
+IF escalation.priority = "urgent"
+  → Page primary on-call immediately
+  → Skip to manager after 2 minutes
+
+IF escalation.priority = "in-hours"
+  → Only page during business hours
+  → Send Slack DM if outside hours
+```
+
+<Info>
+This flexibility means you're not waking people up at 3 AM for issues that can wait until morning.
+</Info>
+
+### Call route
+
+A call route gives you a dedicated phone number that automatically connects callers to whoever's currently on-call. It's designed for situations where someone needs to reach your team by phone.
+
+**Use cases:**
+
+- **Customer emergencies**: Give customers an emergency contact number
+- **Vendor alerts**: Third-party services can alert you by phone
+- **Non-technical escalations**: Business stakeholders can reach engineering
+
+**How it works:**
+
+1. Someone calls your incident.io phone number
+2. incident.io looks up who's currently on-call (based on your schedules)
+3. The call is routed through your escalation path logic
+4. If the first person doesn't answer, it tries the next person
+5. The call is recorded and logged in incident.io
 
 <Note>
-  As your organization grows, the Catalog scales with you. You're not editing individual alert routes every time a team changes - the Catalog maintains those relationships.
+The routing happens automatically based on your current schedules - you share a stable number externally without updating it when rotations change.
 </Note>
 
-### Catalog is Un-opinionated
+### Policies
 
-Unlike other tools that force you into their taxonomy, incident.io lets you use your own structure:
+Policies help you enforce incident response standards across your organization. They're automated rules that check whether your team is following best practices - and flag it when they're not.
 
-- **Your naming conventions**: Call things what your team calls them
-- **Your hierarchy**: Organize however makes sense for you  
-- **Your attributes**: Track what matters to your organization
-
-**Import from existing catalogs:**
-- Backstage
-- Cortex
-- OpsLevel  
-- ServiceNow CMDB
-- Custom systems via API
-
----
-
-## Workflows
-
-A **workflow** automates actions during incidents based on triggers you define. Think of it as "if this happens, then do that" - when an incident is created or changed, when someone joins a channel, or when a message is posted, workflows can automatically execute tasks without manual intervention.
-
-### Workflow Structure
-
-<Steps>
-  <Step title="Trigger">
-    **What sets it off:**
-    
-    - Incident created
-    - Incident updated (severity changed, status changed)
-    - Person joined incident channel
-    - Message posted with specific content
-    - Escalation created or acknowledged
-    - Time-based (30 minutes after incident starts)
-  </Step>
-
-  <Step title="Conditions">
-    **When it should run:**
-    
-    ```yaml
-    IF incident.severity = "Critical"
-    AND incident.affected_service = "payments"
-    AND time.is_business_hours = false
-    ```
-
-    Conditions filter which incidents trigger the workflow.
-  </Step>
-
-  <Step title="Steps">
-    **What it does:**
-    
-    - Assign roles
-    - Create escalations
-    - Send notifications
-    - Post messages to channels
-    - Create follow-up actions
-    - Update status pages
-    - Call external APIs
-  </Step>
-</Steps>
-
-### Example Workflows
+**Common policy examples:**
 
 <AccordionGroup>
-  <Accordion title="Auto-assign roles based on service" icon="user-tag">
-    **Trigger**: Incident created
+  <Accordion title="Post-mortem timeliness">
+    **Rule:** All critical incidents must have a post-mortem completed within 7 days of resolution.
     
-    **Conditions**: `incident.affected_service` is set
-    
-    **Steps**:
-    1. Look up service owner from Catalog
-    2. Assign service owner as Subject Matter Expert
-    3. Post message: "@owner has been assigned as SME"
+    **Why it matters:** Ensures you capture learnings while details are fresh.
   </Accordion>
-
-  <Accordion title="Page on-call for critical incidents" icon="bell">
-    **Trigger**: Incident severity changed to Critical
+  
+  <Accordion title="Action item completion">
+    **Rule:** All action items must be completed within 30 days of incident closure.
     
-    **Conditions**: No conditions (always run)
-    
-    **Steps**:
-    1. Create escalation for "Engineering Leadership" path
-    2. Post message: "Leadership has been paged due to critical severity"
-    3. Send notification to #executive-alerts channel
+    **Why it matters:** Prevents technical debt and ensures fixes are actually implemented.
   </Accordion>
-
-  <Accordion title="Reminder to update status page" icon="clock">
-    **Trigger**: 30 minutes after incident created
+  
+  <Accordion title="Incident lead assignment">
+    **Rule:** All major incidents must have an Incident Lead assigned within 15 minutes.
     
-    **Conditions**: 
-    - `incident.severity` = Major or Critical
-    - No status page update posted
-    
-    **Steps**:
-    1. Post message: "Reminder: Update the status page with customer impact"
-    2. Create follow-up action: "Post status page update"
+    **Why it matters:** Ensures clear ownership and coordination during response.
   </Accordion>
-
-  <Accordion title="Create post-mortem document" icon="file-alt">
-    **Trigger**: Incident resolved
+  
+  <Accordion title="Status page updates">
+    **Rule:** Customer-facing incidents must have status page updates every 30 minutes.
     
-    **Conditions**: `incident.severity` = Major or Critical
-    
-    **Steps**:
-    1. Create Google Doc from post-mortem template
-    2. Populate doc with incident details and timeline
-    3. Post link in incident channel
-    4. Create follow-up action: "Complete post-mortem within 48 hours"
+    **Why it matters:** Maintains customer trust through transparent communication.
   </Accordion>
 </AccordionGroup>
 
-<Tip>
-  Start with simple workflows and gradually add complexity as you see what works for your team.
-</Tip>
+**Policy violations:**
 
----
+When policies aren't met, incident.io:
+- Flags the violation in the dashboard
+- Can send notifications to managers or leads
+- Tracks compliance metrics over time
+- Helps you identify systemic issues
 
-## Putting It All Together
+<Info>
+Policies are particularly useful for compliance requirements or maintaining consistent incident response quality as your team grows.
+</Info>
 
-Here's how these concepts work together in a typical incident flow:
+## Catalog
+
+The Catalog is your connected map of everything that exists in your organization. It's how incident.io understands your unique organizational context - your services, teams, products, customers, and how they all relate to each other.
+
+### How the Catalog works
+
+Think of the Catalog as a set of interconnected spreadsheets, or a set of database tables:
+
+- Each "spreadsheet" is a **Catalog Type** (like Services, Teams, or Products)
+- Each row in that spreadsheet is an **Entry** (like your "payments-api" service or your "platform" team)
+- The columns are **Attributes** that describe each entry and create connections between different types
+
+**Example Catalog structure:**
+
+```
+Catalog Type: Services
+├─ Entry: payments-api
+│  ├─ On-call team → Platform Team
+│  ├─ Repository → github.com/acme/payments
+│  ├─ Status page component → Payment Processing
+│  └─ Priority → High
+├─ Entry: user-dashboard
+│  ├─ On-call team → Frontend Team
+│  └─ Priority → Medium
+└─ ...
+
+Catalog Type: Teams
+├─ Entry: Platform Team
+│  ├─ Slack channel → #platform
+│  ├─ Schedule → Platform On-call
+│  └─ Manager → Alice
+└─ ...
+```
+
+### Why the Catalog matters
+
+The Catalog powers routing and automation throughout incident.io:
+
+<CardGroup cols={2}>
+  <Card title="Smart alert routing" icon="route">
+    "When an alert for the payments-api service fires, automatically page whoever's on-call for the Platform Team."
+  </Card>
+  
+  <Card title="Automatic tagging" icon="tag">
+    "Tag incidents with the affected service's priority level and owner."
+  </Card>
+  
+  <Card title="Context in incidents" icon="circle-info">
+    "Show runbooks, dashboards, and recent incidents for affected services."
+  </Card>
+  
+  <Card title="Dependency tracking" icon="diagram-project">
+    "When the database service has an incident, alert all dependent services' teams."
+  </Card>
+</CardGroup>
+
+**Scaling with your organization:**
+
+As you grow, the Catalog scales with you - you're not editing individual alert routes every time a team changes. Update the Catalog once, and all routing/automation adapts automatically.
+
+### Catalog flexibility
+
+The Catalog is deliberately un-opinionated. Unlike other tools that force you into their taxonomy, incident.io lets you use your own structure and naming conventions.
+
+**Built-in types:**
+- Services
+- Teams
+- Users
+
+**Custom types you can add:**
+- Products
+- Customers
+- Environments (staging, production, etc.)
+- Regions (US-East, EU-West, etc.)
+- Business units
+- Literally anything else
+
+**Importing existing catalogs:**
+
+If you already have a service catalog in a developer portal, import it directly:
+
+- [Backstage](/product-documentation/integrations/backstage)
+- [Cortex](/product-documentation/integrations/cortex)
+- [OpsLevel](/product-documentation/integrations/opslevel)
+- [ServiceNow](/product-documentation/integrations/servicenow)
+
+<Info>
+The Catalog is the foundation that makes incident.io context-aware. Invest time in setting it up well, and everything else becomes easier.
+</Info>
+
+## Workflow
+
+A workflow automates actions during incidents based on triggers you define. Think of it as "if this happens, then do that" - when conditions are met, workflows execute tasks without manual intervention.
+
+### Workflow anatomy
 
 <Steps>
-  <Step title="Alert fires from Datadog">
-    Your monitoring tool detects an issue and sends an alert to incident.io.
-  </Step>
-
-  <Step title="Alert route evaluates conditions">
-    The alert route checks: "Is this alert tagged with service:payments and severity:critical?"
+  <Step title="Trigger">
+    **What sets it off?**
     
-    **Yes** → Create escalation AND auto-create incident
+    - Incident created
+    - Incident updated (severity changed, status changed, etc.)
+    - Someone joins incident channel
+    - Message posted in incident channel
+    - Alert received
+    - Scheduled time
   </Step>
-
-  <Step title="Escalation follows path">
-    Escalation path "Payments Team Primary":
-    - Pages whoever's currently on-call (from schedule)
-    - Sends push notification + SMS
-    - Waits 5 minutes for acknowledgment
+  
+  <Step title="Conditions">
+    **When should it run?**
+    
+    - If severity is "critical"
+    - If affected service is "payments-api"
+    - If incident has been active for > 1 hour
+    - If it's outside business hours
+    
+    Multiple conditions can be combined with AND/OR logic.
   </Step>
-
-  <Step title="Incident created automatically">
-    incident.io creates incident channel `#inc-payments-api-high-latency`
-    - Posts announcement in `#incidents`
-    - Runs workflows
-  </Step>
-
-  <Step title="Workflow enriches incident">
-    Automated workflow:
-    - Looks up payments service in Catalog
-    - Assigns service owner as Subject Matter Expert
-    - Invites platform team members
-    - Creates follow-up action for root cause analysis
-  </Step>
-
-  <Step title="On-call engineer responds">
-    Engineer acknowledges escalation, joins incident channel, starts investigating.
-  </Step>
-
-  <Step title="Team coordinates response">
-    - Assign Incident Lead role
-    - Share status updates
-    - Track actions on timeline
-    - Resolve when fixed
-  </Step>
-
-  <Step title="Post-incident workflow triggers">
-    When resolved:
-    - Create post-mortem document
-    - Schedule post-mortem meeting
-    - Track follow-up actions to completion
+  
+  <Step title="Actions">
+    **What does it do?**
+    
+    - Assign roles automatically
+    - Create action items
+    - Post status updates
+    - Send Slack notifications
+    - Update external systems (Jira, PagerDuty, etc.)
+    - Page additional responders
   </Step>
 </Steps>
 
----
+### Example workflows
 
-## Learn More
+<AccordionGroup>
+  <Accordion title="Auto-assign roles by service">
+    **Trigger:** Incident created
+    
+    **Conditions:** Affected service is "payments-api"
+    
+    **Actions:**
+    - Assign Incident Lead → Person on-call for Platform Team
+    - Assign Comms Lead → Person on-call for Support Team
+    - Post message: "Payment service incident - database team notified"
+  </Accordion>
+  
+  <Accordion title="Escalate stale incidents">
+    **Trigger:** Incident updated (every 30 minutes)
+    
+    **Conditions:**
+    - Severity is "major" or "critical"
+    - Status is "active"
+    - No status update in last 30 minutes
+    
+    **Actions:**
+    - Post reminder: "@incident-lead Please post a status update"
+    - If no update after 1 hour → Escalate to engineering manager
+  </Accordion>
+  
+  <Accordion title="Create post-mortem on resolution">
+    **Trigger:** Incident resolved
+    
+    **Conditions:** Severity is "major" or "critical"
+    
+    **Actions:**
+    - Create Google Doc from template
+    - Populate with incident timeline
+    - Create action item: "Complete post-mortem within 7 days"
+    - Post link in incident channel
+  </Accordion>
+  
+  <Accordion title="Update status page automatically">
+    **Trigger:** Incident severity changed to "critical"
+    
+    **Conditions:** Affected service has linked status page component
+    
+    **Actions:**
+    - Update status page component to "Major Outage"
+    - Post update: "We are investigating an issue affecting [service]"
+    - Send notification to subscribers
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+Workflows are powerful because they codify your team's processes and ensure consistency even under pressure. Start with a few simple workflows and expand as you identify patterns.
+</Info>
+
+## How concepts connect
+
+Here's how everything fits together in a real-world scenario:
+
+```
+1. Alert fires from Datadog
+   ↓
+2. Alert route evaluates conditions
+   ↓ (severity = critical, service = payments-api)
+3. Create escalation via "Platform On-call" path
+   ↓
+4. Schedule determines Alice is on-call
+   ↓
+5. Alice gets paged via push + SMS + call
+   ↓
+6. Alert route also creates incident automatically
+   ↓
+7. Incident channel created: #inc-456-payment-failures
+   ↓
+8. Workflow triggers (incident created + service = payments-api)
+   ↓
+9. Workflow actions execute:
+   - Assign Alice as Incident Lead
+   - Assign Bob as Comms Lead
+   - Create action: "Check database health"
+   - Post to #incidents channel
+   - Update status page
+   ↓
+10. Alice acknowledges escalation, incident response begins
+    ↓
+11. Team investigates using incident channel
+    ↓
+12. Status updates posted per policy (every 30 min)
+    ↓
+13. Issue resolved, incident marked resolved
+    ↓
+14. Workflow triggers (incident resolved)
+    ↓
+15. Post-mortem document created automatically
+    ↓
+16. Follow-up actions tracked through to completion
+    ↓
+17. Policy validates: post-mortem completed within 7 days ✓
+```
+
+## Next steps
+
+Now that you understand the core concepts:
 
 <CardGroup cols={2}>
-  <Card title="Start Guide" icon="book" href="/product-documentation/getting-started/start-guide">
-    Complete setup instructions for your organization
+  <Card title="Start guide" icon="book" href="/product-documentation/getting-started/start-guide">
+    Set up your incident.io instance with these concepts in mind.
   </Card>
-  <Card title="Quick Start" icon="rocket" href="/product-documentation/getting-started/quick-start">
-    Get up and running in 15 minutes
+  
+  <Card title="Quick start tutorial" icon="rocket" href="/product-documentation/getting-started/quick-start">
+    Practice using these concepts in a hands-on tutorial.
   </Card>
-  <Card title="Incident Response" icon="fire" href="/product-documentation/incident-response/overview">
-    Learn how to respond to and manage incidents
+  
+  <Card title="On-call deep dive" icon="calendar" href="/product-documentation/on-call/overview">
+    Learn more about schedules, alerts, and escalations.
   </Card>
-  <Card title="Workflows" icon="diagram-project" href="/workflows/overview">
-    Automate your incident response process
+  
+  <Card title="Incident response" icon="siren" href="/product-documentation/incident-response/overview">
+    Master the incident lifecycle and coordination workflows.
   </Card>
 </CardGroup>

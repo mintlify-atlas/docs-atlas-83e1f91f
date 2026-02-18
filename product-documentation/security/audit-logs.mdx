@@ -1,6 +1,6 @@
 ---
-title: 'Audit logs'
-description: 'Track configuration changes and user actions'
+title: Audit logs
+description: 'Track and monitor changes in your incident.io account'
 icon: "shield"
 ---
 
@@ -14,6 +14,10 @@ Access audit logs at **Settings → Security**. View entries in the dashboard, e
 Audit log entries are available from April 18, 2023 onwards. You must be an Owner or Admin to access audit logs.
 </Note>
 
+<Info>
+Audit logs are a critical security tool, providing an immutable record of all configuration changes and administrative actions in your incident.io account.
+</Info>
+
 ## What's tracked
 
 Audit logs track configuration changes across incident.io, including:
@@ -26,9 +30,68 @@ Audit logs track configuration changes across incident.io, including:
 
 Each entry captures the actor (person or system making the change), the target (what was modified), and contextual details like location and user agent. Entries conform to a versioned schema documented in the [API reference](https://api-docs.incident.io/tag/Audit-logs), ensuring consistent parsing as the format evolves.
 
+### Event types
+
+Audit logs capture these categories of events:
+
+**User and permission changes**
+- User role assignments
+- Custom role creation and modification
+- Team role assignments
+- Permission grants and revocations
+
+**Security configuration**
+- SAML/SSO setup and changes
+- SCIM configuration updates
+- API key creation and deletion
+- Access grants to private incidents
+
+**System configuration**
+- Alert route modifications
+- Escalation path changes
+- Schedule and rotation updates
+- Integration setup and configuration
+
+**Workflow and automation**
+- Workflow creation and edits
+- Announcement rule changes
+- Custom field definitions
+
 ## Viewing audit logs
 
 View audit logs in the [security settings](https://app.incident.io/settings/security) dashboard. Filter entries by target, event type, actor, and date. Export to CSV for a specific time period, or set up continuous streaming to your SIEM provider.
+
+<Steps>
+  <Step title="Navigate to Security settings">
+    Go to **Settings → Security** and click the **Audit logs** tab.
+  </Step>
+  
+  <Step title="Filter events">
+    Use the filter controls to narrow down events by actor, target, event type, or date range.
+  </Step>
+  
+  <Step title="Review details">
+    Click any event to see full details including the actor, timestamp, target resource, and changes made.
+  </Step>
+  
+  <Step title="Export if needed">
+    Export filtered results to CSV for offline analysis or compliance documentation.
+  </Step>
+</Steps>
+
+### Understanding audit log entries
+
+Each audit log entry includes:
+- **Event**: The type of action performed (e.g., "user.role_assigned")
+- **Actor**: Who performed the action (user email or system)
+- **Target**: What was modified (resource type and ID)
+- **Timestamp**: When the action occurred (in UTC)
+- **Metadata**: Additional context (IP address, user agent, location)
+- **Changes**: Before and after values for modifications
+
+<Info>
+Audit logs use a versioned schema to ensure backward compatibility. Check the schema version when parsing logs programmatically.
+</Info>
 
 ## Streaming to SIEM providers
 
@@ -38,6 +101,77 @@ Stream audit logs directly to your security information and event management (SI
 - Amazon S3 buckets
 - Other WorkOS-compatible providers
 
+<Steps>
+  <Step title="Navigate to Audit logs settings">
+    Go to **Settings → Security → Audit logs** and click **Configure streaming**.
+  </Step>
+  
+  <Step title="Choose your SIEM provider">
+    Select your SIEM platform from the list of supported providers.
+  </Step>
+  
+  <Step title="Configure connection">
+    Follow the provider-specific instructions to set up the connection. You'll need API credentials or connection details from your SIEM platform.
+  </Step>
+  
+  <Step title="Test and enable">
+    Test the connection to ensure logs are flowing correctly, then enable streaming.
+  </Step>
+</Steps>
+
+### Datadog integration
+
+When streaming to Datadog:
+- Logs appear in Datadog Logs with source `incident.io`
+- Automatic parsing of structured fields
+- Retention controlled by your Datadog configuration
+
+### Splunk integration
+
+When streaming to Splunk:
+- Logs sent via HTTP Event Collector (HEC)
+- JSON format for easy parsing
+- Configure index and source type in Splunk
+
+### S3 integration
+
+When streaming to S3:
+- Logs written as JSON files
+- Partitioned by date for efficient querying
+- Configure bucket, path, and IAM permissions
+
+<Warning>
+Ensure your SIEM provider credentials are properly secured. Audit log streaming requires write access to your SIEM platform.
+</Warning>
+
 ## API access
 
 Access audit log entries programmatically via the incident.io API. See the [Audit logs API documentation](https://api-docs.incident.io/tag/Audit-logs) for available endpoints and schema details.
+
+### Example use cases
+
+**Compliance reporting**: Query audit logs to generate reports showing all permission changes during a specific period.
+
+**Security investigation**: Search for all actions performed by a specific user or from a suspicious IP address.
+
+**Change tracking**: Monitor configuration changes to understand how your incident response setup has evolved.
+
+**Automated alerting**: Build integrations that alert on specific audit log events (e.g., permission grants to sensitive incidents).
+
+<Info>
+The API supports pagination, filtering by event type, actor, and date range, making it easy to build custom integrations and reporting tools.
+</Info>
+
+## Retention and compliance
+
+Audit logs are retained for one year from the date of the event. For longer retention periods, export logs to your SIEM provider or storage system.
+
+Audit logs support common compliance frameworks:
+- **SOC 2**: Provides evidence of access controls and change management
+- **ISO 27001**: Demonstrates monitoring and logging of security events
+- **GDPR**: Tracks access to personal data and permission changes
+- **HIPAA**: Documents who accessed what data and when
+
+<Note>
+For compliance purposes, consider streaming audit logs to a tamper-proof archive with extended retention (e.g., S3 with object lock).
+</Note>
